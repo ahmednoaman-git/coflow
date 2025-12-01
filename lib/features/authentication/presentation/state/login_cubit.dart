@@ -16,7 +16,7 @@ abstract class LoginState with _$LoginState {
     @Default('') String password,
     @Default(false) bool isPasswordVisible,
     // Async request state
-    @Default(AsyncState.idle()) AsyncState<SessionEntity> loginRequest,
+    @Default(AsyncState.idle()) AsyncState<UserEntity> loginRequest,
   }) = _LoginState;
 
   const LoginState._();
@@ -33,7 +33,7 @@ class LoginCubit extends Cubit<LoginState> {
   final LoginUseCase _loginUseCase;
 
   /// Manager for the login request.
-  late final loginManager = AsyncRequestManager<LoginState, SessionEntity>(
+  late final loginManager = AsyncRequestManager<LoginState, UserEntity>(
     accessor: (
       getPartialState: (state) => state.loginRequest,
       getWholeState: () => state,

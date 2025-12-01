@@ -20,14 +20,6 @@ abstract final class AuthMapper {
     );
   }
 
-  /// Maps [UserModel] with token to [SessionEntity].
-  static SessionEntity toSessionEntity(UserModel model) {
-    return SessionEntity(
-      user: toUserEntity(model),
-      accessToken: model.token ?? '',
-    );
-  }
-
   /// Maps [RegisterResponseModel] to [UserEntity].
   static UserEntity registerResponseToUserEntity(RegisterResponseModel model) {
     return UserEntity(
@@ -43,10 +35,5 @@ abstract final class AuthMapper {
       totalTickets: model.totalTickets,
       totalPromotions: model.totalPromotions,
     );
-  }
-
-  /// Maps list of [NationalityModel] to list of nationality names.
-  static List<String> toNationalityList(List<NationalityModel> models) {
-    return models.map((model) => model.name).toList();
   }
 }

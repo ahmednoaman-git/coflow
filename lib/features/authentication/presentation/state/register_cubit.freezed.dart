@@ -17,9 +17,9 @@ mixin _$RegisterState {
 // Current page index (0-based)
  int get pageIndex;// Step 1: Basic info
  String get name; String get email; String get password; bool get isPasswordVisible;// Step 2: Profile details
- DateTime? get birthdate; Gender get gender; String? get nationality; String get phone; File? get image;// Step 3: OTP verification
+ DateTime? get birthdate; Gender get gender; WorldCountry? get selectedCountry; String get phone; File? get image;// Step 3: OTP verification
  String get otpCode;// Async request states
- AsyncState<List<String>> get nationalitiesRequest; AsyncState<void> get sendOtpRequest; AsyncState<void> get verifyOtpRequest; AsyncState<UserEntity> get registerRequest;
+ AsyncState<void> get sendOtpRequest; AsyncState<void> get verifyOtpRequest; AsyncState<UserEntity> get registerRequest;
 /// Create a copy of RegisterState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,16 +30,16 @@ $RegisterStateCopyWith<RegisterState> get copyWith => _$RegisterStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegisterState&&(identical(other.pageIndex, pageIndex) || other.pageIndex == pageIndex)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.isPasswordVisible, isPasswordVisible) || other.isPasswordVisible == isPasswordVisible)&&(identical(other.birthdate, birthdate) || other.birthdate == birthdate)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.nationality, nationality) || other.nationality == nationality)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.image, image) || other.image == image)&&(identical(other.otpCode, otpCode) || other.otpCode == otpCode)&&(identical(other.nationalitiesRequest, nationalitiesRequest) || other.nationalitiesRequest == nationalitiesRequest)&&(identical(other.sendOtpRequest, sendOtpRequest) || other.sendOtpRequest == sendOtpRequest)&&(identical(other.verifyOtpRequest, verifyOtpRequest) || other.verifyOtpRequest == verifyOtpRequest)&&(identical(other.registerRequest, registerRequest) || other.registerRequest == registerRequest));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegisterState&&(identical(other.pageIndex, pageIndex) || other.pageIndex == pageIndex)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.isPasswordVisible, isPasswordVisible) || other.isPasswordVisible == isPasswordVisible)&&(identical(other.birthdate, birthdate) || other.birthdate == birthdate)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.image, image) || other.image == image)&&(identical(other.otpCode, otpCode) || other.otpCode == otpCode)&&(identical(other.sendOtpRequest, sendOtpRequest) || other.sendOtpRequest == sendOtpRequest)&&(identical(other.verifyOtpRequest, verifyOtpRequest) || other.verifyOtpRequest == verifyOtpRequest)&&(identical(other.registerRequest, registerRequest) || other.registerRequest == registerRequest));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,pageIndex,name,email,password,isPasswordVisible,birthdate,gender,nationality,phone,image,otpCode,nationalitiesRequest,sendOtpRequest,verifyOtpRequest,registerRequest);
+int get hashCode => Object.hash(runtimeType,pageIndex,name,email,password,isPasswordVisible,birthdate,gender,selectedCountry,phone,image,otpCode,sendOtpRequest,verifyOtpRequest,registerRequest);
 
 @override
 String toString() {
-  return 'RegisterState(pageIndex: $pageIndex, name: $name, email: $email, password: $password, isPasswordVisible: $isPasswordVisible, birthdate: $birthdate, gender: $gender, nationality: $nationality, phone: $phone, image: $image, otpCode: $otpCode, nationalitiesRequest: $nationalitiesRequest, sendOtpRequest: $sendOtpRequest, verifyOtpRequest: $verifyOtpRequest, registerRequest: $registerRequest)';
+  return 'RegisterState(pageIndex: $pageIndex, name: $name, email: $email, password: $password, isPasswordVisible: $isPasswordVisible, birthdate: $birthdate, gender: $gender, selectedCountry: $selectedCountry, phone: $phone, image: $image, otpCode: $otpCode, sendOtpRequest: $sendOtpRequest, verifyOtpRequest: $verifyOtpRequest, registerRequest: $registerRequest)';
 }
 
 
@@ -50,11 +50,11 @@ abstract mixin class $RegisterStateCopyWith<$Res>  {
   factory $RegisterStateCopyWith(RegisterState value, $Res Function(RegisterState) _then) = _$RegisterStateCopyWithImpl;
 @useResult
 $Res call({
- int pageIndex, String name, String email, String password, bool isPasswordVisible, DateTime? birthdate, Gender gender, String? nationality, String phone, File? image, String otpCode, AsyncState<List<String>> nationalitiesRequest, AsyncState<void> sendOtpRequest, AsyncState<void> verifyOtpRequest, AsyncState<UserEntity> registerRequest
+ int pageIndex, String name, String email, String password, bool isPasswordVisible, DateTime? birthdate, Gender gender, WorldCountry? selectedCountry, String phone, File? image, String otpCode, AsyncState<void> sendOtpRequest, AsyncState<void> verifyOtpRequest, AsyncState<UserEntity> registerRequest
 });
 
 
-$AsyncStateCopyWith<List<String>, $Res> get nationalitiesRequest;$AsyncStateCopyWith<void, $Res> get sendOtpRequest;$AsyncStateCopyWith<void, $Res> get verifyOtpRequest;$AsyncStateCopyWith<UserEntity, $Res> get registerRequest;
+$AsyncStateCopyWith<void, $Res> get sendOtpRequest;$AsyncStateCopyWith<void, $Res> get verifyOtpRequest;$AsyncStateCopyWith<UserEntity, $Res> get registerRequest;
 
 }
 /// @nodoc
@@ -67,7 +67,7 @@ class _$RegisterStateCopyWithImpl<$Res>
 
 /// Create a copy of RegisterState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? pageIndex = null,Object? name = null,Object? email = null,Object? password = null,Object? isPasswordVisible = null,Object? birthdate = freezed,Object? gender = null,Object? nationality = freezed,Object? phone = null,Object? image = freezed,Object? otpCode = null,Object? nationalitiesRequest = null,Object? sendOtpRequest = null,Object? verifyOtpRequest = null,Object? registerRequest = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? pageIndex = null,Object? name = null,Object? email = null,Object? password = null,Object? isPasswordVisible = null,Object? birthdate = freezed,Object? gender = null,Object? selectedCountry = freezed,Object? phone = null,Object? image = freezed,Object? otpCode = null,Object? sendOtpRequest = null,Object? verifyOtpRequest = null,Object? registerRequest = null,}) {
   return _then(_self.copyWith(
 pageIndex: null == pageIndex ? _self.pageIndex : pageIndex // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -76,27 +76,17 @@ as String,password: null == password ? _self.password : password // ignore: cast
 as String,isPasswordVisible: null == isPasswordVisible ? _self.isPasswordVisible : isPasswordVisible // ignore: cast_nullable_to_non_nullable
 as bool,birthdate: freezed == birthdate ? _self.birthdate : birthdate // ignore: cast_nullable_to_non_nullable
 as DateTime?,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
-as Gender,nationality: freezed == nationality ? _self.nationality : nationality // ignore: cast_nullable_to_non_nullable
-as String?,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as Gender,selectedCountry: freezed == selectedCountry ? _self.selectedCountry : selectedCountry // ignore: cast_nullable_to_non_nullable
+as WorldCountry?,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String,image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as File?,otpCode: null == otpCode ? _self.otpCode : otpCode // ignore: cast_nullable_to_non_nullable
-as String,nationalitiesRequest: null == nationalitiesRequest ? _self.nationalitiesRequest : nationalitiesRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<List<String>>,sendOtpRequest: null == sendOtpRequest ? _self.sendOtpRequest : sendOtpRequest // ignore: cast_nullable_to_non_nullable
+as String,sendOtpRequest: null == sendOtpRequest ? _self.sendOtpRequest : sendOtpRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<void>,verifyOtpRequest: null == verifyOtpRequest ? _self.verifyOtpRequest : verifyOtpRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<void>,registerRequest: null == registerRequest ? _self.registerRequest : registerRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<UserEntity>,
   ));
 }
 /// Create a copy of RegisterState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$AsyncStateCopyWith<List<String>, $Res> get nationalitiesRequest {
-  
-  return $AsyncStateCopyWith<List<String>, $Res>(_self.nationalitiesRequest, (value) {
-    return _then(_self.copyWith(nationalitiesRequest: value));
-  });
-}/// Create a copy of RegisterState
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -205,10 +195,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int pageIndex,  String name,  String email,  String password,  bool isPasswordVisible,  DateTime? birthdate,  Gender gender,  String? nationality,  String phone,  File? image,  String otpCode,  AsyncState<List<String>> nationalitiesRequest,  AsyncState<void> sendOtpRequest,  AsyncState<void> verifyOtpRequest,  AsyncState<UserEntity> registerRequest)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int pageIndex,  String name,  String email,  String password,  bool isPasswordVisible,  DateTime? birthdate,  Gender gender,  WorldCountry? selectedCountry,  String phone,  File? image,  String otpCode,  AsyncState<void> sendOtpRequest,  AsyncState<void> verifyOtpRequest,  AsyncState<UserEntity> registerRequest)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RegisterState() when $default != null:
-return $default(_that.pageIndex,_that.name,_that.email,_that.password,_that.isPasswordVisible,_that.birthdate,_that.gender,_that.nationality,_that.phone,_that.image,_that.otpCode,_that.nationalitiesRequest,_that.sendOtpRequest,_that.verifyOtpRequest,_that.registerRequest);case _:
+return $default(_that.pageIndex,_that.name,_that.email,_that.password,_that.isPasswordVisible,_that.birthdate,_that.gender,_that.selectedCountry,_that.phone,_that.image,_that.otpCode,_that.sendOtpRequest,_that.verifyOtpRequest,_that.registerRequest);case _:
   return orElse();
 
 }
@@ -226,10 +216,10 @@ return $default(_that.pageIndex,_that.name,_that.email,_that.password,_that.isPa
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int pageIndex,  String name,  String email,  String password,  bool isPasswordVisible,  DateTime? birthdate,  Gender gender,  String? nationality,  String phone,  File? image,  String otpCode,  AsyncState<List<String>> nationalitiesRequest,  AsyncState<void> sendOtpRequest,  AsyncState<void> verifyOtpRequest,  AsyncState<UserEntity> registerRequest)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int pageIndex,  String name,  String email,  String password,  bool isPasswordVisible,  DateTime? birthdate,  Gender gender,  WorldCountry? selectedCountry,  String phone,  File? image,  String otpCode,  AsyncState<void> sendOtpRequest,  AsyncState<void> verifyOtpRequest,  AsyncState<UserEntity> registerRequest)  $default,) {final _that = this;
 switch (_that) {
 case _RegisterState():
-return $default(_that.pageIndex,_that.name,_that.email,_that.password,_that.isPasswordVisible,_that.birthdate,_that.gender,_that.nationality,_that.phone,_that.image,_that.otpCode,_that.nationalitiesRequest,_that.sendOtpRequest,_that.verifyOtpRequest,_that.registerRequest);case _:
+return $default(_that.pageIndex,_that.name,_that.email,_that.password,_that.isPasswordVisible,_that.birthdate,_that.gender,_that.selectedCountry,_that.phone,_that.image,_that.otpCode,_that.sendOtpRequest,_that.verifyOtpRequest,_that.registerRequest);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -246,10 +236,10 @@ return $default(_that.pageIndex,_that.name,_that.email,_that.password,_that.isPa
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int pageIndex,  String name,  String email,  String password,  bool isPasswordVisible,  DateTime? birthdate,  Gender gender,  String? nationality,  String phone,  File? image,  String otpCode,  AsyncState<List<String>> nationalitiesRequest,  AsyncState<void> sendOtpRequest,  AsyncState<void> verifyOtpRequest,  AsyncState<UserEntity> registerRequest)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int pageIndex,  String name,  String email,  String password,  bool isPasswordVisible,  DateTime? birthdate,  Gender gender,  WorldCountry? selectedCountry,  String phone,  File? image,  String otpCode,  AsyncState<void> sendOtpRequest,  AsyncState<void> verifyOtpRequest,  AsyncState<UserEntity> registerRequest)?  $default,) {final _that = this;
 switch (_that) {
 case _RegisterState() when $default != null:
-return $default(_that.pageIndex,_that.name,_that.email,_that.password,_that.isPasswordVisible,_that.birthdate,_that.gender,_that.nationality,_that.phone,_that.image,_that.otpCode,_that.nationalitiesRequest,_that.sendOtpRequest,_that.verifyOtpRequest,_that.registerRequest);case _:
+return $default(_that.pageIndex,_that.name,_that.email,_that.password,_that.isPasswordVisible,_that.birthdate,_that.gender,_that.selectedCountry,_that.phone,_that.image,_that.otpCode,_that.sendOtpRequest,_that.verifyOtpRequest,_that.registerRequest);case _:
   return null;
 
 }
@@ -261,7 +251,7 @@ return $default(_that.pageIndex,_that.name,_that.email,_that.password,_that.isPa
 
 
 class _RegisterState extends RegisterState {
-  const _RegisterState({this.pageIndex = 0, this.name = '', this.email = '', this.password = '', this.isPasswordVisible = false, this.birthdate, this.gender = Gender.male, this.nationality, this.phone = '', this.image, this.otpCode = '', this.nationalitiesRequest = const AsyncState.idle(), this.sendOtpRequest = const AsyncState.idle(), this.verifyOtpRequest = const AsyncState.idle(), this.registerRequest = const AsyncState.idle()}): super._();
+  const _RegisterState({this.pageIndex = 0, this.name = '', this.email = '', this.password = '', this.isPasswordVisible = false, this.birthdate, this.gender = Gender.male, this.selectedCountry, this.phone = '', this.image, this.otpCode = '', this.sendOtpRequest = const AsyncState.idle(), this.verifyOtpRequest = const AsyncState.idle(), this.registerRequest = const AsyncState.idle()}): super._();
   
 
 // Current page index (0-based)
@@ -274,13 +264,12 @@ class _RegisterState extends RegisterState {
 // Step 2: Profile details
 @override final  DateTime? birthdate;
 @override@JsonKey() final  Gender gender;
-@override final  String? nationality;
+@override final  WorldCountry? selectedCountry;
 @override@JsonKey() final  String phone;
 @override final  File? image;
 // Step 3: OTP verification
 @override@JsonKey() final  String otpCode;
 // Async request states
-@override@JsonKey() final  AsyncState<List<String>> nationalitiesRequest;
 @override@JsonKey() final  AsyncState<void> sendOtpRequest;
 @override@JsonKey() final  AsyncState<void> verifyOtpRequest;
 @override@JsonKey() final  AsyncState<UserEntity> registerRequest;
@@ -295,16 +284,16 @@ _$RegisterStateCopyWith<_RegisterState> get copyWith => __$RegisterStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RegisterState&&(identical(other.pageIndex, pageIndex) || other.pageIndex == pageIndex)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.isPasswordVisible, isPasswordVisible) || other.isPasswordVisible == isPasswordVisible)&&(identical(other.birthdate, birthdate) || other.birthdate == birthdate)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.nationality, nationality) || other.nationality == nationality)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.image, image) || other.image == image)&&(identical(other.otpCode, otpCode) || other.otpCode == otpCode)&&(identical(other.nationalitiesRequest, nationalitiesRequest) || other.nationalitiesRequest == nationalitiesRequest)&&(identical(other.sendOtpRequest, sendOtpRequest) || other.sendOtpRequest == sendOtpRequest)&&(identical(other.verifyOtpRequest, verifyOtpRequest) || other.verifyOtpRequest == verifyOtpRequest)&&(identical(other.registerRequest, registerRequest) || other.registerRequest == registerRequest));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RegisterState&&(identical(other.pageIndex, pageIndex) || other.pageIndex == pageIndex)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.isPasswordVisible, isPasswordVisible) || other.isPasswordVisible == isPasswordVisible)&&(identical(other.birthdate, birthdate) || other.birthdate == birthdate)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.selectedCountry, selectedCountry) || other.selectedCountry == selectedCountry)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.image, image) || other.image == image)&&(identical(other.otpCode, otpCode) || other.otpCode == otpCode)&&(identical(other.sendOtpRequest, sendOtpRequest) || other.sendOtpRequest == sendOtpRequest)&&(identical(other.verifyOtpRequest, verifyOtpRequest) || other.verifyOtpRequest == verifyOtpRequest)&&(identical(other.registerRequest, registerRequest) || other.registerRequest == registerRequest));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,pageIndex,name,email,password,isPasswordVisible,birthdate,gender,nationality,phone,image,otpCode,nationalitiesRequest,sendOtpRequest,verifyOtpRequest,registerRequest);
+int get hashCode => Object.hash(runtimeType,pageIndex,name,email,password,isPasswordVisible,birthdate,gender,selectedCountry,phone,image,otpCode,sendOtpRequest,verifyOtpRequest,registerRequest);
 
 @override
 String toString() {
-  return 'RegisterState(pageIndex: $pageIndex, name: $name, email: $email, password: $password, isPasswordVisible: $isPasswordVisible, birthdate: $birthdate, gender: $gender, nationality: $nationality, phone: $phone, image: $image, otpCode: $otpCode, nationalitiesRequest: $nationalitiesRequest, sendOtpRequest: $sendOtpRequest, verifyOtpRequest: $verifyOtpRequest, registerRequest: $registerRequest)';
+  return 'RegisterState(pageIndex: $pageIndex, name: $name, email: $email, password: $password, isPasswordVisible: $isPasswordVisible, birthdate: $birthdate, gender: $gender, selectedCountry: $selectedCountry, phone: $phone, image: $image, otpCode: $otpCode, sendOtpRequest: $sendOtpRequest, verifyOtpRequest: $verifyOtpRequest, registerRequest: $registerRequest)';
 }
 
 
@@ -315,11 +304,11 @@ abstract mixin class _$RegisterStateCopyWith<$Res> implements $RegisterStateCopy
   factory _$RegisterStateCopyWith(_RegisterState value, $Res Function(_RegisterState) _then) = __$RegisterStateCopyWithImpl;
 @override @useResult
 $Res call({
- int pageIndex, String name, String email, String password, bool isPasswordVisible, DateTime? birthdate, Gender gender, String? nationality, String phone, File? image, String otpCode, AsyncState<List<String>> nationalitiesRequest, AsyncState<void> sendOtpRequest, AsyncState<void> verifyOtpRequest, AsyncState<UserEntity> registerRequest
+ int pageIndex, String name, String email, String password, bool isPasswordVisible, DateTime? birthdate, Gender gender, WorldCountry? selectedCountry, String phone, File? image, String otpCode, AsyncState<void> sendOtpRequest, AsyncState<void> verifyOtpRequest, AsyncState<UserEntity> registerRequest
 });
 
 
-@override $AsyncStateCopyWith<List<String>, $Res> get nationalitiesRequest;@override $AsyncStateCopyWith<void, $Res> get sendOtpRequest;@override $AsyncStateCopyWith<void, $Res> get verifyOtpRequest;@override $AsyncStateCopyWith<UserEntity, $Res> get registerRequest;
+@override $AsyncStateCopyWith<void, $Res> get sendOtpRequest;@override $AsyncStateCopyWith<void, $Res> get verifyOtpRequest;@override $AsyncStateCopyWith<UserEntity, $Res> get registerRequest;
 
 }
 /// @nodoc
@@ -332,7 +321,7 @@ class __$RegisterStateCopyWithImpl<$Res>
 
 /// Create a copy of RegisterState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? pageIndex = null,Object? name = null,Object? email = null,Object? password = null,Object? isPasswordVisible = null,Object? birthdate = freezed,Object? gender = null,Object? nationality = freezed,Object? phone = null,Object? image = freezed,Object? otpCode = null,Object? nationalitiesRequest = null,Object? sendOtpRequest = null,Object? verifyOtpRequest = null,Object? registerRequest = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? pageIndex = null,Object? name = null,Object? email = null,Object? password = null,Object? isPasswordVisible = null,Object? birthdate = freezed,Object? gender = null,Object? selectedCountry = freezed,Object? phone = null,Object? image = freezed,Object? otpCode = null,Object? sendOtpRequest = null,Object? verifyOtpRequest = null,Object? registerRequest = null,}) {
   return _then(_RegisterState(
 pageIndex: null == pageIndex ? _self.pageIndex : pageIndex // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -341,12 +330,11 @@ as String,password: null == password ? _self.password : password // ignore: cast
 as String,isPasswordVisible: null == isPasswordVisible ? _self.isPasswordVisible : isPasswordVisible // ignore: cast_nullable_to_non_nullable
 as bool,birthdate: freezed == birthdate ? _self.birthdate : birthdate // ignore: cast_nullable_to_non_nullable
 as DateTime?,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
-as Gender,nationality: freezed == nationality ? _self.nationality : nationality // ignore: cast_nullable_to_non_nullable
-as String?,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as Gender,selectedCountry: freezed == selectedCountry ? _self.selectedCountry : selectedCountry // ignore: cast_nullable_to_non_nullable
+as WorldCountry?,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String,image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as File?,otpCode: null == otpCode ? _self.otpCode : otpCode // ignore: cast_nullable_to_non_nullable
-as String,nationalitiesRequest: null == nationalitiesRequest ? _self.nationalitiesRequest : nationalitiesRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<List<String>>,sendOtpRequest: null == sendOtpRequest ? _self.sendOtpRequest : sendOtpRequest // ignore: cast_nullable_to_non_nullable
+as String,sendOtpRequest: null == sendOtpRequest ? _self.sendOtpRequest : sendOtpRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<void>,verifyOtpRequest: null == verifyOtpRequest ? _self.verifyOtpRequest : verifyOtpRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<void>,registerRequest: null == registerRequest ? _self.registerRequest : registerRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<UserEntity>,
@@ -354,15 +342,6 @@ as AsyncState<UserEntity>,
 }
 
 /// Create a copy of RegisterState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$AsyncStateCopyWith<List<String>, $Res> get nationalitiesRequest {
-  
-  return $AsyncStateCopyWith<List<String>, $Res>(_self.nationalitiesRequest, (value) {
-    return _then(_self.copyWith(nationalitiesRequest: value));
-  });
-}/// Create a copy of RegisterState
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')

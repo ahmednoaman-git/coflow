@@ -143,6 +143,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get gender => 'الجنس';
 
   @override
+  String get genderMale => 'ذكر';
+
+  @override
+  String get genderFemale => 'أنثى';
+
+  @override
   String get birthdate => 'تاريخ الميلاد';
 
   @override

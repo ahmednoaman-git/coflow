@@ -11,5 +11,5 @@ class LoginUseCase {
   const LoginUseCase(this._repository);
   final AuthenticationRepository _repository;
 
-  AsyncTask<SessionEntity> call(LoginDto dto) => _repository.login(dto);
+  AsyncTask<UserEntity> call(LoginDto dto) => _repository.login(dto);
 }

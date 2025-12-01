@@ -1,10 +1,18 @@
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intl/intl.dart';
 
 import '../../domain/dtos/dtos.dart';
 import '../models/models.dart';
+
+/// Authentication API endpoints.
+abstract final class AuthEndpoints {
+  static const String login = 'login';
+  static const String register = 'register';
+  static const String sendOtp = 'sendCode';
+  static const String resendOtp = 'resendCode';
+  static const String verifyOtp = 'checkCode';
+}
 
 /// Remote data source for authentication API calls.
 @lazySingleton
@@ -15,10 +23,7 @@ class AuthRemoteDataSource {
   /// Authenticates user with email and password.
   AsyncTask<UserModel> login(LoginDto dto) {
     return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
-      final response = await _dio.post(
-        AuthEndpoints.login,
-        data: {'email': dto.email, 'password': dto.password},
-      );
+      final response = await _dio.post(AuthEndpoints.login, data: dto.toJson());
       return UserModel.fromJson(response.data as Map<String, dynamic>);
     });
   }
@@ -27,14 +32,7 @@ class AuthRemoteDataSource {
   AsyncTask<RegisterResponseModel> register(RegisterDto dto) {
     return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
       final formData = FormData.fromMap({
-        'name': dto.name,
-        'email': dto.email,
-        'password': dto.password,
-        'birthdate': DateFormat('yyyy-MM-dd').format(dto.birthdate),
-        'gender': dto.gender.name,
-        'nationality': dto.nationality,
-        'phone': dto.phone,
-        'otpCode': dto.otpCode,
+        ...dto.toJson(),
         if (dto.image != null)
           'image': await MultipartFile.fromFile(
             dto.image!.path,
@@ -70,31 +68,7 @@ class AuthRemoteDataSource {
   /// Verifies OTP code for the specified email.
   AsyncTask<void> verifyOtp(VerifyOtpDto dto) {
     return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
-      await _dio.post(
-        AuthEndpoints.verifyOtp,
-        data: {'email': dto.email, 'code': dto.otp},
-      );
+      await _dio.post(AuthEndpoints.verifyOtp, data: dto.toJson());
     });
   }
-
-  /// Fetches list of available nationalities.
-  AsyncTask<List<NationalityModel>> getNationalities() {
-    return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
-      final response = await _dio.get(AuthEndpoints.nationalities);
-      final data = response.data as List<dynamic>;
-      return data
-          .map((e) => NationalityModel.fromJson(e as Map<String, dynamic>))
-          .toList();
-    });
-  }
-}
-
-/// Authentication API endpoints.
-abstract final class AuthEndpoints {
-  static const String login = 'login';
-  static const String register = 'register';
-  static const String sendOtp = 'sendCode';
-  static const String resendOtp = 'resendCode';
-  static const String verifyOtp = 'checkCode';
-  static const String nationalities = 'nationalities';
 }

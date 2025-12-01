@@ -12,21 +12,21 @@ import '../mappers/mappers.dart';
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
   const AuthenticationRepositoryImpl(
     this._remoteDataSource,
-    this._localDataSource,
+    this._authStateManager,
   );
 
   final AuthRemoteDataSource _remoteDataSource;
-  final AuthLocalDataSource _localDataSource;
+  final AuthStateManager _authStateManager;
 
   @override
-  AsyncTask<SessionEntity> login(LoginDto dto) {
+  AsyncTask<UserEntity> login(LoginDto dto) {
     return _remoteDataSource.login(dto).flatMap((userModel) {
-      final session = AuthMapper.toSessionEntity(userModel);
-      // Save access token to cache
-      return _localDataSource
-          .saveAccessToken(session.accessToken)
-          .flatMap((_) => _localDataSource.saveUserData(userModel.toJson()))
-          .map((_) => session);
+      final userEntity = AuthMapper.toUserEntity(userModel);
+      // Store access token and user data in AuthStateManager
+      return _authStateManager
+          .setAccessToken(userModel.token ?? '')
+          .flatMap((_) => _authStateManager.setUserData(userModel.toJson()))
+          .map((_) => userEntity);
     });
   }
 
@@ -53,14 +53,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  AsyncTask<List<String>> getNationalities() {
-    return _remoteDataSource.getNationalities().map(
-      AuthMapper.toNationalityList,
-    );
-  }
-
-  @override
   AsyncTask<void> logout() {
-    return _localDataSource.clearAuthData();
+    return _authStateManager.clearAuth();
   }
 }

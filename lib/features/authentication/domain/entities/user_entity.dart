@@ -1,3 +1,5 @@
+import 'package:coflow_users_v2/core/core.dart';
+import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_entity.freezed.dart';
@@ -25,8 +27,9 @@ enum Gender {
   male,
   female;
 
-  String get displayName => switch (this) {
-    Gender.male => 'Male',
-    Gender.female => 'Female',
+  /// Returns a localized display name for the gender.
+  String displayName(BuildContext context) => switch (this) {
+    Gender.male => context.l10n.genderMale,
+    Gender.female => context.l10n.genderFemale,
   };
 }

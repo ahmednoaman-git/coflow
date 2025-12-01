@@ -4,6 +4,7 @@ import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:world_countries/world_countries.dart';
 
 import '../../domain/domain.dart';
 
@@ -23,13 +24,12 @@ abstract class RegisterState with _$RegisterState {
     // Step 2: Profile details
     DateTime? birthdate,
     @Default(Gender.male) Gender gender,
-    String? nationality,
+    WorldCountry? selectedCountry,
     @Default('') String phone,
     File? image,
     // Step 3: OTP verification
     @Default('') String otpCode,
     // Async request states
-    @Default(AsyncState.idle()) AsyncState<List<String>> nationalitiesRequest,
     @Default(AsyncState.idle()) AsyncState<void> sendOtpRequest,
     @Default(AsyncState.idle()) AsyncState<void> verifyOtpRequest,
     @Default(AsyncState.idle()) AsyncState<UserEntity> registerRequest,
@@ -43,10 +43,7 @@ abstract class RegisterState with _$RegisterState {
 
   /// Whether step 2 is valid (all profile details filled).
   bool get isStep2Valid =>
-      birthdate != null &&
-      nationality != null &&
-      nationality!.isNotEmpty &&
-      phone.length >= 10;
+      birthdate != null && selectedCountry != null && phone.length >= 10;
 
   /// Whether step 3 is valid (OTP filled).
   bool get isStep3Valid => otpCode.length >= 4;
@@ -75,27 +72,11 @@ class RegisterCubit extends Cubit<RegisterState> {
     this._registerUseCase,
     this._sendOtpUseCase,
     this._verifyOtpUseCase,
-    this._getNationalitiesUseCase,
   ) : super(const RegisterState());
 
   final RegisterUseCase _registerUseCase;
   final SendOtpUseCase _sendOtpUseCase;
   final VerifyOtpUseCase _verifyOtpUseCase;
-  final GetNationalitiesUseCase _getNationalitiesUseCase;
-
-  /// Manager for nationalities request.
-  late final nationalitiesManager =
-      AsyncRequestManager<RegisterState, List<String>>(
-        accessor: (
-          getPartialState: (state) => state.nationalitiesRequest,
-          getWholeState: () => state,
-          setWholeState: (state, partial) =>
-              state.copyWith(nationalitiesRequest: partial),
-        ),
-        emit: emit,
-        autoExecute: true,
-        defaultRequest: _getNationalitiesUseCase(),
-      );
 
   /// Manager for send OTP request.
   late final sendOtpManager = AsyncRequestManager<RegisterState, void>(
@@ -188,8 +169,8 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(state.copyWith(gender: value));
   }
 
-  void nationalityChanged(String value) {
-    emit(state.copyWith(nationality: value));
+  void countryChanged(WorldCountry value) {
+    emit(state.copyWith(selectedCountry: value));
   }
 
   void phoneChanged(String value) {
@@ -240,7 +221,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       password: state.password,
       birthdate: state.birthdate!,
       gender: state.gender,
-      nationality: state.nationality!,
+      nationality: state.selectedCountry!.code,
       phone: state.phone.trim(),
       otpCode: state.otpCode,
       image: state.image,

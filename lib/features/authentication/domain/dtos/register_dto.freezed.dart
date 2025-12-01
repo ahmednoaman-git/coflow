@@ -11,16 +11,21 @@ part of 'register_dto.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$RegisterDto {
 
- String get name; String get email; String get password; DateTime get birthdate; Gender get gender; String get nationality; String get phone; String get otpCode; File? get image;
+ String get name; String get email; String get password;@DateFormatConverter() DateTime get birthdate;@GenderConverter() Gender get gender; String get nationality; String get phone; String get otpCode;/// Image file for user avatar. Excluded from JSON serialization.
+// ignore: invalid_annotation_target
+@JsonKey(includeToJson: false, includeFromJson: false) File? get image;
 /// Create a copy of RegisterDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $RegisterDtoCopyWith<RegisterDto> get copyWith => _$RegisterDtoCopyWithImpl<RegisterDto>(this as RegisterDto, _$identity);
 
+  /// Serializes this RegisterDto to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -28,7 +33,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is RegisterDto&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.birthdate, birthdate) || other.birthdate == birthdate)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.nationality, nationality) || other.nationality == nationality)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.otpCode, otpCode) || other.otpCode == otpCode)&&(identical(other.image, image) || other.image == image));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,name,email,password,birthdate,gender,nationality,phone,otpCode,image);
 
@@ -45,7 +50,7 @@ abstract mixin class $RegisterDtoCopyWith<$Res>  {
   factory $RegisterDtoCopyWith(RegisterDto value, $Res Function(RegisterDto) _then) = _$RegisterDtoCopyWithImpl;
 @useResult
 $Res call({
- String name, String email, String password, DateTime birthdate, Gender gender, String nationality, String phone, String otpCode, File? image
+ String name, String email, String password,@DateFormatConverter() DateTime birthdate,@GenderConverter() Gender gender, String nationality, String phone, String otpCode,@JsonKey(includeToJson: false, includeFromJson: false) File? image
 });
 
 
@@ -158,7 +163,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String email,  String password,  DateTime birthdate,  Gender gender,  String nationality,  String phone,  String otpCode,  File? image)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String email,  String password, @DateFormatConverter()  DateTime birthdate, @GenderConverter()  Gender gender,  String nationality,  String phone,  String otpCode, @JsonKey(includeToJson: false, includeFromJson: false)  File? image)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RegisterDto() when $default != null:
 return $default(_that.name,_that.email,_that.password,_that.birthdate,_that.gender,_that.nationality,_that.phone,_that.otpCode,_that.image);case _:
@@ -179,7 +184,7 @@ return $default(_that.name,_that.email,_that.password,_that.birthdate,_that.gend
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String email,  String password,  DateTime birthdate,  Gender gender,  String nationality,  String phone,  String otpCode,  File? image)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String email,  String password, @DateFormatConverter()  DateTime birthdate, @GenderConverter()  Gender gender,  String nationality,  String phone,  String otpCode, @JsonKey(includeToJson: false, includeFromJson: false)  File? image)  $default,) {final _that = this;
 switch (_that) {
 case _RegisterDto():
 return $default(_that.name,_that.email,_that.password,_that.birthdate,_that.gender,_that.nationality,_that.phone,_that.otpCode,_that.image);case _:
@@ -199,7 +204,7 @@ return $default(_that.name,_that.email,_that.password,_that.birthdate,_that.gend
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String email,  String password,  DateTime birthdate,  Gender gender,  String nationality,  String phone,  String otpCode,  File? image)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String email,  String password, @DateFormatConverter()  DateTime birthdate, @GenderConverter()  Gender gender,  String nationality,  String phone,  String otpCode, @JsonKey(includeToJson: false, includeFromJson: false)  File? image)?  $default,) {final _that = this;
 switch (_that) {
 case _RegisterDto() when $default != null:
 return $default(_that.name,_that.email,_that.password,_that.birthdate,_that.gender,_that.nationality,_that.phone,_that.otpCode,_that.image);case _:
@@ -211,21 +216,23 @@ return $default(_that.name,_that.email,_that.password,_that.birthdate,_that.gend
 }
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _RegisterDto implements RegisterDto {
-  const _RegisterDto({required this.name, required this.email, required this.password, required this.birthdate, required this.gender, required this.nationality, required this.phone, required this.otpCode, this.image});
-  
+  const _RegisterDto({required this.name, required this.email, required this.password, @DateFormatConverter() required this.birthdate, @GenderConverter() required this.gender, required this.nationality, required this.phone, required this.otpCode, @JsonKey(includeToJson: false, includeFromJson: false) this.image});
+  factory _RegisterDto.fromJson(Map<String, dynamic> json) => _$RegisterDtoFromJson(json);
 
 @override final  String name;
 @override final  String email;
 @override final  String password;
-@override final  DateTime birthdate;
-@override final  Gender gender;
+@override@DateFormatConverter() final  DateTime birthdate;
+@override@GenderConverter() final  Gender gender;
 @override final  String nationality;
 @override final  String phone;
 @override final  String otpCode;
-@override final  File? image;
+/// Image file for user avatar. Excluded from JSON serialization.
+// ignore: invalid_annotation_target
+@override@JsonKey(includeToJson: false, includeFromJson: false) final  File? image;
 
 /// Create a copy of RegisterDto
 /// with the given fields replaced by the non-null parameter values.
@@ -233,14 +240,17 @@ class _RegisterDto implements RegisterDto {
 @pragma('vm:prefer-inline')
 _$RegisterDtoCopyWith<_RegisterDto> get copyWith => __$RegisterDtoCopyWithImpl<_RegisterDto>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$RegisterDtoToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _RegisterDto&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.birthdate, birthdate) || other.birthdate == birthdate)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.nationality, nationality) || other.nationality == nationality)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.otpCode, otpCode) || other.otpCode == otpCode)&&(identical(other.image, image) || other.image == image));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,name,email,password,birthdate,gender,nationality,phone,otpCode,image);
 
@@ -257,7 +267,7 @@ abstract mixin class _$RegisterDtoCopyWith<$Res> implements $RegisterDtoCopyWith
   factory _$RegisterDtoCopyWith(_RegisterDto value, $Res Function(_RegisterDto) _then) = __$RegisterDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String email, String password, DateTime birthdate, Gender gender, String nationality, String phone, String otpCode, File? image
+ String name, String email, String password,@DateFormatConverter() DateTime birthdate,@GenderConverter() Gender gender, String nationality, String phone, String otpCode,@JsonKey(includeToJson: false, includeFromJson: false) File? image
 });
 
 

@@ -10,6 +10,8 @@ library;
 export 'async/async.dart';
 // Caching
 export 'caching/caching.dart';
+// Auth State
+export 'data/data.dart';
 // Dependency Injection
 export 'di/injection.dart';
 // Extensions

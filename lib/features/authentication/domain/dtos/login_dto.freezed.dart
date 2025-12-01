@@ -11,6 +11,7 @@ part of 'login_dto.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$LoginDto {
 
@@ -21,6 +22,8 @@ mixin _$LoginDto {
 @pragma('vm:prefer-inline')
 $LoginDtoCopyWith<LoginDto> get copyWith => _$LoginDtoCopyWithImpl<LoginDto>(this as LoginDto, _$identity);
 
+  /// Serializes this LoginDto to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -28,7 +31,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginDto&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,email,password);
 
@@ -204,11 +207,11 @@ return $default(_that.email,_that.password);case _:
 }
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _LoginDto implements LoginDto {
   const _LoginDto({required this.email, required this.password});
-  
+  factory _LoginDto.fromJson(Map<String, dynamic> json) => _$LoginDtoFromJson(json);
 
 @override final  String email;
 @override final  String password;
@@ -219,14 +222,17 @@ class _LoginDto implements LoginDto {
 @pragma('vm:prefer-inline')
 _$LoginDtoCopyWith<_LoginDto> get copyWith => __$LoginDtoCopyWithImpl<_LoginDto>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$LoginDtoToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoginDto&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,email,password);
 

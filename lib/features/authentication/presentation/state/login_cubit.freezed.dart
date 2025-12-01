@@ -16,7 +16,7 @@ mixin _$LoginState {
 
 // Form fields
  String get email; String get password; bool get isPasswordVisible;// Async request state
- AsyncState<SessionEntity> get loginRequest;
+ AsyncState<UserEntity> get loginRequest;
 /// Create a copy of LoginState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -47,11 +47,11 @@ abstract mixin class $LoginStateCopyWith<$Res>  {
   factory $LoginStateCopyWith(LoginState value, $Res Function(LoginState) _then) = _$LoginStateCopyWithImpl;
 @useResult
 $Res call({
- String email, String password, bool isPasswordVisible, AsyncState<SessionEntity> loginRequest
+ String email, String password, bool isPasswordVisible, AsyncState<UserEntity> loginRequest
 });
 
 
-$AsyncStateCopyWith<SessionEntity, $Res> get loginRequest;
+$AsyncStateCopyWith<UserEntity, $Res> get loginRequest;
 
 }
 /// @nodoc
@@ -70,16 +70,16 @@ email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nulla
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,isPasswordVisible: null == isPasswordVisible ? _self.isPasswordVisible : isPasswordVisible // ignore: cast_nullable_to_non_nullable
 as bool,loginRequest: null == loginRequest ? _self.loginRequest : loginRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<SessionEntity>,
+as AsyncState<UserEntity>,
   ));
 }
 /// Create a copy of LoginState
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$AsyncStateCopyWith<SessionEntity, $Res> get loginRequest {
+$AsyncStateCopyWith<UserEntity, $Res> get loginRequest {
   
-  return $AsyncStateCopyWith<SessionEntity, $Res>(_self.loginRequest, (value) {
+  return $AsyncStateCopyWith<UserEntity, $Res>(_self.loginRequest, (value) {
     return _then(_self.copyWith(loginRequest: value));
   });
 }
@@ -164,7 +164,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email,  String password,  bool isPasswordVisible,  AsyncState<SessionEntity> loginRequest)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email,  String password,  bool isPasswordVisible,  AsyncState<UserEntity> loginRequest)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LoginState() when $default != null:
 return $default(_that.email,_that.password,_that.isPasswordVisible,_that.loginRequest);case _:
@@ -185,7 +185,7 @@ return $default(_that.email,_that.password,_that.isPasswordVisible,_that.loginRe
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String password,  bool isPasswordVisible,  AsyncState<SessionEntity> loginRequest)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String password,  bool isPasswordVisible,  AsyncState<UserEntity> loginRequest)  $default,) {final _that = this;
 switch (_that) {
 case _LoginState():
 return $default(_that.email,_that.password,_that.isPasswordVisible,_that.loginRequest);case _:
@@ -205,7 +205,7 @@ return $default(_that.email,_that.password,_that.isPasswordVisible,_that.loginRe
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email,  String password,  bool isPasswordVisible,  AsyncState<SessionEntity> loginRequest)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email,  String password,  bool isPasswordVisible,  AsyncState<UserEntity> loginRequest)?  $default,) {final _that = this;
 switch (_that) {
 case _LoginState() when $default != null:
 return $default(_that.email,_that.password,_that.isPasswordVisible,_that.loginRequest);case _:
@@ -228,7 +228,7 @@ class _LoginState extends LoginState {
 @override@JsonKey() final  String password;
 @override@JsonKey() final  bool isPasswordVisible;
 // Async request state
-@override@JsonKey() final  AsyncState<SessionEntity> loginRequest;
+@override@JsonKey() final  AsyncState<UserEntity> loginRequest;
 
 /// Create a copy of LoginState
 /// with the given fields replaced by the non-null parameter values.
@@ -260,11 +260,11 @@ abstract mixin class _$LoginStateCopyWith<$Res> implements $LoginStateCopyWith<$
   factory _$LoginStateCopyWith(_LoginState value, $Res Function(_LoginState) _then) = __$LoginStateCopyWithImpl;
 @override @useResult
 $Res call({
- String email, String password, bool isPasswordVisible, AsyncState<SessionEntity> loginRequest
+ String email, String password, bool isPasswordVisible, AsyncState<UserEntity> loginRequest
 });
 
 
-@override $AsyncStateCopyWith<SessionEntity, $Res> get loginRequest;
+@override $AsyncStateCopyWith<UserEntity, $Res> get loginRequest;
 
 }
 /// @nodoc
@@ -283,7 +283,7 @@ email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nulla
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,isPasswordVisible: null == isPasswordVisible ? _self.isPasswordVisible : isPasswordVisible // ignore: cast_nullable_to_non_nullable
 as bool,loginRequest: null == loginRequest ? _self.loginRequest : loginRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<SessionEntity>,
+as AsyncState<UserEntity>,
   ));
 }
 
@@ -291,9 +291,9 @@ as AsyncState<SessionEntity>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$AsyncStateCopyWith<SessionEntity, $Res> get loginRequest {
+$AsyncStateCopyWith<UserEntity, $Res> get loginRequest {
   
-  return $AsyncStateCopyWith<SessionEntity, $Res>(_self.loginRequest, (value) {
+  return $AsyncStateCopyWith<UserEntity, $Res>(_self.loginRequest, (value) {
     return _then(_self.copyWith(loginRequest: value));
   });
 }

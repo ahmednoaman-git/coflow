@@ -44,6 +44,8 @@
   "profileDetails": "Profile Details",
   "profileDetailsSubtitle": "Tell us more about yourself",
   "gender": "Gender",
+  "genderMale": "Male",
+  "genderFemale": "Female",
   "birthdate": "Date of Birth",
   "birthdateHint": "Select your date of birth",
   "nationality": "Nationality",

@@ -11,16 +11,21 @@ part of 'verify_otp_dto.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$VerifyOtpDto {
 
- String get email; String get otp;
+ String get email;/// The OTP code. Serializes as 'code' in JSON.
+// ignore: invalid_annotation_target
+@JsonKey(name: 'code') String get otp;
 /// Create a copy of VerifyOtpDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $VerifyOtpDtoCopyWith<VerifyOtpDto> get copyWith => _$VerifyOtpDtoCopyWithImpl<VerifyOtpDto>(this as VerifyOtpDto, _$identity);
 
+  /// Serializes this VerifyOtpDto to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -28,7 +33,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is VerifyOtpDto&&(identical(other.email, email) || other.email == email)&&(identical(other.otp, otp) || other.otp == otp));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,email,otp);
 
@@ -45,7 +50,7 @@ abstract mixin class $VerifyOtpDtoCopyWith<$Res>  {
   factory $VerifyOtpDtoCopyWith(VerifyOtpDto value, $Res Function(VerifyOtpDto) _then) = _$VerifyOtpDtoCopyWithImpl;
 @useResult
 $Res call({
- String email, String otp
+ String email,@JsonKey(name: 'code') String otp
 });
 
 
@@ -151,7 +156,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email,  String otp)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email, @JsonKey(name: 'code')  String otp)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _VerifyOtpDto() when $default != null:
 return $default(_that.email,_that.otp);case _:
@@ -172,7 +177,7 @@ return $default(_that.email,_that.otp);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String otp)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email, @JsonKey(name: 'code')  String otp)  $default,) {final _that = this;
 switch (_that) {
 case _VerifyOtpDto():
 return $default(_that.email,_that.otp);case _:
@@ -192,7 +197,7 @@ return $default(_that.email,_that.otp);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email,  String otp)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email, @JsonKey(name: 'code')  String otp)?  $default,) {final _that = this;
 switch (_that) {
 case _VerifyOtpDto() when $default != null:
 return $default(_that.email,_that.otp);case _:
@@ -204,14 +209,16 @@ return $default(_that.email,_that.otp);case _:
 }
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _VerifyOtpDto implements VerifyOtpDto {
-  const _VerifyOtpDto({required this.email, required this.otp});
-  
+  const _VerifyOtpDto({required this.email, @JsonKey(name: 'code') required this.otp});
+  factory _VerifyOtpDto.fromJson(Map<String, dynamic> json) => _$VerifyOtpDtoFromJson(json);
 
 @override final  String email;
-@override final  String otp;
+/// The OTP code. Serializes as 'code' in JSON.
+// ignore: invalid_annotation_target
+@override@JsonKey(name: 'code') final  String otp;
 
 /// Create a copy of VerifyOtpDto
 /// with the given fields replaced by the non-null parameter values.
@@ -219,14 +226,17 @@ class _VerifyOtpDto implements VerifyOtpDto {
 @pragma('vm:prefer-inline')
 _$VerifyOtpDtoCopyWith<_VerifyOtpDto> get copyWith => __$VerifyOtpDtoCopyWithImpl<_VerifyOtpDto>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$VerifyOtpDtoToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _VerifyOtpDto&&(identical(other.email, email) || other.email == email)&&(identical(other.otp, otp) || other.otp == otp));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,email,otp);
 
@@ -243,7 +253,7 @@ abstract mixin class _$VerifyOtpDtoCopyWith<$Res> implements $VerifyOtpDtoCopyWi
   factory _$VerifyOtpDtoCopyWith(_VerifyOtpDto value, $Res Function(_VerifyOtpDto) _then) = __$VerifyOtpDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String email, String otp
+ String email,@JsonKey(name: 'code') String otp
 });
 
 

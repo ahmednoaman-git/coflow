@@ -74,19 +74,31 @@ data/
 - **Remote**: Handle API calls using `DioClient`.
   - Use `AsyncTaskExtension.tryCatchMapDioToFailure` to wrap API calls.
   - Return `AsyncTask<DTO>`.
+  - Define feature-specific endpoints in a nested `abstract final class` (e.g., `AuthEndpoints`).
 - **Local**: Handle persistence using `CacheClient` (Hive-based).
   - Use `AsyncTaskExtension.tryCatch` to wrap cache operations.
   - Return `AsyncTask<T>`.
 
+#### Remote Data Source with Endpoints
+Each remote data source should contain its own endpoints class:
+
 ```dart
+/// Authentication API endpoints.
+abstract final class AuthEndpoints {
+  static const String login = 'login';
+  static const String register = 'register';
+  static const String sendOtp = 'sendCode';
+}
+
+@lazySingleton
 class AuthRemoteDataSource {
   const AuthRemoteDataSource(this._dio);
   final DioClient _dio;
 
-  AsyncTask<AuthResponseDto> login(LoginDto dto) {
+  AsyncTask<UserModel> login(LoginDto dto) {
     return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
-      final response = await _dio.post('/login', data: dto.toJson());
-      return AuthResponseDto.fromJson(response.data);
+      final response = await _dio.post(AuthEndpoints.login, data: dto.toJson());
+      return UserModel.fromJson(response.data);
     });
   }
 }

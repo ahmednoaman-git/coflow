@@ -15,8 +15,6 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
-import '../../features/authentication/data/datasources/auth_local_datasource.dart'
-    as _i1040;
 import '../../features/authentication/data/datasources/auth_remote_datasource.dart'
     as _i14;
 import '../../features/authentication/data/datasources/datasources.dart'
@@ -26,8 +24,6 @@ import '../../features/authentication/data/repositories/authentication_repositor
 import '../../features/authentication/domain/domain.dart' as _i22;
 import '../../features/authentication/domain/repositories/repositories.dart'
     as _i625;
-import '../../features/authentication/domain/use_cases/get_nationalities_use_case.dart'
-    as _i662;
 import '../../features/authentication/domain/use_cases/login_use_case.dart'
     as _i146;
 import '../../features/authentication/domain/use_cases/logout_use_case.dart'
@@ -46,6 +42,7 @@ import '../../features/authentication/presentation/state/register_cubit.dart'
     as _i1040;
 import '../caching/cache_client.dart' as _i1035;
 import '../core.dart' as _i351;
+import '../data/auth/auth_state_manager.dart' as _i224;
 import '../l10n/localization_cubit/localization_cubit.dart' as _i724;
 import '../l10n/localization_manager.dart' as _i128;
 import '../network/dio_client.dart' as _i667;
@@ -75,9 +72,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i128.LocalizationManager>(
       () => _i128.LocalizationManager(gh<_i460.SharedPreferences>()),
     );
-    gh.lazySingleton<_i1040.AuthLocalDataSource>(
-      () => _i1040.AuthLocalDataSource(gh<_i351.CacheClient>()),
-    );
+    await gh.lazySingletonAsync<_i224.AuthStateManager>(() {
+      final i = _i224.AuthStateManager(gh<_i1035.CacheClient>());
+      return i.init().then((_) => i);
+    }, preResolve: true);
     gh.singleton<_i724.LocalizationCubit>(
       () => _i724.LocalizationCubit(gh<_i128.LocalizationManager>()),
     );
@@ -93,11 +91,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i625.AuthenticationRepository>(
       () => _i195.AuthenticationRepositoryImpl(
         gh<_i748.AuthRemoteDataSource>(),
-        gh<_i748.AuthLocalDataSource>(),
+        gh<_i351.AuthStateManager>(),
       ),
-    );
-    gh.lazySingleton<_i662.GetNationalitiesUseCase>(
-      () => _i662.GetNationalitiesUseCase(gh<_i625.AuthenticationRepository>()),
     );
     gh.lazySingleton<_i146.LoginUseCase>(
       () => _i146.LoginUseCase(gh<_i625.AuthenticationRepository>()),
@@ -117,16 +112,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i121.VerifyOtpUseCase>(
       () => _i121.VerifyOtpUseCase(gh<_i625.AuthenticationRepository>()),
     );
-    gh.factory<_i1017.LoginCubit>(
-      () => _i1017.LoginCubit(gh<_i22.LoginUseCase>()),
-    );
     gh.factory<_i1040.RegisterCubit>(
       () => _i1040.RegisterCubit(
         gh<_i22.RegisterUseCase>(),
         gh<_i22.SendOtpUseCase>(),
         gh<_i22.VerifyOtpUseCase>(),
-        gh<_i22.GetNationalitiesUseCase>(),
       ),
+    );
+    gh.factory<_i1017.LoginCubit>(
+      () => _i1017.LoginCubit(gh<_i22.LoginUseCase>()),
     );
     return this;
   }

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,7 +73,7 @@ class _SignUpLink extends StatelessWidget {
     return Center(
       child: GestureDetector(
         onTap: () {
-          // TODO: Navigate to register screen
+          context.router.push(const RegisterRoute());
         },
         child: RichText(
           text: TextSpan(

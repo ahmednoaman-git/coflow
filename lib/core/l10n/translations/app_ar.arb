@@ -44,6 +44,8 @@
 	"profileDetails": "تفاصيل الملف الشخصي",
 	"profileDetailsSubtitle": "أخبرنا المزيد عنك",
 	"gender": "الجنس",
+	"genderMale": "ذكر",
+	"genderFemale": "أنثى",
 	"birthdate": "تاريخ الميلاد",
 	"birthdateHint": "اختر تاريخ ميلادك",
 	"nationality": "الجنسية",

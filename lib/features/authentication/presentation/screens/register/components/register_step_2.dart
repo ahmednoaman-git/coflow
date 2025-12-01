@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:world_countries/world_countries.dart';
 
 import '../../../../domain/entities/entities.dart';
 import '../../../state/state.dart';
@@ -138,7 +139,7 @@ class _GenderSelector extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        gender.displayName,
+                        gender.displayName(context),
                         textAlign: .center,
                         style: isSelected
                             ? context.typography.medium14.inverse(context)
@@ -233,6 +234,19 @@ class _BirthdatePicker extends StatelessWidget {
 class _NationalityDropdown extends StatelessWidget {
   const _NationalityDropdown();
 
+  Future<void> _selectCountry(BuildContext context) async {
+    final cubit = context.read<RegisterCubit>();
+    final picker = CountryPicker(
+      chosen: cubit.state.selectedCountry != null
+          ? [cubit.state.selectedCountry!]
+          : null,
+    );
+    final country = await picker.showInModalBottomSheet(context);
+    if (country != null && context.mounted) {
+      cubit.countryChanged(country);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -243,94 +257,52 @@ class _NationalityDropdown extends StatelessWidget {
           context.l10n.nationality,
           style: context.typography.medium12.primary(context),
         ),
-        AsyncHandler<RegisterCubit, RegisterState, List<String>>(
-          requestManagerGetter: (cubit) => cubit.nationalitiesManager,
-          loadingBuilder: (context) => Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(
-              horizontal: context.spacing.s12,
-              vertical: context.spacing.s12,
-            ),
-            decoration: ShapeDecoration(
-              color: context.colors.backgroundTwo,
-              shape: RoundedSuperellipseBorder(
-                borderRadius: BorderRadius.circular(12),
-                side: BorderSide(color: context.colors.strokePrimary),
-              ),
-            ),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: context.colors.signatureBlue,
+        BlocBuilder<RegisterCubit, RegisterState>(
+          buildWhen: (prev, curr) =>
+              prev.selectedCountry != curr.selectedCountry,
+          builder: (context, state) {
+            return GestureDetector(
+              onTap: () => _selectCountry(context),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.spacing.s12,
+                  vertical: context.spacing.s12,
+                ),
+                decoration: ShapeDecoration(
+                  color: context.colors.backgroundTwo,
+                  shape: RoundedSuperellipseBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(color: context.colors.strokePrimary),
                   ),
                 ),
-                SizedBox(width: context.spacing.s8),
-                Text(
-                  context.l10n.loading,
-                  style: context.typography.medium12.tertiary(context),
-                ),
-              ],
-            ),
-          ),
-          successBuilder: (context, nationalities) {
-            return BlocBuilder<RegisterCubit, RegisterState>(
-              buildWhen: (prev, curr) => prev.nationality != curr.nationality,
-              builder: (context, state) {
-                return DropdownButtonFormField<String>(
-                  value: state.nationality,
-                  hint: Text(
-                    context.l10n.nationalityHint,
-                    style: context.typography.medium12.tertiary(context),
-                  ),
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
+                child: Row(
+                  children: [
+                    Icon(
                       LucideIcons.globe,
                       color: context.colors.textSecondary,
                       size: 20,
                     ),
-                    filled: true,
-                    fillColor: context.colors.backgroundTwo,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: context.spacing.s8,
-                      vertical: context.spacing.s12,
-                    ),
-                    border: RoundedSuperellipseInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: context.colors.strokePrimary,
+                    SizedBox(width: context.spacing.s8),
+                    Expanded(
+                      child: Text(
+                        state.selectedCountry?.name.common ??
+                            context.l10n.nationalityHint,
+                        style: state.selectedCountry != null
+                            ? context.typography.medium12.primary(context)
+                            : context.typography.medium12.tertiary(context),
                       ),
                     ),
-                    enabledBorder: RoundedSuperellipseInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: context.colors.strokePrimary,
-                      ),
+                    Icon(
+                      LucideIcons.chevronDown,
+                      color: context.colors.textTertiary,
+                      size: 20,
                     ),
-                    focusedBorder: RoundedSuperellipseInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: context.colors.strokeSecondary,
-                      ),
-                    ),
-                  ),
-                  style: context.typography.medium12.primary(context),
-                  items: nationalities
-                      .map((n) => DropdownMenuItem(value: n, child: Text(n)))
-                      .toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      context.read<RegisterCubit>().nationalityChanged(value);
-                    }
-                  },
-                );
-              },
+                  ],
+                ),
+              ),
             );
           },
-          onRetry: (cubit) => cubit.nationalitiesManager.refresh(),
         ),
       ],
     );

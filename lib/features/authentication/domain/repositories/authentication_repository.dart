@@ -9,8 +9,9 @@ import '../entities/entities.dart';
 abstract interface class AuthenticationRepository {
   /// Authenticates a user with email and password.
   ///
-  /// Returns [SessionEntity] containing user data and access token on success.
-  AsyncTask<SessionEntity> login(LoginDto dto);
+  /// Returns [UserEntity] of the authenticated user on success.
+  /// The access token is handled internally by [AuthStateManager].
+  AsyncTask<UserEntity> login(LoginDto dto);
 
   /// Registers a new user.
   ///
@@ -25,9 +26,6 @@ abstract interface class AuthenticationRepository {
 
   /// Verifies an OTP code for the specified email.
   AsyncTask<void> verifyOtp(VerifyOtpDto dto);
-
-  /// Fetches the list of available nationalities.
-  AsyncTask<List<String>> getNationalities();
 
   /// Logs out the current user and clears session.
   AsyncTask<void> logout();
