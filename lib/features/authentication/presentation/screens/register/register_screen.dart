@@ -38,17 +38,16 @@ class _BackButton extends StatelessWidget {
     return BlocBuilder<RegisterCubit, RegisterState>(
       buildWhen: (prev, curr) => prev.pageIndex != curr.pageIndex,
       builder: (context, state) {
-        return IconButton(
-          onPressed: () {
-            if (state.pageIndex > 0) {
-              context.read<RegisterCubit>().previousPage();
-            } else {
-              context.router.maybePop();
-            }
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: context.colors.textPrimary,
+        return Padding(
+          padding: EdgeInsets.only(left: context.spacing.s8),
+          child: MainBackButton(
+            onPressed: () {
+              if (state.pageIndex > 0) {
+                context.read<RegisterCubit>().previousPage();
+              } else {
+                context.router.maybePop();
+              }
+            },
           ),
         );
       },

@@ -67,5 +67,8 @@
 	"resendOtp": "إعادة إرسال الرمز",
 	"sending": "جاري الإرسال...",
 	"otpSent": "تم إرسال رمز التحقق بنجاح",
-	"registrationSuccess": "تم التسجيل بنجاح! يرجى تسجيل الدخول للمتابعة."
+	"registrationSuccess": "تم التسجيل بنجاح! يرجى تسجيل الدخول للمتابعة.",
+	"searchCountry": "ابحث عن الدولة...",
+	"noCountriesFound": "لم يتم العثور على دول",
+	"selectCountry": "اختر الدولة"
 }

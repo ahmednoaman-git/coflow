@@ -1,6 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:coflow_users_v2/core/async/failure.dart';
 import 'package:coflow_users_v2/core/network/api_constants.dart';
+import 'package:dio/dio.dart';
 
 /// Maps [DioException] to appropriate [Failure] types.
 ///
@@ -78,10 +78,7 @@ Failure _mapHttpError(DioException error) {
   // Try to extract error message from response
   String? errorMessage;
   if (responseData is Map<String, dynamic>) {
-    errorMessage =
-        responseData['message'] as String? ??
-        responseData['error'] as String? ??
-        responseData['detail'] as String?;
+    errorMessage = _parseErrorMessage(responseData);
   }
 
   switch (statusCode) {
@@ -133,4 +130,67 @@ Failure _mapHttpError(DioException error) {
             'HTTP error (${statusCode ?? "unknown"}): ${error.message ?? "Unknown error"}',
       );
   }
+}
+
+/// Parses error message from API response data.
+///
+/// Handles both simple error messages and structured errors object.
+/// If errors object is present, formats them as:
+/// ```
+/// Main message
+/// - Error 1
+/// - Error 2
+/// ```
+String? _parseErrorMessage(Map<String, dynamic> responseData) {
+  // Get main message
+  final mainMessage =
+      responseData[ApiResponseKeys.message] as String? ??
+      responseData[ApiResponseKeys.error] as String? ??
+      responseData[ApiResponseKeys.detail] as String?;
+
+  // Check for errors object
+  final errors = responseData[ApiResponseKeys.errors];
+  if (errors == null) {
+    return mainMessage;
+  }
+
+  // Parse errors object into list of error messages
+  final errorMessages = <String>[];
+
+  if (errors is Map<String, dynamic>) {
+    for (final entry in errors.entries) {
+      final fieldErrors = entry.value;
+      if (fieldErrors is List) {
+        for (final errorMsg in fieldErrors) {
+          if (errorMsg is String) {
+            errorMessages.add(errorMsg);
+          }
+        }
+      } else if (fieldErrors is String) {
+        errorMessages.add(fieldErrors);
+      }
+    }
+  } else if (errors is List) {
+    for (final errorMsg in errors) {
+      if (errorMsg is String) {
+        errorMessages.add(errorMsg);
+      }
+    }
+  }
+
+  // If no error messages found, return main message
+  if (errorMessages.isEmpty) {
+    return mainMessage;
+  }
+
+  // Format as "Main message\n- Error 1\n- Error 2"
+  final buffer = StringBuffer();
+  if (mainMessage != null && mainMessage.isNotEmpty) {
+    buffer.writeln(mainMessage);
+  }
+  for (final error in errorMessages) {
+    buffer.writeln('• $error');
+  }
+
+  return buffer.toString().trimRight();
 }

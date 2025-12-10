@@ -6,11 +6,21 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../state/state.dart';
 
 /// Step 1: Basic information (name, email, password).
-class RegisterStep1 extends StatelessWidget {
+class RegisterStep1 extends StatefulWidget {
   const RegisterStep1({super.key});
 
   @override
+  State<RegisterStep1> createState() => _RegisterStep1State();
+}
+
+class _RegisterStep1State extends State<RegisterStep1>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SingleChildScrollView(
       padding: EdgeInsets.all(context.spacing.s24),
       child: Column(

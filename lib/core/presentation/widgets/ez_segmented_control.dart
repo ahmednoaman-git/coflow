@@ -13,7 +13,7 @@ class EzSegment<T> {
 /// A custom segmented control widget with iOS-like design.
 ///
 /// This widget provides a multi-option selector with smooth animations
-/// and theme-aware styling matching the EzBus Admin design system.
+/// and theme-aware styling matching the CoFlow design system.
 ///
 /// Example:
 /// ```dart

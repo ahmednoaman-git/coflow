@@ -16,9 +16,11 @@ abstract class UserEntity with _$UserEntity {
     required Gender gender,
     required String? nationality,
     required String? image,
-    required int totalLikes,
+    required String totalLikes,
     required int totalTickets,
     required int totalPromotions,
+    required int totalGifts,
+    required int totalPurchases,
   }) = _UserEntity;
 }
 

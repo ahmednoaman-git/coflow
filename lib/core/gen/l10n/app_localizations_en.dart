@@ -197,4 +197,13 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get registrationSuccess =>
       'Registration successful! Please login to continue.';
+
+  @override
+  String get searchCountry => 'Search country...';
+
+  @override
+  String get noCountriesFound => 'No countries found';
+
+  @override
+  String get selectCountry => 'Select Country';
 }

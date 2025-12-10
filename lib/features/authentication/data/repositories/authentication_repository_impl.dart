@@ -32,9 +32,14 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
   @override
   AsyncTask<UserEntity> register(RegisterDto dto) {
-    return _remoteDataSource
-        .register(dto)
-        .map(AuthMapper.registerResponseToUserEntity);
+    return _remoteDataSource.register(dto).flatMap((responseModel) {
+      final userEntity = AuthMapper.registerResponseToUserEntity(responseModel);
+      // Store access token and user data in AuthStateManager
+      return _authStateManager
+          .setAccessToken(responseModel.token ?? '')
+          .flatMap((_) => _authStateManager.setUserData(responseModel.toJson()))
+          .map((_) => userEntity);
+    });
   }
 
   @override

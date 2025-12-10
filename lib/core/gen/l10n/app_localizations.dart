@@ -463,6 +463,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Registration successful! Please login to continue.'**
   String get registrationSuccess;
+
+  /// No description provided for @searchCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Search country...'**
+  String get searchCountry;
+
+  /// No description provided for @noCountriesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No countries found'**
+  String get noCountriesFound;
+
+  /// No description provided for @selectCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Country'**
+  String get selectCountry;
 }
 
 class _AppLocalizationsDelegate

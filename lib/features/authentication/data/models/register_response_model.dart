@@ -20,6 +20,9 @@ class RegisterResponseModel {
     required this.totalLikes,
     required this.totalTickets,
     required this.totalPromotions,
+    required this.totalGifts,
+    required this.totalPurchases,
+    this.token,
   });
 
   final int id;
@@ -33,12 +36,17 @@ class RegisterResponseModel {
   final String? image;
   @JsonKey(name: 'created_at')
   final String createdAt;
-  @JsonKey(name: 'total_likes', defaultValue: 0)
-  final int totalLikes;
+  @JsonKey(name: 'total_likes', fromJson: _parseTotalLikes, defaultValue: '0/0')
+  final String totalLikes;
   @JsonKey(name: 'total_tickets', defaultValue: 0)
   final int totalTickets;
   @JsonKey(name: 'total_promotions', defaultValue: 0)
   final int totalPromotions;
+  @JsonKey(name: 'total_gifts', defaultValue: 0)
+  final int totalGifts;
+  @JsonKey(name: 'total_purchases', defaultValue: 0)
+  final int totalPurchases;
+  final String? token;
 
   factory RegisterResponseModel.fromJson(Map<String, dynamic> json) =>
       _$RegisterResponseModelFromJson(json);
@@ -54,4 +62,9 @@ class RegisterResponseModel {
   }
 
   static String _genderToJson(Gender gender) => gender.name;
+
+  static String _parseTotalLikes(dynamic value) {
+    if (value == null) return '0/0';
+    return value.toString();
+  }
 }

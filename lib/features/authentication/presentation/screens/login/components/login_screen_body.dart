@@ -54,8 +54,7 @@ class _LoginButton extends StatelessWidget {
         );
       },
       onSuccess: (context, _) {
-        // TODO: Navigate to home screen
-        context.showSuccessSnackBar(context.l10n.login);
+        context.router.replaceAll([const NavigationRootRoute()]);
       },
       onError: (context, failure) {
         context.showErrorSnackBar(failure.message);

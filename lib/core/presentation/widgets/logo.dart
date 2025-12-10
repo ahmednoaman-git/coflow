@@ -1,33 +1,23 @@
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+/// CoFlow logo widget displaying the app's SVG logo.
+///
+/// Provides a simple API to customize size and fit.
 class Logo extends StatelessWidget {
-  const Logo({super.key});
+  /// Creates a logo with the specified [size].
+  ///
+  /// Defaults to 40x40 if no size is provided.
+  const Logo({super.key, this.size = 40, this.fit = BoxFit.contain});
+
+  /// The size (width and height) of the logo.
+  final double size;
+
+  /// How the logo should be inscribed into the available space.
+  final BoxFit fit;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      spacing: context.spacing.s8,
-      children: [
-        Container(
-          width: 40,
-          height: 40,
-          decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            color: context.colors.signatureBlue,
-          ),
-          child: Icon(
-            LucideIcons.busFront,
-            color: context.colors.textWhite,
-            size: 30,
-          ),
-        ),
-        Text('ezBus Admin', style: context.typography.medium18),
-      ],
-    );
+    return Assets.svgs.logo.svg(width: size, height: size, fit: fit);
   }
 }

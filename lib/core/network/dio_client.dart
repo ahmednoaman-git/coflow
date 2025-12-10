@@ -1,7 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:coflow_users_v2/core/network/api_constants.dart';
 import 'package:coflow_users_v2/core/network/api_interceptors.dart';
 import 'package:coflow_users_v2/core/network/interceptors/auth_interceptor.dart';
+import 'package:coflow_users_v2/core/network/interceptors/data_extractor_interceptor.dart';
+import 'package:dio/dio.dart';
 
 /// HTTP client wrapper around Dio for making API requests.
 ///
@@ -9,6 +10,7 @@ import 'package:coflow_users_v2/core/network/interceptors/auth_interceptor.dart'
 /// - Base URL and timeout settings
 /// - Request/response logging
 /// - Authentication token injection (when implemented)
+/// - Automatic extraction of 'data' field from API responses
 /// - Centralized error handling (via mapDioErrorToFailure)
 class DioClient {
   DioClient({
@@ -34,6 +36,7 @@ class DioClient {
     _dio.interceptors.addAll([
       createDioLogger(),
       authInterceptor,
+      DataExtractorInterceptor(),
       ...?additionalInterceptors,
     ]);
   }

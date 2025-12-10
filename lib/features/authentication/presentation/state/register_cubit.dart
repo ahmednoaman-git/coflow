@@ -4,7 +4,7 @@ import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:world_countries/world_countries.dart';
+import 'package:sealed_countries/sealed_countries.dart';
 
 import '../../domain/domain.dart';
 

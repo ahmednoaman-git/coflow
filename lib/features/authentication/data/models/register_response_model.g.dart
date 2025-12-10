@@ -18,9 +18,14 @@ RegisterResponseModel _$RegisterResponseModelFromJson(
   nationality: json['nationality'] as String?,
   image: json['image'] as String?,
   createdAt: json['created_at'] as String,
-  totalLikes: (json['total_likes'] as num?)?.toInt() ?? 0,
+  totalLikes: json['total_likes'] == null
+      ? '0/0'
+      : RegisterResponseModel._parseTotalLikes(json['total_likes']),
   totalTickets: (json['total_tickets'] as num?)?.toInt() ?? 0,
   totalPromotions: (json['total_promotions'] as num?)?.toInt() ?? 0,
+  totalGifts: (json['total_gifts'] as num?)?.toInt() ?? 0,
+  totalPurchases: (json['total_purchases'] as num?)?.toInt() ?? 0,
+  token: json['token'] as String?,
 );
 
 Map<String, dynamic> _$RegisterResponseModelToJson(
@@ -38,4 +43,7 @@ Map<String, dynamic> _$RegisterResponseModelToJson(
   'total_likes': instance.totalLikes,
   'total_tickets': instance.totalTickets,
   'total_promotions': instance.totalPromotions,
+  'total_gifts': instance.totalGifts,
+  'total_purchases': instance.totalPurchases,
+  'token': instance.token,
 };

@@ -17,6 +17,8 @@ abstract final class AuthMapper {
       totalLikes: model.totalLikes,
       totalTickets: model.totalTickets,
       totalPromotions: model.totalPromotions,
+      totalGifts: model.totalGifts,
+      totalPurchases: model.totalPurchases,
     );
   }
 
@@ -34,6 +36,8 @@ abstract final class AuthMapper {
       totalLikes: model.totalLikes,
       totalTickets: model.totalTickets,
       totalPromotions: model.totalPromotions,
+      totalGifts: model.totalGifts,
+      totalPurchases: model.totalPurchases,
     );
   }
 }

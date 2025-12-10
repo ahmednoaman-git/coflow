@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,11 +7,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../state/state.dart';
 
 /// Step 3: OTP verification.
-class RegisterStep3 extends StatelessWidget {
+class RegisterStep3 extends StatefulWidget {
   const RegisterStep3({super.key});
 
   @override
+  State<RegisterStep3> createState() => _RegisterStep3State();
+}
+
+class _RegisterStep3State extends State<RegisterStep3>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SingleChildScrollView(
       padding: EdgeInsets.all(context.spacing.s24),
       child: Column(
@@ -116,8 +127,7 @@ class _SubmitButton extends StatelessWidget {
         );
       },
       onSuccess: (context, _) {
-        // TODO: Navigate to login or home screen
-        context.showSuccessSnackBar(context.l10n.registrationSuccess);
+        context.router.replaceAll([NavigationRootRoute()]);
       },
       onError: (context, failure) {
         context.showErrorSnackBar(failure.message);

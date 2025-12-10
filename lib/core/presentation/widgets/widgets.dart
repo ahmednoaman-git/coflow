@@ -8,5 +8,6 @@ export 'ez_segmented_control.dart';
 export 'inopeople_logo.dart';
 export 'language_menu_button.dart';
 export 'main_animated_switcher.dart';
+export 'main_back_button.dart';
 export 'main_button.dart';
 export 'main_text_field.dart';

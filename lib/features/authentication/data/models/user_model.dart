@@ -19,6 +19,8 @@ class UserModel {
     required this.totalLikes,
     required this.totalTickets,
     required this.totalPromotions,
+    required this.totalGifts,
+    required this.totalPurchases,
     this.token,
   });
 
@@ -31,12 +33,16 @@ class UserModel {
   final Gender gender;
   final String? nationality;
   final String? image;
-  @JsonKey(name: 'total_likes', defaultValue: 0)
-  final int totalLikes;
+  @JsonKey(name: 'total_likes', fromJson: _parseTotalLikes, defaultValue: '0/0')
+  final String totalLikes;
   @JsonKey(name: 'total_tickets', defaultValue: 0)
   final int totalTickets;
   @JsonKey(name: 'total_promotions', defaultValue: 0)
   final int totalPromotions;
+  @JsonKey(name: 'total_gifts', defaultValue: 0)
+  final int totalGifts;
+  @JsonKey(name: 'total_purchases', defaultValue: 0)
+  final int totalPurchases;
   final String? token;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -53,4 +59,9 @@ class UserModel {
   }
 
   static String _genderToJson(Gender gender) => gender.name;
+
+  static String _parseTotalLikes(dynamic value) {
+    if (value == null) return '0/0';
+    return value.toString();
+  }
 }

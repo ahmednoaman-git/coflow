@@ -195,4 +195,13 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get registrationSuccess =>
       'تم التسجيل بنجاح! يرجى تسجيل الدخول للمتابعة.';
+
+  @override
+  String get searchCountry => 'ابحث عن الدولة...';
+
+  @override
+  String get noCountriesFound => 'لم يتم العثور على دول';
+
+  @override
+  String get selectCountry => 'اختر الدولة';
 }

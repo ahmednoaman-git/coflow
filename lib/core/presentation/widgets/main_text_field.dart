@@ -275,7 +275,7 @@ class _MainTextFieldState extends State<MainTextField> {
 /// text fields to adopt the same superellipse shape that is typically used
 /// with [ShapeDecoration]. The implementation intentionally ignores the gap
 /// parameters that [OutlineInputBorder] uses for floating labels because the
-/// EzBus Admin text fields show the label outside of the input decorator.
+/// CoFlow text fields show the label outside of the input decorator.
 @immutable
 class RoundedSuperellipseInputBorder extends InputBorder {
   /// Creates a rounded superellipse input border.

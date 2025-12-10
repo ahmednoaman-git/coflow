@@ -5,7 +5,7 @@ class ApiConstants {
 
   // Base URLs
   /// The base URL for all API endpoints
-  static const String baseUrl = 'https://tm-ips.azdanapps.com/';
+  static const String baseUrl = 'https://back.coflow.co/Coflow/apiApp/';
 
   // Timeout durations
   /// Connection timeout duration (time to establish connection)
@@ -54,4 +54,21 @@ class ApiEndpoints {
   ApiEndpoints._();
 
   static const String getTenantById = 'tenant/byname';
+}
+
+/// Keys used in API response parsing.
+class ApiResponseKeys {
+  ApiResponseKeys._();
+
+  /// Key for main error message
+  static const String message = 'message';
+
+  /// Key for error field
+  static const String error = 'error';
+
+  /// Key for detail field
+  static const String detail = 'detail';
+
+  /// Key for errors object containing field-specific errors
+  static const String errors = 'errors';
 }

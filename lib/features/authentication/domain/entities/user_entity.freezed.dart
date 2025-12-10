@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserEntity {
 
- int get id; String get name; String get email; String get phone; String? get birthdate; Gender get gender; String? get nationality; String? get image; int get totalLikes; int get totalTickets; int get totalPromotions;
+ int get id; String get name; String get email; String get phone; String? get birthdate; Gender get gender; String? get nationality; String? get image; String get totalLikes; int get totalTickets; int get totalPromotions; int get totalGifts; int get totalPurchases;
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $UserEntityCopyWith<UserEntity> get copyWith => _$UserEntityCopyWithImpl<UserEnt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.birthdate, birthdate) || other.birthdate == birthdate)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.nationality, nationality) || other.nationality == nationality)&&(identical(other.image, image) || other.image == image)&&(identical(other.totalLikes, totalLikes) || other.totalLikes == totalLikes)&&(identical(other.totalTickets, totalTickets) || other.totalTickets == totalTickets)&&(identical(other.totalPromotions, totalPromotions) || other.totalPromotions == totalPromotions));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.birthdate, birthdate) || other.birthdate == birthdate)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.nationality, nationality) || other.nationality == nationality)&&(identical(other.image, image) || other.image == image)&&(identical(other.totalLikes, totalLikes) || other.totalLikes == totalLikes)&&(identical(other.totalTickets, totalTickets) || other.totalTickets == totalTickets)&&(identical(other.totalPromotions, totalPromotions) || other.totalPromotions == totalPromotions)&&(identical(other.totalGifts, totalGifts) || other.totalGifts == totalGifts)&&(identical(other.totalPurchases, totalPurchases) || other.totalPurchases == totalPurchases));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,phone,birthdate,gender,nationality,image,totalLikes,totalTickets,totalPromotions);
+int get hashCode => Object.hash(runtimeType,id,name,email,phone,birthdate,gender,nationality,image,totalLikes,totalTickets,totalPromotions,totalGifts,totalPurchases);
 
 @override
 String toString() {
-  return 'UserEntity(id: $id, name: $name, email: $email, phone: $phone, birthdate: $birthdate, gender: $gender, nationality: $nationality, image: $image, totalLikes: $totalLikes, totalTickets: $totalTickets, totalPromotions: $totalPromotions)';
+  return 'UserEntity(id: $id, name: $name, email: $email, phone: $phone, birthdate: $birthdate, gender: $gender, nationality: $nationality, image: $image, totalLikes: $totalLikes, totalTickets: $totalTickets, totalPromotions: $totalPromotions, totalGifts: $totalGifts, totalPurchases: $totalPurchases)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $UserEntityCopyWith<$Res>  {
   factory $UserEntityCopyWith(UserEntity value, $Res Function(UserEntity) _then) = _$UserEntityCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, String email, String phone, String? birthdate, Gender gender, String? nationality, String? image, int totalLikes, int totalTickets, int totalPromotions
+ int id, String name, String email, String phone, String? birthdate, Gender gender, String? nationality, String? image, String totalLikes, int totalTickets, int totalPromotions, int totalGifts, int totalPurchases
 });
 
 
@@ -62,7 +62,7 @@ class _$UserEntityCopyWithImpl<$Res>
 
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? email = null,Object? phone = null,Object? birthdate = freezed,Object? gender = null,Object? nationality = freezed,Object? image = freezed,Object? totalLikes = null,Object? totalTickets = null,Object? totalPromotions = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? email = null,Object? phone = null,Object? birthdate = freezed,Object? gender = null,Object? nationality = freezed,Object? image = freezed,Object? totalLikes = null,Object? totalTickets = null,Object? totalPromotions = null,Object? totalGifts = null,Object? totalPurchases = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -73,8 +73,10 @@ as String?,gender: null == gender ? _self.gender : gender // ignore: cast_nullab
 as Gender,nationality: freezed == nationality ? _self.nationality : nationality // ignore: cast_nullable_to_non_nullable
 as String?,image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as String?,totalLikes: null == totalLikes ? _self.totalLikes : totalLikes // ignore: cast_nullable_to_non_nullable
-as int,totalTickets: null == totalTickets ? _self.totalTickets : totalTickets // ignore: cast_nullable_to_non_nullable
+as String,totalTickets: null == totalTickets ? _self.totalTickets : totalTickets // ignore: cast_nullable_to_non_nullable
 as int,totalPromotions: null == totalPromotions ? _self.totalPromotions : totalPromotions // ignore: cast_nullable_to_non_nullable
+as int,totalGifts: null == totalGifts ? _self.totalGifts : totalGifts // ignore: cast_nullable_to_non_nullable
+as int,totalPurchases: null == totalPurchases ? _self.totalPurchases : totalPurchases // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -160,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String email,  String phone,  String? birthdate,  Gender gender,  String? nationality,  String? image,  int totalLikes,  int totalTickets,  int totalPromotions)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String email,  String phone,  String? birthdate,  Gender gender,  String? nationality,  String? image,  String totalLikes,  int totalTickets,  int totalPromotions,  int totalGifts,  int totalPurchases)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserEntity() when $default != null:
-return $default(_that.id,_that.name,_that.email,_that.phone,_that.birthdate,_that.gender,_that.nationality,_that.image,_that.totalLikes,_that.totalTickets,_that.totalPromotions);case _:
+return $default(_that.id,_that.name,_that.email,_that.phone,_that.birthdate,_that.gender,_that.nationality,_that.image,_that.totalLikes,_that.totalTickets,_that.totalPromotions,_that.totalGifts,_that.totalPurchases);case _:
   return orElse();
 
 }
@@ -181,10 +183,10 @@ return $default(_that.id,_that.name,_that.email,_that.phone,_that.birthdate,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String email,  String phone,  String? birthdate,  Gender gender,  String? nationality,  String? image,  int totalLikes,  int totalTickets,  int totalPromotions)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String email,  String phone,  String? birthdate,  Gender gender,  String? nationality,  String? image,  String totalLikes,  int totalTickets,  int totalPromotions,  int totalGifts,  int totalPurchases)  $default,) {final _that = this;
 switch (_that) {
 case _UserEntity():
-return $default(_that.id,_that.name,_that.email,_that.phone,_that.birthdate,_that.gender,_that.nationality,_that.image,_that.totalLikes,_that.totalTickets,_that.totalPromotions);case _:
+return $default(_that.id,_that.name,_that.email,_that.phone,_that.birthdate,_that.gender,_that.nationality,_that.image,_that.totalLikes,_that.totalTickets,_that.totalPromotions,_that.totalGifts,_that.totalPurchases);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +203,10 @@ return $default(_that.id,_that.name,_that.email,_that.phone,_that.birthdate,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String email,  String phone,  String? birthdate,  Gender gender,  String? nationality,  String? image,  int totalLikes,  int totalTickets,  int totalPromotions)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String email,  String phone,  String? birthdate,  Gender gender,  String? nationality,  String? image,  String totalLikes,  int totalTickets,  int totalPromotions,  int totalGifts,  int totalPurchases)?  $default,) {final _that = this;
 switch (_that) {
 case _UserEntity() when $default != null:
-return $default(_that.id,_that.name,_that.email,_that.phone,_that.birthdate,_that.gender,_that.nationality,_that.image,_that.totalLikes,_that.totalTickets,_that.totalPromotions);case _:
+return $default(_that.id,_that.name,_that.email,_that.phone,_that.birthdate,_that.gender,_that.nationality,_that.image,_that.totalLikes,_that.totalTickets,_that.totalPromotions,_that.totalGifts,_that.totalPurchases);case _:
   return null;
 
 }
@@ -216,7 +218,7 @@ return $default(_that.id,_that.name,_that.email,_that.phone,_that.birthdate,_tha
 
 
 class _UserEntity implements UserEntity {
-  const _UserEntity({required this.id, required this.name, required this.email, required this.phone, required this.birthdate, required this.gender, required this.nationality, required this.image, required this.totalLikes, required this.totalTickets, required this.totalPromotions});
+  const _UserEntity({required this.id, required this.name, required this.email, required this.phone, required this.birthdate, required this.gender, required this.nationality, required this.image, required this.totalLikes, required this.totalTickets, required this.totalPromotions, required this.totalGifts, required this.totalPurchases});
   
 
 @override final  int id;
@@ -227,9 +229,11 @@ class _UserEntity implements UserEntity {
 @override final  Gender gender;
 @override final  String? nationality;
 @override final  String? image;
-@override final  int totalLikes;
+@override final  String totalLikes;
 @override final  int totalTickets;
 @override final  int totalPromotions;
+@override final  int totalGifts;
+@override final  int totalPurchases;
 
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -241,16 +245,16 @@ _$UserEntityCopyWith<_UserEntity> get copyWith => __$UserEntityCopyWithImpl<_Use
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.birthdate, birthdate) || other.birthdate == birthdate)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.nationality, nationality) || other.nationality == nationality)&&(identical(other.image, image) || other.image == image)&&(identical(other.totalLikes, totalLikes) || other.totalLikes == totalLikes)&&(identical(other.totalTickets, totalTickets) || other.totalTickets == totalTickets)&&(identical(other.totalPromotions, totalPromotions) || other.totalPromotions == totalPromotions));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.birthdate, birthdate) || other.birthdate == birthdate)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.nationality, nationality) || other.nationality == nationality)&&(identical(other.image, image) || other.image == image)&&(identical(other.totalLikes, totalLikes) || other.totalLikes == totalLikes)&&(identical(other.totalTickets, totalTickets) || other.totalTickets == totalTickets)&&(identical(other.totalPromotions, totalPromotions) || other.totalPromotions == totalPromotions)&&(identical(other.totalGifts, totalGifts) || other.totalGifts == totalGifts)&&(identical(other.totalPurchases, totalPurchases) || other.totalPurchases == totalPurchases));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,email,phone,birthdate,gender,nationality,image,totalLikes,totalTickets,totalPromotions);
+int get hashCode => Object.hash(runtimeType,id,name,email,phone,birthdate,gender,nationality,image,totalLikes,totalTickets,totalPromotions,totalGifts,totalPurchases);
 
 @override
 String toString() {
-  return 'UserEntity(id: $id, name: $name, email: $email, phone: $phone, birthdate: $birthdate, gender: $gender, nationality: $nationality, image: $image, totalLikes: $totalLikes, totalTickets: $totalTickets, totalPromotions: $totalPromotions)';
+  return 'UserEntity(id: $id, name: $name, email: $email, phone: $phone, birthdate: $birthdate, gender: $gender, nationality: $nationality, image: $image, totalLikes: $totalLikes, totalTickets: $totalTickets, totalPromotions: $totalPromotions, totalGifts: $totalGifts, totalPurchases: $totalPurchases)';
 }
 
 
@@ -261,7 +265,7 @@ abstract mixin class _$UserEntityCopyWith<$Res> implements $UserEntityCopyWith<$
   factory _$UserEntityCopyWith(_UserEntity value, $Res Function(_UserEntity) _then) = __$UserEntityCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, String email, String phone, String? birthdate, Gender gender, String? nationality, String? image, int totalLikes, int totalTickets, int totalPromotions
+ int id, String name, String email, String phone, String? birthdate, Gender gender, String? nationality, String? image, String totalLikes, int totalTickets, int totalPromotions, int totalGifts, int totalPurchases
 });
 
 
@@ -278,7 +282,7 @@ class __$UserEntityCopyWithImpl<$Res>
 
 /// Create a copy of UserEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? email = null,Object? phone = null,Object? birthdate = freezed,Object? gender = null,Object? nationality = freezed,Object? image = freezed,Object? totalLikes = null,Object? totalTickets = null,Object? totalPromotions = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? email = null,Object? phone = null,Object? birthdate = freezed,Object? gender = null,Object? nationality = freezed,Object? image = freezed,Object? totalLikes = null,Object? totalTickets = null,Object? totalPromotions = null,Object? totalGifts = null,Object? totalPurchases = null,}) {
   return _then(_UserEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -289,8 +293,10 @@ as String?,gender: null == gender ? _self.gender : gender // ignore: cast_nullab
 as Gender,nationality: freezed == nationality ? _self.nationality : nationality // ignore: cast_nullable_to_non_nullable
 as String?,image: freezed == image ? _self.image : image // ignore: cast_nullable_to_non_nullable
 as String?,totalLikes: null == totalLikes ? _self.totalLikes : totalLikes // ignore: cast_nullable_to_non_nullable
-as int,totalTickets: null == totalTickets ? _self.totalTickets : totalTickets // ignore: cast_nullable_to_non_nullable
+as String,totalTickets: null == totalTickets ? _self.totalTickets : totalTickets // ignore: cast_nullable_to_non_nullable
 as int,totalPromotions: null == totalPromotions ? _self.totalPromotions : totalPromotions // ignore: cast_nullable_to_non_nullable
+as int,totalGifts: null == totalGifts ? _self.totalGifts : totalGifts // ignore: cast_nullable_to_non_nullable
+as int,totalPurchases: null == totalPurchases ? _self.totalPurchases : totalPurchases // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

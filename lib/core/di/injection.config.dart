@@ -40,6 +40,7 @@ import '../../features/authentication/presentation/state/login_cubit.dart'
     as _i1017;
 import '../../features/authentication/presentation/state/register_cubit.dart'
     as _i1040;
+import '../../features/splash/presentation/state/splash_cubit.dart' as _i315;
 import '../caching/cache_client.dart' as _i1035;
 import '../core.dart' as _i351;
 import '../data/auth/auth_state_manager.dart' as _i224;
@@ -76,6 +77,9 @@ extension GetItInjectableX on _i174.GetIt {
       final i = _i224.AuthStateManager(gh<_i1035.CacheClient>());
       return i.init().then((_) => i);
     }, preResolve: true);
+    gh.factory<_i315.SplashCubit>(
+      () => _i315.SplashCubit(gh<_i224.AuthStateManager>()),
+    );
     gh.singleton<_i724.LocalizationCubit>(
       () => _i724.LocalizationCubit(gh<_i128.LocalizationManager>()),
     );

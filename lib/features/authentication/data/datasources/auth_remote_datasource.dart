@@ -9,7 +9,6 @@ import '../models/models.dart';
 abstract final class AuthEndpoints {
   static const String login = 'login';
   static const String register = 'register';
-  static const String sendOtp = 'sendCode';
   static const String resendOtp = 'resendCode';
   static const String verifyOtp = 'checkCode';
 }
@@ -54,7 +53,7 @@ class AuthRemoteDataSource {
   /// Sends OTP to the specified email.
   AsyncTask<void> sendOtp(String email) {
     return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
-      await _dio.post(AuthEndpoints.sendOtp, data: {'email': email});
+      await _dio.post(AuthEndpoints.resendOtp, data: {'email': email});
     });
   }
 

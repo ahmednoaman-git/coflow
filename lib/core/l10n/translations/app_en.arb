@@ -67,5 +67,8 @@
   "resendOtp": "Resend Code",
   "sending": "Sending...",
   "otpSent": "Verification code sent successfully",
-  "registrationSuccess": "Registration successful! Please login to continue."
+  "registrationSuccess": "Registration successful! Please login to continue.",
+  "searchCountry": "Search country...",
+  "noCountriesFound": "No countries found",
+  "selectCountry": "Select Country"
 }

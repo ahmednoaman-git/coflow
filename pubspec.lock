@@ -1062,7 +1062,7 @@ packages:
     source: hosted
     version: "0.28.0"
   sealed_countries:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sealed_countries
       sha256: bfb57edd964ca553da380ef181f665307b2847db418144b5d896a03e1adb06cc
@@ -1394,22 +1394,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.15.0"
-  world_countries:
-    dependency: "direct main"
-    description:
-      name: world_countries
-      sha256: "6bf0aa9235c7e3c3f76ad0f5a6407b0963aa310f35edf929a89c28dd882229f6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.9.4"
-  world_flags:
-    dependency: transitive
-    description:
-      name: world_flags
-      sha256: ca727cb48d7a903902a310a67cf276bb9f292feff1806a6fcd63b5351bfcc80e
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.9.1"
   xdg_directories:
     dependency: transitive
     description:
