@@ -17,11 +17,23 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
+  /// File path: assets/svgs/earth.svg
+  SvgGenImage get earth => const SvgGenImage('assets/svgs/earth.svg');
+
+  /// File path: assets/svgs/energy.svg
+  SvgGenImage get energy => const SvgGenImage('assets/svgs/energy.svg');
+
   /// File path: assets/svgs/logo.svg
   SvgGenImage get logo => const SvgGenImage('assets/svgs/logo.svg');
 
+  /// File path: assets/svgs/sea.svg
+  SvgGenImage get sea => const SvgGenImage('assets/svgs/sea.svg');
+
+  /// File path: assets/svgs/sky.svg
+  SvgGenImage get sky => const SvgGenImage('assets/svgs/sky.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [logo];
+  List<SvgGenImage> get values => [earth, energy, logo, sea, sky];
 }
 
 class Assets {

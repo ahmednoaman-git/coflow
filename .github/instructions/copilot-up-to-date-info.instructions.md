@@ -37,14 +37,20 @@ Container(
 )
 ```
 
-- You can use enum shorthands instead of the full enum name like this where the compiler knows the type of the enum needed for a parameter or variable:
-
+- Dart Shorthands: For things like enums and methods, when the expected type is known, there is no need to explicitly state the type again when assigning values.
 ```dart
 Column(
-  mainAxisAlignment: .center, // instead of MainAxisAlignment.center
-  crossAxisAlignment: .start, // instead of CrossAxisAlignment.start
-  children: [...],
+  mainAxisAlignment: .center, // Instead of MainAxisAlignment.center
+  children: [
+    Text('Hello World'),
+  ],
 )
+```
+**Prefer this definition especially for enums.**
+
+
+```dart
+final SizedBox square = .square(16); // Instead of SizedBox.square(16)
 ```
 
 ## Freezed

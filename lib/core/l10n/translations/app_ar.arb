@@ -70,5 +70,19 @@
 	"registrationSuccess": "تم التسجيل بنجاح! يرجى تسجيل الدخول للمتابعة.",
 	"searchCountry": "ابحث عن الدولة...",
 	"noCountriesFound": "لم يتم العثور على دول",
-	"selectCountry": "اختر الدولة"
+	"selectCountry": "اختر الدولة",
+
+	"welcome": "أهلاً،",
+	"businesses": "الأعمال",
+	"instructors": "المدربين",
+	"allLocation": "الكل . {country}",
+	"@allLocation": {
+		"placeholders": {
+			"country": {"type": "String"}
+		}
+	},
+	"sky": "السماء",
+	"sea": "البحر",
+	"earth": "الأرض",
+	"energy": "الطاقة"
 }

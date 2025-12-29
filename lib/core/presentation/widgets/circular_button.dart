@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 /// Designed to complement [MainButton] while providing a more compact action
 /// area for icon-based interactions such as FAB alternatives or contextual
 /// actions.
-class CircularButton extends StatefulWidget {
+class CircularButton extends StatelessWidget {
   const CircularButton({
     super.key,
     required this.icon,
@@ -44,109 +44,51 @@ class CircularButton extends StatefulWidget {
   final Color? iconColor;
 
   @override
-  State<CircularButton> createState() => _CircularButtonState();
-}
-
-class _CircularButtonState extends State<CircularButton>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-  late final Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 150),
-    );
-    _scaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: 0.95,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _handleTapDown(TapDownDetails details) {
-    if (!widget.isDisabled && !widget.isLoading) {
-      _controller.forward();
-    }
-  }
-
-  void _handleTapUp(TapUpDetails details) {
-    if (!widget.isDisabled && !widget.isLoading) {
-      _controller.reverse();
-    }
-  }
-
-  void _handleTapCancel() {
-    if (!widget.isDisabled && !widget.isLoading) {
-      _controller.reverse();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final effectiveDisabled = widget.isDisabled || widget.isLoading;
-    final effectiveSize =
-        widget.size ?? context.spacing.s48 - context.spacing.s4;
+    final effectiveDisabled = isDisabled || isLoading;
+    final effectiveSize = size ?? context.spacing.s48 - context.spacing.s4;
 
     Color backgroundColor;
     Color iconColor;
 
     if (effectiveDisabled) {
       backgroundColor =
-          widget.backgroundColor?.withValues(alpha: 0.5) ??
+          this.backgroundColor?.withValues(alpha: 0.5) ??
           context.colors.backgroundGreyTwo;
       iconColor =
-          widget.iconColor?.withValues(alpha: 0.5) ??
-          context.colors.textDisabled;
+          this.iconColor?.withValues(alpha: 0.5) ?? context.colors.textDisabled;
     } else {
-      backgroundColor = widget.backgroundColor ?? context.colors.backgroundGrey;
-      iconColor = widget.iconColor ?? context.colors.textPrimary;
+      backgroundColor = this.backgroundColor ?? context.colors.backgroundGrey;
+      iconColor = this.iconColor ?? context.colors.textPrimary;
     }
-
-    const shape = CircleBorder();
 
     return SizedBox(
       height: effectiveSize,
       width: effectiveSize,
-      child: ScaleTransition(
-        scale: _scaleAnimation,
+      child: TappableScale(
+        onTap: effectiveDisabled ? null : onPressed,
+        isDisabled: effectiveDisabled,
+        scaleEnd: 0.95,
+        animationDuration: const Duration(milliseconds: 150),
+        borderRadius: BorderRadius.circular(effectiveSize / 2),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeInOut,
-          decoration: ShapeDecoration(shape: shape, color: backgroundColor),
-          child: Material(
-            color: Colors.transparent,
-            shape: shape,
-            child: InkWell(
-              customBorder: shape,
-              onTap: effectiveDisabled ? null : widget.onPressed,
-              onTapDown: effectiveDisabled ? null : _handleTapDown,
-              onTapUp: effectiveDisabled ? null : _handleTapUp,
-              onTapCancel: effectiveDisabled ? null : _handleTapCancel,
-              child: Center(
-                child: widget.isLoading
-                    ? SizedBox(
-                        width: widget.iconSize,
-                        height: widget.iconSize,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2.0,
-                          valueColor: AlwaysStoppedAnimation<Color>(iconColor),
-                        ),
-                      )
-                    : Icon(
-                        widget.icon,
-                        color: iconColor,
-                        size: widget.iconSize,
-                      ),
-              ),
-            ),
+          decoration: ShapeDecoration(
+            shape: const CircleBorder(),
+            color: backgroundColor,
+          ),
+          child: Center(
+            child: isLoading
+                ? SizedBox(
+                    width: iconSize,
+                    height: iconSize,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2.0,
+                      valueColor: AlwaysStoppedAnimation<Color>(iconColor),
+                    ),
+                  )
+                : Icon(icon, color: iconColor, size: iconSize),
           ),
         ),
       ),

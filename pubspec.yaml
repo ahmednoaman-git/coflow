@@ -39,6 +39,7 @@ dependencies:
   sealed_countries: ^2.8.0
   shared_preferences: ^2.3.3
   sliver_tools: ^0.2.12
+  solar_icons: ^0.0.5
 
 dev_dependencies:
   flutter_test:

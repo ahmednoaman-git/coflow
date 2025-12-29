@@ -204,4 +204,30 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get selectCountry => 'اختر الدولة';
+
+  @override
+  String get welcome => 'أهلاً،';
+
+  @override
+  String get businesses => 'الأعمال';
+
+  @override
+  String get instructors => 'المدربين';
+
+  @override
+  String allLocation(String country) {
+    return 'الكل . $country';
+  }
+
+  @override
+  String get sky => 'السماء';
+
+  @override
+  String get sea => 'البحر';
+
+  @override
+  String get earth => 'الأرض';
+
+  @override
+  String get energy => 'الطاقة';
 }

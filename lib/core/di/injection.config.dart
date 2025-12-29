@@ -40,6 +40,14 @@ import '../../features/authentication/presentation/state/login_cubit.dart'
     as _i1017;
 import '../../features/authentication/presentation/state/register_cubit.dart'
     as _i1040;
+import '../../features/home/data/datasources/datasources.dart' as _i1067;
+import '../../features/home/data/datasources/home_remote_datasource.dart'
+    as _i278;
+import '../../features/home/data/repositories/home_repository_impl.dart'
+    as _i76;
+import '../../features/home/domain/repositories/home_repository.dart' as _i0;
+import '../../features/home/domain/use_cases/get_home_use_case.dart' as _i261;
+import '../../features/home/presentation/cubit/home_cubit.dart' as _i9;
 import '../../features/splash/presentation/state/splash_cubit.dart' as _i315;
 import '../caching/cache_client.dart' as _i1035;
 import '../core.dart' as _i351;
@@ -92,11 +100,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i14.AuthRemoteDataSource>(
       () => _i14.AuthRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i278.HomeRemoteDataSource>(
+      () => _i278.HomeRemoteDataSource(gh<_i351.DioClient>()),
+    );
+    gh.lazySingleton<_i0.HomeRepository>(
+      () => _i76.HomeRepositoryImpl(gh<_i1067.HomeRemoteDataSource>()),
+    );
     gh.lazySingleton<_i625.AuthenticationRepository>(
       () => _i195.AuthenticationRepositoryImpl(
         gh<_i748.AuthRemoteDataSource>(),
         gh<_i351.AuthStateManager>(),
       ),
+    );
+    gh.lazySingleton<_i261.GetHomeUseCase>(
+      () => _i261.GetHomeUseCase(gh<_i0.HomeRepository>()),
     );
     gh.lazySingleton<_i146.LoginUseCase>(
       () => _i146.LoginUseCase(gh<_i625.AuthenticationRepository>()),
@@ -116,6 +133,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i121.VerifyOtpUseCase>(
       () => _i121.VerifyOtpUseCase(gh<_i625.AuthenticationRepository>()),
     );
+    gh.factory<_i9.HomeCubit>(() => _i9.HomeCubit(gh<_i261.GetHomeUseCase>()));
     gh.factory<_i1040.RegisterCubit>(
       () => _i1040.RegisterCubit(
         gh<_i22.RegisterUseCase>(),

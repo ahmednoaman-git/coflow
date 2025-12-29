@@ -11,8 +11,11 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: LoginRoute.page),
     AutoRoute(page: RegisterRoute.page),
 
-    // Main application route
-    AutoRoute(page: NavigationRootRoute.page),
+    // Main application routes
+    AutoRoute(
+      page: NavigationRootRoute.page,
+      children: [AutoRoute(page: HomeRoute.page, initial: true)],
+    ),
   ];
 
   @override

@@ -206,4 +206,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectCountry => 'Select Country';
+
+  @override
+  String get welcome => 'Welcome,';
+
+  @override
+  String get businesses => 'Businesses';
+
+  @override
+  String get instructors => 'Instructors';
+
+  @override
+  String allLocation(String country) {
+    return 'All . $country';
+  }
+
+  @override
+  String get sky => 'Sky';
+
+  @override
+  String get sea => 'Sea';
+
+  @override
+  String get earth => 'Earth';
+
+  @override
+  String get energy => 'Energy';
 }

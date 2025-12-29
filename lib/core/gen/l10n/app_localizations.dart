@@ -481,6 +481,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Country'**
   String get selectCountry;
+
+  /// No description provided for @welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome,'**
+  String get welcome;
+
+  /// No description provided for @businesses.
+  ///
+  /// In en, this message translates to:
+  /// **'Businesses'**
+  String get businesses;
+
+  /// No description provided for @instructors.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructors'**
+  String get instructors;
+
+  /// No description provided for @allLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'All . {country}'**
+  String allLocation(String country);
+
+  /// No description provided for @sky.
+  ///
+  /// In en, this message translates to:
+  /// **'Sky'**
+  String get sky;
+
+  /// No description provided for @sea.
+  ///
+  /// In en, this message translates to:
+  /// **'Sea'**
+  String get sea;
+
+  /// No description provided for @earth.
+  ///
+  /// In en, this message translates to:
+  /// **'Earth'**
+  String get earth;
+
+  /// No description provided for @energy.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy'**
+  String get energy;
 }
 
 class _AppLocalizationsDelegate

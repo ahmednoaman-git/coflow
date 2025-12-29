@@ -70,5 +70,19 @@
   "registrationSuccess": "Registration successful! Please login to continue.",
   "searchCountry": "Search country...",
   "noCountriesFound": "No countries found",
-  "selectCountry": "Select Country"
+  "selectCountry": "Select Country",
+
+  "welcome": "Welcome,",
+  "businesses": "Businesses",
+  "instructors": "Instructors",
+  "allLocation": "All . {country}",
+  "@allLocation": {
+    "placeholders": {
+      "country": {"type": "String"}
+    }
+  },
+  "sky": "Sky",
+  "sea": "Sea",
+  "earth": "Earth",
+  "energy": "Energy"
 }

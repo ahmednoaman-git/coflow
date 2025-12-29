@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 ///
 /// Example:
 /// ```dart
-/// EzButton(
+/// MainButton(
 ///   text: 'Log In',
 ///   onPressed: () => login(),
 /// )
 /// ```
-class MainButton extends StatefulWidget {
+class MainButton extends StatelessWidget {
   /// The text to display on the button
   final String text;
 
@@ -59,55 +59,9 @@ class MainButton extends StatefulWidget {
   });
 
   @override
-  State<MainButton> createState() => _MainButtonState();
-}
-
-class _MainButtonState extends State<MainButton>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 150),
-    );
-    _scaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: 0.98,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _handleTapDown(TapDownDetails details) {
-    if (!widget.isDisabled && !widget.isLoading) {
-      _controller.forward();
-    }
-  }
-
-  void _handleTapUp(TapUpDetails details) {
-    if (!widget.isDisabled && !widget.isLoading) {
-      _controller.reverse();
-    }
-  }
-
-  void _handleTapCancel() {
-    if (!widget.isDisabled && !widget.isLoading) {
-      _controller.reverse();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final bool effectiveDisabled = widget.isDisabled || widget.isLoading;
-    final effectiveHeight = widget.height ?? 45.0;
+    final bool effectiveDisabled = isDisabled || isLoading;
+    final effectiveHeight = height ?? 45.0;
 
     // Determine colors based on state
     Color backgroundColor;
@@ -115,78 +69,62 @@ class _MainButtonState extends State<MainButton>
 
     if (effectiveDisabled) {
       backgroundColor =
-          widget.backgroundColor?.withValues(alpha: 0.5) ??
+          this.backgroundColor?.withValues(alpha: 0.5) ??
           context.colors.backgroundGreyTwo;
       contentColor =
-          widget.textColor?.withValues(alpha: 0.5) ??
-          context.colors.textDisabled;
+          textColor?.withValues(alpha: 0.5) ?? context.colors.textDisabled;
     } else {
-      backgroundColor = widget.backgroundColor ?? context.colors.signatureBlue;
-      contentColor = widget.textColor ?? context.colors.textWhite;
+      backgroundColor = this.backgroundColor ?? context.colors.signatureBlue;
+      contentColor = textColor ?? context.colors.textWhite;
     }
 
-    final shape = RoundedSuperellipseBorder(
-      borderRadius: BorderRadius.circular(12.0),
-    );
-
-    return ScaleTransition(
-      scale: _scaleAnimation,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeInOut,
-        height: effectiveHeight,
-        width: widget.width,
-        decoration: ShapeDecoration(shape: shape, color: backgroundColor),
-        child: Material(
-          color: Colors.transparent,
-          shape: shape,
-          child: InkWell(
-            customBorder: shape,
-            onTap: effectiveDisabled ? null : widget.onPressed,
-            onTapDown: effectiveDisabled ? null : _handleTapDown,
-            onTapUp: effectiveDisabled ? null : _handleTapUp,
-            onTapCancel: effectiveDisabled ? null : _handleTapCancel,
-            child: Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: context.spacing.s16),
-                child: widget.isLoading
-                    ? SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
+    return SizedBox(
+      height: effectiveHeight,
+      width: width,
+      child: TappableScale(
+        onTap: effectiveDisabled ? null : onPressed,
+        isDisabled: effectiveDisabled,
+        scaleEnd: 0.98,
+        animationDuration: const Duration(milliseconds: 150),
+        borderRadius: BorderRadius.circular(12.0),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeInOut,
+          decoration: ShapeDecoration(
+            shape: RoundedSuperellipseBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            color: backgroundColor,
+          ),
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: context.spacing.s16),
+              child: isLoading
+                  ? SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(contentColor),
+                        strokeWidth: 2.0,
+                      ),
+                    )
+                  : Row(
+                      mainAxisSize: .min,
+                      mainAxisAlignment: .center,
+                      spacing: context.spacing.s8,
+                      children: [
+                        if (leadingIcon != null)
+                          Icon(leadingIcon!, color: contentColor, size: 16),
+                        Text(
+                          text,
+                          style: context.typography.medium14.withColor(
                             contentColor,
                           ),
-                          strokeWidth: 2.0,
                         ),
-                      )
-                    : Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        spacing: context.spacing.s8,
-                        children: [
-                          if (widget.leadingIcon != null)
-                            Icon(
-                              widget.leadingIcon!,
-                              color: contentColor,
-                              size: 16,
-                            ),
-
-                          Text(
-                            widget.text,
-                            style: context.typography.medium14.withColor(
-                              contentColor,
-                            ),
-                          ),
-                          if (widget.trailingIcon != null)
-                            Icon(
-                              widget.trailingIcon!,
-                              color: contentColor,
-                              size: 16,
-                            ),
-                        ],
-                      ),
-              ),
+                        if (trailingIcon != null)
+                          Icon(trailingIcon!, color: contentColor, size: 16),
+                      ],
+                    ),
             ),
           ),
         ),
