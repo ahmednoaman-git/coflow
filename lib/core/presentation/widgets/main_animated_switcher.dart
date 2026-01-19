@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-/// A drop-in replacement for [AnimatedSwitcher] that wires in a
-/// [flutter_animate](https://pub.dev/packages/flutter_animate) transition.
-///
-/// By default it mixes a blur, fade, and subtle rotation. The effect can be
-/// tuned via the provided configuration parameters, while the rest of the API
-/// mirrors `AnimatedSwitcher` so existing usages can migrate easily.
-class MainAnimatedSwitcher extends StatelessWidget {
-  const MainAnimatedSwitcher({
-    super.key,
-    this.child,
-    this.duration = const Duration(milliseconds: 250),
-    this.reverseDuration,
-    this.switchInCurve = Curves.easeOutCubic,
-    this.switchOutCurve = Curves.easeInCubic,
-    this.layoutBuilder = AnimatedSwitcher.defaultLayoutBuilder,
-    this.transitionBuilder,
-    this.alignment = Alignment.center,
-    this.clipBehavior = Clip.hardEdge,
+/// Base configuration for animated switcher transitions.
+sealed class MainAnimatedSwitcherConfig {
+  const MainAnimatedSwitcherConfig();
+
+  /// Builds the transition widget for the given animation and child.
+  Widget buildTransition(Widget childAnimation, Animation<double> animation);
+}
+
+/// Configuration for blur/fade/rotate transition effects.
+class BlurFadeRotateTransitionConfig extends MainAnimatedSwitcherConfig {
+  const BlurFadeRotateTransitionConfig({
     this.blurSigma = 8,
     this.fadeBegin = 0,
     this.fadeEnd = 1,
@@ -28,36 +21,6 @@ class MainAnimatedSwitcher extends StatelessWidget {
     this.blurCurve,
     this.rotateCurve,
   });
-
-  /// The widget below this widget in the tree.
-  final Widget? child;
-
-  /// See [AnimatedSwitcher.duration].
-  final Duration duration;
-
-  /// See [AnimatedSwitcher.reverseDuration].
-  final Duration? reverseDuration;
-
-  /// See [AnimatedSwitcher.switchInCurve].
-  final Curve switchInCurve;
-
-  /// See [AnimatedSwitcher.switchOutCurve].
-  final Curve switchOutCurve;
-
-  /// See [AnimatedSwitcher.layoutBuilder].
-  final AnimatedSwitcherLayoutBuilder layoutBuilder;
-
-  /// Optional override for the switch animation builder. When omitted, the
-  /// custom blur/fade/rotate mix will be used.
-  final AnimatedSwitcherTransitionBuilder? transitionBuilder;
-
-  /// Alignment applied around the internal switcher to mimic
-  /// [AnimatedSwitcher.alignment].
-  final AlignmentGeometry alignment;
-
-  /// Clip applied around the internal switcher to mimic
-  /// [AnimatedSwitcher.clipBehavior].
-  final Clip clipBehavior;
 
   /// Amount of blur (sigma) to animate from/to.
   final double blurSigma;
@@ -84,6 +47,141 @@ class MainAnimatedSwitcher extends StatelessWidget {
   final Curve? rotateCurve;
 
   @override
+  Widget buildTransition(Widget childAnimation, Animation<double> animation) {
+    return _BlurFadeRotateTransition(
+      animation: animation,
+      config: this,
+      child: childAnimation,
+    );
+  }
+}
+
+/// Configuration for scale/fade transition effects.
+class ScaleFadeTransitionConfig extends MainAnimatedSwitcherConfig {
+  const ScaleFadeTransitionConfig({
+    this.scaleBegin = 0.0,
+    this.scaleEnd = 1.0,
+    this.fadeBegin = 0.0,
+    this.fadeEnd = 1.0,
+    this.scaleAlignment = Alignment.center,
+  });
+
+  /// Starting scale value.
+  final double scaleBegin;
+
+  /// Ending scale value.
+  final double scaleEnd;
+
+  /// Starting opacity for the fade effect.
+  final double fadeBegin;
+
+  /// Ending opacity for the fade effect.
+  final double fadeEnd;
+
+  /// Alignment point for the scale pivot.
+  final Alignment scaleAlignment;
+
+  @override
+  Widget buildTransition(Widget childAnimation, Animation<double> animation) {
+    return _ScaleFadeTransition(
+      animation: animation,
+      config: this,
+      child: childAnimation,
+    );
+  }
+}
+
+/// A drop-in replacement for [AnimatedSwitcher] that wires in a
+/// [flutter_animate](https://pub.dev/packages/flutter_animate) transition.
+///
+/// Use the default constructor [MainAnimatedSwitcher.blurFadeRotate] for a blur,
+/// fade, and subtle rotation effect, or [MainAnimatedSwitcher.scaleFade] for a
+/// scale and fade effect.
+class MainAnimatedSwitcher extends StatelessWidget {
+  /// Creates an animated switcher with the specified transition configuration.
+  const MainAnimatedSwitcher({
+    super.key,
+    this.child,
+    this.duration = const Duration(milliseconds: 250),
+    this.reverseDuration,
+    this.switchInCurve = Curves.easeOutCubic,
+    this.switchOutCurve = Curves.easeInCubic,
+    this.layoutBuilder = AnimatedSwitcher.defaultLayoutBuilder,
+    this.transitionBuilder,
+    this.alignment = Alignment.center,
+    this.clipBehavior = Clip.hardEdge,
+    required this.config,
+  });
+
+  /// Creates an animated switcher with blur, fade, and rotation effects.
+  ///
+  /// This is the default transition that mixes a blur, fade, and subtle rotation.
+  const MainAnimatedSwitcher.blurFadeRotate({
+    super.key,
+    this.child,
+    this.duration = const Duration(milliseconds: 250),
+    this.reverseDuration,
+    this.switchInCurve = Curves.easeOutCubic,
+    this.switchOutCurve = Curves.easeInCubic,
+    this.layoutBuilder = AnimatedSwitcher.defaultLayoutBuilder,
+    this.transitionBuilder,
+    this.alignment = Alignment.center,
+    this.clipBehavior = Clip.hardEdge,
+    BlurFadeRotateTransitionConfig blurFadeRotateConfig = const BlurFadeRotateTransitionConfig(),
+  }) : config = blurFadeRotateConfig;
+
+  /// Creates an animated switcher with scale and fade effects.
+  ///
+  /// This transition combines a scale animation with a fade animation for a
+  /// smooth zoom-in/out effect.
+  const MainAnimatedSwitcher.scaleFade({
+    super.key,
+    this.child,
+    this.duration = const Duration(milliseconds: 250),
+    this.reverseDuration,
+    this.switchInCurve = Curves.easeOutCubic,
+    this.switchOutCurve = Curves.easeInCubic,
+    this.layoutBuilder = AnimatedSwitcher.defaultLayoutBuilder,
+    this.transitionBuilder,
+    this.alignment = Alignment.center,
+    this.clipBehavior = Clip.hardEdge,
+    ScaleFadeTransitionConfig scaleFadeConfig = const ScaleFadeTransitionConfig(),
+  }) : config = scaleFadeConfig;
+
+  /// The widget below this widget in the tree.
+  final Widget? child;
+
+  /// See [AnimatedSwitcher.duration].
+  final Duration duration;
+
+  /// See [AnimatedSwitcher.reverseDuration].
+  final Duration? reverseDuration;
+
+  /// See [AnimatedSwitcher.switchInCurve].
+  final Curve switchInCurve;
+
+  /// See [AnimatedSwitcher.switchOutCurve].
+  final Curve switchOutCurve;
+
+  /// See [AnimatedSwitcher.layoutBuilder].
+  final AnimatedSwitcherLayoutBuilder layoutBuilder;
+
+  /// Optional override for the switch animation builder. When omitted, the
+  /// transition based on the factory used will be applied.
+  final AnimatedSwitcherTransitionBuilder? transitionBuilder;
+
+  /// Alignment applied around the internal switcher to mimic
+  /// [AnimatedSwitcher.alignment].
+  final AlignmentGeometry alignment;
+
+  /// Clip applied around the internal switcher to mimic
+  /// [AnimatedSwitcher.clipBehavior].
+  final Clip clipBehavior;
+
+  /// Configuration for the transition effect.
+  final MainAnimatedSwitcherConfig config;
+
+  @override
   Widget build(BuildContext context) {
     Widget result = AnimatedSwitcher(
       duration: duration,
@@ -91,7 +189,7 @@ class MainAnimatedSwitcher extends StatelessWidget {
       switchInCurve: switchInCurve,
       switchOutCurve: switchOutCurve,
       layoutBuilder: layoutBuilder,
-      transitionBuilder: transitionBuilder ?? _defaultTransitionBuilder,
+      transitionBuilder: transitionBuilder ?? config.buildTransition,
       child: child,
     );
 
@@ -109,53 +207,28 @@ class MainAnimatedSwitcher extends StatelessWidget {
 
     return result;
   }
-
-  Widget _defaultTransitionBuilder(Widget child, Animation<double> animation) {
-    return _MainAnimateSwitcherTransition(
-      animation: animation,
-      blurSigma: blurSigma,
-      fadeBegin: fadeBegin,
-      fadeEnd: fadeEnd,
-      rotationTurns: rotationTurns,
-      rotationAlignment: rotationAlignment,
-      fadeCurve: fadeCurve,
-      blurCurve: blurCurve,
-      rotateCurve: rotateCurve,
-      child: child,
-    );
-  }
 }
 
-class _MainAnimateSwitcherTransition extends StatefulWidget {
-  const _MainAnimateSwitcherTransition({
+// =============================================================================
+// Blur/Fade/Rotate Transition
+// =============================================================================
+
+class _BlurFadeRotateTransition extends StatefulWidget {
+  const _BlurFadeRotateTransition({
     required this.animation,
+    required this.config,
     required this.child,
-    required this.blurSigma,
-    required this.fadeBegin,
-    required this.fadeEnd,
-    required this.rotationTurns,
-    required this.rotationAlignment,
-    required this.fadeCurve,
-    required this.blurCurve,
-    required this.rotateCurve,
   });
 
   final Animation<double> animation;
+  final BlurFadeRotateTransitionConfig config;
   final Widget child;
-  final double blurSigma;
-  final double fadeBegin;
-  final double fadeEnd;
-  final double rotationTurns;
-  final Alignment rotationAlignment;
-  final Curve? fadeCurve;
-  final Curve? blurCurve;
-  final Curve? rotateCurve;
 
   @override
-  State<_MainAnimateSwitcherTransition> createState() => _MainAnimateSwitcherTransitionState();
+  State<_BlurFadeRotateTransition> createState() => _BlurFadeRotateTransitionState();
 }
 
-class _MainAnimateSwitcherTransitionState extends State<_MainAnimateSwitcherTransition> {
+class _BlurFadeRotateTransitionState extends State<_BlurFadeRotateTransition> {
   late final ValueAdapter _adapter;
   late final VoidCallback _animationListener;
 
@@ -170,7 +243,7 @@ class _MainAnimateSwitcherTransitionState extends State<_MainAnimateSwitcherTran
   }
 
   @override
-  void didUpdateWidget(covariant _MainAnimateSwitcherTransition oldWidget) {
+  void didUpdateWidget(covariant _BlurFadeRotateTransition oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.animation != widget.animation) {
       oldWidget.animation.removeListener(_animationListener);
@@ -187,24 +260,25 @@ class _MainAnimateSwitcherTransitionState extends State<_MainAnimateSwitcherTran
 
   @override
   Widget build(BuildContext context) {
+    final config = widget.config;
     final effects = <Effect<dynamic>>[
       FadeEffect(
-        begin: widget.fadeBegin,
-        end: widget.fadeEnd,
-        curve: widget.fadeCurve,
+        begin: config.fadeBegin,
+        end: config.fadeEnd,
+        curve: config.fadeCurve,
       ),
-      if (widget.blurSigma > 0)
+      if (config.blurSigma > 0)
         BlurEffect(
-          begin: Offset(widget.blurSigma, widget.blurSigma),
+          begin: Offset(config.blurSigma, config.blurSigma),
           end: Offset.zero,
-          curve: widget.blurCurve,
+          curve: config.blurCurve,
         ),
-      if (widget.rotationTurns != 0)
+      if (config.rotationTurns != 0)
         RotateEffect(
-          begin: widget.rotationTurns,
+          begin: config.rotationTurns,
           end: 0,
-          alignment: widget.rotationAlignment,
-          curve: widget.rotateCurve,
+          alignment: config.rotationAlignment,
+          curve: config.rotateCurve,
         ),
     ];
 
@@ -213,6 +287,44 @@ class _MainAnimateSwitcherTransitionState extends State<_MainAnimateSwitcherTran
       autoPlay: false,
       effects: effects,
       child: widget.child,
+    );
+  }
+}
+
+// =============================================================================
+// Scale/Fade Transition
+// =============================================================================
+
+class _ScaleFadeTransition extends StatelessWidget {
+  const _ScaleFadeTransition({
+    required this.animation,
+    required this.config,
+    required this.child,
+  });
+
+  final Animation<double> animation;
+  final ScaleFadeTransitionConfig config;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final scaleAnimation = Tween<double>(
+      begin: config.scaleBegin,
+      end: config.scaleEnd,
+    ).animate(animation);
+
+    final fadeAnimation = Tween<double>(
+      begin: config.fadeBegin,
+      end: config.fadeEnd,
+    ).animate(animation);
+
+    return ScaleTransition(
+      scale: scaleAnimation,
+      alignment: config.scaleAlignment,
+      child: FadeTransition(
+        opacity: fadeAnimation,
+        child: child,
+      ),
     );
   }
 }

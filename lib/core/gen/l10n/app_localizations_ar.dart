@@ -18,12 +18,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get onboardingStepOneDescription => 'تتبع الحضور اليومي بسلاسة';
 
   @override
-  String get onboardingStepTwoDescription =>
-      'إدارة طلبات الإجازة، الخطابات، القروض والمزيد بسهولة';
+  String get onboardingStepTwoDescription => 'إدارة طلبات الإجازة، الخطابات، القروض والمزيد بسهولة';
 
   @override
-  String get onboardingStepThreeDescription =>
-      'مراقبة قسائم راتبك ومصروفاتك بسهولة';
+  String get onboardingStepThreeDescription => 'مراقبة قسائم راتبك ومصروفاتك بسهولة';
 
   @override
   String get attendanceTitle => 'الحضور';
@@ -193,8 +191,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get otpSent => 'تم إرسال رمز التحقق بنجاح';
 
   @override
-  String get registrationSuccess =>
-      'تم التسجيل بنجاح! يرجى تسجيل الدخول للمتابعة.';
+  String get registrationSuccess => 'تم التسجيل بنجاح! يرجى تسجيل الدخول للمتابعة.';
 
   @override
   String get searchCountry => 'ابحث عن الدولة...';
@@ -230,4 +227,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get energy => 'الطاقة';
+
+  @override
+  String get locations => 'المواقع';
+
+  @override
+  String get selectGovernorateArea => 'اختر المحافظة/المنطقة';
+
+  @override
+  String get all => 'الكل';
+
+  @override
+  String get remote => 'عن بعد';
+
+  @override
+  String get confirm => 'تأكيد';
 }

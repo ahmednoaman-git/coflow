@@ -14,6 +14,8 @@ export 'caching/caching.dart';
 export 'data/data.dart';
 // Dependency Injection
 export 'di/injection.dart';
+// Domain
+export 'domain/domain.dart';
 // Extensions
 export 'extensions/extensions.dart';
 // Generated Assets

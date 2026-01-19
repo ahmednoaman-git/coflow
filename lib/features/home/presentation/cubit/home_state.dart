@@ -10,6 +10,8 @@ part 'home_state.freezed.dart';
 abstract class HomeState with _$HomeState {
   const factory HomeState({
     @Default(AsyncState.idle()) AsyncState<HomeEntity> homeRequest,
+    @Default(AsyncState.idle()) AsyncState<LocationsEntity> locationsRequest,
+    @Default(SelectedLocation()) SelectedLocation selectedLocation,
     int? selectedActivityLineId,
   }) = _HomeState;
 }

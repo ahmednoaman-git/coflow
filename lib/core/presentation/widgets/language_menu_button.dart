@@ -101,7 +101,7 @@ class _LanguageMenuChip extends StatelessWidget {
           vertical: context.spacing.s8,
         ),
         child: UnconstrainedBox(
-          child: MainAnimatedSwitcher(
+          child: MainAnimatedSwitcher.blurFadeRotate(
             duration: 100.ms,
             child: Row(
               key: ValueKey(context.watch<LocalizationCubit>().state.locale),

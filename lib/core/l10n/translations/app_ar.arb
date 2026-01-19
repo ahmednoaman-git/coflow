@@ -84,5 +84,11 @@
 	"sky": "السماء",
 	"sea": "البحر",
 	"earth": "الأرض",
-	"energy": "الطاقة"
+	"energy": "الطاقة",
+
+	"locations": "المواقع",
+	"selectGovernorateArea": "اختر المحافظة/المنطقة",
+	"all": "الكل",
+	"remote": "عن بعد",
+	"confirm": "تأكيد"
 }

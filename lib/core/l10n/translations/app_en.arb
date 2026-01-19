@@ -84,5 +84,11 @@
   "sky": "Sky",
   "sea": "Sea",
   "earth": "Earth",
-  "energy": "Energy"
+  "energy": "Energy",
+
+  "locations": "LOCATIONS",
+  "selectGovernorateArea": "SELECT GOVERNORATE/AREA",
+  "all": "All",
+  "remote": "Remote",
+  "confirm": "Confirm"
 }

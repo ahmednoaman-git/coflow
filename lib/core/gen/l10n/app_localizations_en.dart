@@ -15,16 +15,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get inoPeople => 'InoPeople';
 
   @override
-  String get onboardingStepOneDescription =>
-      'Seamless daily attendance tracking';
+  String get onboardingStepOneDescription => 'Seamless daily attendance tracking';
 
   @override
-  String get onboardingStepTwoDescription =>
-      'Easily manage leave, letter, loan requests and more';
+  String get onboardingStepTwoDescription => 'Easily manage leave, letter, loan requests and more';
 
   @override
-  String get onboardingStepThreeDescription =>
-      'Monitor your payslips and expenses effortlessly';
+  String get onboardingStepThreeDescription => 'Monitor your payslips and expenses effortlessly';
 
   @override
   String get attendanceTitle => 'Attendance';
@@ -195,8 +192,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get otpSent => 'Verification code sent successfully';
 
   @override
-  String get registrationSuccess =>
-      'Registration successful! Please login to continue.';
+  String get registrationSuccess => 'Registration successful! Please login to continue.';
 
   @override
   String get searchCountry => 'Search country...';
@@ -232,4 +228,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get energy => 'Energy';
+
+  @override
+  String get locations => 'LOCATIONS';
+
+  @override
+  String get selectGovernorateArea => 'SELECT GOVERNORATE/AREA';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get remote => 'Remote';
+
+  @override
+  String get confirm => 'Confirm';
 }

@@ -1,6 +1,7 @@
 ---
 description: Theme system instructions using custom ThemeExtension for colors, typography, spacing, and shadows
 ---
+
 # Theme System Instructions
 
 This project uses a custom theme system based on `ThemeExtension`.
@@ -151,3 +152,10 @@ Use `context` helpers for common UI feedback:
 - `context.showErrorSnackBar(message)`
 - `context.showInfoSnackBar(message)`
 - `context.showWarningSnackBar(message)`
+
+## Icons
+Use Solar Outlined Icons like so:
+
+```dart
+SolarIconsBold.checkCircle
+```

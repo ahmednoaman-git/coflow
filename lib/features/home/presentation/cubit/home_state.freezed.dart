@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomeState {
 
- AsyncState<HomeEntity> get homeRequest; int? get selectedActivityLineId;
+ AsyncState<HomeEntity> get homeRequest; AsyncState<LocationsEntity> get locationsRequest; SelectedLocation get selectedLocation; int? get selectedActivityLineId;
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $HomeStateCopyWith<HomeState> get copyWith => _$HomeStateCopyWithImpl<HomeState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.homeRequest, homeRequest) || other.homeRequest == homeRequest)&&(identical(other.selectedActivityLineId, selectedActivityLineId) || other.selectedActivityLineId == selectedActivityLineId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.homeRequest, homeRequest) || other.homeRequest == homeRequest)&&(identical(other.locationsRequest, locationsRequest) || other.locationsRequest == locationsRequest)&&(identical(other.selectedLocation, selectedLocation) || other.selectedLocation == selectedLocation)&&(identical(other.selectedActivityLineId, selectedActivityLineId) || other.selectedActivityLineId == selectedActivityLineId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,homeRequest,selectedActivityLineId);
+int get hashCode => Object.hash(runtimeType,homeRequest,locationsRequest,selectedLocation,selectedActivityLineId);
 
 @override
 String toString() {
-  return 'HomeState(homeRequest: $homeRequest, selectedActivityLineId: $selectedActivityLineId)';
+  return 'HomeState(homeRequest: $homeRequest, locationsRequest: $locationsRequest, selectedLocation: $selectedLocation, selectedActivityLineId: $selectedActivityLineId)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $HomeStateCopyWith<$Res>  {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) = _$HomeStateCopyWithImpl;
 @useResult
 $Res call({
- AsyncState<HomeEntity> homeRequest, int? selectedActivityLineId
+ AsyncState<HomeEntity> homeRequest, AsyncState<LocationsEntity> locationsRequest, SelectedLocation selectedLocation, int? selectedActivityLineId
 });
 
 
-$AsyncStateCopyWith<HomeEntity, $Res> get homeRequest;
+$AsyncStateCopyWith<HomeEntity, $Res> get homeRequest;$AsyncStateCopyWith<LocationsEntity, $Res> get locationsRequest;$SelectedLocationCopyWith<$Res> get selectedLocation;
 
 }
 /// @nodoc
@@ -62,10 +62,12 @@ class _$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? homeRequest = null,Object? selectedActivityLineId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? homeRequest = null,Object? locationsRequest = null,Object? selectedLocation = null,Object? selectedActivityLineId = freezed,}) {
   return _then(_self.copyWith(
 homeRequest: null == homeRequest ? _self.homeRequest : homeRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<HomeEntity>,selectedActivityLineId: freezed == selectedActivityLineId ? _self.selectedActivityLineId : selectedActivityLineId // ignore: cast_nullable_to_non_nullable
+as AsyncState<HomeEntity>,locationsRequest: null == locationsRequest ? _self.locationsRequest : locationsRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<LocationsEntity>,selectedLocation: null == selectedLocation ? _self.selectedLocation : selectedLocation // ignore: cast_nullable_to_non_nullable
+as SelectedLocation,selectedActivityLineId: freezed == selectedActivityLineId ? _self.selectedActivityLineId : selectedActivityLineId // ignore: cast_nullable_to_non_nullable
 as int?,
   ));
 }
@@ -77,6 +79,24 @@ $AsyncStateCopyWith<HomeEntity, $Res> get homeRequest {
   
   return $AsyncStateCopyWith<HomeEntity, $Res>(_self.homeRequest, (value) {
     return _then(_self.copyWith(homeRequest: value));
+  });
+}/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AsyncStateCopyWith<LocationsEntity, $Res> get locationsRequest {
+  
+  return $AsyncStateCopyWith<LocationsEntity, $Res>(_self.locationsRequest, (value) {
+    return _then(_self.copyWith(locationsRequest: value));
+  });
+}/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SelectedLocationCopyWith<$Res> get selectedLocation {
+  
+  return $SelectedLocationCopyWith<$Res>(_self.selectedLocation, (value) {
+    return _then(_self.copyWith(selectedLocation: value));
   });
 }
 }
@@ -160,10 +180,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AsyncState<HomeEntity> homeRequest,  int? selectedActivityLineId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AsyncState<HomeEntity> homeRequest,  AsyncState<LocationsEntity> locationsRequest,  SelectedLocation selectedLocation,  int? selectedActivityLineId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeState() when $default != null:
-return $default(_that.homeRequest,_that.selectedActivityLineId);case _:
+return $default(_that.homeRequest,_that.locationsRequest,_that.selectedLocation,_that.selectedActivityLineId);case _:
   return orElse();
 
 }
@@ -181,10 +201,10 @@ return $default(_that.homeRequest,_that.selectedActivityLineId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AsyncState<HomeEntity> homeRequest,  int? selectedActivityLineId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AsyncState<HomeEntity> homeRequest,  AsyncState<LocationsEntity> locationsRequest,  SelectedLocation selectedLocation,  int? selectedActivityLineId)  $default,) {final _that = this;
 switch (_that) {
 case _HomeState():
-return $default(_that.homeRequest,_that.selectedActivityLineId);case _:
+return $default(_that.homeRequest,_that.locationsRequest,_that.selectedLocation,_that.selectedActivityLineId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +221,10 @@ return $default(_that.homeRequest,_that.selectedActivityLineId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AsyncState<HomeEntity> homeRequest,  int? selectedActivityLineId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AsyncState<HomeEntity> homeRequest,  AsyncState<LocationsEntity> locationsRequest,  SelectedLocation selectedLocation,  int? selectedActivityLineId)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeState() when $default != null:
-return $default(_that.homeRequest,_that.selectedActivityLineId);case _:
+return $default(_that.homeRequest,_that.locationsRequest,_that.selectedLocation,_that.selectedActivityLineId);case _:
   return null;
 
 }
@@ -216,10 +236,12 @@ return $default(_that.homeRequest,_that.selectedActivityLineId);case _:
 
 
 class _HomeState implements HomeState {
-  const _HomeState({this.homeRequest = const AsyncState.idle(), this.selectedActivityLineId});
+  const _HomeState({this.homeRequest = const AsyncState.idle(), this.locationsRequest = const AsyncState.idle(), this.selectedLocation = const SelectedLocation(), this.selectedActivityLineId});
   
 
 @override@JsonKey() final  AsyncState<HomeEntity> homeRequest;
+@override@JsonKey() final  AsyncState<LocationsEntity> locationsRequest;
+@override@JsonKey() final  SelectedLocation selectedLocation;
 @override final  int? selectedActivityLineId;
 
 /// Create a copy of HomeState
@@ -232,16 +254,16 @@ _$HomeStateCopyWith<_HomeState> get copyWith => __$HomeStateCopyWithImpl<_HomeSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.homeRequest, homeRequest) || other.homeRequest == homeRequest)&&(identical(other.selectedActivityLineId, selectedActivityLineId) || other.selectedActivityLineId == selectedActivityLineId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.homeRequest, homeRequest) || other.homeRequest == homeRequest)&&(identical(other.locationsRequest, locationsRequest) || other.locationsRequest == locationsRequest)&&(identical(other.selectedLocation, selectedLocation) || other.selectedLocation == selectedLocation)&&(identical(other.selectedActivityLineId, selectedActivityLineId) || other.selectedActivityLineId == selectedActivityLineId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,homeRequest,selectedActivityLineId);
+int get hashCode => Object.hash(runtimeType,homeRequest,locationsRequest,selectedLocation,selectedActivityLineId);
 
 @override
 String toString() {
-  return 'HomeState(homeRequest: $homeRequest, selectedActivityLineId: $selectedActivityLineId)';
+  return 'HomeState(homeRequest: $homeRequest, locationsRequest: $locationsRequest, selectedLocation: $selectedLocation, selectedActivityLineId: $selectedActivityLineId)';
 }
 
 
@@ -252,11 +274,11 @@ abstract mixin class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Re
   factory _$HomeStateCopyWith(_HomeState value, $Res Function(_HomeState) _then) = __$HomeStateCopyWithImpl;
 @override @useResult
 $Res call({
- AsyncState<HomeEntity> homeRequest, int? selectedActivityLineId
+ AsyncState<HomeEntity> homeRequest, AsyncState<LocationsEntity> locationsRequest, SelectedLocation selectedLocation, int? selectedActivityLineId
 });
 
 
-@override $AsyncStateCopyWith<HomeEntity, $Res> get homeRequest;
+@override $AsyncStateCopyWith<HomeEntity, $Res> get homeRequest;@override $AsyncStateCopyWith<LocationsEntity, $Res> get locationsRequest;@override $SelectedLocationCopyWith<$Res> get selectedLocation;
 
 }
 /// @nodoc
@@ -269,10 +291,12 @@ class __$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? homeRequest = null,Object? selectedActivityLineId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? homeRequest = null,Object? locationsRequest = null,Object? selectedLocation = null,Object? selectedActivityLineId = freezed,}) {
   return _then(_HomeState(
 homeRequest: null == homeRequest ? _self.homeRequest : homeRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<HomeEntity>,selectedActivityLineId: freezed == selectedActivityLineId ? _self.selectedActivityLineId : selectedActivityLineId // ignore: cast_nullable_to_non_nullable
+as AsyncState<HomeEntity>,locationsRequest: null == locationsRequest ? _self.locationsRequest : locationsRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<LocationsEntity>,selectedLocation: null == selectedLocation ? _self.selectedLocation : selectedLocation // ignore: cast_nullable_to_non_nullable
+as SelectedLocation,selectedActivityLineId: freezed == selectedActivityLineId ? _self.selectedActivityLineId : selectedActivityLineId // ignore: cast_nullable_to_non_nullable
 as int?,
   ));
 }
@@ -285,6 +309,24 @@ $AsyncStateCopyWith<HomeEntity, $Res> get homeRequest {
   
   return $AsyncStateCopyWith<HomeEntity, $Res>(_self.homeRequest, (value) {
     return _then(_self.copyWith(homeRequest: value));
+  });
+}/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AsyncStateCopyWith<LocationsEntity, $Res> get locationsRequest {
+  
+  return $AsyncStateCopyWith<LocationsEntity, $Res>(_self.locationsRequest, (value) {
+    return _then(_self.copyWith(locationsRequest: value));
+  });
+}/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SelectedLocationCopyWith<$Res> get selectedLocation {
+  
+  return $SelectedLocationCopyWith<$Res>(_self.selectedLocation, (value) {
+    return _then(_self.copyWith(selectedLocation: value));
   });
 }
 }

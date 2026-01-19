@@ -52,6 +52,11 @@ import '../../features/splash/presentation/state/splash_cubit.dart' as _i315;
 import '../caching/cache_client.dart' as _i1035;
 import '../core.dart' as _i351;
 import '../data/auth/auth_state_manager.dart' as _i224;
+import '../data/locations/datasources/datasources.dart' as _i276;
+import '../data/locations/datasources/locations_remote_datasource.dart' as _i34;
+import '../data/locations/locations_repository_impl.dart' as _i522;
+import '../domain/repositories/locations_repository.dart' as _i222;
+import '../domain/use_cases/get_locations_use_case.dart' as _i913;
 import '../l10n/localization_cubit/localization_cubit.dart' as _i724;
 import '../l10n/localization_manager.dart' as _i128;
 import '../network/dio_client.dart' as _i667;
@@ -97,6 +102,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(
       () => registerModule.dio(gh<_i667.DioClient>()),
     );
+    gh.lazySingleton<_i34.LocationsRemoteDataSource>(
+      () => _i34.LocationsRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i14.AuthRemoteDataSource>(
       () => _i14.AuthRemoteDataSource(gh<_i351.DioClient>()),
     );
@@ -112,8 +120,21 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i351.AuthStateManager>(),
       ),
     );
+    gh.lazySingleton<_i222.LocationsRepository>(
+      () =>
+          _i522.LocationsRepositoryImpl(gh<_i276.LocationsRemoteDataSource>()),
+    );
     gh.lazySingleton<_i261.GetHomeUseCase>(
       () => _i261.GetHomeUseCase(gh<_i0.HomeRepository>()),
+    );
+    gh.lazySingleton<_i913.GetLocationsUseCase>(
+      () => _i913.GetLocationsUseCase(gh<_i222.LocationsRepository>()),
+    );
+    gh.factory<_i9.HomeCubit>(
+      () => _i9.HomeCubit(
+        gh<_i261.GetHomeUseCase>(),
+        gh<_i351.GetLocationsUseCase>(),
+      ),
     );
     gh.lazySingleton<_i146.LoginUseCase>(
       () => _i146.LoginUseCase(gh<_i625.AuthenticationRepository>()),
@@ -133,7 +154,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i121.VerifyOtpUseCase>(
       () => _i121.VerifyOtpUseCase(gh<_i625.AuthenticationRepository>()),
     );
-    gh.factory<_i9.HomeCubit>(() => _i9.HomeCubit(gh<_i261.GetHomeUseCase>()));
     gh.factory<_i1040.RegisterCubit>(
       () => _i1040.RegisterCubit(
         gh<_i22.RegisterUseCase>(),

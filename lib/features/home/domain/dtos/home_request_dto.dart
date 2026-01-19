@@ -15,7 +15,8 @@ abstract class HomeRequestDto with _$HomeRequestDto {
 /// Location type for home API filter.
 enum LocationType {
   addressBased,
-  remoteLocation;
+  remoteLocation
+  ;
 
   String get value => switch (this) {
     addressBased => 'address based',

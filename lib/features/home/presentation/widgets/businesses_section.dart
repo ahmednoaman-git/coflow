@@ -1,5 +1,8 @@
 import 'package:coflow_users_v2/core/core.dart';
+import 'package:coflow_users_v2/features/home/presentation/cubit/home_cubit.dart';
+import 'package:coflow_users_v2/features/home/presentation/cubit/home_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/entities.dart';
 import 'business_card.dart';
@@ -10,7 +13,6 @@ class BusinessesSection extends StatelessWidget {
     super.key,
     required this.profiles,
     this.onBusinessTap,
-    this.onFilterTap,
   });
 
   /// List of business profiles to display.
@@ -18,9 +20,6 @@ class BusinessesSection extends StatelessWidget {
 
   /// Callback when a business card is tapped.
   final void Function(ProfileEntity)? onBusinessTap;
-
-  /// Callback when the filter button is tapped.
-  final VoidCallback? onFilterTap;
 
   @override
   Widget build(BuildContext context) {
@@ -37,37 +36,8 @@ class BusinessesSection extends StatelessWidget {
                 context.l10n.businesses,
                 style: context.typography.bold18.primary(context),
               ),
-              // Filter button
-              GestureDetector(
-                onTap: onFilterTap,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: context.spacing.s12,
-                    vertical: context.spacing.s8,
-                  ),
-                  decoration: ShapeDecoration(
-                    color: context.colors.signatureBlue,
-                    shape: RoundedSuperellipseBorder(
-                      borderRadius: BorderRadius.circular(context.spacing.s24),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    spacing: context.spacing.s4,
-                    children: [
-                      Icon(
-                        Icons.location_on_outlined,
-                        size: 16,
-                        color: context.colors.textWhite,
-                      ),
-                      Text(
-                        context.l10n.allLocation('Egypt'),
-                        style: context.typography.medium12.inverse(context),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // Location filter button
+              const _LocationFilterButton(),
             ],
           ),
         ),
@@ -90,6 +60,65 @@ class BusinessesSection extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Location filter button that shows the bottom sheet
+class _LocationFilterButton extends StatelessWidget {
+  const _LocationFilterButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+      buildWhen: (previous, current) =>
+          previous.locationsRequest != current.locationsRequest ||
+          previous.selectedLocation != current.selectedLocation,
+      builder: (context, state) {
+        final isLoading = state.locationsRequest.isLoading;
+        final locations = state.locationsRequest.isSuccess
+            ? (state.locationsRequest as AsyncSuccess<LocationsEntity>).data
+            : null;
+
+        return LocationButton(
+          selection: state.selectedLocation,
+          isLoading: isLoading,
+          backgroundColor: context.colors.signatureBlue,
+          textColor: context.colors.textWhite,
+          iconColor: context.colors.textWhite,
+          onTap: locations != null
+              ? () => _showLocationBottomSheet(
+                  context,
+                  locations: locations,
+                  currentSelection: state.selectedLocation,
+                )
+              : null,
+        );
+      },
+    );
+  }
+
+  void _showLocationBottomSheet(
+    BuildContext context, {
+    required LocationsEntity locations,
+    required SelectedLocation currentSelection,
+  }) {
+    final homeCubit = context.read<HomeCubit>();
+
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: context.colors.backgroundWhite,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(context.spacing.s24),
+        ),
+      ),
+      builder: (context) => LocationSelectorBottomSheet(
+        locations: locations,
+        initialSelection: currentSelection,
+        onConfirm: homeCubit.selectLocation,
+      ),
     );
   }
 }
