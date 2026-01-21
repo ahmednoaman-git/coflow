@@ -90,5 +90,23 @@
   "selectGovernorateArea": "SELECT GOVERNORATE/AREA",
   "all": "All",
   "remote": "Remote",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+
+  "activityLineSky": "Sky",
+  "activityLineSea": "Sea",
+  "activityLineEarth": "Earth",
+  "activityLineEnergy": "Energy",
+
+  "selectedCount": "{count} selected",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "remoteWithCount": "Remote ({count})",
+  "@remoteWithCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

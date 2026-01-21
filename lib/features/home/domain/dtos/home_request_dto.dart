@@ -1,3 +1,4 @@
+import 'package:coflow_users_v2/core/domain/enums/enums.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'home_request_dto.freezed.dart';
@@ -10,16 +11,4 @@ abstract class HomeRequestDto with _$HomeRequestDto {
     int? cityId,
     int? areaId,
   }) = _HomeRequestDto;
-}
-
-/// Location type for home API filter.
-enum LocationType {
-  addressBased,
-  remoteLocation
-  ;
-
-  String get value => switch (this) {
-    addressBased => 'address based',
-    remoteLocation => 'remote location',
-  };
 }

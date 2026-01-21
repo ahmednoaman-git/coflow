@@ -6,12 +6,16 @@ part of 'area_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AreaModel _$AreaModelFromJson(Map<String, dynamic> json) => AreaModel(
-  id: (json['id'] as num).toInt(),
-  name: json['name'] as String,
-  countryId: (json['country_id'] as num).toInt(),
-  cityId: (json['city_id'] as num).toInt(),
-);
+AreaModel _$AreaModelFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('AreaModel', json, ($checkedConvert) {
+      final val = AreaModel(
+        id: $checkedConvert('id', (v) => (v as num).toInt()),
+        name: $checkedConvert('name', (v) => v as String),
+        countryId: $checkedConvert('country_id', (v) => (v as num?)?.toInt()),
+        cityId: $checkedConvert('city_id', (v) => (v as num?)?.toInt()),
+      );
+      return val;
+    }, fieldKeyMap: const {'countryId': 'country_id', 'cityId': 'city_id'});
 
 Map<String, dynamic> _$AreaModelToJson(AreaModel instance) => <String, dynamic>{
   'id': instance.id,

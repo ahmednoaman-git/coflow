@@ -8,6 +8,6 @@ abstract class CityEntity with _$CityEntity {
   const factory CityEntity({
     required int id,
     required String name,
-    required int countryId,
+    int? countryId,
   }) = _CityEntity;
 }

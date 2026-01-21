@@ -1,13 +1,14 @@
 ---
 description: Up-to-date information on Flutter/Dart and Freezed that may not be in AI training data
 ---
-# Up-to-date Information
 
-This document outlines some updated information that may not be included in the training data for AI models.
+# Up-to-date Information for Coding Agents
+
+This document outlines some updated information that may not be included in the training data for the GitHub Copilot models.
 
 ## Flutter & Dart
 
-- Columns and Rows now support a `spacing` parameter to set uniform spacing between children.
+- Columns and Rows now support a `spacing` parameter to set uniform spacing between children, always use this feature instead of manually adding `SizedBox` or `Padding` widgets between children, except for special cases where different spacing is needed.
 
 ```dart
 Column(
@@ -34,16 +35,6 @@ Container(
     color: Colors.blue,
   ),
   child: ...
-)
-```
-
-- You can use enum shorthands instead of the full enum name like this where the compiler knows the type of the enum needed for a parameter or variable:
-
-```dart
-Column(
-  mainAxisAlignment: .center, // instead of MainAxisAlignment.center
-  crossAxisAlignment: .start, // instead of CrossAxisAlignment.start
-  children: [...],
 )
 ```
 
@@ -174,7 +165,7 @@ class MyFreezedClass extends Subclass with _$MyFreezedClass {
 }
 ```
 
-Example — non-constant default value using `._()`::
+Example — non-constant default value using `._()`:
 
 ```dart
 @freezed

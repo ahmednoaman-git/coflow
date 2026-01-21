@@ -554,6 +554,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Confirm'**
   String get confirm;
+
+  /// No description provided for @activityLineSky.
+  ///
+  /// In en, this message translates to:
+  /// **'Sky'**
+  String get activityLineSky;
+
+  /// No description provided for @activityLineSea.
+  ///
+  /// In en, this message translates to:
+  /// **'Sea'**
+  String get activityLineSea;
+
+  /// No description provided for @activityLineEarth.
+  ///
+  /// In en, this message translates to:
+  /// **'Earth'**
+  String get activityLineEarth;
+
+  /// No description provided for @activityLineEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy'**
+  String get activityLineEnergy;
+
+  /// No description provided for @selectedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String selectedCount(int count);
+
+  /// No description provided for @remoteWithCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Remote ({count})'**
+  String remoteWithCount(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

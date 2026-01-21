@@ -8,7 +8,7 @@ abstract class AreaEntity with _$AreaEntity {
   const factory AreaEntity({
     required int id,
     required String name,
-    required int countryId,
-    required int cityId,
+    int? countryId,
+    int? cityId,
   }) = _AreaEntity;
 }

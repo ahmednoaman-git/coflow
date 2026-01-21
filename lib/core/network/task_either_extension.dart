@@ -6,7 +6,10 @@ extension AsyncTaskExtension on AsyncTask {
   static AsyncTask<R> tryCatchCacheFailure<R>(Future<R> Function() task) {
     return AsyncTask.tryCatch(
       task,
-      (error, stackTrace) => CacheFailure(error.toString()),
+      (error, stackTrace) => CacheFailure(
+        error.toString(),
+        exception: error is Exception ? error : Exception(error.toString()),
+      ),
     );
   }
 

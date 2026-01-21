@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../domain/entities/entities.dart';
+import '../domain/entities/entities.dart' hide ActivityLineEntity;
 import 'cubit/home_cubit.dart';
 import 'cubit/home_state.dart';
 import 'widgets/widgets.dart';
@@ -95,7 +95,7 @@ class _ActivityLinesRow extends StatelessWidget {
   static const double _maxGridWidth = 400.0;
 
   /// Standard activity lines (non-API related).
-  static const _activityLines = ['Sky', 'Sea', 'Earth', 'Energy'];
+  static final List<ActivityLineEntity> _activityLines = ActivityLineEntity.all;
 
   @override
   Widget build(BuildContext context) {
@@ -111,11 +111,10 @@ class _ActivityLinesRow extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: _activityLines.map((activityLine) {
             return ActivityLineChip(
-              name: activityLine,
+              name: activityLine.getName(context.l10n),
               isSelected: false,
-              onTap: () {
-                // TODO: Navigate to activity line screen
-              },
+              onTap: () =>
+                  context.router.push(ActivityLineFacilitiesRoute(activityLine: activityLine)),
             );
           }).toList(),
         ),

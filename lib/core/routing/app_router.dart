@@ -14,7 +14,10 @@ class AppRouter extends RootStackRouter {
     // Main application routes
     AutoRoute(
       page: NavigationRootRoute.page,
-      children: [AutoRoute(page: HomeRoute.page, initial: true)],
+      children: [
+        AutoRoute(page: HomeRoute.page, initial: true),
+        AutoRoute(page: ActivityLineFacilitiesRoute.page),
+      ],
     ),
   ];
 

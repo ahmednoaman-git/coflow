@@ -242,4 +242,26 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get confirm => 'تأكيد';
+
+  @override
+  String get activityLineSky => 'السماء';
+
+  @override
+  String get activityLineSea => 'البحر';
+
+  @override
+  String get activityLineEarth => 'الأرض';
+
+  @override
+  String get activityLineEnergy => 'الطاقة';
+
+  @override
+  String selectedCount(int count) {
+    return '$count محدد';
+  }
+
+  @override
+  String remoteWithCount(int count) {
+    return 'عن بعد ($count)';
+  }
 }

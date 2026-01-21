@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import 'async_state.dart';
 import 'failure.dart';
 import 'types.dart';
@@ -77,7 +79,10 @@ class AsyncRequestManager<TWholeState, TPartialState> {
     // Execute the request and handle the result
     final result = await actualRequest!.run();
     result.fold(
-      (failure) => _emitPartial(AsyncState.error(failure)),
+      (failure) {
+        debugPrint('AsyncRequestManager: Error: $failure');
+        _emitPartial(AsyncState.error(failure));
+      },
       (data) => _emitPartial(AsyncState.success(data)),
     );
   }

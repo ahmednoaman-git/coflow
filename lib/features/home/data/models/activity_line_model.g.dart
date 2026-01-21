@@ -7,13 +7,16 @@ part of 'activity_line_model.dart';
 // **************************************************************************
 
 ActivityLineModel _$ActivityLineModelFromJson(Map<String, dynamic> json) =>
-    ActivityLineModel(
-      id: (json['id'] as num).toInt(),
-      name: json['name'] as String,
-      image: json['image'] as String?,
-      color: json['color'] as String?,
-      facilities: (json['facilities'] as num).toInt(),
-    );
+    $checkedCreate('ActivityLineModel', json, ($checkedConvert) {
+      final val = ActivityLineModel(
+        id: $checkedConvert('id', (v) => (v as num).toInt()),
+        name: $checkedConvert('name', (v) => v as String),
+        image: $checkedConvert('image', (v) => v as String?),
+        color: $checkedConvert('color', (v) => v as String?),
+        facilities: $checkedConvert('facilities', (v) => (v as num).toInt()),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$ActivityLineModelToJson(ActivityLineModel instance) =>
     <String, dynamic>{

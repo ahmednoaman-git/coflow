@@ -243,4 +243,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirm => 'Confirm';
+
+  @override
+  String get activityLineSky => 'Sky';
+
+  @override
+  String get activityLineSea => 'Sea';
+
+  @override
+  String get activityLineEarth => 'Earth';
+
+  @override
+  String get activityLineEnergy => 'Energy';
+
+  @override
+  String selectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String remoteWithCount(int count) {
+    return 'Remote ($count)';
+  }
 }

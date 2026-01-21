@@ -20,20 +20,23 @@ Failure mapDioErrorToFailure(Object error, StackTrace stackTrace) {
     switch (error.type) {
       // Connection timeout - network issue
       case DioExceptionType.connectionTimeout:
-        return const NetworkFailure(
+        return NetworkFailure(
           'Connection timeout. Please check your internet connection and try again.',
+          exception: error,
         );
 
       // Send timeout - network issue
       case DioExceptionType.sendTimeout:
-        return const NetworkFailure(
+        return NetworkFailure(
           'Request timeout. Please check your internet connection and try again.',
+          exception: error,
         );
 
       // Receive timeout - network issue
       case DioExceptionType.receiveTimeout:
-        return const NetworkFailure(
+        return NetworkFailure(
           'Response timeout. The server took too long to respond.',
+          exception: error,
         );
 
       // Bad response - HTTP error codes
@@ -42,30 +45,36 @@ Failure mapDioErrorToFailure(Object error, StackTrace stackTrace) {
 
       // Request cancelled by user
       case DioExceptionType.cancel:
-        return const NetworkFailure('Request was cancelled.');
+        return NetworkFailure('Request was cancelled.', exception: error);
 
       // Connection error - no internet or server unreachable
       case DioExceptionType.connectionError:
-        return const NetworkFailure(
+        return NetworkFailure(
           'Connection failed. Please check your internet connection.',
+          exception: error,
         );
 
       // Bad certificate - SSL/TLS error
       case DioExceptionType.badCertificate:
-        return const NetworkFailure(
+        return NetworkFailure(
           'Security certificate error. Please contact support.',
+          exception: error,
         );
 
       // Unknown Dio error
       case DioExceptionType.unknown:
         return NetworkFailure(
           'Network error: ${error.message ?? "Unknown error occurred"}',
+          exception: error,
         );
     }
   }
 
   // Fallback for non-Dio errors
-  return UnknownFailure('Unexpected error: ${error.toString()}');
+  return UnknownFailure(
+    'Unexpected error: ${error.toString()}',
+    exception: error is Exception ? error : null,
+  );
 }
 
 /// Maps HTTP response errors to appropriate [Failure] types.
@@ -85,42 +94,51 @@ Failure _mapHttpError(DioException error) {
     case ApiConstants.statusBadRequest:
       return BadRequestFailure(
         errorMessage ?? 'Bad request. Please check your input and try again.',
+        exception: error,
       );
 
     case ApiConstants.statusUnauthorized:
       return AuthenticationFailure(
         errorMessage ?? 'Unauthorized. Please log in and try again.',
+        exception: error,
       );
 
     case ApiConstants.statusForbidden:
       return AuthorizationFailure(
-        errorMessage ??
-            'Access denied. You do not have permission to access this resource.',
+        errorMessage ?? 'Access denied. You do not have permission to access this resource.',
+        exception: error,
       );
 
     case ApiConstants.statusNotFound:
-      return NotFoundFailure(errorMessage ?? 'Resource not found.');
+      return NotFoundFailure(
+        errorMessage ?? 'Resource not found.',
+        exception: error,
+      );
 
     case ApiConstants.statusUnprocessableEntity:
       return ValidationFailure(
         errorMessage ?? 'Validation error. Please check your input.',
+        exception: error,
       );
 
     case ApiConstants.statusInternalServerError:
       return ServerFailure(
         errorMessage ?? 'Internal server error. Please try again later.',
+        exception: error,
       );
 
     // Handle other 5xx errors
     case int code when code >= 500:
       return ServerFailure(
         errorMessage ?? 'Server error ($code). Please try again later.',
+        exception: error,
       );
 
     // Handle other 4xx errors
     case int code when code >= 400 && code < 500:
       return BadRequestFailure(
         errorMessage ?? 'Client error ($code). Please check your request.',
+        exception: error,
       );
 
     // Fallback for other status codes
@@ -128,6 +146,7 @@ Failure _mapHttpError(DioException error) {
       return UnknownFailure(
         errorMessage ??
             'HTTP error (${statusCode ?? "unknown"}): ${error.message ?? "Unknown error"}',
+        exception: error,
       );
   }
 }

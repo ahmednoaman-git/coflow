@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CityEntity {
 
- int get id; String get name; int get countryId;
+ int get id; String get name; int? get countryId;
 /// Create a copy of CityEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $CityEntityCopyWith<$Res>  {
   factory $CityEntityCopyWith(CityEntity value, $Res Function(CityEntity) _then) = _$CityEntityCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, int countryId
+ int id, String name, int? countryId
 });
 
 
@@ -62,12 +62,12 @@ class _$CityEntityCopyWithImpl<$Res>
 
 /// Create a copy of CityEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? countryId = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? countryId = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,countryId: null == countryId ? _self.countryId : countryId // ignore: cast_nullable_to_non_nullable
-as int,
+as String,countryId: freezed == countryId ? _self.countryId : countryId // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 
@@ -152,7 +152,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  int countryId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  int? countryId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CityEntity() when $default != null:
 return $default(_that.id,_that.name,_that.countryId);case _:
@@ -173,7 +173,7 @@ return $default(_that.id,_that.name,_that.countryId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  int countryId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  int? countryId)  $default,) {final _that = this;
 switch (_that) {
 case _CityEntity():
 return $default(_that.id,_that.name,_that.countryId);case _:
@@ -193,7 +193,7 @@ return $default(_that.id,_that.name,_that.countryId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  int countryId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  int? countryId)?  $default,) {final _that = this;
 switch (_that) {
 case _CityEntity() when $default != null:
 return $default(_that.id,_that.name,_that.countryId);case _:
@@ -208,12 +208,12 @@ return $default(_that.id,_that.name,_that.countryId);case _:
 
 
 class _CityEntity implements CityEntity {
-  const _CityEntity({required this.id, required this.name, required this.countryId});
+  const _CityEntity({required this.id, required this.name, this.countryId});
   
 
 @override final  int id;
 @override final  String name;
-@override final  int countryId;
+@override final  int? countryId;
 
 /// Create a copy of CityEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -245,7 +245,7 @@ abstract mixin class _$CityEntityCopyWith<$Res> implements $CityEntityCopyWith<$
   factory _$CityEntityCopyWith(_CityEntity value, $Res Function(_CityEntity) _then) = __$CityEntityCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, int countryId
+ int id, String name, int? countryId
 });
 
 
@@ -262,12 +262,12 @@ class __$CityEntityCopyWithImpl<$Res>
 
 /// Create a copy of CityEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? countryId = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? countryId = freezed,}) {
   return _then(_CityEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,countryId: null == countryId ? _self.countryId : countryId // ignore: cast_nullable_to_non_nullable
-as int,
+as String,countryId: freezed == countryId ? _self.countryId : countryId // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 

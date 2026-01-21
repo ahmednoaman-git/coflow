@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'activity_line_model.g.dart';
 
 /// Data model for activity line from API.
-@JsonSerializable()
+@JsonSerializable(checked: true)
 class ActivityLineModel {
   const ActivityLineModel({
     required this.id,

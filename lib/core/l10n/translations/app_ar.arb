@@ -90,5 +90,24 @@
 	"selectGovernorateArea": "اختر المحافظة/المنطقة",
 	"all": "الكل",
 	"remote": "عن بعد",
-	"confirm": "تأكيد"
+	"confirm": "تأكيد",
+
+	"activityLineSky": "السماء",
+	"activityLineSea": "البحر",
+	"activityLineEarth": "الأرض",
+	"activityLineEnergy": "الطاقة",
+
+	"selectedCount": "{count} محدد",
+	"@selectedCount": {
+		"placeholders": {
+			"count": {"type": "int"}
+		}
+	},
+	"remoteWithCount": "عن بعد ({count})",
+	"@remoteWithCount": {
+		"placeholders": {
+			"count": {"type": "int"}
+		}
+	}
 }
+

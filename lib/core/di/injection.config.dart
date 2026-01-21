@@ -15,6 +15,21 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
+import '../../features/activity_line/data/datasources/activity_line_remote_datasource.dart'
+    as _i198;
+import '../../features/activity_line/data/datasources/datasources.dart'
+    as _i755;
+import '../../features/activity_line/data/repositories/activity_line_repository_impl.dart'
+    as _i239;
+import '../../features/activity_line/domain/repositories/repositories.dart'
+    as _i196;
+import '../../features/activity_line/domain/use_cases/filter_facilities_use_case.dart'
+    as _i719;
+import '../../features/activity_line/domain/use_cases/get_facilities_use_case.dart'
+    as _i191;
+import '../../features/activity_line/domain/use_cases/use_cases.dart' as _i601;
+import '../../features/activity_line/presentation/cubit/activity_line_facilities_cubit.dart'
+    as _i803;
 import '../../features/authentication/data/datasources/auth_remote_datasource.dart'
     as _i14;
 import '../../features/authentication/data/datasources/datasources.dart'
@@ -83,6 +98,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => registerModule.secureStorage,
     );
+    gh.lazySingleton<_i719.FilterFacilitiesUseCase>(
+      () => const _i719.FilterFacilitiesUseCase(),
+    );
     gh.lazySingleton<_i128.LocalizationManager>(
       () => _i128.LocalizationManager(gh<_i460.SharedPreferences>()),
     );
@@ -105,6 +123,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i34.LocationsRemoteDataSource>(
       () => _i34.LocationsRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i198.ActivityLineRemoteDataSource>(
+      () => _i198.ActivityLineRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i14.AuthRemoteDataSource>(
       () => _i14.AuthRemoteDataSource(gh<_i351.DioClient>()),
     );
@@ -124,17 +145,16 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i522.LocationsRepositoryImpl(gh<_i276.LocationsRemoteDataSource>()),
     );
+    gh.lazySingleton<_i196.ActivityLineRepository>(
+      () => _i239.ActivityLineRepositoryImpl(
+        gh<_i755.ActivityLineRemoteDataSource>(),
+      ),
+    );
     gh.lazySingleton<_i261.GetHomeUseCase>(
       () => _i261.GetHomeUseCase(gh<_i0.HomeRepository>()),
     );
-    gh.lazySingleton<_i913.GetLocationsUseCase>(
-      () => _i913.GetLocationsUseCase(gh<_i222.LocationsRepository>()),
-    );
-    gh.factory<_i9.HomeCubit>(
-      () => _i9.HomeCubit(
-        gh<_i261.GetHomeUseCase>(),
-        gh<_i351.GetLocationsUseCase>(),
-      ),
+    gh.lazySingleton<_i191.GetFacilitiesUseCase>(
+      () => _i191.GetFacilitiesUseCase(gh<_i196.ActivityLineRepository>()),
     );
     gh.lazySingleton<_i146.LoginUseCase>(
       () => _i146.LoginUseCase(gh<_i625.AuthenticationRepository>()),
@@ -154,6 +174,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i121.VerifyOtpUseCase>(
       () => _i121.VerifyOtpUseCase(gh<_i625.AuthenticationRepository>()),
     );
+    gh.lazySingleton<_i913.GetLocationsUseCase>(
+      () => _i913.GetLocationsUseCase(gh<_i222.LocationsRepository>()),
+    );
     gh.factory<_i1040.RegisterCubit>(
       () => _i1040.RegisterCubit(
         gh<_i22.RegisterUseCase>(),
@@ -163,6 +186,24 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1017.LoginCubit>(
       () => _i1017.LoginCubit(gh<_i22.LoginUseCase>()),
+    );
+    gh.factoryParam<
+      _i803.ActivityLineFacilitiesCubit,
+      _i351.ActivityLineEntity,
+      dynamic
+    >(
+      (activityLine, _) => _i803.ActivityLineFacilitiesCubit(
+        gh<_i601.GetFacilitiesUseCase>(),
+        gh<_i601.FilterFacilitiesUseCase>(),
+        gh<_i351.GetLocationsUseCase>(),
+        activityLine,
+      ),
+    );
+    gh.factory<_i9.HomeCubit>(
+      () => _i9.HomeCubit(
+        gh<_i261.GetHomeUseCase>(),
+        gh<_i351.GetLocationsUseCase>(),
+      ),
     );
     return this;
   }

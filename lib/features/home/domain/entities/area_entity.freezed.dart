@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AreaEntity {
 
- int get id; String get name; int get countryId; int get cityId;
+ int get id; String get name; int? get countryId; int? get cityId;
 /// Create a copy of AreaEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ abstract mixin class $AreaEntityCopyWith<$Res>  {
   factory $AreaEntityCopyWith(AreaEntity value, $Res Function(AreaEntity) _then) = _$AreaEntityCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, int countryId, int cityId
+ int id, String name, int? countryId, int? cityId
 });
 
 
@@ -62,13 +62,13 @@ class _$AreaEntityCopyWithImpl<$Res>
 
 /// Create a copy of AreaEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? countryId = null,Object? cityId = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? countryId = freezed,Object? cityId = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,countryId: null == countryId ? _self.countryId : countryId // ignore: cast_nullable_to_non_nullable
-as int,cityId: null == cityId ? _self.cityId : cityId // ignore: cast_nullable_to_non_nullable
-as int,
+as String,countryId: freezed == countryId ? _self.countryId : countryId // ignore: cast_nullable_to_non_nullable
+as int?,cityId: freezed == cityId ? _self.cityId : cityId // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 
@@ -153,7 +153,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  int countryId,  int cityId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  int? countryId,  int? cityId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AreaEntity() when $default != null:
 return $default(_that.id,_that.name,_that.countryId,_that.cityId);case _:
@@ -174,7 +174,7 @@ return $default(_that.id,_that.name,_that.countryId,_that.cityId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  int countryId,  int cityId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  int? countryId,  int? cityId)  $default,) {final _that = this;
 switch (_that) {
 case _AreaEntity():
 return $default(_that.id,_that.name,_that.countryId,_that.cityId);case _:
@@ -194,7 +194,7 @@ return $default(_that.id,_that.name,_that.countryId,_that.cityId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  int countryId,  int cityId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  int? countryId,  int? cityId)?  $default,) {final _that = this;
 switch (_that) {
 case _AreaEntity() when $default != null:
 return $default(_that.id,_that.name,_that.countryId,_that.cityId);case _:
@@ -209,13 +209,13 @@ return $default(_that.id,_that.name,_that.countryId,_that.cityId);case _:
 
 
 class _AreaEntity implements AreaEntity {
-  const _AreaEntity({required this.id, required this.name, required this.countryId, required this.cityId});
+  const _AreaEntity({required this.id, required this.name, this.countryId, this.cityId});
   
 
 @override final  int id;
 @override final  String name;
-@override final  int countryId;
-@override final  int cityId;
+@override final  int? countryId;
+@override final  int? cityId;
 
 /// Create a copy of AreaEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -247,7 +247,7 @@ abstract mixin class _$AreaEntityCopyWith<$Res> implements $AreaEntityCopyWith<$
   factory _$AreaEntityCopyWith(_AreaEntity value, $Res Function(_AreaEntity) _then) = __$AreaEntityCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, int countryId, int cityId
+ int id, String name, int? countryId, int? cityId
 });
 
 
@@ -264,13 +264,13 @@ class __$AreaEntityCopyWithImpl<$Res>
 
 /// Create a copy of AreaEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? countryId = null,Object? cityId = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? countryId = freezed,Object? cityId = freezed,}) {
   return _then(_AreaEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,countryId: null == countryId ? _self.countryId : countryId // ignore: cast_nullable_to_non_nullable
-as int,cityId: null == cityId ? _self.cityId : cityId // ignore: cast_nullable_to_non_nullable
-as int,
+as String,countryId: freezed == countryId ? _self.countryId : countryId // ignore: cast_nullable_to_non_nullable
+as int?,cityId: freezed == cityId ? _self.cityId : cityId // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 

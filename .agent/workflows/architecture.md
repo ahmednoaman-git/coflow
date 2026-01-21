@@ -1,6 +1,9 @@
 ---
 description: Clean Architecture implementation patterns for Domain and Data layers
 ---
+
+**IMPORTANT**: This app is a rewrite of an old app, often the workspace is opened with both projects. New project root is `coflow_users_v2`. Old project is `coflow_users_app`. Make sure you to edit code only in the new project, but sometimes the user may ask to refer to the old project for comparison and references.
+
 # Clean Architecture Implementation Guide
 
 This guide outlines the implementation patterns for the **Domain** and **Data** layers in the application, following Clean Architecture principles.
@@ -252,8 +255,72 @@ Text(context.l10n.greetUser('John'))
 ### Localization State Management
 The app uses `LocalizationCubit` to manage locale changes. It's provided at the root level in `main.dart` and persists the selected locale using `HydratedBloc`.
 
-## 4. General Rules
+## 4. Providing Data Down the Widget Tree
+
+When you need to provide data (like user data, configuration, etc.) to multiple widgets down the tree, use `InheritedProvider` from the `provider` package directly as a wrapper widget.
+
+### Why InheritedProvider?
+- Less boilerplate compared to manual `InheritedWidget`
+- Automatic `updateShouldNotify` handling
+- Type-safe access through `context.read<T>()`
+- Integrates well with the provider package ecosystem
+- No need to create custom classes - use it directly
+
+### Example: Providing User Data
+
+```dart
+import 'package:provider/provider.dart';
+
+// Simply use InheritedProvider directly as a wrapper widget
+InheritedProvider<UserEntity>(
+  create: (_) => userEntity,
+  child: const MyApp(),
+)
+
+// For updating data, you can optionally add updateShouldNotify
+InheritedProvider<UserEntity>(
+  create: (_) => userEntity,
+  updateShouldNotify: (previous, current) => previous != current,
+  child: const MyApp(),
+)
+```
+
+### Accessing Provided Data
+
+Create context extensions for convenient access:
+
+```dart
+extension UserDataProviderExtension on BuildContext {
+  /// Returns the current user (throws if not found)
+  UserEntity get user => read<UserEntity>();
+
+  /// Returns the current user or null if not available
+  UserEntity? get maybeUser {
+    try {
+      return read<UserEntity>();
+    } catch (_) {
+      return null;
+    }
+  }
+}
+
+// Usage in widgets:
+final user = context.user;
+```
+
+### When to Use InheritedProvider
+- Providing static/rarely changing data (user info, theme config, feature flags)
+- Data needed by many widgets across the tree
+- Replacing manual `InheritedWidget` implementations
+
+### When NOT to Use InheritedProvider
+- For state management with frequent updates → Use `BlocProvider` or `ChangeNotifierProvider`
+- For one-time data passing → Use constructor parameters
+- For route-specific data → Use route arguments
+
+## 5. General Rules
 - **Functional Error Handling**: Always use `AsyncTask<T>` (`TaskEither`) for async operations.
 - **Dependency Injection**: Use `injectable` for registration.
 - **Immutability**: Prefer immutable data structures.
 - **Localization**: NEVER hardcode user-facing strings. Always use `context.l10n.key`.
+- **Data Provision**: Use `InheritedProvider` directly as a wrapper widget instead of creating custom classes or manual `InheritedWidget` implementations.
