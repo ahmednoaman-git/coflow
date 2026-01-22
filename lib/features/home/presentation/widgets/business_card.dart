@@ -1,5 +1,4 @@
 import 'package:coflow_users_v2/core/core.dart';
-import 'package:coflow_users_v2/core/presentation/widgets/shimmer_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/entities.dart';

@@ -151,3 +151,28 @@ Use `context` helpers for common UI feedback:
 - `context.showErrorSnackBar(message)`
 - `context.showInfoSnackBar(message)`
 - `context.showWarningSnackBar(message)`
+
+## Taps, buttons, and icons
+
+### Tappable surfaces
+When making any UI element tappable (tiles, tab buttons, chips, list rows), **prefer** `TappableScale` from:
+- `lib/core/presentation/widgets/tappable_scale.dart`
+
+Why:
+- consistent press animation
+- consistent ink effects
+- uses `RoundedSuperellipseBorder` by default
+
+**Avoid** ad-hoc `InkWell`/`GestureDetector` for general press interactions unless there’s a specific reason.
+
+### Circular icon actions
+For circular icon-only actions (e.g., header controls), **prefer** `CircularButton` from:
+- `lib/core/presentation/widgets/circular_button.dart`
+
+### Icons
+The project uses **Solar Icons** (package: `solar_icons`) for modern outline iconography.
+
+Guidelines:
+- Prefer `SolarIconsOutline.*` for outline icons (match the design system).
+- If the old project has really specific icons or icons that are large/very apparent, then import the svg from the old project to the new project and use `Assets.svgs.*.svg()` to access them.
+- Keep icon colors theme-driven (`context.colors.*`) and avoid hardcoded colors.

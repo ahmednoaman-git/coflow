@@ -108,5 +108,49 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "facility_temporarilyClosed": "Temporarily Closed",
+
+  "facilityDetails_profileTab": "Profile",
+  "facilityDetails_pricingTab": "Pricing",
+  "facilityDetails_ticketPrice": "Ticket price",
+  "facilityDetails_addOns": "Add-ons",
+  "facilityDetails_access": "Access",
+  "facilityDetails_conditions": "Conditions",
+  "facilityDetails_validity": "Validity",
+  "facilityDetails_purchase": "Purchase",
+  "facilityDetails_tickets": "Tickets",
+  "facilityDetails_promotions": "Promotions",
+  "facilityDetails_seeMore": "See more",
+  "facilityDetails_seeLess": "See less",
+  "facilityDetails_accessPrefix": "Access: {count} Services",
+  "@facilityDetails_accessPrefix": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "facilityDetails_unlimited": "Unlimited",
+  "facilityDetails_unknown": "Unknown",
+  "facilityDetails_days": "{count} days",
+  "@facilityDetails_days": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "facilityDetails_likesCount": "{count} Likes",
+  "@facilityDetails_likesCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "facilityDetails_teamSectionTitle": "Team",
+  "facilityDetails_operatingHoursSectionTitle": "Operating hours",
+  "facilityDetails_locationSectionTitle": "Location",
+  "facilityDetails_branchesSectionTitle": "Branches",
+  "facilityDetails_languagesSectionTitle": "Languages",
+  "facilityDetails_amenitiesSectionTitle": "Amenities",
+  "facilityDetails_actionsSectionTitle": "Actions",
+  "facilityDetails_comingSoon": "Coming soon",
+  "facilityDetails_noTickets": "No tickets available"
 }

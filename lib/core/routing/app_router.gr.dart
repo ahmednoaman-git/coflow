@@ -9,30 +9,34 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i7;
-import 'package:coflow_users_v2/core/core.dart' as _i9;
+import 'package:auto_route/auto_route.dart' as _i8;
+import 'package:coflow_users_v2/core/core.dart' as _i10;
+import 'package:coflow_users_v2/features/activity_line/domain/domain.dart'
+    as _i11;
 import 'package:coflow_users_v2/features/activity_line/presentation/activity_line_facilities_screen.dart'
     as _i1;
 import 'package:coflow_users_v2/features/authentication/presentation/screens/login/login_screen.dart'
-    as _i3;
-import 'package:coflow_users_v2/features/authentication/presentation/screens/register/register_screen.dart'
-    as _i5;
-import 'package:coflow_users_v2/features/home/presentation/home_screen.dart'
-    as _i2;
-import 'package:coflow_users_v2/features/navigation_root/presentation/navigation_root_screen.dart'
     as _i4;
-import 'package:coflow_users_v2/features/splash/presentation/splash_screen.dart'
+import 'package:coflow_users_v2/features/authentication/presentation/screens/register/register_screen.dart'
     as _i6;
-import 'package:flutter/material.dart' as _i8;
+import 'package:coflow_users_v2/features/facility/presentation/facility_details_screen.dart'
+    as _i2;
+import 'package:coflow_users_v2/features/home/presentation/home_screen.dart'
+    as _i3;
+import 'package:coflow_users_v2/features/navigation_root/presentation/navigation_root_screen.dart'
+    as _i5;
+import 'package:coflow_users_v2/features/splash/presentation/splash_screen.dart'
+    as _i7;
+import 'package:flutter/material.dart' as _i9;
 
 /// generated route for
 /// [_i1.ActivityLineFacilitiesScreen]
 class ActivityLineFacilitiesRoute
-    extends _i7.PageRouteInfo<ActivityLineFacilitiesRouteArgs> {
+    extends _i8.PageRouteInfo<ActivityLineFacilitiesRouteArgs> {
   ActivityLineFacilitiesRoute({
-    _i8.Key? key,
-    required _i9.ActivityLineEntity activityLine,
-    List<_i7.PageRouteInfo>? children,
+    _i9.Key? key,
+    required _i10.ActivityLineEntity activityLine,
+    List<_i8.PageRouteInfo>? children,
   }) : super(
          ActivityLineFacilitiesRoute.name,
          args: ActivityLineFacilitiesRouteArgs(
@@ -44,7 +48,7 @@ class ActivityLineFacilitiesRoute
 
   static const String name = 'ActivityLineFacilitiesRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ActivityLineFacilitiesRouteArgs>();
@@ -59,9 +63,9 @@ class ActivityLineFacilitiesRoute
 class ActivityLineFacilitiesRouteArgs {
   const ActivityLineFacilitiesRouteArgs({this.key, required this.activityLine});
 
-  final _i8.Key? key;
+  final _i9.Key? key;
 
-  final _i9.ActivityLineEntity activityLine;
+  final _i10.ActivityLineEntity activityLine;
 
   @override
   String toString() {
@@ -80,81 +84,146 @@ class ActivityLineFacilitiesRouteArgs {
 }
 
 /// generated route for
-/// [_i2.HomeScreen]
-class HomeRoute extends _i7.PageRouteInfo<void> {
-  const HomeRoute({List<_i7.PageRouteInfo>? children})
+/// [_i2.FacilityDetailsScreen]
+class FacilityDetailsRoute extends _i8.PageRouteInfo<FacilityDetailsRouteArgs> {
+  FacilityDetailsRoute({
+    _i9.Key? key,
+    required _i11.CollapsedFacilityEntity facility,
+    _i9.ImageProvider<Object>? logoImageProvider,
+    List<_i8.PageRouteInfo>? children,
+  }) : super(
+         FacilityDetailsRoute.name,
+         args: FacilityDetailsRouteArgs(
+           key: key,
+           facility: facility,
+           logoImageProvider: logoImageProvider,
+         ),
+         initialChildren: children,
+       );
+
+  static const String name = 'FacilityDetailsRoute';
+
+  static _i8.PageInfo page = _i8.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<FacilityDetailsRouteArgs>();
+      return _i2.FacilityDetailsScreen(
+        key: args.key,
+        facility: args.facility,
+        logoImageProvider: args.logoImageProvider,
+      );
+    },
+  );
+}
+
+class FacilityDetailsRouteArgs {
+  const FacilityDetailsRouteArgs({
+    this.key,
+    required this.facility,
+    this.logoImageProvider,
+  });
+
+  final _i9.Key? key;
+
+  final _i11.CollapsedFacilityEntity facility;
+
+  final _i9.ImageProvider<Object>? logoImageProvider;
+
+  @override
+  String toString() {
+    return 'FacilityDetailsRouteArgs{key: $key, facility: $facility, logoImageProvider: $logoImageProvider}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! FacilityDetailsRouteArgs) return false;
+    return key == other.key &&
+        facility == other.facility &&
+        logoImageProvider == other.logoImageProvider;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^ facility.hashCode ^ logoImageProvider.hashCode;
+}
+
+/// generated route for
+/// [_i3.HomeScreen]
+class HomeRoute extends _i8.PageRouteInfo<void> {
+  const HomeRoute({List<_i8.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i2.HomeScreen();
+      return const _i3.HomeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i3.LoginScreen]
-class LoginRoute extends _i7.PageRouteInfo<void> {
-  const LoginRoute({List<_i7.PageRouteInfo>? children})
+/// [_i4.LoginScreen]
+class LoginRoute extends _i8.PageRouteInfo<void> {
+  const LoginRoute({List<_i8.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i3.LoginScreen();
+      return const _i4.LoginScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i4.NavigationRootScreen]
-class NavigationRootRoute extends _i7.PageRouteInfo<void> {
-  const NavigationRootRoute({List<_i7.PageRouteInfo>? children})
+/// [_i5.NavigationRootScreen]
+class NavigationRootRoute extends _i8.PageRouteInfo<void> {
+  const NavigationRootRoute({List<_i8.PageRouteInfo>? children})
     : super(NavigationRootRoute.name, initialChildren: children);
 
   static const String name = 'NavigationRootRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i4.NavigationRootScreen();
+      return const _i5.NavigationRootScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i5.RegisterScreen]
-class RegisterRoute extends _i7.PageRouteInfo<void> {
-  const RegisterRoute({List<_i7.PageRouteInfo>? children})
+/// [_i6.RegisterScreen]
+class RegisterRoute extends _i8.PageRouteInfo<void> {
+  const RegisterRoute({List<_i8.PageRouteInfo>? children})
     : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i5.RegisterScreen();
+      return const _i6.RegisterScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i6.SplashScreen]
-class SplashRoute extends _i7.PageRouteInfo<void> {
-  const SplashRoute({List<_i7.PageRouteInfo>? children})
+/// [_i7.SplashScreen]
+class SplashRoute extends _i8.PageRouteInfo<void> {
+  const SplashRoute({List<_i8.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i6.SplashScreen();
+      return const _i7.SplashScreen();
     },
   );
 }

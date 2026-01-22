@@ -17,14 +17,41 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
+  /// File path: assets/svgs/amenities.svg
+  SvgGenImage get amenities => const SvgGenImage('assets/svgs/amenities.svg');
+
+  /// File path: assets/svgs/branch.svg
+  SvgGenImage get branch => const SvgGenImage('assets/svgs/branch.svg');
+
+  /// File path: assets/svgs/cash.svg
+  SvgGenImage get cash => const SvgGenImage('assets/svgs/cash.svg');
+
   /// File path: assets/svgs/earth.svg
   SvgGenImage get earth => const SvgGenImage('assets/svgs/earth.svg');
 
   /// File path: assets/svgs/energy.svg
   SvgGenImage get energy => const SvgGenImage('assets/svgs/energy.svg');
 
+  /// File path: assets/svgs/faqs.svg
+  SvgGenImage get faqs => const SvgGenImage('assets/svgs/faqs.svg');
+
+  /// File path: assets/svgs/hours.svg
+  SvgGenImage get hours => const SvgGenImage('assets/svgs/hours.svg');
+
+  /// File path: assets/svgs/language.svg
+  SvgGenImage get language => const SvgGenImage('assets/svgs/language.svg');
+
+  /// File path: assets/svgs/location.svg
+  SvgGenImage get location => const SvgGenImage('assets/svgs/location.svg');
+
   /// File path: assets/svgs/logo.svg
   SvgGenImage get logo => const SvgGenImage('assets/svgs/logo.svg');
+
+  /// File path: assets/svgs/mail.svg
+  SvgGenImage get mail => const SvgGenImage('assets/svgs/mail.svg');
+
+  /// File path: assets/svgs/phone.svg
+  SvgGenImage get phone => const SvgGenImage('assets/svgs/phone.svg');
 
   /// File path: assets/svgs/sea.svg
   SvgGenImage get sea => const SvgGenImage('assets/svgs/sea.svg');
@@ -32,8 +59,35 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/sky.svg
   SvgGenImage get sky => const SvgGenImage('assets/svgs/sky.svg');
 
+  /// File path: assets/svgs/team.svg
+  SvgGenImage get team => const SvgGenImage('assets/svgs/team.svg');
+
+  /// File path: assets/svgs/ticket.svg
+  SvgGenImage get ticket => const SvgGenImage('assets/svgs/ticket.svg');
+
+  /// File path: assets/svgs/track_updates.svg
+  SvgGenImage get trackUpdates => const SvgGenImage('assets/svgs/track_updates.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [earth, energy, logo, sea, sky];
+  List<SvgGenImage> get values => [
+    amenities,
+    branch,
+    cash,
+    earth,
+    energy,
+    faqs,
+    hours,
+    language,
+    location,
+    logo,
+    mail,
+    phone,
+    sea,
+    sky,
+    team,
+    ticket,
+    trackUpdates,
+  ];
 }
 
 class Assets {

@@ -265,4 +265,91 @@ class AppLocalizationsEn extends AppLocalizations {
   String remoteWithCount(int count) {
     return 'Remote ($count)';
   }
+
+  @override
+  String get facility_temporarilyClosed => 'Temporarily Closed';
+
+  @override
+  String get facilityDetails_profileTab => 'Profile';
+
+  @override
+  String get facilityDetails_pricingTab => 'Pricing';
+
+  @override
+  String get facilityDetails_ticketPrice => 'Ticket price';
+
+  @override
+  String get facilityDetails_addOns => 'Add-ons';
+
+  @override
+  String get facilityDetails_access => 'Access';
+
+  @override
+  String get facilityDetails_conditions => 'Conditions';
+
+  @override
+  String get facilityDetails_validity => 'Validity';
+
+  @override
+  String get facilityDetails_purchase => 'Purchase';
+
+  @override
+  String get facilityDetails_tickets => 'Tickets';
+
+  @override
+  String get facilityDetails_promotions => 'Promotions';
+
+  @override
+  String get facilityDetails_seeMore => 'See more';
+
+  @override
+  String get facilityDetails_seeLess => 'See less';
+
+  @override
+  String facilityDetails_accessPrefix(int count) {
+    return 'Access: $count Services';
+  }
+
+  @override
+  String get facilityDetails_unlimited => 'Unlimited';
+
+  @override
+  String get facilityDetails_unknown => 'Unknown';
+
+  @override
+  String facilityDetails_days(int count) {
+    return '$count days';
+  }
+
+  @override
+  String facilityDetails_likesCount(int count) {
+    return '$count Likes';
+  }
+
+  @override
+  String get facilityDetails_teamSectionTitle => 'Team';
+
+  @override
+  String get facilityDetails_operatingHoursSectionTitle => 'Operating hours';
+
+  @override
+  String get facilityDetails_locationSectionTitle => 'Location';
+
+  @override
+  String get facilityDetails_branchesSectionTitle => 'Branches';
+
+  @override
+  String get facilityDetails_languagesSectionTitle => 'Languages';
+
+  @override
+  String get facilityDetails_amenitiesSectionTitle => 'Amenities';
+
+  @override
+  String get facilityDetails_actionsSectionTitle => 'Actions';
+
+  @override
+  String get facilityDetails_comingSoon => 'Coming soon';
+
+  @override
+  String get facilityDetails_noTickets => 'No tickets available';
 }

@@ -108,6 +108,50 @@
 		"placeholders": {
 			"count": {"type": "int"}
 		}
-	}
+	},
+
+	"facility_temporarilyClosed": "مغلق مؤقتاً",
+
+	"facilityDetails_profileTab": "الملف الشخصي",
+	"facilityDetails_pricingTab": "الأسعار",
+	"facilityDetails_ticketPrice": "سعر التذكرة",
+	"facilityDetails_addOns": "الإضافات",
+	"facilityDetails_access": "الوصول",
+	"facilityDetails_conditions": "الشروط",
+	"facilityDetails_validity": "الصلاحية",
+	"facilityDetails_purchase": "شراء",
+	"facilityDetails_tickets": "التذاكر",
+	"facilityDetails_promotions": "العروض",
+	"facilityDetails_seeMore": "عرض المزيد",
+	"facilityDetails_seeLess": "عرض أقل",
+	"facilityDetails_accessPrefix": "الوصول: {count} خدمات",
+	"@facilityDetails_accessPrefix": {
+		"placeholders": {
+			"count": {"type": "int"}
+		}
+	},
+	"facilityDetails_unlimited": "غير محدود",
+	"facilityDetails_unknown": "غير معروف",
+	"facilityDetails_days": "{count} أيام",
+	"@facilityDetails_days": {
+		"placeholders": {
+			"count": {"type": "int"}
+		}
+	},
+	"facilityDetails_likesCount": "{count} إعجابات",
+	"@facilityDetails_likesCount": {
+		"placeholders": {
+			"count": {"type": "int"}
+		}
+	},
+	"facilityDetails_teamSectionTitle": "الفريق",
+	"facilityDetails_operatingHoursSectionTitle": "ساعات العمل",
+	"facilityDetails_locationSectionTitle": "الموقع",
+	"facilityDetails_branchesSectionTitle": "الفروع",
+	"facilityDetails_languagesSectionTitle": "اللغات",
+	"facilityDetails_amenitiesSectionTitle": "المرافق",
+	"facilityDetails_actionsSectionTitle": "الإجراءات",
+	"facilityDetails_comingSoon": "قريباً",
+	"facilityDetails_noTickets": "لا توجد تذاكر متاحة"
 }
 

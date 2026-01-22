@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:solar_icons/solar_icons.dart';
@@ -22,11 +23,17 @@ class FacilityCard extends StatelessWidget {
         ),
         shadows: context.shadows.sm,
       ),
-      child: InkWell(
-        onTap: () {
-          // TODO: Navigate to facility details screen
-        },
+      child: TappableScale(
         borderRadius: BorderRadius.circular(context.spacing.s16),
+        onTap: () {
+          final logoProvider = facility.logoUrl != null ? NetworkImage(facility.logoUrl!) : null;
+          context.router.push(
+            FacilityDetailsRoute(
+              facility: facility,
+              logoImageProvider: logoProvider,
+            ),
+          );
+        },
         child: Column(
           children: [
             Padding(
@@ -98,7 +105,7 @@ class FacilityCard extends StatelessWidget {
         // Status message (if temporarily closed)
         if (facility.status == FacilityStatus.temporarilyClosed)
           Text(
-            'Temporarily Closed', // TODO: Localize
+            context.l10n.facility_temporarilyClosed,
             style: context.typography.book10.error(context),
           ),
         // Description
@@ -146,11 +153,10 @@ class FacilityCardIconSection extends StatelessWidget {
     return Row(
       spacing: context.spacing.s4,
       children: [
-        for (final icon in icons)
-          Icon(
-            icon,
-            size: 16,
-            color: context.colors.textTertiary,
+        if (facility.status == FacilityStatus.temporarilyClosed)
+          Text(
+            context.l10n.facility_temporarilyClosed,
+            style: context.typography.book10.error(context),
           ),
       ],
     );

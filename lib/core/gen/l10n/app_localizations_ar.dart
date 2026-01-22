@@ -264,4 +264,91 @@ class AppLocalizationsAr extends AppLocalizations {
   String remoteWithCount(int count) {
     return 'عن بعد ($count)';
   }
+
+  @override
+  String get facility_temporarilyClosed => 'مغلق مؤقتاً';
+
+  @override
+  String get facilityDetails_profileTab => 'الملف الشخصي';
+
+  @override
+  String get facilityDetails_pricingTab => 'الأسعار';
+
+  @override
+  String get facilityDetails_ticketPrice => 'سعر التذكرة';
+
+  @override
+  String get facilityDetails_addOns => 'الإضافات';
+
+  @override
+  String get facilityDetails_access => 'الوصول';
+
+  @override
+  String get facilityDetails_conditions => 'الشروط';
+
+  @override
+  String get facilityDetails_validity => 'الصلاحية';
+
+  @override
+  String get facilityDetails_purchase => 'شراء';
+
+  @override
+  String get facilityDetails_tickets => 'التذاكر';
+
+  @override
+  String get facilityDetails_promotions => 'العروض';
+
+  @override
+  String get facilityDetails_seeMore => 'عرض المزيد';
+
+  @override
+  String get facilityDetails_seeLess => 'عرض أقل';
+
+  @override
+  String facilityDetails_accessPrefix(int count) {
+    return 'الوصول: $count خدمات';
+  }
+
+  @override
+  String get facilityDetails_unlimited => 'غير محدود';
+
+  @override
+  String get facilityDetails_unknown => 'غير معروف';
+
+  @override
+  String facilityDetails_days(int count) {
+    return '$count أيام';
+  }
+
+  @override
+  String facilityDetails_likesCount(int count) {
+    return '$count إعجابات';
+  }
+
+  @override
+  String get facilityDetails_teamSectionTitle => 'الفريق';
+
+  @override
+  String get facilityDetails_operatingHoursSectionTitle => 'ساعات العمل';
+
+  @override
+  String get facilityDetails_locationSectionTitle => 'الموقع';
+
+  @override
+  String get facilityDetails_branchesSectionTitle => 'الفروع';
+
+  @override
+  String get facilityDetails_languagesSectionTitle => 'اللغات';
+
+  @override
+  String get facilityDetails_amenitiesSectionTitle => 'المرافق';
+
+  @override
+  String get facilityDetails_actionsSectionTitle => 'الإجراءات';
+
+  @override
+  String get facilityDetails_comingSoon => 'قريباً';
+
+  @override
+  String get facilityDetails_noTickets => 'لا توجد تذاكر متاحة';
 }

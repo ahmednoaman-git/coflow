@@ -590,6 +590,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remote ({count})'**
   String remoteWithCount(int count);
+
+  /// No description provided for @facility_temporarilyClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Temporarily Closed'**
+  String get facility_temporarilyClosed;
+
+  /// No description provided for @facilityDetails_profileTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get facilityDetails_profileTab;
+
+  /// No description provided for @facilityDetails_pricingTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Pricing'**
+  String get facilityDetails_pricingTab;
+
+  /// No description provided for @facilityDetails_ticketPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Ticket price'**
+  String get facilityDetails_ticketPrice;
+
+  /// No description provided for @facilityDetails_addOns.
+  ///
+  /// In en, this message translates to:
+  /// **'Add-ons'**
+  String get facilityDetails_addOns;
+
+  /// No description provided for @facilityDetails_access.
+  ///
+  /// In en, this message translates to:
+  /// **'Access'**
+  String get facilityDetails_access;
+
+  /// No description provided for @facilityDetails_conditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Conditions'**
+  String get facilityDetails_conditions;
+
+  /// No description provided for @facilityDetails_validity.
+  ///
+  /// In en, this message translates to:
+  /// **'Validity'**
+  String get facilityDetails_validity;
+
+  /// No description provided for @facilityDetails_purchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase'**
+  String get facilityDetails_purchase;
+
+  /// No description provided for @facilityDetails_tickets.
+  ///
+  /// In en, this message translates to:
+  /// **'Tickets'**
+  String get facilityDetails_tickets;
+
+  /// No description provided for @facilityDetails_promotions.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotions'**
+  String get facilityDetails_promotions;
+
+  /// No description provided for @facilityDetails_seeMore.
+  ///
+  /// In en, this message translates to:
+  /// **'See more'**
+  String get facilityDetails_seeMore;
+
+  /// No description provided for @facilityDetails_seeLess.
+  ///
+  /// In en, this message translates to:
+  /// **'See less'**
+  String get facilityDetails_seeLess;
+
+  /// No description provided for @facilityDetails_accessPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Access: {count} Services'**
+  String facilityDetails_accessPrefix(int count);
+
+  /// No description provided for @facilityDetails_unlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited'**
+  String get facilityDetails_unlimited;
+
+  /// No description provided for @facilityDetails_unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get facilityDetails_unknown;
+
+  /// No description provided for @facilityDetails_days.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days'**
+  String facilityDetails_days(int count);
+
+  /// No description provided for @facilityDetails_likesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Likes'**
+  String facilityDetails_likesCount(int count);
+
+  /// No description provided for @facilityDetails_teamSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Team'**
+  String get facilityDetails_teamSectionTitle;
+
+  /// No description provided for @facilityDetails_operatingHoursSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Operating hours'**
+  String get facilityDetails_operatingHoursSectionTitle;
+
+  /// No description provided for @facilityDetails_locationSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get facilityDetails_locationSectionTitle;
+
+  /// No description provided for @facilityDetails_branchesSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Branches'**
+  String get facilityDetails_branchesSectionTitle;
+
+  /// No description provided for @facilityDetails_languagesSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Languages'**
+  String get facilityDetails_languagesSectionTitle;
+
+  /// No description provided for @facilityDetails_amenitiesSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Amenities'**
+  String get facilityDetails_amenitiesSectionTitle;
+
+  /// No description provided for @facilityDetails_actionsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get facilityDetails_actionsSectionTitle;
+
+  /// No description provided for @facilityDetails_comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get facilityDetails_comingSoon;
+
+  /// No description provided for @facilityDetails_noTickets.
+  ///
+  /// In en, this message translates to:
+  /// **'No tickets available'**
+  String get facilityDetails_noTickets;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -21,6 +21,8 @@ import '../../features/activity_line/data/datasources/datasources.dart'
     as _i755;
 import '../../features/activity_line/data/repositories/activity_line_repository_impl.dart'
     as _i239;
+import '../../features/activity_line/domain/entities/collapsed_facility_entity.dart'
+    as _i721;
 import '../../features/activity_line/domain/repositories/repositories.dart'
     as _i196;
 import '../../features/activity_line/domain/use_cases/filter_facilities_use_case.dart'
@@ -55,6 +57,23 @@ import '../../features/authentication/presentation/state/login_cubit.dart'
     as _i1017;
 import '../../features/authentication/presentation/state/register_cubit.dart'
     as _i1040;
+import '../../features/facility/data/datasources/datasources.dart' as _i163;
+import '../../features/facility/data/datasources/facility_remote_data_source.dart'
+    as _i283;
+import '../../features/facility/data/repositories/facility_repository_impl.dart'
+    as _i85;
+import '../../features/facility/domain/repositories/repositories.dart' as _i181;
+import '../../features/facility/domain/use_cases/get_facility_profile_use_case.dart'
+    as _i587;
+import '../../features/facility/domain/use_cases/get_facility_ticket_details_use_case.dart'
+    as _i631;
+import '../../features/facility/domain/use_cases/get_facility_tickets_use_case.dart'
+    as _i611;
+import '../../features/facility/domain/use_cases/use_cases.dart' as _i312;
+import '../../features/facility/presentation/cubit/facility_details_cubit.dart'
+    as _i453;
+import '../../features/facility/presentation/cubit/ticket_details_cubit.dart'
+    as _i134;
 import '../../features/home/data/datasources/datasources.dart' as _i1067;
 import '../../features/home/data/datasources/home_remote_datasource.dart'
     as _i278;
@@ -129,8 +148,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i14.AuthRemoteDataSource>(
       () => _i14.AuthRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i283.FacilityRemoteDataSource>(
+      () => _i283.FacilityRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i278.HomeRemoteDataSource>(
       () => _i278.HomeRemoteDataSource(gh<_i351.DioClient>()),
+    );
+    gh.lazySingleton<_i181.FacilityRepository>(
+      () => _i85.FacilityRepositoryImpl(gh<_i163.FacilityRemoteDataSource>()),
     );
     gh.lazySingleton<_i0.HomeRepository>(
       () => _i76.HomeRepositoryImpl(gh<_i1067.HomeRemoteDataSource>()),
@@ -153,8 +178,29 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i261.GetHomeUseCase>(
       () => _i261.GetHomeUseCase(gh<_i0.HomeRepository>()),
     );
+    gh.lazySingleton<_i587.GetFacilityProfileUseCase>(
+      () => _i587.GetFacilityProfileUseCase(gh<_i181.FacilityRepository>()),
+    );
+    gh.lazySingleton<_i631.GetFacilityTicketDetailsUseCase>(
+      () =>
+          _i631.GetFacilityTicketDetailsUseCase(gh<_i181.FacilityRepository>()),
+    );
+    gh.lazySingleton<_i611.GetFacilityTicketsUseCase>(
+      () => _i611.GetFacilityTicketsUseCase(gh<_i181.FacilityRepository>()),
+    );
     gh.lazySingleton<_i191.GetFacilitiesUseCase>(
       () => _i191.GetFacilitiesUseCase(gh<_i196.ActivityLineRepository>()),
+    );
+    gh.factoryParam<
+      _i453.FacilityDetailsCubit,
+      _i721.CollapsedFacilityEntity,
+      dynamic
+    >(
+      (facility, _) => _i453.FacilityDetailsCubit(
+        gh<_i312.GetFacilityProfileUseCase>(),
+        gh<_i312.GetFacilityTicketsUseCase>(),
+        facility,
+      ),
     );
     gh.lazySingleton<_i146.LoginUseCase>(
       () => _i146.LoginUseCase(gh<_i625.AuthenticationRepository>()),
@@ -176,6 +222,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i913.GetLocationsUseCase>(
       () => _i913.GetLocationsUseCase(gh<_i222.LocationsRepository>()),
+    );
+    gh.factoryParam<_i134.TicketDetailsCubit, int, dynamic>(
+      (ticketId, _) => _i134.TicketDetailsCubit(
+        gh<_i312.GetFacilityTicketDetailsUseCase>(),
+        ticketId,
+      ),
     );
     gh.factory<_i1040.RegisterCubit>(
       () => _i1040.RegisterCubit(
