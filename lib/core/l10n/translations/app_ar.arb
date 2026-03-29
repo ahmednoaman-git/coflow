@@ -113,7 +113,12 @@
 	"facility_temporarilyClosed": "مغلق مؤقتاً",
 
 	"facilityDetails_profileTab": "الملف الشخصي",
+	"facilityDetails_activitiesTab": "الأنشطة",
+	"facilityDetails_flowsTab": "التدفقات",
+	"facilityDetails_coursesTab": "الدورات",
 	"facilityDetails_pricingTab": "الأسعار",
+	"facilityDetails_scheduleTab": "الجدول",
+	"facilityDetails_calendarTab": "التقويم",
 	"facilityDetails_ticketPrice": "سعر التذكرة",
 	"facilityDetails_addOns": "الإضافات",
 	"facilityDetails_access": "الوصول",
@@ -149,9 +154,12 @@
 	"facilityDetails_locationSectionTitle": "الموقع",
 	"facilityDetails_branchesSectionTitle": "الفروع",
 	"facilityDetails_languagesSectionTitle": "اللغات",
+	"facilityDetails_flowsSectionTitle": "التدفقات",
 	"facilityDetails_amenitiesSectionTitle": "المرافق",
 	"facilityDetails_actionsSectionTitle": "الإجراءات",
 	"facilityDetails_comingSoon": "قريباً",
-	"facilityDetails_noTickets": "لا توجد تذاكر متاحة"
+	"facilityDetails_noTickets": "لا توجد تذاكر متاحة",
+	"facilityDetails_trackUpdates": "تتبع التحديثات",
+	"facilityDetails_faqs": "الأسئلة الشائعة"
 }
 

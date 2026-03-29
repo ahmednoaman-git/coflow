@@ -106,7 +106,8 @@ class TicketTile extends StatelessWidget {
     }
 
     return Row(
-      spacing: context.spacing.s8,
+      spacing: context.spacing.s4,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(
           '${ticket.currency} ${ticket.discountPrice}',
@@ -123,6 +124,7 @@ class TicketTile extends StatelessWidget {
               .copyWith(
                 color: facilityData.activityLineColor,
                 decoration: TextDecoration.lineThrough,
+                decorationColor: facilityData.activityLineColor,
               ),
         ),
       ],

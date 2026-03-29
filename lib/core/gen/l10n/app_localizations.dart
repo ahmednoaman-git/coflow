@@ -603,16 +603,46 @@ abstract class AppLocalizations {
   /// **'Profile'**
   String get facilityDetails_profileTab;
 
+  /// No description provided for @facilityDetails_activitiesTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Activities'**
+  String get facilityDetails_activitiesTab;
+
+  /// No description provided for @facilityDetails_flowsTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Flows'**
+  String get facilityDetails_flowsTab;
+
+  /// No description provided for @facilityDetails_coursesTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses'**
+  String get facilityDetails_coursesTab;
+
   /// No description provided for @facilityDetails_pricingTab.
   ///
   /// In en, this message translates to:
   /// **'Pricing'**
   String get facilityDetails_pricingTab;
 
+  /// No description provided for @facilityDetails_scheduleTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get facilityDetails_scheduleTab;
+
+  /// No description provided for @facilityDetails_calendarTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get facilityDetails_calendarTab;
+
   /// No description provided for @facilityDetails_ticketPrice.
   ///
   /// In en, this message translates to:
-  /// **'Ticket price'**
+  /// **'Price'**
   String get facilityDetails_ticketPrice;
 
   /// No description provided for @facilityDetails_addOns.
@@ -690,7 +720,7 @@ abstract class AppLocalizations {
   /// No description provided for @facilityDetails_days.
   ///
   /// In en, this message translates to:
-  /// **'{count} days'**
+  /// **'{count} Day(s)'**
   String facilityDetails_days(int count);
 
   /// No description provided for @facilityDetails_likesCount.
@@ -729,6 +759,12 @@ abstract class AppLocalizations {
   /// **'Languages'**
   String get facilityDetails_languagesSectionTitle;
 
+  /// No description provided for @facilityDetails_flowsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Flows'**
+  String get facilityDetails_flowsSectionTitle;
+
   /// No description provided for @facilityDetails_amenitiesSectionTitle.
   ///
   /// In en, this message translates to:
@@ -752,6 +788,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No tickets available'**
   String get facilityDetails_noTickets;
+
+  /// No description provided for @facilityDetails_trackUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Track Updates'**
+  String get facilityDetails_trackUpdates;
+
+  /// No description provided for @facilityDetails_faqs.
+  ///
+  /// In en, this message translates to:
+  /// **'FAQs'**
+  String get facilityDetails_faqs;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

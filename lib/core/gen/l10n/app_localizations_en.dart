@@ -273,10 +273,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilityDetails_profileTab => 'Profile';
 
   @override
+  String get facilityDetails_activitiesTab => 'Activities';
+
+  @override
+  String get facilityDetails_flowsTab => 'Flows';
+
+  @override
+  String get facilityDetails_coursesTab => 'Courses';
+
+  @override
   String get facilityDetails_pricingTab => 'Pricing';
 
   @override
-  String get facilityDetails_ticketPrice => 'Ticket price';
+  String get facilityDetails_scheduleTab => 'Schedule';
+
+  @override
+  String get facilityDetails_calendarTab => 'Calendar';
+
+  @override
+  String get facilityDetails_ticketPrice => 'Price';
 
   @override
   String get facilityDetails_addOns => 'Add-ons';
@@ -318,7 +333,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String facilityDetails_days(int count) {
-    return '$count days';
+    return '$count Day(s)';
   }
 
   @override
@@ -342,6 +357,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilityDetails_languagesSectionTitle => 'Languages';
 
   @override
+  String get facilityDetails_flowsSectionTitle => 'Flows';
+
+  @override
   String get facilityDetails_amenitiesSectionTitle => 'Amenities';
 
   @override
@@ -352,4 +370,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get facilityDetails_noTickets => 'No tickets available';
+
+  @override
+  String get facilityDetails_trackUpdates => 'Track Updates';
+
+  @override
+  String get facilityDetails_faqs => 'FAQs';
 }

@@ -35,15 +35,18 @@ class _TicketDetailsContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sections =
-        const [
+        [
               PriceSection(),
               AccessSection(),
-              ConditionsSection(),
+              if (ticketDetails.conditions.isNotEmpty) ConditionsSection(),
               ValidityAndPurchaseSection(),
             ]
             .map(
               (w) => Padding(
-                padding: EdgeInsets.all(context.spacing.s16),
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.spacing.s24,
+                  vertical: context.spacing.s12,
+                ),
                 child: w,
               ),
             )
@@ -71,7 +74,7 @@ class _TicketDetailsContent extends StatelessWidget {
         itemCount: children.length,
         itemBuilder: (context, index) => children[index],
         separatorBuilder: (context, index) => Divider(
-          thickness: index == 0 ? 2 : 1,
+          thickness: index == 0 ? 2.5 : 1,
           height: 0,
           color: context.colors.strokePrimary,
         ),

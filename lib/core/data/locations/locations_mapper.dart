@@ -11,7 +11,7 @@ abstract final class LocationsMapper {
     );
   }
 
-  static LocationCityEntity _cityToEntity(CityModel model) {
+  static LocationCityEntity _cityToEntity(LocationCityModel model) {
     return LocationCityEntity(
       id: model.id,
       name: model.name,
@@ -21,7 +21,7 @@ abstract final class LocationsMapper {
     );
   }
 
-  static LocationAreaEntity _areaToEntity(AreaModel model) {
+  static LocationAreaEntity _areaToEntity(LocationAreaModel model) {
     return LocationAreaEntity(
       id: model.id,
       name: model.name,

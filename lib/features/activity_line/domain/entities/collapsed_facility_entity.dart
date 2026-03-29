@@ -21,7 +21,7 @@ abstract class CollapsedFacilityEntity with _$CollapsedFacilityEntity {
     int? likeCount,
     required ActivityLineEntity activityLine,
     @Default([]) List<TagEntity> tags,
-    required FacilityType type,
+    required AccountType accountType,
     required FacilityStatus status,
     required SubscriptionStatus subscriptionStatus,
     required PaymentType paymentType,
@@ -29,47 +29,17 @@ abstract class CollapsedFacilityEntity with _$CollapsedFacilityEntity {
   }) = _CollapsedFacilityEntity;
 }
 
-/// Type of facility.
-enum FacilityType {
-  business,
-  instructor,
-  unknown
-  ;
-
-  static FacilityType fromString(String value) => switch (value.toLowerCase()) {
-    'business' => business,
-    'instructor' => instructor,
-    _ => unknown,
-  };
-}
-
 /// Status of a facility.
 enum FacilityStatus {
-  active,
-  temporarilyClosed,
-  inactive
+  visible,
+  invisible,
+  temporarilyClosed
   ;
 
   static FacilityStatus fromString(String value) => switch (value.toLowerCase()) {
-    'active' => active,
-    'temporarily closed' || 'temporarily_closed' => temporarilyClosed,
-    _ => inactive,
-  };
-}
-
-/// Subscription status of a facility.
-enum SubscriptionStatus {
-  basic,
-  trial,
-  active,
-  inactive
-  ;
-
-  static SubscriptionStatus fromString(String value) => switch (value.toLowerCase()) {
-    'basic' => basic,
-    'trial' => trial,
-    'active' => active,
-    _ => inactive,
+    'visible' => visible,
+    'temp_closed' => temporarilyClosed,
+    _ => invisible,
   };
 }
 

@@ -44,42 +44,23 @@ class FacilityHeaderControls extends StatelessWidget {
             children: [
               const BackButton(),
               const Spacer(),
-              _buildCircularButton(
-                context,
+              CircularButton(
                 icon: SolarIconsOutline.bookmark,
+                size: 40,
+                backgroundColor: Colors.black.withValues(alpha: 0.3),
+                iconColor: Colors.white,
                 onPressed: () {},
               ),
               const SizedBox(width: 12),
-              _buildCircularButton(
-                context,
+              CircularButton(
                 icon: SolarIconsOutline.share,
+                size: 40,
+                backgroundColor: Colors.black.withValues(alpha: 0.3),
+                iconColor: Colors.white,
                 onPressed: () {},
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCircularButton(
-    BuildContext context, {
-    required IconData icon,
-    required VoidCallback onPressed,
-  }) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: 0.3),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          icon,
-          color: Colors.white,
-          size: 20,
         ),
       ),
     );

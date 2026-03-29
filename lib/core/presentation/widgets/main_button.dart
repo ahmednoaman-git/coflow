@@ -69,10 +69,8 @@ class MainButton extends StatelessWidget {
 
     if (effectiveDisabled) {
       backgroundColor =
-          this.backgroundColor?.withValues(alpha: 0.5) ??
-          context.colors.backgroundGreyTwo;
-      contentColor =
-          textColor?.withValues(alpha: 0.5) ?? context.colors.textDisabled;
+          this.backgroundColor?.withValues(alpha: 0.5) ?? context.colors.backgroundGreyTwo;
+      contentColor = textColor?.withValues(alpha: 0.5) ?? context.colors.textDisabled;
     } else {
       backgroundColor = this.backgroundColor ?? context.colors.signatureBlue;
       contentColor = textColor ?? context.colors.textWhite;
@@ -86,14 +84,12 @@ class MainButton extends StatelessWidget {
         isDisabled: effectiveDisabled,
         scaleEnd: 0.98,
         animationDuration: const Duration(milliseconds: 150),
-        borderRadius: BorderRadius.circular(12.0),
+        borderRadius: BorderRadius.circular(100),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeInOut,
           decoration: ShapeDecoration(
-            shape: RoundedSuperellipseBorder(
-              borderRadius: BorderRadius.circular(12.0),
-            ),
+            shape: StadiumBorder(),
             color: backgroundColor,
           ),
           child: Center(
@@ -113,8 +109,7 @@ class MainButton extends StatelessWidget {
                       mainAxisAlignment: .center,
                       spacing: context.spacing.s8,
                       children: [
-                        if (leadingIcon != null)
-                          Icon(leadingIcon!, color: contentColor, size: 16),
+                        if (leadingIcon != null) Icon(leadingIcon!, color: contentColor, size: 16),
                         Text(
                           text,
                           style: context.typography.medium14.withColor(

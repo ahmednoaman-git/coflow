@@ -26,7 +26,27 @@ class AppTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: colors.signatureBlue,
         brightness: Brightness.light,
+        primary: colors.signatureBlue,
+        onPrimary: colors.textWhite,
+        surface: colors.backgroundWhite,
+        surfaceTint: Colors.transparent,
         onSurface: colors.textPrimary,
+      ),
+      splashFactory: NoSplash.splashFactory,
+      dividerColor: const Color(0xFFE0E0E0),
+      dividerTheme: const DividerThemeData(
+        color: Color(0xFFE0E0E0),
+        thickness: 1,
+        space: 0,
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: colors.backgroundWhite,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: colors.backgroundWhite,
+        surfaceTintColor: Colors.transparent,
       ),
     );
   }
@@ -48,7 +68,27 @@ class AppTheme {
       colorScheme: ColorScheme.fromSeed(
         seedColor: colors.signatureBlue,
         brightness: Brightness.dark,
+        primary: colors.signatureBlue,
+        onPrimary: colors.textWhite,
+        surface: colors.backgroundWhite,
+        surfaceTint: Colors.transparent,
         onSurface: colors.textPrimary,
+      ),
+      splashFactory: NoSplash.splashFactory,
+      dividerColor: const Color(0xFF404040),
+      dividerTheme: const DividerThemeData(
+        color: Color(0xFF404040),
+        thickness: 1,
+        space: 0,
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: colors.backgroundWhite,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: colors.backgroundWhite,
+        surfaceTintColor: Colors.transparent,
       ),
     );
   }

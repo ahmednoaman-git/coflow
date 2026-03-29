@@ -26,12 +26,8 @@ class FacilityCard extends StatelessWidget {
       child: TappableScale(
         borderRadius: BorderRadius.circular(context.spacing.s16),
         onTap: () {
-          final logoProvider = facility.logoUrl != null ? NetworkImage(facility.logoUrl!) : null;
           context.router.push(
-            FacilityDetailsRoute(
-              facility: facility,
-              logoImageProvider: logoProvider,
-            ),
+            FacilityDetailsRoute(facility: facility),
           );
         },
         child: Column(
@@ -69,25 +65,21 @@ class FacilityCard extends StatelessWidget {
   }
 
   Widget _buildLogo(BuildContext context) {
-    return Container(
-      width: 56,
-      height: 56,
-      decoration: ShapeDecoration(
-        shape: const CircleBorder(),
-        color: context.colors.backgroundGrey,
-        image: facility.logoUrl != null
-            ? DecorationImage(
-                image: NetworkImage(facility.logoUrl!),
-                fit: BoxFit.cover,
-              )
-            : null,
+    return ClipOval(
+      child: SizedBox(
+        width: 56,
+        height: 56,
+        child: ShimmerImage(
+          imageUrl: facility.logoUrl,
+          width: 56,
+          height: 56,
+          borderRadius: 100,
+          errorWidget: Icon(
+            Icons.business_rounded,
+            color: context.colors.textTertiary,
+          ),
+        ),
       ),
-      child: facility.logoUrl == null
-          ? Icon(
-              Icons.business_rounded,
-              color: context.colors.textTertiary,
-            )
-          : null,
     );
   }
 
@@ -153,11 +145,7 @@ class FacilityCardIconSection extends StatelessWidget {
     return Row(
       spacing: context.spacing.s4,
       children: [
-        if (facility.status == FacilityStatus.temporarilyClosed)
-          Text(
-            context.l10n.facility_temporarilyClosed,
-            style: context.typography.book10.error(context),
-          ),
+        for (final icon in icons) Icon(icon, size: 16, color: context.colors.textSecondary),
       ],
     );
   }
@@ -165,34 +153,22 @@ class FacilityCardIconSection extends StatelessWidget {
   /// Gets icon paths based on subscription status and payment type.
   ///
   /// | Subscription | Payment Type | Icons |
-  /// |---|---|---|
-  /// | basic | * | percentage |
-  /// | trial | * | (none) |
-  /// | active | directPurchase | cash, calendar, percentage |
-  /// | active | fullOnline/deposit | creditCard, calendar, percentage |
-  /// | inactive | * | percentage |
+  /// Feature icons displayed on the facility card, derived from
+  /// [AccountType] features and [PaymentType].
   List<IconData> _getIcons() {
-    // Choose Solar Outline icons matching the design
-    // - percentage/tag: discount indicator
-    // - banknote: cash payment
-    // - calendar: scheduled payments / subscription
-    // - card: credit card / online payment
+    final features = facility.accountType.features(facility.subscriptionStatus);
+    if (features.isEmpty) return const [];
 
-    final percentage = SolarIconsOutline.tagPrice;
-    final cash = SolarIconsOutline.banknote;
-    final calendar = SolarIconsOutline.calendar;
-    final card = SolarIconsOutline.card;
-
-    return switch (facility.subscriptionStatus) {
-      SubscriptionStatus.basic => [percentage],
-      SubscriptionStatus.trial => [],
-      SubscriptionStatus.active => switch (facility.paymentType) {
-        PaymentType.directPurchase => [cash, calendar, percentage],
-        PaymentType.fullOnline || PaymentType.depositOnline => [card, calendar, percentage],
-        _ => [percentage],
-      },
-      SubscriptionStatus.inactive => [percentage],
-    };
+    return [
+      if (facility.paymentType == PaymentType.directPurchase) SolarIconsOutline.banknote,
+      if (features.contains(FacilityFeature.onlinePayment) &&
+          (facility.paymentType == PaymentType.fullOnline ||
+              facility.paymentType == PaymentType.depositOnline))
+        SolarIconsOutline.card,
+      if (features.contains(FacilityFeature.calendar)) SolarIconsOutline.calendar,
+      if (features.contains(FacilityFeature.schedule)) SolarIconsOutline.calendar,
+      if (features.contains(FacilityFeature.purchasing)) SolarIconsOutline.tagPrice,
+    ];
   }
 }
 

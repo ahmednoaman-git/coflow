@@ -1,3 +1,4 @@
+import 'package:coflow_users_v2/core/presentation/widgets/shimmer_image.dart';
 import 'package:flutter/material.dart';
 
 import '../facility_data_provider.dart';
@@ -9,13 +10,14 @@ class FacilityHeaderLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final facilityDataProvider = FacilityDataProvider.of(context);
+    final logoRadius = FacilityHeader.logoImageRadius;
 
     return Stack(
       clipBehavior: Clip.none,
       children: [
         Container(
           width: double.infinity,
-          height: FacilityHeader.logoImageRadius,
+          height: logoRadius,
           decoration: BoxDecoration(
             color: facilityDataProvider.activityLineColor,
             borderRadius: const BorderRadius.vertical(
@@ -38,14 +40,30 @@ class FacilityHeaderLogo extends StatelessWidget {
                     fromHeroContext,
                     toHeroContext,
                   ) {
-                    return CircleAvatar(
-                      radius: FacilityHeader.logoImageRadius,
-                      backgroundImage: facilityDataProvider.logoImageProvider,
+                    return ClipOval(
+                      child: SizedBox(
+                        width: logoRadius * 2,
+                        height: logoRadius * 2,
+                        child: ShimmerImage(
+                          imageUrl: facilityDataProvider.facility.logoUrl,
+                          width: logoRadius * 2,
+                          height: logoRadius * 2,
+                          borderRadius: 100,
+                        ),
+                      ),
                     );
                   },
-              child: CircleAvatar(
-                radius: FacilityHeader.logoImageRadius,
-                backgroundImage: facilityDataProvider.logoImageProvider,
+              child: ClipOval(
+                child: SizedBox(
+                  width: logoRadius * 2,
+                  height: logoRadius * 2,
+                  child: ShimmerImage(
+                    imageUrl: facilityDataProvider.facility.logoUrl,
+                    width: logoRadius * 2,
+                    height: logoRadius * 2,
+                    borderRadius: 100,
+                  ),
+                ),
               ),
             ),
           ),

@@ -12,7 +12,6 @@ class FacilityDataProvider extends InheritedWidget {
     super.key,
     required this.scrollController,
     required this.facility,
-    required this.logoImageProvider,
     required this.activityLineColor,
     required this.activityLineBackground,
     required super.child,
@@ -20,7 +19,6 @@ class FacilityDataProvider extends InheritedWidget {
 
   final ScrollController scrollController;
   final CollapsedFacilityEntity facility;
-  final ImageProvider? logoImageProvider;
   final Color activityLineColor;
   final Color activityLineBackground;
 
@@ -33,7 +31,6 @@ class FacilityDataProvider extends InheritedWidget {
     return FacilityDataProvider(
       scrollController: facilityDataProvider.scrollController,
       facility: facilityDataProvider.facility,
-      logoImageProvider: facilityDataProvider.logoImageProvider,
       activityLineColor: facilityDataProvider.activityLineColor,
       activityLineBackground: facilityDataProvider.activityLineBackground,
       child: child,

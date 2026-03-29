@@ -113,8 +113,13 @@
   "facility_temporarilyClosed": "Temporarily Closed",
 
   "facilityDetails_profileTab": "Profile",
+  "facilityDetails_activitiesTab": "Activities",
+  "facilityDetails_flowsTab": "Flows",
+  "facilityDetails_coursesTab": "Courses",
   "facilityDetails_pricingTab": "Pricing",
-  "facilityDetails_ticketPrice": "Ticket price",
+  "facilityDetails_scheduleTab": "Schedule",
+  "facilityDetails_calendarTab": "Calendar",
+  "facilityDetails_ticketPrice": "Price",
   "facilityDetails_addOns": "Add-ons",
   "facilityDetails_access": "Access",
   "facilityDetails_conditions": "Conditions",
@@ -132,7 +137,7 @@
   },
   "facilityDetails_unlimited": "Unlimited",
   "facilityDetails_unknown": "Unknown",
-  "facilityDetails_days": "{count} days",
+  "facilityDetails_days": "{count} Day(s)",
   "@facilityDetails_days": {
     "placeholders": {
       "count": {"type": "int"}
@@ -149,8 +154,11 @@
   "facilityDetails_locationSectionTitle": "Location",
   "facilityDetails_branchesSectionTitle": "Branches",
   "facilityDetails_languagesSectionTitle": "Languages",
+  "facilityDetails_flowsSectionTitle": "Flows",
   "facilityDetails_amenitiesSectionTitle": "Amenities",
   "facilityDetails_actionsSectionTitle": "Actions",
   "facilityDetails_comingSoon": "Coming soon",
-  "facilityDetails_noTickets": "No tickets available"
+  "facilityDetails_noTickets": "No tickets available",
+  "facilityDetails_trackUpdates": "Track Updates",
+  "facilityDetails_faqs": "FAQs"
 }

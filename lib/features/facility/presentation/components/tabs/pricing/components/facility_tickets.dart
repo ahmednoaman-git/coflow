@@ -3,6 +3,7 @@ import 'package:coflow_users_v2/features/facility/domain/entities/entities.dart'
 import 'package:coflow_users_v2/features/facility/presentation/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 
+import 'ticket_shimmer.dart';
 import 'ticket_tile.dart';
 
 class FacilityTickets extends StatelessWidget {
@@ -12,10 +13,7 @@ class FacilityTickets extends StatelessWidget {
   Widget build(BuildContext context) {
     return AsyncHandler<FacilityDetailsCubit, FacilityDetailsState, List<FacilityTicketEntity>>(
       requestManagerGetter: (cubit) => cubit.ticketsManager,
-      loadingBuilder: (context) => Padding(
-        padding: EdgeInsets.all(context.spacing.s32),
-        child: const Center(child: CircularProgressIndicator()),
-      ),
+      loadingBuilder: (context) => const TicketShimmerList(),
       successBuilder: (context, tickets) {
         if (tickets.isEmpty) {
           return Padding(

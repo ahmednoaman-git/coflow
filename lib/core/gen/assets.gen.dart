@@ -35,6 +35,9 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/faqs.svg
   SvgGenImage get faqs => const SvgGenImage('assets/svgs/faqs.svg');
 
+  /// File path: assets/svgs/flows.svg
+  SvgGenImage get flows => const SvgGenImage('assets/svgs/flows.svg');
+
   /// File path: assets/svgs/hours.svg
   SvgGenImage get hours => const SvgGenImage('assets/svgs/hours.svg');
 
@@ -76,6 +79,7 @@ class $AssetsSvgsGen {
     earth,
     energy,
     faqs,
+    flows,
     hours,
     language,
     location,

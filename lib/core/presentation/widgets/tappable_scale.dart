@@ -84,8 +84,7 @@ class TappableScale extends StatefulWidget {
   State<TappableScale> createState() => _TappableScaleState();
 }
 
-class _TappableScaleState extends State<TappableScale>
-    with SingleTickerProviderStateMixin {
+class _TappableScaleState extends State<TappableScale> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 

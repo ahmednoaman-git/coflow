@@ -272,7 +272,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get facilityDetails_profileTab => 'الملف الشخصي';
 
   @override
+  String get facilityDetails_activitiesTab => 'الأنشطة';
+
+  @override
+  String get facilityDetails_flowsTab => 'التدفقات';
+
+  @override
+  String get facilityDetails_coursesTab => 'الدورات';
+
+  @override
   String get facilityDetails_pricingTab => 'الأسعار';
+
+  @override
+  String get facilityDetails_scheduleTab => 'الجدول';
+
+  @override
+  String get facilityDetails_calendarTab => 'التقويم';
 
   @override
   String get facilityDetails_ticketPrice => 'سعر التذكرة';
@@ -341,6 +356,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get facilityDetails_languagesSectionTitle => 'اللغات';
 
   @override
+  String get facilityDetails_flowsSectionTitle => 'التدفقات';
+
+  @override
   String get facilityDetails_amenitiesSectionTitle => 'المرافق';
 
   @override
@@ -351,4 +369,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get facilityDetails_noTickets => 'لا توجد تذاكر متاحة';
+
+  @override
+  String get facilityDetails_trackUpdates => 'تتبع التحديثات';
+
+  @override
+  String get facilityDetails_faqs => 'الأسئلة الشائعة';
 }

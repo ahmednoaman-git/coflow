@@ -50,23 +50,37 @@ class ProfileHeader extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                '${profile.title ?? ''} . ${profile.year ?? ''}',
+                _buildSubtitle(),
                 style: context.typography.medium12.secondary(context),
               ),
             ),
+            if (profile.mainBranch != null)
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.spacing.s8,
+                  vertical: context.spacing.s4,
+                ),
+                decoration: ShapeDecoration(
+                  color: facilityDataProvider.activityLineBackground,
+                  shape: const StadiumBorder(),
+                ),
+                child: Row(
+                  spacing: context.spacing.s4,
+                  children: [
+                    Assets.svgs.branch.svg(
+                      colorFilter: facilityDataProvider.activityLineColor.colorFilter,
+                      width: 14,
+                      height: 14,
+                    ),
+                    Text(
+                      profile.mainBranch!.name,
+                      style: context.typography.book10.secondary(context),
+                    ),
+                  ],
+                ),
+              ),
           ],
         ),
-        if (profile.tags.isNotEmpty)
-          Align(
-            alignment: .centerLeft,
-            child: Wrap(
-              spacing: context.spacing.s8,
-              runSpacing: context.spacing.s8,
-              children: [
-                for (final tag in profile.tags) _buildTagChip(context, tag, facilityDataProvider),
-              ],
-            ),
-          ),
         if (profile.bio != null && profile.bio!.isNotEmpty)
           AnimatedReadMoreText(
             profile.bio!,
@@ -87,28 +101,14 @@ class ProfileHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildTagChip(
-    BuildContext context,
-    String tag,
-    FacilityDataProvider facilityData,
-  ) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: context.spacing.s8,
-        vertical: context.spacing.s4,
-      ),
-      decoration: ShapeDecoration(
-        color: facilityData.activityLineBackground,
-        shape: const StadiumBorder(),
-      ),
-      child: Text(
-        tag,
-        style: context.typography.book10
-            .secondary(context)
-            .copyWith(
-              color: facilityData.activityLineColor.withValues(alpha: 0.75),
-            ),
-      ),
-    );
+  String _buildSubtitle() {
+    final parts = <String>[];
+    if (profile.title != null && profile.title!.isNotEmpty) {
+      parts.add(profile.title!);
+    }
+    if (profile.year != null && profile.year!.isNotEmpty) {
+      parts.add(profile.year!);
+    }
+    return parts.join(' . ');
   }
 }

@@ -150,7 +150,7 @@ class AccessSection extends StatelessWidget {
           children: services.map((service) {
             return Container(
               padding: EdgeInsets.symmetric(
-                horizontal: context.spacing.s8,
+                horizontal: context.spacing.s12,
                 vertical: context.spacing.s8,
               ),
               decoration: BoxDecoration(
@@ -159,7 +159,7 @@ class AccessSection extends StatelessWidget {
               ),
               child: Text(
                 service.name,
-                style: context.typography.book12
+                style: context.typography.medium13
                     .primary(context)
                     .copyWith(
                       color: accentColor,

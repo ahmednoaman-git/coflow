@@ -159,7 +159,7 @@ class AppColors extends ThemeExtension<AppColors> {
     backgroundWhite: Color(0xFFFFFFFF),
 
     // Stroke
-    strokePrimary: Color(0xFFF0F0F0),
+    strokePrimary: Color(0xFFE0E0E0),
     strokeSecondary: Color(0xFFE4E4E4),
     strokeRed: Color(0xFFF8BFBE),
     strokeBlue: Color(0xFFBFDBE9),
@@ -259,8 +259,7 @@ class AppColors extends ThemeExtension<AppColors> {
   }) {
     return AppColors(
       signatureBlue: signatureBlue ?? this.signatureBlue,
-      signatureBlueSecondary:
-          signatureBlueSecondary ?? this.signatureBlueSecondary,
+      signatureBlueSecondary: signatureBlueSecondary ?? this.signatureBlueSecondary,
       textPrimary: textPrimary ?? this.textPrimary,
       textSecondary: textSecondary ?? this.textSecondary,
       textTertiary: textTertiary ?? this.textTertiary,
@@ -269,15 +268,11 @@ class AppColors extends ThemeExtension<AppColors> {
       skyBluePrimary: skyBluePrimary ?? this.skyBluePrimary,
       skyBlueSecondary: skyBlueSecondary ?? this.skyBlueSecondary,
       seaCaribbeanPrimary: seaCaribbeanPrimary ?? this.seaCaribbeanPrimary,
-      seaCaribbeanSecondary:
-          seaCaribbeanSecondary ?? this.seaCaribbeanSecondary,
-      earthSunnyGoldPrimary:
-          earthSunnyGoldPrimary ?? this.earthSunnyGoldPrimary,
-      earthSunnyGoldSecondary:
-          earthSunnyGoldSecondary ?? this.earthSunnyGoldSecondary,
+      seaCaribbeanSecondary: seaCaribbeanSecondary ?? this.seaCaribbeanSecondary,
+      earthSunnyGoldPrimary: earthSunnyGoldPrimary ?? this.earthSunnyGoldPrimary,
+      earthSunnyGoldSecondary: earthSunnyGoldSecondary ?? this.earthSunnyGoldSecondary,
       energyCherryPrimary: energyCherryPrimary ?? this.energyCherryPrimary,
-      energyCherrySecondary:
-          energyCherrySecondary ?? this.energyCherrySecondary,
+      energyCherrySecondary: energyCherrySecondary ?? this.energyCherrySecondary,
       ladiesOnlyPrimary: ladiesOnlyPrimary ?? this.ladiesOnlyPrimary,
       ladiesOnlySecondary: ladiesOnlySecondary ?? this.ladiesOnlySecondary,
       backgroundOne: backgroundOne ?? this.backgroundOne,

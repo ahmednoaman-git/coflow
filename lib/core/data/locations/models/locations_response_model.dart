@@ -1,46 +1,66 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-part 'locations_response_model.freezed.dart';
 part 'locations_response_model.g.dart';
 
 /// Response model for locations API.
-@freezed
-abstract class LocationsResponseModel with _$LocationsResponseModel {
-  const factory LocationsResponseModel({
-    required List<CityModel> cities,
-    required int remote,
-  }) = _LocationsResponseModel;
+@JsonSerializable(fieldRename: FieldRename.snake, checked: true)
+class LocationsResponseModel {
+  const LocationsResponseModel({
+    required this.cities,
+    required this.remote,
+  });
+
+  final List<LocationCityModel> cities;
+  final int remote;
 
   factory LocationsResponseModel.fromJson(Map<String, dynamic> json) =>
       _$LocationsResponseModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LocationsResponseModelToJson(this);
 }
 
-/// City model from API.
-@freezed
-abstract class CityModel with _$CityModel {
-  const factory CityModel({
-    required int id,
-    required String name,
-    @JsonKey(name: 'country_id') int? countryId,
-    int? count,
-    List<AreaModel>? areas,
-  }) = _CityModel;
+/// City model from API (for locations endpoint).
+@JsonSerializable(fieldRename: FieldRename.snake, checked: true)
+class LocationCityModel {
+  const LocationCityModel({
+    required this.id,
+    required this.name,
+    this.countryId,
+    this.count,
+    this.areas,
+  });
 
-  factory CityModel.fromJson(Map<String, dynamic> json) =>
-      _$CityModelFromJson(json);
+  final int id;
+  final String name;
+  final int? countryId;
+  final int? count;
+  final List<LocationAreaModel>? areas;
+
+  factory LocationCityModel.fromJson(Map<String, dynamic> json) =>
+      _$LocationCityModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LocationCityModelToJson(this);
 }
 
-/// Area model from API.
-@freezed
-abstract class AreaModel with _$AreaModel {
-  const factory AreaModel({
-    required int id,
-    required String name,
-    @JsonKey(name: 'country_id') int? countryId,
-    @JsonKey(name: 'city_id') int? cityId,
-    int? count,
-  }) = _AreaModel;
+/// Area model from API (for locations endpoint).
+@JsonSerializable(fieldRename: FieldRename.snake, checked: true)
+class LocationAreaModel {
+  const LocationAreaModel({
+    required this.id,
+    required this.name,
+    this.countryId,
+    this.cityId,
+    this.count,
+  });
 
-  factory AreaModel.fromJson(Map<String, dynamic> json) =>
-      _$AreaModelFromJson(json);
+  final int id;
+  final String name;
+  final int? countryId;
+  final int? cityId;
+  final int? count;
+
+  factory LocationAreaModel.fromJson(Map<String, dynamic> json) =>
+      _$LocationAreaModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$LocationAreaModelToJson(this);
 }

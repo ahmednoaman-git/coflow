@@ -9,8 +9,8 @@ part of 'facility_tag_model.dart';
 FacilityTagModel _$FacilityTagModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('FacilityTagModel', json, ($checkedConvert) {
       final val = FacilityTagModel(
-        id: $checkedConvert('id', (v) => (v as num).toInt()),
-        name: $checkedConvert('name', (v) => v as String),
+        id: $checkedConvert('id', (v) => _intFromJson(v)),
+        name: $checkedConvert('name', (v) => _stringFromJson(v)),
       );
       return val;
     });

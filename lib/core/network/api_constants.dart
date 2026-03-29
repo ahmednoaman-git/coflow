@@ -5,7 +5,7 @@ class ApiConstants {
 
   // Base URLs
   /// The base URL for all API endpoints
-  static const String baseUrl = 'https://back.coflow.co/Coflow/apiApp/';
+  static const String baseUrl = 'https://api-test.coflow.co/apiApp/';
 
   // Timeout durations
   /// Connection timeout duration (time to establish connection)
@@ -48,12 +48,6 @@ class ApiConstants {
 
   /// Internal server error
   static const int statusInternalServerError = 500;
-}
-
-class ApiEndpoints {
-  ApiEndpoints._();
-
-  static const String getTenantById = 'tenant/byname';
 }
 
 /// Keys used in API response parsing.

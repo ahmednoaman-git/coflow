@@ -6,30 +6,45 @@ part of 'locations_response_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_LocationsResponseModel _$LocationsResponseModelFromJson(
+LocationsResponseModel _$LocationsResponseModelFromJson(
   Map<String, dynamic> json,
-) => _LocationsResponseModel(
-  cities: (json['cities'] as List<dynamic>)
-      .map((e) => CityModel.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  remote: (json['remote'] as num).toInt(),
-);
+) => $checkedCreate('LocationsResponseModel', json, ($checkedConvert) {
+  final val = LocationsResponseModel(
+    cities: $checkedConvert(
+      'cities',
+      (v) => (v as List<dynamic>)
+          .map((e) => LocationCityModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    ),
+    remote: $checkedConvert('remote', (v) => (v as num).toInt()),
+  );
+  return val;
+});
 
 Map<String, dynamic> _$LocationsResponseModelToJson(
-  _LocationsResponseModel instance,
+  LocationsResponseModel instance,
 ) => <String, dynamic>{'cities': instance.cities, 'remote': instance.remote};
 
-_CityModel _$CityModelFromJson(Map<String, dynamic> json) => _CityModel(
-  id: (json['id'] as num).toInt(),
-  name: json['name'] as String,
-  countryId: (json['country_id'] as num?)?.toInt(),
-  count: (json['count'] as num?)?.toInt(),
-  areas: (json['areas'] as List<dynamic>?)
-      ?.map((e) => AreaModel.fromJson(e as Map<String, dynamic>))
-      .toList(),
-);
+LocationCityModel _$LocationCityModelFromJson(Map<String, dynamic> json) =>
+    $checkedCreate('LocationCityModel', json, ($checkedConvert) {
+      final val = LocationCityModel(
+        id: $checkedConvert('id', (v) => (v as num).toInt()),
+        name: $checkedConvert('name', (v) => v as String),
+        countryId: $checkedConvert('country_id', (v) => (v as num?)?.toInt()),
+        count: $checkedConvert('count', (v) => (v as num?)?.toInt()),
+        areas: $checkedConvert(
+          'areas',
+          (v) => (v as List<dynamic>?)
+              ?.map(
+                (e) => LocationAreaModel.fromJson(e as Map<String, dynamic>),
+              )
+              .toList(),
+        ),
+      );
+      return val;
+    }, fieldKeyMap: const {'countryId': 'country_id'});
 
-Map<String, dynamic> _$CityModelToJson(_CityModel instance) =>
+Map<String, dynamic> _$LocationCityModelToJson(LocationCityModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -38,15 +53,24 @@ Map<String, dynamic> _$CityModelToJson(_CityModel instance) =>
       'areas': instance.areas,
     };
 
-_AreaModel _$AreaModelFromJson(Map<String, dynamic> json) => _AreaModel(
-  id: (json['id'] as num).toInt(),
-  name: json['name'] as String,
-  countryId: (json['country_id'] as num?)?.toInt(),
-  cityId: (json['city_id'] as num?)?.toInt(),
-  count: (json['count'] as num?)?.toInt(),
-);
+LocationAreaModel _$LocationAreaModelFromJson(Map<String, dynamic> json) =>
+    $checkedCreate(
+      'LocationAreaModel',
+      json,
+      ($checkedConvert) {
+        final val = LocationAreaModel(
+          id: $checkedConvert('id', (v) => (v as num).toInt()),
+          name: $checkedConvert('name', (v) => v as String),
+          countryId: $checkedConvert('country_id', (v) => (v as num?)?.toInt()),
+          cityId: $checkedConvert('city_id', (v) => (v as num?)?.toInt()),
+          count: $checkedConvert('count', (v) => (v as num?)?.toInt()),
+        );
+        return val;
+      },
+      fieldKeyMap: const {'countryId': 'country_id', 'cityId': 'city_id'},
+    );
 
-Map<String, dynamic> _$AreaModelToJson(_AreaModel instance) =>
+Map<String, dynamic> _$LocationAreaModelToJson(LocationAreaModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

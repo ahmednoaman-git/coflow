@@ -27,7 +27,7 @@ abstract final class ActivityLineMapper {
       likeCount: model.reviewsCount,
       activityLine: ActivityLineEntity.fromId(model.activityLine.id),
       tags: model.tags?.map(toTagEntity).toList() ?? [],
-      type: FacilityType.fromString(model.facilityType ?? ''),
+      accountType: AccountType.fromString(model.facilityType ?? ''),
       status: FacilityStatus.fromString(model.status),
       subscriptionStatus: SubscriptionStatus.fromString(model.subscription),
       paymentType: PaymentType.fromString(model.paymentType),

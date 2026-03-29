@@ -12,13 +12,9 @@ class FacilityDetailsScreen extends StatefulWidget {
   const FacilityDetailsScreen({
     super.key,
     required this.facility,
-    this.logoImageProvider,
   });
 
   final CollapsedFacilityEntity facility;
-
-  /// Optional logo provider to support a Hero transition from list cards.
-  final ImageProvider? logoImageProvider;
 
   @override
   State<FacilityDetailsScreen> createState() => _FacilityDetailsScreenState();
@@ -44,7 +40,6 @@ class _FacilityDetailsScreenState extends State<FacilityDetailsScreen> {
       child: FacilityDataProvider(
         scrollController: _scrollController,
         facility: widget.facility,
-        logoImageProvider: widget.logoImageProvider,
         activityLineColor: activityLineColor,
         activityLineBackground: activityLineBackground,
         child: Scaffold(

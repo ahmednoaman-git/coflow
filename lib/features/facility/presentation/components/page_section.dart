@@ -23,14 +23,17 @@ class PageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: .start,
-      spacing: context.spacing.s8,
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: context.spacing.s16),
-          child: Row(
-            spacing: context.spacing.s4,
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: context.spacing.s24,
+        vertical: context.spacing.s32,
+      ),
+      child: Column(
+        crossAxisAlignment: .start,
+        spacing: context.spacing.s16,
+        children: [
+          Row(
+            spacing: context.spacing.s16,
             children: [
               SvgPicture.asset(
                 svgIconPath,
@@ -44,15 +47,14 @@ class PageSection extends StatelessWidget {
               ),
             ],
           ),
-        ),
-        ...children.map(
-          (child) => Padding(
-            padding: childPadding ?? EdgeInsets.symmetric(horizontal: context.spacing.s16),
-            child: child,
+          ...children.map(
+            (child) => Padding(
+              padding: childPadding ?? EdgeInsets.zero,
+              child: child,
+            ),
           ),
-        ),
-        SizedBox(height: context.spacing.s8),
-      ],
+        ],
+      ),
     );
   }
 }

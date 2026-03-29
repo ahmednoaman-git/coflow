@@ -130,14 +130,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i315.SplashCubit>(
       () => _i315.SplashCubit(gh<_i224.AuthStateManager>()),
     );
-    gh.singleton<_i724.LocalizationCubit>(
-      () => _i724.LocalizationCubit(gh<_i128.LocalizationManager>()),
-    );
     gh.lazySingleton<_i667.DioClient>(
       () => registerModule.dioClient(gh<_i745.AuthInterceptor>()),
     );
-    gh.lazySingleton<_i361.Dio>(
-      () => registerModule.dio(gh<_i667.DioClient>()),
+    gh.singleton<_i724.LocalizationCubit>(
+      () => _i724.LocalizationCubit(gh<_i128.LocalizationManager>()),
     );
     gh.lazySingleton<_i34.LocationsRemoteDataSource>(
       () => _i34.LocationsRemoteDataSource(gh<_i351.DioClient>()),
@@ -154,53 +151,28 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i278.HomeRemoteDataSource>(
       () => _i278.HomeRemoteDataSource(gh<_i351.DioClient>()),
     );
-    gh.lazySingleton<_i181.FacilityRepository>(
-      () => _i85.FacilityRepositoryImpl(gh<_i163.FacilityRemoteDataSource>()),
-    );
-    gh.lazySingleton<_i0.HomeRepository>(
-      () => _i76.HomeRepositoryImpl(gh<_i1067.HomeRemoteDataSource>()),
-    );
     gh.lazySingleton<_i625.AuthenticationRepository>(
       () => _i195.AuthenticationRepositoryImpl(
         gh<_i748.AuthRemoteDataSource>(),
         gh<_i351.AuthStateManager>(),
       ),
     );
-    gh.lazySingleton<_i222.LocationsRepository>(
-      () =>
-          _i522.LocationsRepositoryImpl(gh<_i276.LocationsRemoteDataSource>()),
+    gh.lazySingleton<_i0.HomeRepository>(
+      () => _i76.HomeRepositoryImpl(gh<_i1067.HomeRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i361.Dio>(
+      () => registerModule.dio(gh<_i667.DioClient>()),
+    );
+    gh.lazySingleton<_i181.FacilityRepository>(
+      () => _i85.FacilityRepositoryImpl(gh<_i163.FacilityRemoteDataSource>()),
     );
     gh.lazySingleton<_i196.ActivityLineRepository>(
       () => _i239.ActivityLineRepositoryImpl(
         gh<_i755.ActivityLineRemoteDataSource>(),
       ),
     );
-    gh.lazySingleton<_i261.GetHomeUseCase>(
-      () => _i261.GetHomeUseCase(gh<_i0.HomeRepository>()),
-    );
-    gh.lazySingleton<_i587.GetFacilityProfileUseCase>(
-      () => _i587.GetFacilityProfileUseCase(gh<_i181.FacilityRepository>()),
-    );
-    gh.lazySingleton<_i631.GetFacilityTicketDetailsUseCase>(
-      () =>
-          _i631.GetFacilityTicketDetailsUseCase(gh<_i181.FacilityRepository>()),
-    );
-    gh.lazySingleton<_i611.GetFacilityTicketsUseCase>(
-      () => _i611.GetFacilityTicketsUseCase(gh<_i181.FacilityRepository>()),
-    );
     gh.lazySingleton<_i191.GetFacilitiesUseCase>(
       () => _i191.GetFacilitiesUseCase(gh<_i196.ActivityLineRepository>()),
-    );
-    gh.factoryParam<
-      _i453.FacilityDetailsCubit,
-      _i721.CollapsedFacilityEntity,
-      dynamic
-    >(
-      (facility, _) => _i453.FacilityDetailsCubit(
-        gh<_i312.GetFacilityProfileUseCase>(),
-        gh<_i312.GetFacilityTicketsUseCase>(),
-        facility,
-      ),
     );
     gh.lazySingleton<_i146.LoginUseCase>(
       () => _i146.LoginUseCase(gh<_i625.AuthenticationRepository>()),
@@ -220,15 +192,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i121.VerifyOtpUseCase>(
       () => _i121.VerifyOtpUseCase(gh<_i625.AuthenticationRepository>()),
     );
-    gh.lazySingleton<_i913.GetLocationsUseCase>(
-      () => _i913.GetLocationsUseCase(gh<_i222.LocationsRepository>()),
-    );
-    gh.factoryParam<_i134.TicketDetailsCubit, int, dynamic>(
-      (ticketId, _) => _i134.TicketDetailsCubit(
-        gh<_i312.GetFacilityTicketDetailsUseCase>(),
-        ticketId,
-      ),
-    );
     gh.factory<_i1040.RegisterCubit>(
       () => _i1040.RegisterCubit(
         gh<_i22.RegisterUseCase>(),
@@ -238,6 +201,43 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1017.LoginCubit>(
       () => _i1017.LoginCubit(gh<_i22.LoginUseCase>()),
+    );
+    gh.lazySingleton<_i222.LocationsRepository>(
+      () =>
+          _i522.LocationsRepositoryImpl(gh<_i276.LocationsRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i261.GetHomeUseCase>(
+      () => _i261.GetHomeUseCase(gh<_i0.HomeRepository>()),
+    );
+    gh.lazySingleton<_i587.GetFacilityProfileUseCase>(
+      () => _i587.GetFacilityProfileUseCase(gh<_i181.FacilityRepository>()),
+    );
+    gh.lazySingleton<_i631.GetFacilityTicketDetailsUseCase>(
+      () =>
+          _i631.GetFacilityTicketDetailsUseCase(gh<_i181.FacilityRepository>()),
+    );
+    gh.lazySingleton<_i611.GetFacilityTicketsUseCase>(
+      () => _i611.GetFacilityTicketsUseCase(gh<_i181.FacilityRepository>()),
+    );
+    gh.factoryParam<
+      _i453.FacilityDetailsCubit,
+      _i721.CollapsedFacilityEntity,
+      dynamic
+    >(
+      (facility, _) => _i453.FacilityDetailsCubit(
+        gh<_i312.GetFacilityProfileUseCase>(),
+        gh<_i312.GetFacilityTicketsUseCase>(),
+        facility,
+      ),
+    );
+    gh.lazySingleton<_i913.GetLocationsUseCase>(
+      () => _i913.GetLocationsUseCase(gh<_i222.LocationsRepository>()),
+    );
+    gh.factoryParam<_i134.TicketDetailsCubit, int, dynamic>(
+      (ticketId, _) => _i134.TicketDetailsCubit(
+        gh<_i312.GetFacilityTicketDetailsUseCase>(),
+        ticketId,
+      ),
     );
     gh.factoryParam<
       _i803.ActivityLineFacilitiesCubit,

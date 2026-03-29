@@ -6,7 +6,7 @@ import '../../domain/entities/entities.dart';
 
 part 'facility_details_state.freezed.dart';
 
-enum FacilityDetailsTab { profile, pricing }
+enum FacilityDetailsTab { profile, pricing, schedule, calendar }
 
 enum FacilityPricingTab { tickets, promotions }
 

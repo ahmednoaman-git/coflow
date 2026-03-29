@@ -176,3 +176,30 @@ Guidelines:
 - Prefer `SolarIconsOutline.*` for outline icons (match the design system).
 - If the old project has really specific icons or icons that are large/very apparent, then import the svg from the old project to the new project and use `Assets.svgs.*.svg()` to access them.
 - Keep icon colors theme-driven (`context.colors.*`) and avoid hardcoded colors.
+
+## Shimmer Loading Placeholders
+
+The project provides reusable shimmer widgets via `flutter_animate` in:
+- `lib/core/presentation/widgets/shimmer.dart`
+
+### Available widgets
+- **`Shimmer`** — wraps any child with a repeating shimmer sweep animation.
+- **`ShimmerBox`** — a convenience box placeholder using `backgroundGreyTwo` color and `RoundedSuperellipseBorder`.
+- **`ShimmerBox.dark`** — a darker variant for detail elements (text lines, icons) layered on a base `ShimmerBox`.
+
+### Usage pattern
+Wrap the entire placeholder layout in a single `Shimmer` and compose detail placeholders with `ShimmerBox.dark` on top of a base `ShimmerBox`:
+
+```dart
+Shimmer(
+  child: Stack(
+    children: [
+      ShimmerBox(width: 300, height: 100, borderRadius: 12),
+      Positioned(left: 16, top: 16, child: ShimmerBox.dark(width: 80, height: 14)),
+      Positioned(left: 16, top: 38, child: ShimmerBox.dark(width: 120, height: 12)),
+    ],
+  ),
+)
+```
+
+For custom painted shapes (like the ticket tile), use `Shimmer` wrapping a `CustomPaint` + overlay `ShimmerBox.dark` widgets to match the real UI dimensions.

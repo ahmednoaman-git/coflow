@@ -89,15 +89,10 @@ class FacilityDetailsRoute extends _i8.PageRouteInfo<FacilityDetailsRouteArgs> {
   FacilityDetailsRoute({
     _i9.Key? key,
     required _i11.CollapsedFacilityEntity facility,
-    _i9.ImageProvider<Object>? logoImageProvider,
     List<_i8.PageRouteInfo>? children,
   }) : super(
          FacilityDetailsRoute.name,
-         args: FacilityDetailsRouteArgs(
-           key: key,
-           facility: facility,
-           logoImageProvider: logoImageProvider,
-         ),
+         args: FacilityDetailsRouteArgs(key: key, facility: facility),
          initialChildren: children,
        );
 
@@ -107,45 +102,32 @@ class FacilityDetailsRoute extends _i8.PageRouteInfo<FacilityDetailsRouteArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<FacilityDetailsRouteArgs>();
-      return _i2.FacilityDetailsScreen(
-        key: args.key,
-        facility: args.facility,
-        logoImageProvider: args.logoImageProvider,
-      );
+      return _i2.FacilityDetailsScreen(key: args.key, facility: args.facility);
     },
   );
 }
 
 class FacilityDetailsRouteArgs {
-  const FacilityDetailsRouteArgs({
-    this.key,
-    required this.facility,
-    this.logoImageProvider,
-  });
+  const FacilityDetailsRouteArgs({this.key, required this.facility});
 
   final _i9.Key? key;
 
   final _i11.CollapsedFacilityEntity facility;
 
-  final _i9.ImageProvider<Object>? logoImageProvider;
-
   @override
   String toString() {
-    return 'FacilityDetailsRouteArgs{key: $key, facility: $facility, logoImageProvider: $logoImageProvider}';
+    return 'FacilityDetailsRouteArgs{key: $key, facility: $facility}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! FacilityDetailsRouteArgs) return false;
-    return key == other.key &&
-        facility == other.facility &&
-        logoImageProvider == other.logoImageProvider;
+    return key == other.key && facility == other.facility;
   }
 
   @override
-  int get hashCode =>
-      key.hashCode ^ facility.hashCode ^ logoImageProvider.hashCode;
+  int get hashCode => key.hashCode ^ facility.hashCode;
 }
 
 /// generated route for
