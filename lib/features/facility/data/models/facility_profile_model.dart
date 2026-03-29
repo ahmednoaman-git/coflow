@@ -48,12 +48,12 @@ class OperatingHoursModel {
 class BranchModel {
   const BranchModel({
     required this.id,
-    required this.title,
+    this.title,
     this.cover,
   });
 
   final int id;
-  final String title;
+  final String? title;
   final String? cover;
 
   factory BranchModel.fromJson(Map<String, dynamic> json) => _$BranchModelFromJson(json);

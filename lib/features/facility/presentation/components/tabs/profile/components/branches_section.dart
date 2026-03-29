@@ -49,6 +49,7 @@ class _BranchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final overlayBaseColor = context.colors.textPrimary;
+    final branchTitle = branch.title.trim();
 
     return SizedBox(
       width: width,
@@ -82,33 +83,34 @@ class _BranchCard extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              bottom: context.spacing.s8,
-              left: 0,
-              right: 0,
-              child: Padding(
-                padding: EdgeInsets.all(context.spacing.s8),
-                child: Row(
-                  mainAxisAlignment: .center,
-                  spacing: context.spacing.s4,
-                  children: [
-                    Assets.svgs.location.svg(
-                      width: 15,
-                      height: 15,
-                      colorFilter: context.colors.textWhite.colorFilter,
-                    ),
-                    Flexible(
-                      child: Text(
-                        branch.title,
-                        style: context.typography.medium12.inverse(context),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+            if (branchTitle.isNotEmpty)
+              Positioned(
+                bottom: context.spacing.s8,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: EdgeInsets.all(context.spacing.s8),
+                  child: Row(
+                    mainAxisAlignment: .center,
+                    spacing: context.spacing.s4,
+                    children: [
+                      Assets.svgs.location.svg(
+                        width: 15,
+                        height: 15,
+                        colorFilter: context.colors.textWhite.colorFilter,
                       ),
-                    ),
-                  ],
+                      Flexible(
+                        child: Text(
+                          branchTitle,
+                          style: context.typography.medium12.inverse(context),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),

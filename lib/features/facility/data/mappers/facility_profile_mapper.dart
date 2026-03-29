@@ -43,7 +43,7 @@ abstract final class FacilityProfileMapper {
           .map(
             (b) => BranchEntity(
               id: b.id,
-              title: b.title,
+              title: (b.title ?? '').trim(),
               coverUrl: b.cover,
             ),
           )
