@@ -783,11 +783,53 @@ abstract class AppLocalizations {
   /// **'Coming soon'**
   String get facilityDetails_comingSoon;
 
+  /// No description provided for @facilityDetails_appliedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Applied on'**
+  String get facilityDetails_appliedOn;
+
+  /// No description provided for @facilityDetails_buy.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy'**
+  String get facilityDetails_buy;
+
+  /// No description provided for @facilityDetails_get.
+  ///
+  /// In en, this message translates to:
+  /// **'Get'**
+  String get facilityDetails_get;
+
   /// No description provided for @facilityDetails_noTickets.
   ///
   /// In en, this message translates to:
   /// **'No tickets available'**
   String get facilityDetails_noTickets;
+
+  /// No description provided for @facilityDetails_noPromotions.
+  ///
+  /// In en, this message translates to:
+  /// **'No promotions available'**
+  String get facilityDetails_noPromotions;
+
+  /// No description provided for @facilityDetails_promotionAppliedOnFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'All Tickets / All Packages / All Purchases'**
+  String get facilityDetails_promotionAppliedOnFallback;
+
+  /// No description provided for @facilityDetails_remaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining'**
+  String get facilityDetails_remaining;
+
+  /// No description provided for @facilityDetails_ticketFallbackLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Ticket'**
+  String get facilityDetails_ticketFallbackLabel;
 
   /// No description provided for @facilityDetails_trackUpdates.
   ///

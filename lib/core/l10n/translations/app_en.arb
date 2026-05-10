@@ -158,7 +158,14 @@
   "facilityDetails_amenitiesSectionTitle": "Amenities",
   "facilityDetails_actionsSectionTitle": "Actions",
   "facilityDetails_comingSoon": "Coming soon",
+  "facilityDetails_appliedOn": "Applied on",
+  "facilityDetails_buy": "Buy",
+  "facilityDetails_get": "Get",
   "facilityDetails_noTickets": "No tickets available",
+  "facilityDetails_noPromotions": "No promotions available",
+  "facilityDetails_promotionAppliedOnFallback": "All Tickets / All Packages / All Purchases",
+  "facilityDetails_remaining": "Remaining",
+  "facilityDetails_ticketFallbackLabel": "Ticket",
   "facilityDetails_trackUpdates": "Track Updates",
   "facilityDetails_faqs": "FAQs"
 }

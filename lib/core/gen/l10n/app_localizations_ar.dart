@@ -368,7 +368,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String get facilityDetails_comingSoon => 'قريباً';
 
   @override
+  String get facilityDetails_appliedOn => 'مطبق على';
+
+  @override
+  String get facilityDetails_buy => 'شراء';
+
+  @override
+  String get facilityDetails_get => 'احصل على';
+
+  @override
   String get facilityDetails_noTickets => 'لا توجد تذاكر متاحة';
+
+  @override
+  String get facilityDetails_noPromotions => 'لا توجد عروض متاحة';
+
+  @override
+  String get facilityDetails_promotionAppliedOnFallback => 'كل التذاكر / كل الباقات / كل المشتريات';
+
+  @override
+  String get facilityDetails_remaining => 'المتبقي';
+
+  @override
+  String get facilityDetails_ticketFallbackLabel => 'تذكرة';
 
   @override
   String get facilityDetails_trackUpdates => 'تتبع التحديثات';

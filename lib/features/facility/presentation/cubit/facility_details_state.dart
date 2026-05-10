@@ -17,6 +17,7 @@ abstract class FacilityDetailsState with _$FacilityDetailsState {
     @Default(FacilityDetailsTab.profile) FacilityDetailsTab selectedTab,
     @Default(FacilityPricingTab.tickets) FacilityPricingTab selectedPricingTab,
     @Default(AsyncState.idle()) AsyncState<FacilityProfileEntity> profileRequest,
+    @Default(AsyncState.idle()) AsyncState<List<FacilityPromotionEntity>> promotionsRequest,
     @Default(AsyncState.idle()) AsyncState<List<FacilityTicketEntity>> ticketsRequest,
   }) = _FacilityDetailsState;
 }

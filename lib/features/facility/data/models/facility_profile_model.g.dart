@@ -18,13 +18,14 @@ TeamMemberModel _$TeamMemberModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$TeamMemberModelToJson(TeamMemberModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'title': instance.title,
-  'image': instance.image,
-  'bio': instance.bio,
-};
+Map<String, dynamic> _$TeamMemberModelToJson(TeamMemberModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'title': instance.title,
+      'image': instance.image,
+      'bio': instance.bio,
+    };
 
 OperatingHoursModel _$OperatingHoursModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('OperatingHoursModel', json, ($checkedConvert) {
@@ -59,11 +60,12 @@ BranchModel _$BranchModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$BranchModelToJson(BranchModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'title': instance.title,
-  'cover': instance.cover,
-};
+Map<String, dynamic> _$BranchModelToJson(BranchModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'cover': instance.cover,
+    };
 
 LanguageModel _$LanguageModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('LanguageModel', json, ($checkedConvert) {
@@ -74,10 +76,8 @@ LanguageModel _$LanguageModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$LanguageModelToJson(LanguageModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-};
+Map<String, dynamic> _$LanguageModelToJson(LanguageModel instance) =>
+    <String, dynamic>{'id': instance.id, 'name': instance.name};
 
 AmenityModel _$AmenityModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('AmenityModel', json, ($checkedConvert) {
@@ -89,11 +89,12 @@ AmenityModel _$AmenityModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$AmenityModelToJson(AmenityModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'icon': instance.icon,
-};
+Map<String, dynamic> _$AmenityModelToJson(AmenityModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'icon': instance.icon,
+    };
 
 CityModel _$CityModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('CityModel', json, ($checkedConvert) {
@@ -134,12 +135,13 @@ AddressModel _$AddressModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$AddressModelToJson(AddressModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'address': instance.address,
-  'longitude': instance.longitude,
-  'latitude': instance.latitude,
-};
+Map<String, dynamic> _$AddressModelToJson(AddressModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'address': instance.address,
+      'longitude': instance.longitude,
+      'latitude': instance.latitude,
+    };
 
 ReservationContactModel _$ReservationContactModelFromJson(
   Map<String, dynamic> json,
@@ -172,10 +174,8 @@ MainBranchModel _$MainBranchModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$MainBranchModelToJson(MainBranchModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-};
+Map<String, dynamic> _$MainBranchModelToJson(MainBranchModel instance) =>
+    <String, dynamic>{'id': instance.id, 'name': instance.name};
 
 FacilityProfileModel _$FacilityProfileModelFromJson(
   Map<String, dynamic> json,
@@ -217,7 +217,8 @@ FacilityProfileModel _$FacilityProfileModelFromJson(
         (v) =>
             (v as List<dynamic>?)
                 ?.map(
-                  (e) => OperatingHoursModel.fromJson(e as Map<String, dynamic>),
+                  (e) =>
+                      OperatingHoursModel.fromJson(e as Map<String, dynamic>),
                 )
                 .toList() ??
             [],
@@ -268,11 +269,14 @@ FacilityProfileModel _$FacilityProfileModelFromJson(
       ),
       address: $checkedConvert(
         'address',
-        (v) => v == null ? null : AddressModel.fromJson(v as Map<String, dynamic>),
+        (v) =>
+            v == null ? null : AddressModel.fromJson(v as Map<String, dynamic>),
       ),
       main: $checkedConvert(
         'main',
-        (v) => v == null ? null : MainBranchModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null
+            ? null
+            : MainBranchModel.fromJson(v as Map<String, dynamic>),
       ),
     );
     return val;

@@ -7,6 +7,7 @@ import '../models/models.dart';
 /// Facility API endpoints.
 abstract final class FacilityEndpoints {
   static String facility(int id) => 'facility/$id';
+  static String facilityPromotions(int id) => 'promotions/$id';
   static String facilityTickets(int id) => 'tickets/$id';
   static String ticketDetails(int ticketId) => 'ticket/$ticketId';
 }
@@ -16,6 +17,19 @@ abstract final class FacilityEndpoints {
 class FacilityRemoteDataSource {
   const FacilityRemoteDataSource(this._dio);
   final DioClient _dio;
+
+  AsyncTask<List<FacilityPromotionModel>> getFacilityPromotions(
+    GetFacilityPromotionsDto dto,
+  ) {
+    return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
+      final response = await _dio.get(FacilityEndpoints.facilityPromotions(dto.facilityId));
+      final raw = response.data as List<dynamic>;
+      return raw
+          .cast<Map<String, dynamic>>()
+          .map(FacilityPromotionModel.fromJson)
+          .toList(growable: false);
+    });
+  }
 
   AsyncTask<FacilityProfileModel> getFacilityProfile(GetFacilityProfileDto dto) {
     return AsyncTaskExtension.tryCatchMapDioToFailure(() async {

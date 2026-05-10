@@ -158,7 +158,14 @@
 	"facilityDetails_amenitiesSectionTitle": "المرافق",
 	"facilityDetails_actionsSectionTitle": "الإجراءات",
 	"facilityDetails_comingSoon": "قريباً",
+	"facilityDetails_appliedOn": "مطبق على",
+	"facilityDetails_buy": "شراء",
+	"facilityDetails_get": "احصل على",
 	"facilityDetails_noTickets": "لا توجد تذاكر متاحة",
+	"facilityDetails_noPromotions": "لا توجد عروض متاحة",
+	"facilityDetails_promotionAppliedOnFallback": "كل التذاكر / كل الباقات / كل المشتريات",
+	"facilityDetails_remaining": "المتبقي",
+	"facilityDetails_ticketFallbackLabel": "تذكرة",
 	"facilityDetails_trackUpdates": "تتبع التحديثات",
 	"facilityDetails_faqs": "الأسئلة الشائعة"
 }

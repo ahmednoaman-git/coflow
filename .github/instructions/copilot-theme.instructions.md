@@ -118,6 +118,19 @@ context.typography.book14.cherry(context)     // Uses energyCherryPrimary
 context.typography.medium14.ladiesOnly(context) // Uses ladiesOnlyPrimary
 ```
 
+**TextStyle helper extensions**:
+For small tweaks to an existing typography token, prefer the helpers in
+`lib/core/extensions/text_style_extensions.dart` instead of ad-hoc `copyWith`
+when all you need is color/weight adjustment.
+
+```dart
+context.typography.medium14.withColor(context.colors.signatureBlue)
+context.typography.book13.withWeight(FontWeight.w700)
+context.typography.book13
+  .withWeight(FontWeight.w700)
+  .withColor(context.colors.textPrimary)
+```
+
 ### 3. Spacing (`context.spacing`)
 Use the 4px grid system.
 

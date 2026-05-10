@@ -369,7 +369,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilityDetails_comingSoon => 'Coming soon';
 
   @override
+  String get facilityDetails_appliedOn => 'Applied on';
+
+  @override
+  String get facilityDetails_buy => 'Buy';
+
+  @override
+  String get facilityDetails_get => 'Get';
+
+  @override
   String get facilityDetails_noTickets => 'No tickets available';
+
+  @override
+  String get facilityDetails_noPromotions => 'No promotions available';
+
+  @override
+  String get facilityDetails_promotionAppliedOnFallback =>
+      'All Tickets / All Packages / All Purchases';
+
+  @override
+  String get facilityDetails_remaining => 'Remaining';
+
+  @override
+  String get facilityDetails_ticketFallbackLabel => 'Ticket';
 
   @override
   String get facilityDetails_trackUpdates => 'Track Updates';

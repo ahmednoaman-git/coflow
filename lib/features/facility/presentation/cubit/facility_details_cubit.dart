@@ -13,6 +13,7 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
   FacilityDetailsCubit(
     this._getFacilityProfile,
     this._getFacilityTickets,
+    this._getFacilityPromotions,
     @factoryParam CollapsedFacilityEntity facility,
   ) : super(FacilityDetailsState(facility: facility)) {
     _initManagers();
@@ -20,8 +21,11 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
 
   final GetFacilityProfileUseCase _getFacilityProfile;
   final GetFacilityTicketsUseCase _getFacilityTickets;
+  final GetFacilityPromotionsUseCase _getFacilityPromotions;
 
   late final AsyncRequestManager<FacilityDetailsState, FacilityProfileEntity> profileManager;
+  late final AsyncRequestManager<FacilityDetailsState, List<FacilityPromotionEntity>>
+  promotionsManager;
   late final AsyncRequestManager<FacilityDetailsState, List<FacilityTicketEntity>> ticketsManager;
 
   void _initManagers() {
@@ -50,6 +54,19 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
         GetFacilityTicketsDto(facilityId: state.facility.id),
       ),
     );
+
+    promotionsManager = AsyncRequestManager(
+      accessor: (
+        getPartialState: (state) => state.promotionsRequest,
+        getWholeState: () => state,
+        setWholeState: (state, partial) => state.copyWith(promotionsRequest: partial),
+      ),
+      emit: emit,
+      autoExecute: false,
+      defaultRequest: _getFacilityPromotions(
+        GetFacilityPromotionsDto(facilityId: state.facility.id),
+      ),
+    );
   }
 
   void setSelectedTab(FacilityDetailsTab tab) {
@@ -57,7 +74,7 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
     emit(state.copyWith(selectedTab: tab));
 
     if (tab == FacilityDetailsTab.pricing) {
-      ensureTicketsLoaded();
+      _ensurePricingTabLoaded(state.selectedPricingTab);
     }
   }
 
@@ -65,8 +82,15 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
     if (tab == state.selectedPricingTab) return;
     emit(state.copyWith(selectedPricingTab: tab));
 
-    if (tab == FacilityPricingTab.tickets) {
-      ensureTicketsLoaded();
+    _ensurePricingTabLoaded(tab);
+  }
+
+  void _ensurePricingTabLoaded(FacilityPricingTab tab) {
+    switch (tab) {
+      case FacilityPricingTab.tickets:
+        ensureTicketsLoaded();
+      case FacilityPricingTab.promotions:
+        ensurePromotionsLoaded();
     }
   }
 
@@ -75,7 +99,14 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
     ticketsManager.execute();
   }
 
+  void ensurePromotionsLoaded() {
+    if (promotionsManager.isLoading || promotionsManager.isSuccess) return;
+    promotionsManager.execute();
+  }
+
   Future<void> refreshProfile() => profileManager.refresh();
+
+  Future<void> refreshPromotions() => promotionsManager.refresh();
 
   Future<void> refreshTickets() => ticketsManager.refresh();
 }

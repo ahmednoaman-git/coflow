@@ -65,6 +65,8 @@ import '../../features/facility/data/repositories/facility_repository_impl.dart'
 import '../../features/facility/domain/repositories/repositories.dart' as _i181;
 import '../../features/facility/domain/use_cases/get_facility_profile_use_case.dart'
     as _i587;
+import '../../features/facility/domain/use_cases/get_facility_promotions_use_case.dart'
+    as _i480;
 import '../../features/facility/domain/use_cases/get_facility_ticket_details_use_case.dart'
     as _i631;
 import '../../features/facility/domain/use_cases/get_facility_tickets_use_case.dart'
@@ -212,12 +214,24 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i587.GetFacilityProfileUseCase>(
       () => _i587.GetFacilityProfileUseCase(gh<_i181.FacilityRepository>()),
     );
+    gh.lazySingleton<_i480.GetFacilityPromotionsUseCase>(
+      () => _i480.GetFacilityPromotionsUseCase(gh<_i181.FacilityRepository>()),
+    );
     gh.lazySingleton<_i631.GetFacilityTicketDetailsUseCase>(
       () =>
           _i631.GetFacilityTicketDetailsUseCase(gh<_i181.FacilityRepository>()),
     );
     gh.lazySingleton<_i611.GetFacilityTicketsUseCase>(
       () => _i611.GetFacilityTicketsUseCase(gh<_i181.FacilityRepository>()),
+    );
+    gh.lazySingleton<_i913.GetLocationsUseCase>(
+      () => _i913.GetLocationsUseCase(gh<_i222.LocationsRepository>()),
+    );
+    gh.factoryParam<_i134.TicketDetailsCubit, int, dynamic>(
+      (ticketId, _) => _i134.TicketDetailsCubit(
+        gh<_i312.GetFacilityTicketDetailsUseCase>(),
+        ticketId,
+      ),
     );
     gh.factoryParam<
       _i453.FacilityDetailsCubit,
@@ -227,16 +241,8 @@ extension GetItInjectableX on _i174.GetIt {
       (facility, _) => _i453.FacilityDetailsCubit(
         gh<_i312.GetFacilityProfileUseCase>(),
         gh<_i312.GetFacilityTicketsUseCase>(),
+        gh<_i312.GetFacilityPromotionsUseCase>(),
         facility,
-      ),
-    );
-    gh.lazySingleton<_i913.GetLocationsUseCase>(
-      () => _i913.GetLocationsUseCase(gh<_i222.LocationsRepository>()),
-    );
-    gh.factoryParam<_i134.TicketDetailsCubit, int, dynamic>(
-      (ticketId, _) => _i134.TicketDetailsCubit(
-        gh<_i312.GetFacilityTicketDetailsUseCase>(),
-        ticketId,
       ),
     );
     gh.factoryParam<

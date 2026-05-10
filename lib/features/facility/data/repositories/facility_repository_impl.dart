@@ -14,6 +14,32 @@ class FacilityRepositoryImpl implements FacilityRepository {
   final FacilityRemoteDataSource _remote;
 
   @override
+  AsyncTask<List<FacilityPromotionEntity>> getFacilityPromotions(
+    GetFacilityPromotionsDto dto,
+  ) {
+    return _remote
+        .getFacilityPromotions(dto)
+        .flatMap(
+          (models) => AsyncTask.tryCatch(
+            () async => models.map(FacilityPromotionMapper.toEntity).toList(growable: false),
+            (error, stackTrace) {
+              if (error is FormatException) {
+                return ValidationFailure(
+                  error.message.toString(),
+                  exception: error,
+                );
+              }
+
+              return UnknownFailure(
+                'Failed to map facility promotions.',
+                exception: error is Exception ? error : Exception(error.toString()),
+              );
+            },
+          ),
+        );
+  }
+
+  @override
   AsyncTask<FacilityProfileEntity> getFacilityProfile(GetFacilityProfileDto dto) {
     return _remote.getFacilityProfile(dto).map(FacilityProfileMapper.toEntity);
   }
