@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'facility_promotion_applies_on.dart';
+
 part 'facility_promotion_coupon_entity.freezed.dart';
 
 @freezed
@@ -8,7 +10,7 @@ abstract class FacilityPromotionCouponEntity with _$FacilityPromotionCouponEntit
 
   const factory FacilityPromotionCouponEntity({
     required double discountRatio,
-    required String appliesOnText,
+    required FacilityPromotionAppliesOn appliesOn,
   }) = _FacilityPromotionCouponEntity;
 
   String get percentageText => '${_formatPromotionNumber(discountRatio)}%';

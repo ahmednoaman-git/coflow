@@ -306,7 +306,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilityDetails_validity => 'Validity';
 
   @override
+  String get facilityDetails_promotionPrice => 'Promotion Price';
+
+  @override
   String get facilityDetails_purchase => 'Purchase';
+
+  @override
+  String get facilityDetails_purchaseNow => 'Purchase Now';
 
   @override
   String get facilityDetails_tickets => 'Tickets';
@@ -372,10 +378,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilityDetails_appliedOn => 'Applied on';
 
   @override
+  String get facilityDetails_offer => 'Offer';
+
+  @override
   String get facilityDetails_buy => 'Buy';
 
   @override
   String get facilityDetails_get => 'Get';
+
+  @override
+  String get facilityDetails_descriptionLabel => 'Description';
+
+  @override
+  String facilityDetails_contactFacility(String name) {
+    return 'Contact $name';
+  }
 
   @override
   String get facilityDetails_noTickets => 'No tickets available';
@@ -384,8 +401,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilityDetails_noPromotions => 'No promotions available';
 
   @override
-  String get facilityDetails_promotionAppliedOnFallback =>
-      'All Tickets / All Packages / All Purchases';
+  String get facilityDetails_promotionAppliedOnTickets => 'Tickets';
+
+  @override
+  String get facilityDetails_promotionAppliedOnPromotions => 'Promotions';
+
+  @override
+  String get facilityDetails_promotionAppliedOnPackages => 'Packages';
+
+  @override
+  String get facilityDetails_promotionAppliedOnPurchases => 'Purchases';
+
+  @override
+  String get facilityDetails_promotionAppliedOnAllTickets => 'All Tickets';
+
+  @override
+  String get facilityDetails_promotionAppliedOnAllPromotions => 'All Promotions';
+
+  @override
+  String get facilityDetails_promotionAppliedOnAllPackages => 'All Packages';
+
+  @override
+  String get facilityDetails_promotionAppliedOnAllPurchases => 'All Purchases';
 
   @override
   String get facilityDetails_remaining => 'Remaining';

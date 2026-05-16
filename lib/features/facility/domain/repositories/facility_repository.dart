@@ -5,6 +5,10 @@ import '../entities/entities.dart';
 
 /// Facility repository contract.
 abstract interface class FacilityRepository {
+  AsyncTask<FacilityPromotionDetailsEntity> getFacilityPromotionDetails(
+    GetFacilityPromotionDetailsDto dto,
+  );
+
   AsyncTask<List<FacilityPromotionEntity>> getFacilityPromotions(
     GetFacilityPromotionsDto dto,
   );

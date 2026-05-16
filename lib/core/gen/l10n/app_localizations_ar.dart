@@ -305,7 +305,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get facilityDetails_validity => 'الصلاحية';
 
   @override
+  String get facilityDetails_promotionPrice => 'سعر العرض';
+
+  @override
   String get facilityDetails_purchase => 'شراء';
+
+  @override
+  String get facilityDetails_purchaseNow => 'اشترِ الآن';
 
   @override
   String get facilityDetails_tickets => 'التذاكر';
@@ -371,10 +377,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get facilityDetails_appliedOn => 'مطبق على';
 
   @override
+  String get facilityDetails_offer => 'العرض';
+
+  @override
   String get facilityDetails_buy => 'شراء';
 
   @override
   String get facilityDetails_get => 'احصل على';
+
+  @override
+  String get facilityDetails_descriptionLabel => 'الوصف';
+
+  @override
+  String facilityDetails_contactFacility(String name) {
+    return 'تواصل مع $name';
+  }
 
   @override
   String get facilityDetails_noTickets => 'لا توجد تذاكر متاحة';
@@ -383,7 +400,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String get facilityDetails_noPromotions => 'لا توجد عروض متاحة';
 
   @override
-  String get facilityDetails_promotionAppliedOnFallback => 'كل التذاكر / كل الباقات / كل المشتريات';
+  String get facilityDetails_promotionAppliedOnTickets => 'التذاكر';
+
+  @override
+  String get facilityDetails_promotionAppliedOnPromotions => 'العروض';
+
+  @override
+  String get facilityDetails_promotionAppliedOnPackages => 'الباقات';
+
+  @override
+  String get facilityDetails_promotionAppliedOnPurchases => 'المشتريات';
+
+  @override
+  String get facilityDetails_promotionAppliedOnAllTickets => 'كل التذاكر';
+
+  @override
+  String get facilityDetails_promotionAppliedOnAllPromotions => 'كل العروض';
+
+  @override
+  String get facilityDetails_promotionAppliedOnAllPackages => 'كل الباقات';
+
+  @override
+  String get facilityDetails_promotionAppliedOnAllPurchases => 'كل المشتريات';
 
   @override
   String get facilityDetails_remaining => 'المتبقي';

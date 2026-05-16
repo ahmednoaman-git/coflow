@@ -10,7 +10,7 @@ abstract final class FacilityPromotionMapper {
         endDate: model.endDate,
         isLiked: model.hasLike ?? false,
         discountRatio: model.discountRatio ?? 0,
-        appliedOnText: facilityPromotionDiscountFallbackAppliedOnText,
+        discountFor: _mapDiscountFor(model.id, model.discountFor),
       ),
       'package' => FacilityPromotionEntity.package(
         id: model.id,
@@ -20,7 +20,8 @@ abstract final class FacilityPromotionMapper {
         displayPrice: _resolveDisplayPrice(model),
         currency: model.currency ?? '',
         tickets: _mapTicketLines(model.tickets),
-        remainingCount: facilityPromotionDefaultRemainingCount,
+        remainingUnlimited: model.paymentUnlimited ?? false,
+        remainingCount: _resolveRemainingCount(model),
       ),
       'buy_get' => _mapBuyGetPromotion(model),
       _ => throw FormatException(
@@ -71,7 +72,8 @@ abstract final class FacilityPromotionMapper {
       currency: model.currency ?? '',
       buyTickets: _mapTicketLines(model.tickets),
       reward: reward,
-      remainingCount: facilityPromotionDefaultRemainingCount,
+      remainingUnlimited: model.paymentUnlimited ?? false,
+      remainingCount: _resolveRemainingCount(model),
     );
   }
 
@@ -96,7 +98,7 @@ abstract final class FacilityPromotionMapper {
         .map(
           (model) => FacilityPromotionCouponEntity(
             discountRatio: model.discountRatio ?? 0,
-            appliesOnText: _humanizeAppliesOn(model.appliesOn),
+            appliesOn: _mapCouponAppliesOn(model.appliesOn),
           ),
         )
         .toList(growable: false);
@@ -104,6 +106,14 @@ abstract final class FacilityPromotionMapper {
 
   static double _resolveDisplayPrice(FacilityPromotionModel model) {
     return model.discountPrice ?? model.price ?? 0;
+  }
+
+  static int? _resolveRemainingCount(FacilityPromotionModel model) {
+    if (model.paymentUnlimited ?? false) {
+      return null;
+    }
+
+    return model.paymentRemain ?? 0;
   }
 
   static String _resolveTicketName(FacilityPromotionTicketLineModel model) {
@@ -132,33 +142,49 @@ abstract final class FacilityPromotionMapper {
     throw FormatException('Gift reward is missing a usable display name.');
   }
 
-  static String _humanizeAppliesOn(String? rawValue) {
+  static FacilityPromotionAppliesOn _mapDiscountFor(int promotionId, String? rawValue) {
     final normalizedValue = rawValue?.trim();
     if (normalizedValue == null || normalizedValue.isEmpty) {
-      return facilityPromotionUnknownAppliesOnText;
+      throw FormatException(
+        'Discount promotion $promotionId is missing discount_for.',
+      );
     }
 
     return switch (normalizedValue.toLowerCase()) {
-      'ticket' || 'tickets' => 'Tickets',
-      'package' || 'packages' => 'Packages',
-      'purchase' || 'purchases' => 'Purchases',
-      'all_ticket' || 'all_tickets' => 'All Tickets',
-      'all_package' || 'all_packages' => 'All Packages',
-      'all_purchase' || 'all_purchases' => 'All Purchases',
-      final value =>
-        value
-            .split(RegExp(r'[_\\s]+'))
-            .where((segment) => segment.isNotEmpty)
-            .map(_capitalize)
-            .join(' '),
+      'ticket' ||
+      'tickets' ||
+      'all_ticket' ||
+      'all_tickets' => FacilityPromotionAppliesOn.allTickets,
+      'promotion' ||
+      'promotions' ||
+      'all_promotion' ||
+      'all_promotions' => FacilityPromotionAppliesOn.allPromotions,
+      'purchase' ||
+      'purchases' ||
+      'all_purchase' ||
+      'all_purchases' => FacilityPromotionAppliesOn.allPurchases,
+      final value => throw FormatException(
+        'Discount promotion $promotionId has unsupported discount_for value: $value',
+      ),
     };
   }
 
-  static String _capitalize(String value) {
-    if (value.isEmpty) {
-      return value;
+  static FacilityPromotionAppliesOn _mapCouponAppliesOn(String? rawValue) {
+    final normalizedValue = rawValue?.trim();
+    if (normalizedValue == null || normalizedValue.isEmpty) {
+      return FacilityPromotionAppliesOn.unknown;
     }
 
-    return '${value[0].toUpperCase()}${value.substring(1)}';
+    return switch (normalizedValue.toLowerCase()) {
+      'ticket' || 'tickets' => FacilityPromotionAppliesOn.tickets,
+      'promotion' || 'promotions' => FacilityPromotionAppliesOn.promotions,
+      'package' || 'packages' => FacilityPromotionAppliesOn.packages,
+      'purchase' || 'purchases' => FacilityPromotionAppliesOn.purchases,
+      'all_ticket' || 'all_tickets' => FacilityPromotionAppliesOn.allTickets,
+      'all_promotion' || 'all_promotions' => FacilityPromotionAppliesOn.allPromotions,
+      'all_package' || 'all_packages' => FacilityPromotionAppliesOn.allPackages,
+      'all_purchase' || 'all_purchases' => FacilityPromotionAppliesOn.allPurchases,
+      _ => FacilityPromotionAppliesOn.unknown,
+    };
   }
 }

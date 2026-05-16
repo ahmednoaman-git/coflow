@@ -7,16 +7,47 @@ part 'facility_promotion_reward_entity.freezed.dart';
 
 @freezed
 sealed class FacilityPromotionRewardEntity with _$FacilityPromotionRewardEntity {
-  const FacilityPromotionRewardEntity._();
+  FacilityPromotionRewardEntity._();
 
-  const factory FacilityPromotionRewardEntity.gift({required String giftName}) =
+  factory FacilityPromotionRewardEntity.gift({required String giftName}) =
       FacilityPromotionGiftRewardEntity;
 
-  const factory FacilityPromotionRewardEntity.tickets({
+  factory FacilityPromotionRewardEntity.tickets({
     @Default(<FacilityPromotionTicketLineEntity>[]) List<FacilityPromotionTicketLineEntity> tickets,
   }) = FacilityPromotionTicketRewardEntity;
 
-  const factory FacilityPromotionRewardEntity.coupons({
+  factory FacilityPromotionRewardEntity.coupons({
     @Default(<FacilityPromotionCouponEntity>[]) List<FacilityPromotionCouponEntity> coupons,
   }) = FacilityPromotionCouponRewardEntity;
+}
+
+@freezed
+class FacilityPromotionGiftRewardEntity extends FacilityPromotionRewardEntity
+    with _$FacilityPromotionGiftRewardEntity {
+  FacilityPromotionGiftRewardEntity({required this.giftName}) : super._();
+
+  @override
+  final String giftName;
+}
+
+@freezed
+class FacilityPromotionTicketRewardEntity extends FacilityPromotionRewardEntity
+    with _$FacilityPromotionTicketRewardEntity {
+  FacilityPromotionTicketRewardEntity({
+    this.tickets = const <FacilityPromotionTicketLineEntity>[],
+  }) : super._();
+
+  @override
+  final List<FacilityPromotionTicketLineEntity> tickets;
+}
+
+@freezed
+class FacilityPromotionCouponRewardEntity extends FacilityPromotionRewardEntity
+    with _$FacilityPromotionCouponRewardEntity {
+  FacilityPromotionCouponRewardEntity({
+    this.coupons = const <FacilityPromotionCouponEntity>[],
+  }) : super._();
+
+  @override
+  final List<FacilityPromotionCouponEntity> coupons;
 }

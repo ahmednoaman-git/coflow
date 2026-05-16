@@ -669,11 +669,23 @@ abstract class AppLocalizations {
   /// **'Validity'**
   String get facilityDetails_validity;
 
+  /// No description provided for @facilityDetails_promotionPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotion Price'**
+  String get facilityDetails_promotionPrice;
+
   /// No description provided for @facilityDetails_purchase.
   ///
   /// In en, this message translates to:
   /// **'Purchase'**
   String get facilityDetails_purchase;
+
+  /// No description provided for @facilityDetails_purchaseNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Now'**
+  String get facilityDetails_purchaseNow;
 
   /// No description provided for @facilityDetails_tickets.
   ///
@@ -789,6 +801,12 @@ abstract class AppLocalizations {
   /// **'Applied on'**
   String get facilityDetails_appliedOn;
 
+  /// No description provided for @facilityDetails_offer.
+  ///
+  /// In en, this message translates to:
+  /// **'Offer'**
+  String get facilityDetails_offer;
+
   /// No description provided for @facilityDetails_buy.
   ///
   /// In en, this message translates to:
@@ -800,6 +818,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Get'**
   String get facilityDetails_get;
+
+  /// No description provided for @facilityDetails_descriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get facilityDetails_descriptionLabel;
+
+  /// No description provided for @facilityDetails_contactFacility.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact {name}'**
+  String facilityDetails_contactFacility(String name);
 
   /// No description provided for @facilityDetails_noTickets.
   ///
@@ -813,11 +843,53 @@ abstract class AppLocalizations {
   /// **'No promotions available'**
   String get facilityDetails_noPromotions;
 
-  /// No description provided for @facilityDetails_promotionAppliedOnFallback.
+  /// No description provided for @facilityDetails_promotionAppliedOnTickets.
   ///
   /// In en, this message translates to:
-  /// **'All Tickets / All Packages / All Purchases'**
-  String get facilityDetails_promotionAppliedOnFallback;
+  /// **'Tickets'**
+  String get facilityDetails_promotionAppliedOnTickets;
+
+  /// No description provided for @facilityDetails_promotionAppliedOnPromotions.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotions'**
+  String get facilityDetails_promotionAppliedOnPromotions;
+
+  /// No description provided for @facilityDetails_promotionAppliedOnPackages.
+  ///
+  /// In en, this message translates to:
+  /// **'Packages'**
+  String get facilityDetails_promotionAppliedOnPackages;
+
+  /// No description provided for @facilityDetails_promotionAppliedOnPurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases'**
+  String get facilityDetails_promotionAppliedOnPurchases;
+
+  /// No description provided for @facilityDetails_promotionAppliedOnAllTickets.
+  ///
+  /// In en, this message translates to:
+  /// **'All Tickets'**
+  String get facilityDetails_promotionAppliedOnAllTickets;
+
+  /// No description provided for @facilityDetails_promotionAppliedOnAllPromotions.
+  ///
+  /// In en, this message translates to:
+  /// **'All Promotions'**
+  String get facilityDetails_promotionAppliedOnAllPromotions;
+
+  /// No description provided for @facilityDetails_promotionAppliedOnAllPackages.
+  ///
+  /// In en, this message translates to:
+  /// **'All Packages'**
+  String get facilityDetails_promotionAppliedOnAllPackages;
+
+  /// No description provided for @facilityDetails_promotionAppliedOnAllPurchases.
+  ///
+  /// In en, this message translates to:
+  /// **'All Purchases'**
+  String get facilityDetails_promotionAppliedOnAllPurchases;
 
   /// No description provided for @facilityDetails_remaining.
   ///

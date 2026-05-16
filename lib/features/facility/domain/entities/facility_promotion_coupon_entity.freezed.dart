@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FacilityPromotionCouponEntity {
 
- double get discountRatio; String get appliesOnText;
+ double get discountRatio; FacilityPromotionAppliesOn get appliesOn;
 /// Create a copy of FacilityPromotionCouponEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $FacilityPromotionCouponEntityCopyWith<FacilityPromotionCouponEntity> get copyWi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FacilityPromotionCouponEntity&&(identical(other.discountRatio, discountRatio) || other.discountRatio == discountRatio)&&(identical(other.appliesOnText, appliesOnText) || other.appliesOnText == appliesOnText));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FacilityPromotionCouponEntity&&(identical(other.discountRatio, discountRatio) || other.discountRatio == discountRatio)&&(identical(other.appliesOn, appliesOn) || other.appliesOn == appliesOn));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,discountRatio,appliesOnText);
+int get hashCode => Object.hash(runtimeType,discountRatio,appliesOn);
 
 @override
 String toString() {
-  return 'FacilityPromotionCouponEntity(discountRatio: $discountRatio, appliesOnText: $appliesOnText)';
+  return 'FacilityPromotionCouponEntity(discountRatio: $discountRatio, appliesOn: $appliesOn)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $FacilityPromotionCouponEntityCopyWith<$Res>  {
   factory $FacilityPromotionCouponEntityCopyWith(FacilityPromotionCouponEntity value, $Res Function(FacilityPromotionCouponEntity) _then) = _$FacilityPromotionCouponEntityCopyWithImpl;
 @useResult
 $Res call({
- double discountRatio, String appliesOnText
+ double discountRatio, FacilityPromotionAppliesOn appliesOn
 });
 
 
@@ -62,11 +62,11 @@ class _$FacilityPromotionCouponEntityCopyWithImpl<$Res>
 
 /// Create a copy of FacilityPromotionCouponEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? discountRatio = null,Object? appliesOnText = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? discountRatio = null,Object? appliesOn = null,}) {
   return _then(_self.copyWith(
 discountRatio: null == discountRatio ? _self.discountRatio : discountRatio // ignore: cast_nullable_to_non_nullable
-as double,appliesOnText: null == appliesOnText ? _self.appliesOnText : appliesOnText // ignore: cast_nullable_to_non_nullable
-as String,
+as double,appliesOn: null == appliesOn ? _self.appliesOn : appliesOn // ignore: cast_nullable_to_non_nullable
+as FacilityPromotionAppliesOn,
   ));
 }
 
@@ -151,10 +151,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double discountRatio,  String appliesOnText)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double discountRatio,  FacilityPromotionAppliesOn appliesOn)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FacilityPromotionCouponEntity() when $default != null:
-return $default(_that.discountRatio,_that.appliesOnText);case _:
+return $default(_that.discountRatio,_that.appliesOn);case _:
   return orElse();
 
 }
@@ -172,10 +172,10 @@ return $default(_that.discountRatio,_that.appliesOnText);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double discountRatio,  String appliesOnText)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double discountRatio,  FacilityPromotionAppliesOn appliesOn)  $default,) {final _that = this;
 switch (_that) {
 case _FacilityPromotionCouponEntity():
-return $default(_that.discountRatio,_that.appliesOnText);case _:
+return $default(_that.discountRatio,_that.appliesOn);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +192,10 @@ return $default(_that.discountRatio,_that.appliesOnText);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double discountRatio,  String appliesOnText)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double discountRatio,  FacilityPromotionAppliesOn appliesOn)?  $default,) {final _that = this;
 switch (_that) {
 case _FacilityPromotionCouponEntity() when $default != null:
-return $default(_that.discountRatio,_that.appliesOnText);case _:
+return $default(_that.discountRatio,_that.appliesOn);case _:
   return null;
 
 }
@@ -207,11 +207,11 @@ return $default(_that.discountRatio,_that.appliesOnText);case _:
 
 
 class _FacilityPromotionCouponEntity extends FacilityPromotionCouponEntity {
-  const _FacilityPromotionCouponEntity({required this.discountRatio, required this.appliesOnText}): super._();
+  const _FacilityPromotionCouponEntity({required this.discountRatio, required this.appliesOn}): super._();
   
 
 @override final  double discountRatio;
-@override final  String appliesOnText;
+@override final  FacilityPromotionAppliesOn appliesOn;
 
 /// Create a copy of FacilityPromotionCouponEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -223,16 +223,16 @@ _$FacilityPromotionCouponEntityCopyWith<_FacilityPromotionCouponEntity> get copy
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FacilityPromotionCouponEntity&&(identical(other.discountRatio, discountRatio) || other.discountRatio == discountRatio)&&(identical(other.appliesOnText, appliesOnText) || other.appliesOnText == appliesOnText));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FacilityPromotionCouponEntity&&(identical(other.discountRatio, discountRatio) || other.discountRatio == discountRatio)&&(identical(other.appliesOn, appliesOn) || other.appliesOn == appliesOn));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,discountRatio,appliesOnText);
+int get hashCode => Object.hash(runtimeType,discountRatio,appliesOn);
 
 @override
 String toString() {
-  return 'FacilityPromotionCouponEntity(discountRatio: $discountRatio, appliesOnText: $appliesOnText)';
+  return 'FacilityPromotionCouponEntity(discountRatio: $discountRatio, appliesOn: $appliesOn)';
 }
 
 
@@ -243,7 +243,7 @@ abstract mixin class _$FacilityPromotionCouponEntityCopyWith<$Res> implements $F
   factory _$FacilityPromotionCouponEntityCopyWith(_FacilityPromotionCouponEntity value, $Res Function(_FacilityPromotionCouponEntity) _then) = __$FacilityPromotionCouponEntityCopyWithImpl;
 @override @useResult
 $Res call({
- double discountRatio, String appliesOnText
+ double discountRatio, FacilityPromotionAppliesOn appliesOn
 });
 
 
@@ -260,11 +260,11 @@ class __$FacilityPromotionCouponEntityCopyWithImpl<$Res>
 
 /// Create a copy of FacilityPromotionCouponEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? discountRatio = null,Object? appliesOnText = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? discountRatio = null,Object? appliesOn = null,}) {
   return _then(_FacilityPromotionCouponEntity(
 discountRatio: null == discountRatio ? _self.discountRatio : discountRatio // ignore: cast_nullable_to_non_nullable
-as double,appliesOnText: null == appliesOnText ? _self.appliesOnText : appliesOnText // ignore: cast_nullable_to_non_nullable
-as String,
+as double,appliesOn: null == appliesOn ? _self.appliesOn : appliesOn // ignore: cast_nullable_to_non_nullable
+as FacilityPromotionAppliesOn,
   ));
 }
 

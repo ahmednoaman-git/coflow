@@ -74,5 +74,27 @@ void main() {
       expect(model.coupons!.first.unlimited, isTrue);
       expect(model.coupons!.last.unlimited, isTrue);
     });
+
+    test('parses discount scope and remaining fields from the backend payload', () {
+      final model = FacilityPromotionModel.fromJson({
+        'id': 136,
+        'name': 'No3manTest Discount 3',
+        'discount_ratio': 10,
+        'type': 'discount',
+        'payment_unlimited': 1,
+        'payment_remain': 0,
+        'discount_for': 'purchases',
+        'end_date': '2026-05-31',
+        'gift': null,
+        'currency': 'EGP',
+        'tickets': [],
+        'get_tickets': [],
+        'coupons': [],
+      });
+
+      expect(model.paymentUnlimited, isTrue);
+      expect(model.paymentRemain, 0);
+      expect(model.discountFor, 'purchases');
+    });
   });
 }

@@ -1,32 +1,29 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'facility_promotion_applies_on.dart';
 import 'facility_promotion_reward_entity.dart';
 import 'facility_promotion_ticket_line_entity.dart';
 
 part 'facility_promotion_entity.freezed.dart';
 
-const String facilityPromotionDiscountFallbackAppliedOnText =
-    'All Tickets / All Packages / All Purchases';
 const String facilityPromotionFallbackTicketName = 'Ticket';
-const String facilityPromotionUnknownAppliesOnText = 'Unknown';
-const int facilityPromotionDefaultRemainingCount = 10;
 
 enum FacilityPromotionType { discount, package, buyGet }
 
 @freezed
 sealed class FacilityPromotionEntity with _$FacilityPromotionEntity {
-  const FacilityPromotionEntity._();
+  FacilityPromotionEntity._();
 
-  const factory FacilityPromotionEntity.discount({
+  factory FacilityPromotionEntity.discount({
     required int id,
     required String name,
     required DateTime endDate,
     required bool isLiked,
     required double discountRatio,
-    required String appliedOnText,
+    required FacilityPromotionAppliesOn discountFor,
   }) = FacilityPromotionDiscountEntity;
 
-  const factory FacilityPromotionEntity.package({
+  factory FacilityPromotionEntity.package({
     required int id,
     required String name,
     required DateTime endDate,
@@ -34,10 +31,11 @@ sealed class FacilityPromotionEntity with _$FacilityPromotionEntity {
     required double displayPrice,
     required String currency,
     @Default(<FacilityPromotionTicketLineEntity>[]) List<FacilityPromotionTicketLineEntity> tickets,
-    required int remainingCount,
+    required bool remainingUnlimited,
+    int? remainingCount,
   }) = FacilityPromotionPackageEntity;
 
-  const factory FacilityPromotionEntity.buyGet({
+  factory FacilityPromotionEntity.buyGet({
     required int id,
     required String name,
     required DateTime endDate,
@@ -47,33 +45,159 @@ sealed class FacilityPromotionEntity with _$FacilityPromotionEntity {
     @Default(<FacilityPromotionTicketLineEntity>[])
     List<FacilityPromotionTicketLineEntity> buyTickets,
     required FacilityPromotionRewardEntity reward,
-    required int remainingCount,
+    required bool remainingUnlimited,
+    int? remainingCount,
   }) = FacilityPromotionBuyGetEntity;
 
-  FacilityPromotionType get type => switch (this) {
-    FacilityPromotionDiscountEntity() => FacilityPromotionType.discount,
-    FacilityPromotionPackageEntity() => FacilityPromotionType.package,
-    FacilityPromotionBuyGetEntity() => FacilityPromotionType.buyGet,
-  };
+  FacilityPromotionType get type;
+  String get trailingValueText;
+  bool get hasRemainingInfo;
+  bool get isRemainingUnlimited;
+  int? get remainingCountOrNull;
+}
 
-  String get trailingValueText => switch (this) {
-    FacilityPromotionDiscountEntity(:final discountRatio) =>
-      '${_formatPromotionNumber(discountRatio)}%',
-    FacilityPromotionPackageEntity(:final displayPrice, :final currency) => _formatPriceText(
-      currency: currency,
-      value: displayPrice,
-    ),
-    FacilityPromotionBuyGetEntity(:final displayPrice, :final currency) => _formatPriceText(
-      currency: currency,
-      value: displayPrice,
-    ),
-  };
+@freezed
+class FacilityPromotionDiscountEntity extends FacilityPromotionEntity
+    with _$FacilityPromotionDiscountEntity {
+  FacilityPromotionDiscountEntity({
+    required this.id,
+    required this.name,
+    required this.endDate,
+    required this.isLiked,
+    required this.discountRatio,
+    required this.discountFor,
+  }) : super._();
 
-  int? get remainingCountOrNull => switch (this) {
-    FacilityPromotionDiscountEntity() => null,
-    FacilityPromotionPackageEntity(:final remainingCount) => remainingCount,
-    FacilityPromotionBuyGetEntity(:final remainingCount) => remainingCount,
-  };
+  @override
+  final int id;
+  @override
+  final String name;
+  @override
+  final DateTime endDate;
+  @override
+  final bool isLiked;
+  @override
+  final double discountRatio;
+  @override
+  final FacilityPromotionAppliesOn discountFor;
+
+  @override
+  FacilityPromotionType get type => .discount;
+
+  @override
+  String get trailingValueText => '${_formatPromotionNumber(discountRatio)}%';
+
+  @override
+  bool get hasRemainingInfo => false;
+
+  @override
+  bool get isRemainingUnlimited => false;
+
+  @override
+  int? get remainingCountOrNull => null;
+}
+
+@freezed
+class FacilityPromotionPackageEntity extends FacilityPromotionEntity
+    with _$FacilityPromotionPackageEntity {
+  FacilityPromotionPackageEntity({
+    required this.id,
+    required this.name,
+    required this.endDate,
+    required this.isLiked,
+    required this.displayPrice,
+    required this.currency,
+    this.tickets = const <FacilityPromotionTicketLineEntity>[],
+    required this.remainingUnlimited,
+    this.remainingCount,
+  }) : super._();
+
+  @override
+  final int id;
+  @override
+  final String name;
+  @override
+  final DateTime endDate;
+  @override
+  final bool isLiked;
+  @override
+  final double displayPrice;
+  @override
+  final String currency;
+  @override
+  final List<FacilityPromotionTicketLineEntity> tickets;
+  @override
+  final bool remainingUnlimited;
+  @override
+  final int? remainingCount;
+
+  @override
+  FacilityPromotionType get type => .package;
+
+  @override
+  String get trailingValueText => _formatPriceText(currency: currency, value: displayPrice);
+
+  @override
+  bool get hasRemainingInfo => true;
+
+  @override
+  bool get isRemainingUnlimited => remainingUnlimited;
+
+  @override
+  int? get remainingCountOrNull => remainingUnlimited ? null : remainingCount;
+}
+
+@freezed
+class FacilityPromotionBuyGetEntity extends FacilityPromotionEntity
+    with _$FacilityPromotionBuyGetEntity {
+  FacilityPromotionBuyGetEntity({
+    required this.id,
+    required this.name,
+    required this.endDate,
+    required this.isLiked,
+    required this.displayPrice,
+    required this.currency,
+    this.buyTickets = const <FacilityPromotionTicketLineEntity>[],
+    required this.reward,
+    required this.remainingUnlimited,
+    this.remainingCount,
+  }) : super._();
+
+  @override
+  final int id;
+  @override
+  final String name;
+  @override
+  final DateTime endDate;
+  @override
+  final bool isLiked;
+  @override
+  final double displayPrice;
+  @override
+  final String currency;
+  @override
+  final List<FacilityPromotionTicketLineEntity> buyTickets;
+  @override
+  final FacilityPromotionRewardEntity reward;
+  @override
+  final bool remainingUnlimited;
+  @override
+  final int? remainingCount;
+
+  @override
+  FacilityPromotionType get type => .buyGet;
+
+  @override
+  String get trailingValueText => _formatPriceText(currency: currency, value: displayPrice);
+
+  @override
+  bool get hasRemainingInfo => true;
+
+  @override
+  bool get isRemainingUnlimited => remainingUnlimited;
+
+  @override
+  int? get remainingCountOrNull => remainingUnlimited ? null : remainingCount;
 }
 
 String _formatPriceText({required String currency, required double value}) {

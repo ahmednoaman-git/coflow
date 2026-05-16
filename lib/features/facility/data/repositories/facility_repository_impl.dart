@@ -14,6 +14,18 @@ class FacilityRepositoryImpl implements FacilityRepository {
   final FacilityRemoteDataSource _remote;
 
   @override
+  AsyncTask<FacilityPromotionDetailsEntity> getFacilityPromotionDetails(
+    GetFacilityPromotionDetailsDto dto,
+  ) {
+    return _remote.getFacilityPromotionDetails(dto).flatMap(
+      (model) => AsyncTask.tryCatch(
+        () async => FacilityPromotionDetailsMapper.toEntity(model),
+        _mapPromotionMappingFailure,
+      ),
+    );
+  }
+
+  @override
   AsyncTask<List<FacilityPromotionEntity>> getFacilityPromotions(
     GetFacilityPromotionsDto dto,
   ) {
@@ -22,19 +34,7 @@ class FacilityRepositoryImpl implements FacilityRepository {
         .flatMap(
           (models) => AsyncTask.tryCatch(
             () async => models.map(FacilityPromotionMapper.toEntity).toList(growable: false),
-            (error, stackTrace) {
-              if (error is FormatException) {
-                return ValidationFailure(
-                  error.message.toString(),
-                  exception: error,
-                );
-              }
-
-              return UnknownFailure(
-                'Failed to map facility promotions.',
-                exception: error is Exception ? error : Exception(error.toString()),
-              );
-            },
+            _mapPromotionMappingFailure,
           ),
         );
   }
@@ -57,4 +57,18 @@ class FacilityRepositoryImpl implements FacilityRepository {
   ) {
     return _remote.getFacilityTicketDetails(dto).map(FacilityTicketDetailsMapper.toEntity);
   }
+}
+
+Failure _mapPromotionMappingFailure(Object error, StackTrace stackTrace) {
+  if (error is FormatException) {
+    return ValidationFailure(
+      error.message.toString(),
+      exception: error,
+    );
+  }
+
+  return UnknownFailure(
+    'Failed to map facility promotions.',
+    exception: error is Exception ? error : Exception(error.toString()),
+  );
 }

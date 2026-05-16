@@ -65,6 +65,8 @@ import '../../features/facility/data/repositories/facility_repository_impl.dart'
 import '../../features/facility/domain/repositories/repositories.dart' as _i181;
 import '../../features/facility/domain/use_cases/get_facility_profile_use_case.dart'
     as _i587;
+import '../../features/facility/domain/use_cases/get_facility_promotion_details_use_case.dart'
+    as _i27;
 import '../../features/facility/domain/use_cases/get_facility_promotions_use_case.dart'
     as _i480;
 import '../../features/facility/domain/use_cases/get_facility_ticket_details_use_case.dart'
@@ -74,6 +76,8 @@ import '../../features/facility/domain/use_cases/get_facility_tickets_use_case.d
 import '../../features/facility/domain/use_cases/use_cases.dart' as _i312;
 import '../../features/facility/presentation/cubit/facility_details_cubit.dart'
     as _i453;
+import '../../features/facility/presentation/cubit/promotion_details_cubit.dart'
+    as _i425;
 import '../../features/facility/presentation/cubit/ticket_details_cubit.dart'
     as _i134;
 import '../../features/home/data/datasources/datasources.dart' as _i1067;
@@ -214,6 +218,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i587.GetFacilityProfileUseCase>(
       () => _i587.GetFacilityProfileUseCase(gh<_i181.FacilityRepository>()),
     );
+    gh.lazySingleton<_i27.GetFacilityPromotionDetailsUseCase>(
+      () => _i27.GetFacilityPromotionDetailsUseCase(
+        gh<_i181.FacilityRepository>(),
+      ),
+    );
     gh.lazySingleton<_i480.GetFacilityPromotionsUseCase>(
       () => _i480.GetFacilityPromotionsUseCase(gh<_i181.FacilityRepository>()),
     );
@@ -226,6 +235,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i913.GetLocationsUseCase>(
       () => _i913.GetLocationsUseCase(gh<_i222.LocationsRepository>()),
+    );
+    gh.factoryParam<_i425.PromotionDetailsCubit, int, dynamic>(
+      (promotionId, _) => _i425.PromotionDetailsCubit(
+        gh<_i312.GetFacilityPromotionDetailsUseCase>(),
+        promotionId,
+      ),
     );
     gh.factoryParam<_i134.TicketDetailsCubit, int, dynamic>(
       (ticketId, _) => _i134.TicketDetailsCubit(
