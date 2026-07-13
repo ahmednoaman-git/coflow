@@ -35,18 +35,17 @@ class UserModel {
   final String? image;
   @JsonKey(name: 'total_likes', fromJson: _parseTotalLikes, defaultValue: '0/0')
   final String totalLikes;
-  @JsonKey(name: 'total_tickets', defaultValue: 0)
-  final int totalTickets;
-  @JsonKey(name: 'total_promotions', defaultValue: 0)
-  final int totalPromotions;
+  @JsonKey(name: 'total_tickets', defaultValue: '0')
+  final String totalTickets;
+  @JsonKey(name: 'total_promotions', defaultValue: '0')
+  final String totalPromotions;
   @JsonKey(name: 'total_gifts', defaultValue: 0)
   final int totalGifts;
   @JsonKey(name: 'total_purchases', defaultValue: 0)
   final int totalPurchases;
   final String? token;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 

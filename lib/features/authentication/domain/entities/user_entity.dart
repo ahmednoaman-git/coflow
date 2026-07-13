@@ -27,7 +27,8 @@ abstract class UserEntity with _$UserEntity {
 /// Gender enumeration for user profile.
 enum Gender {
   male,
-  female;
+  female
+  ;
 
   /// Returns a localized display name for the gender.
   String displayName(BuildContext context) => switch (this) {

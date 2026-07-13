@@ -15,8 +15,8 @@ abstract final class AuthMapper {
       nationality: model.nationality,
       image: model.image,
       totalLikes: model.totalLikes,
-      totalTickets: model.totalTickets,
-      totalPromotions: model.totalPromotions,
+      totalTickets: int.tryParse(model.totalTickets) ?? 0,
+      totalPromotions: int.tryParse(model.totalPromotions) ?? 0,
       totalGifts: model.totalGifts,
       totalPurchases: model.totalPurchases,
     );

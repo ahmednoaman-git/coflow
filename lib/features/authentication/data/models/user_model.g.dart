@@ -18,8 +18,8 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   totalLikes: json['total_likes'] == null
       ? '0/0'
       : UserModel._parseTotalLikes(json['total_likes']),
-  totalTickets: (json['total_tickets'] as num?)?.toInt() ?? 0,
-  totalPromotions: (json['total_promotions'] as num?)?.toInt() ?? 0,
+  totalTickets: json['total_tickets'] as String? ?? '0',
+  totalPromotions: json['total_promotions'] as String? ?? '0',
   totalGifts: (json['total_gifts'] as num?)?.toInt() ?? 0,
   totalPurchases: (json['total_purchases'] as num?)?.toInt() ?? 0,
   token: json['token'] as String?,
