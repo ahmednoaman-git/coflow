@@ -54,7 +54,9 @@ class _TicketDetailsContent extends StatelessWidget {
 
     final children = [
       Padding(
-        padding: EdgeInsets.all(context.spacing.s24),
+        padding:
+            EdgeInsets.all(context.spacing.s24) +
+            EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
         child: Center(
           child: Text(
             ticketDetails.name,
