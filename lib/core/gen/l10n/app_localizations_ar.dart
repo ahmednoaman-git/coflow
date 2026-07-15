@@ -434,4 +434,53 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get facilityDetails_faqs => 'الأسئلة الشائعة';
+
+  @override
+  String get purchase_title => 'الشراء';
+
+  @override
+  String get purchase_couponLabel => 'الكوبون';
+
+  @override
+  String purchase_selectCoupon(int count) {
+    return 'اختر كوبونًا ($count متاح)';
+  }
+
+  @override
+  String get purchase_loadingCoupons => 'جارٍ تحميل الكوبونات...';
+
+  @override
+  String get purchase_noCoupon => 'بدون كوبون';
+
+  @override
+  String get purchase_quantity => 'الكمية';
+
+  @override
+  String get purchase_invoiceTitle => 'فاتورة الشراء';
+
+  @override
+  String purchase_invoiceLine(int count, String label) {
+    return '$count× $label';
+  }
+
+  @override
+  String get purchase_couponDiscount => 'خصم الكوبون';
+
+  @override
+  String get purchase_totalAmount => 'المبلغ الإجمالي';
+
+  @override
+  String get purchase_depositAmount => 'مبلغ العربون';
+
+  @override
+  String get purchase_directPurchase => 'شراء مباشر';
+
+  @override
+  String get purchase_onlinePayment => 'دفع إلكتروني';
+
+  @override
+  String get purchase_depositPayment => 'دفع عربون';
+
+  @override
+  String get purchase_stubSnackBar => 'الدفع الإلكتروني قادم قريبًا.';
 }

@@ -914,6 +914,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'FAQs'**
   String get facilityDetails_faqs;
+
+  /// No description provided for @purchase_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase'**
+  String get purchase_title;
+
+  /// No description provided for @purchase_couponLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Coupon'**
+  String get purchase_couponLabel;
+
+  /// No description provided for @purchase_selectCoupon.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Coupon ({count} Available)'**
+  String purchase_selectCoupon(int count);
+
+  /// No description provided for @purchase_loadingCoupons.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading coupons...'**
+  String get purchase_loadingCoupons;
+
+  /// No description provided for @purchase_noCoupon.
+  ///
+  /// In en, this message translates to:
+  /// **'No Coupon'**
+  String get purchase_noCoupon;
+
+  /// No description provided for @purchase_quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get purchase_quantity;
+
+  /// No description provided for @purchase_invoiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Invoice'**
+  String get purchase_invoiceTitle;
+
+  /// No description provided for @purchase_invoiceLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{count}x {label}'**
+  String purchase_invoiceLine(int count, String label);
+
+  /// No description provided for @purchase_couponDiscount.
+  ///
+  /// In en, this message translates to:
+  /// **'Coupon Discount'**
+  String get purchase_couponDiscount;
+
+  /// No description provided for @purchase_totalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get purchase_totalAmount;
+
+  /// No description provided for @purchase_depositAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit Amount'**
+  String get purchase_depositAmount;
+
+  /// No description provided for @purchase_directPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Direct Purchase'**
+  String get purchase_directPurchase;
+
+  /// No description provided for @purchase_onlinePayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Online Payment'**
+  String get purchase_onlinePayment;
+
+  /// No description provided for @purchase_depositPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit Payment'**
+  String get purchase_depositPayment;
+
+  /// No description provided for @purchase_stubSnackBar.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment integration is coming soon.'**
+  String get purchase_stubSnackBar;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

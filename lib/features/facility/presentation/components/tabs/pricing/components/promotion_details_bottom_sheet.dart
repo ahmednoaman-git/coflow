@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:coflow_users_v2/features/activity_line/domain/entities/collapsed_facility_entity.dart';
 import 'package:coflow_users_v2/features/facility/domain/entities/entities.dart';
@@ -221,8 +222,17 @@ class _PromotionValidityAndActionSection extends StatelessWidget {
           backgroundColor: accentColor,
           text: _resolveActionText(context, facilityData),
           onPressed: () {
+            final router = context.router;
+
             Navigator.pop(context);
-            // TODO(Ahmed): Handle promotion CTA action based on payment type.
+
+            router.push(
+              PromotionPurchaseRoute(
+                promotion: promotionDetails,
+                facility: facilityData.facility,
+                accentColor: accentColor,
+              ),
+            );
           },
         ),
       ],

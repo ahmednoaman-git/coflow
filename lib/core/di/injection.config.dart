@@ -88,6 +88,23 @@ import '../../features/home/data/repositories/home_repository_impl.dart'
 import '../../features/home/domain/repositories/home_repository.dart' as _i0;
 import '../../features/home/domain/use_cases/get_home_use_case.dart' as _i261;
 import '../../features/home/presentation/cubit/home_cubit.dart' as _i9;
+import '../../features/purchase/data/datasources/datasources.dart' as _i857;
+import '../../features/purchase/data/datasources/purchase_remote_data_source.dart'
+    as _i377;
+import '../../features/purchase/data/repositories/coupon_repository_impl.dart'
+    as _i298;
+import '../../features/purchase/domain/domain.dart' as _i692;
+import '../../features/purchase/domain/repositories/repositories.dart' as _i463;
+import '../../features/purchase/domain/use_cases/get_purchase_coupons_use_case.dart'
+    as _i291;
+import '../../features/purchase/presentation/cubit/promotion_purchase_args.dart'
+    as _i570;
+import '../../features/purchase/presentation/cubit/promotion_purchase_cubit.dart'
+    as _i385;
+import '../../features/purchase/presentation/cubit/ticket_purchase_args.dart'
+    as _i550;
+import '../../features/purchase/presentation/cubit/ticket_purchase_cubit.dart'
+    as _i14;
 import '../../features/splash/presentation/state/splash_cubit.dart' as _i315;
 import '../caching/cache_client.dart' as _i1035;
 import '../core.dart' as _i351;
@@ -115,7 +132,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.sharedPreferences,
       preResolve: true,
     );
-    gh.factory<_i745.AuthInterceptor>(() => _i745.AuthInterceptor());
     await gh.lazySingletonAsync<_i1035.CacheClient>(() {
       final i = _i1035.CacheClient();
       return i.init().then((_) => i);
@@ -133,6 +149,9 @@ extension GetItInjectableX on _i174.GetIt {
       final i = _i224.AuthStateManager(gh<_i1035.CacheClient>());
       return i.init().then((_) => i);
     }, preResolve: true);
+    gh.factory<_i745.AuthInterceptor>(
+      () => _i745.AuthInterceptor(gh<_i224.AuthStateManager>()),
+    );
     gh.factory<_i315.SplashCubit>(
       () => _i315.SplashCubit(gh<_i224.AuthStateManager>()),
     );
@@ -157,17 +176,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i278.HomeRemoteDataSource>(
       () => _i278.HomeRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i377.PurchaseRemoteDataSource>(
+      () => _i377.PurchaseRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i625.AuthenticationRepository>(
       () => _i195.AuthenticationRepositoryImpl(
         gh<_i748.AuthRemoteDataSource>(),
         gh<_i351.AuthStateManager>(),
       ),
     );
-    gh.lazySingleton<_i0.HomeRepository>(
-      () => _i76.HomeRepositoryImpl(gh<_i1067.HomeRemoteDataSource>()),
-    );
     gh.lazySingleton<_i361.Dio>(
       () => registerModule.dio(gh<_i667.DioClient>()),
+    );
+    gh.lazySingleton<_i0.HomeRepository>(
+      () => _i76.HomeRepositoryImpl(gh<_i1067.HomeRemoteDataSource>()),
     );
     gh.lazySingleton<_i181.FacilityRepository>(
       () => _i85.FacilityRepositoryImpl(gh<_i163.FacilityRemoteDataSource>()),
@@ -197,6 +219,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i121.VerifyOtpUseCase>(
       () => _i121.VerifyOtpUseCase(gh<_i625.AuthenticationRepository>()),
+    );
+    gh.lazySingleton<_i463.CouponRepository>(
+      () => _i298.CouponRepositoryImpl(gh<_i857.PurchaseRemoteDataSource>()),
     );
     gh.factory<_i1040.RegisterCubit>(
       () => _i1040.RegisterCubit(
@@ -233,6 +258,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i611.GetFacilityTicketsUseCase>(
       () => _i611.GetFacilityTicketsUseCase(gh<_i181.FacilityRepository>()),
     );
+    gh.lazySingleton<_i291.GetPurchaseCouponsUseCase>(
+      () => _i291.GetPurchaseCouponsUseCase(gh<_i463.CouponRepository>()),
+    );
     gh.lazySingleton<_i913.GetLocationsUseCase>(
       () => _i913.GetLocationsUseCase(gh<_i222.LocationsRepository>()),
     );
@@ -261,6 +289,16 @@ extension GetItInjectableX on _i174.GetIt {
       ),
     );
     gh.factoryParam<
+      _i385.PromotionPurchaseCubit,
+      _i570.PromotionPurchaseArgs,
+      dynamic
+    >(
+      (args, _) => _i385.PromotionPurchaseCubit(
+        gh<_i692.GetPurchaseCouponsUseCase>(),
+        args,
+      ),
+    );
+    gh.factoryParam<
       _i803.ActivityLineFacilitiesCubit,
       _i351.ActivityLineEntity,
       dynamic
@@ -271,6 +309,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i351.GetLocationsUseCase>(),
         activityLine,
       ),
+    );
+    gh.factoryParam<
+      _i14.TicketPurchaseCubit,
+      _i550.TicketPurchaseArgs,
+      dynamic
+    >(
+      (args, _) =>
+          _i14.TicketPurchaseCubit(gh<_i692.GetPurchaseCouponsUseCase>(), args),
     );
     gh.factory<_i9.HomeCubit>(
       () => _i9.HomeCubit(

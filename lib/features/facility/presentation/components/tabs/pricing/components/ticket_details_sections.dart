@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:coflow_users_v2/features/facility/domain/entities/entities.dart';
 import 'package:flutter/material.dart';
@@ -233,10 +234,18 @@ class ValidityAndPurchaseSection extends StatelessWidget {
             backgroundColor: accentColor,
             text: l10n.facilityDetails_purchase,
             onPressed: () {
+              final router = context.router;
+
               // Close the bottom sheet
               Navigator.pop(context);
 
-              // TODO: Navigate to the purchase screen
+              router.push(
+                TicketPurchaseRoute(
+                  ticket: ticketDetails.data,
+                  facility: ticketDetails.facilityData.facility,
+                  accentColor: accentColor,
+                ),
+              );
             },
           ),
         ),

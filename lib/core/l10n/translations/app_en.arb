@@ -184,5 +184,32 @@
   "facilityDetails_remaining": "Remaining",
   "facilityDetails_ticketFallbackLabel": "Ticket",
   "facilityDetails_trackUpdates": "Track Updates",
-  "facilityDetails_faqs": "FAQs"
+  "facilityDetails_faqs": "FAQs",
+
+  "purchase_title": "Purchase",
+  "purchase_couponLabel": "Coupon",
+  "purchase_selectCoupon": "Select Coupon ({count} Available)",
+  "@purchase_selectCoupon": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "purchase_loadingCoupons": "Loading coupons...",
+  "purchase_noCoupon": "No Coupon",
+  "purchase_quantity": "Quantity",
+  "purchase_invoiceTitle": "Purchase Invoice",
+  "purchase_invoiceLine": "{count}x {label}",
+  "@purchase_invoiceLine": {
+    "placeholders": {
+      "count": {"type": "int"},
+      "label": {"type": "String"}
+    }
+  },
+  "purchase_couponDiscount": "Coupon Discount",
+  "purchase_totalAmount": "Total Amount",
+  "purchase_depositAmount": "Deposit Amount",
+  "purchase_directPurchase": "Direct Purchase",
+  "purchase_onlinePayment": "Online Payment",
+  "purchase_depositPayment": "Deposit Payment",
+  "purchase_stubSnackBar": "Payment integration is coming soon."
 }

@@ -184,6 +184,22 @@
 	"facilityDetails_remaining": "المتبقي",
 	"facilityDetails_ticketFallbackLabel": "تذكرة",
 	"facilityDetails_trackUpdates": "تتبع التحديثات",
-	"facilityDetails_faqs": "الأسئلة الشائعة"
+	"facilityDetails_faqs": "الأسئلة الشائعة",
+
+	"purchase_title": "الشراء",
+	"purchase_couponLabel": "الكوبون",
+	"purchase_selectCoupon": "اختر كوبونًا ({count} متاح)",
+	"purchase_loadingCoupons": "جارٍ تحميل الكوبونات...",
+	"purchase_noCoupon": "بدون كوبون",
+	"purchase_quantity": "الكمية",
+	"purchase_invoiceTitle": "فاتورة الشراء",
+	"purchase_invoiceLine": "{count}× {label}",
+	"purchase_couponDiscount": "خصم الكوبون",
+	"purchase_totalAmount": "المبلغ الإجمالي",
+	"purchase_depositAmount": "مبلغ العربون",
+	"purchase_directPurchase": "شراء مباشر",
+	"purchase_onlinePayment": "دفع إلكتروني",
+	"purchase_depositPayment": "دفع عربون",
+	"purchase_stubSnackBar": "الدفع الإلكتروني قادم قريبًا."
 }
 

@@ -435,4 +435,53 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get facilityDetails_faqs => 'FAQs';
+
+  @override
+  String get purchase_title => 'Purchase';
+
+  @override
+  String get purchase_couponLabel => 'Coupon';
+
+  @override
+  String purchase_selectCoupon(int count) {
+    return 'Select Coupon ($count Available)';
+  }
+
+  @override
+  String get purchase_loadingCoupons => 'Loading coupons...';
+
+  @override
+  String get purchase_noCoupon => 'No Coupon';
+
+  @override
+  String get purchase_quantity => 'Quantity';
+
+  @override
+  String get purchase_invoiceTitle => 'Purchase Invoice';
+
+  @override
+  String purchase_invoiceLine(int count, String label) {
+    return '${count}x $label';
+  }
+
+  @override
+  String get purchase_couponDiscount => 'Coupon Discount';
+
+  @override
+  String get purchase_totalAmount => 'Total Amount';
+
+  @override
+  String get purchase_depositAmount => 'Deposit Amount';
+
+  @override
+  String get purchase_directPurchase => 'Direct Purchase';
+
+  @override
+  String get purchase_onlinePayment => 'Online Payment';
+
+  @override
+  String get purchase_depositPayment => 'Deposit Payment';
+
+  @override
+  String get purchase_stubSnackBar => 'Payment integration is coming soon.';
 }
