@@ -15,5 +15,7 @@ FacilityTagModel _$FacilityTagModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$FacilityTagModelToJson(FacilityTagModel instance) =>
-    <String, dynamic>{'id': instance.id, 'name': instance.name};
+Map<String, dynamic> _$FacilityTagModelToJson(FacilityTagModel instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+};

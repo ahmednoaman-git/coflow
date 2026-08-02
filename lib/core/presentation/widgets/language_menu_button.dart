@@ -55,12 +55,10 @@ class LanguageMenuButton extends StatelessWidget {
               .map(
                 (locale) => PieAction.builder(
                   tooltip: Text(locale.languageCode.toUpperCase()),
-                  onSelect: () =>
-                      context.read<LocalizationCubit>().setLocale(locale),
+                  onSelect: () => context.read<LocalizationCubit>().setLocale(locale),
                   builder: (hovered) => _LanguageMenuOption(
                     locale: locale,
-                    isSelected:
-                        locale.languageCode == currentLocale.languageCode,
+                    isSelected: locale.languageCode == currentLocale.languageCode,
                     isHovered: hovered,
                   ),
                 ),
@@ -146,9 +144,7 @@ class _LanguageMenuOption extends StatelessWidget {
 
     return DecoratedBox(
       decoration: ShapeDecoration(
-        color: isHovered
-            ? context.colors.backgroundTwo
-            : context.colors.backgroundWhite,
+        color: isHovered ? context.colors.backgroundTwo : context.colors.backgroundWhite,
         shape: shape,
       ),
       child: Padding(

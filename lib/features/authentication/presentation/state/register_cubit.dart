@@ -38,12 +38,10 @@ abstract class RegisterState with _$RegisterState {
   const RegisterState._();
 
   /// Whether step 1 is valid (name, email, password filled).
-  bool get isStep1Valid =>
-      name.trim().length >= 3 && _isValidEmail(email) && password.length >= 6;
+  bool get isStep1Valid => name.trim().length >= 3 && _isValidEmail(email) && password.length >= 6;
 
   /// Whether step 2 is valid (all profile details filled).
-  bool get isStep2Valid =>
-      birthdate != null && selectedCountry != null && phone.length >= 10;
+  bool get isStep2Valid => birthdate != null && selectedCountry != null && phone.length >= 10;
 
   /// Whether step 3 is valid (OTP filled).
   bool get isStep3Valid => otpCode.length >= 4;
@@ -83,8 +81,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     accessor: (
       getPartialState: (state) => state.sendOtpRequest,
       getWholeState: () => state,
-      setWholeState: (state, partial) =>
-          state.copyWith(sendOtpRequest: partial),
+      setWholeState: (state, partial) => state.copyWith(sendOtpRequest: partial),
     ),
     emit: emit,
   );
@@ -94,8 +91,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     accessor: (
       getPartialState: (state) => state.verifyOtpRequest,
       getWholeState: () => state,
-      setWholeState: (state, partial) =>
-          state.copyWith(verifyOtpRequest: partial),
+      setWholeState: (state, partial) => state.copyWith(verifyOtpRequest: partial),
     ),
     emit: emit,
   );
@@ -105,8 +101,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     accessor: (
       getPartialState: (state) => state.registerRequest,
       getWholeState: () => state,
-      setWholeState: (state, partial) =>
-          state.copyWith(registerRequest: partial),
+      setWholeState: (state, partial) => state.copyWith(registerRequest: partial),
     ),
     emit: emit,
   );
@@ -117,8 +112,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   /// Moves to the next page.
   void nextPage() {
-    if (state.pageIndex < RegisterState.totalSteps - 1 &&
-        state.isCurrentStepValid) {
+    if (state.pageIndex < RegisterState.totalSteps - 1 && state.isCurrentStepValid) {
       emit(state.copyWith(pageIndex: state.pageIndex + 1));
     }
   }

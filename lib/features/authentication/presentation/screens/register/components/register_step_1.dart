@@ -13,8 +13,7 @@ class RegisterStep1 extends StatefulWidget {
   State<RegisterStep1> createState() => _RegisterStep1State();
 }
 
-class _RegisterStep1State extends State<RegisterStep1>
-    with AutomaticKeepAliveClientMixin {
+class _RegisterStep1State extends State<RegisterStep1> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 

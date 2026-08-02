@@ -124,9 +124,7 @@ class _EzFileUploadState extends State<EzFileUpload> {
                 ),
                 color: hasFile
                     ? context.colors.backgroundTwo
-                    : (_isHovering
-                          ? context.colors.backgroundTwo
-                          : context.colors.backgroundWhite),
+                    : (_isHovering ? context.colors.backgroundTwo : context.colors.backgroundWhite),
               ),
               padding: EdgeInsets.all(context.spacing.s24),
               child: hasFile ? _buildFilePreview() : _buildUploadPrompt(),
@@ -238,9 +236,7 @@ class _ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isDestructive
-        ? context.colors.energyCherryPrimary
-        : context.colors.textSecondary;
+    final color = isDestructive ? context.colors.energyCherryPrimary : context.colors.textSecondary;
 
     return Material(
       color: Colors.transparent,

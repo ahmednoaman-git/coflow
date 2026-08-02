@@ -53,10 +53,8 @@ class CircularButton extends StatelessWidget {
 
     if (effectiveDisabled) {
       backgroundColor =
-          this.backgroundColor?.withValues(alpha: 0.5) ??
-          context.colors.backgroundGreyTwo;
-      iconColor =
-          this.iconColor?.withValues(alpha: 0.5) ?? context.colors.textDisabled;
+          this.backgroundColor?.withValues(alpha: 0.5) ?? context.colors.backgroundGreyTwo;
+      iconColor = this.iconColor?.withValues(alpha: 0.5) ?? context.colors.textDisabled;
     } else {
       backgroundColor = this.backgroundColor ?? context.colors.backgroundGrey;
       iconColor = this.iconColor ?? context.colors.textPrimary;

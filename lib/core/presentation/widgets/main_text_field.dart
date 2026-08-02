@@ -198,8 +198,7 @@ class _MainTextFieldState extends State<MainTextField> {
                           size: 20,
                         ))
                 : null,
-            prefixIconConstraints:
-                widget.maxLines != null && widget.maxLines! > 1
+            prefixIconConstraints: widget.maxLines != null && widget.maxLines! > 1
                 ? const BoxConstraints(minWidth: 40, minHeight: 0)
                 : null,
             suffixIconConstraints: BoxConstraints(

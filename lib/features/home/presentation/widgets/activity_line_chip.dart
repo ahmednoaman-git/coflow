@@ -29,15 +29,11 @@ class ActivityLineChip extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
         decoration: ShapeDecoration(
-          color: isSelected
-              ? context.colors.signatureBlue
-              : context.colors.backgroundWhite,
+          color: isSelected ? context.colors.signatureBlue : context.colors.backgroundWhite,
           shape: RoundedSuperellipseBorder(
             borderRadius: BorderRadius.circular(context.spacing.s16),
             side: BorderSide(
-              color: isSelected
-                  ? context.colors.signatureBlue
-                  : context.colors.strokePrimary,
+              color: isSelected ? context.colors.signatureBlue : context.colors.strokePrimary,
             ),
           ),
           shadows: context.shadows.sm,
@@ -50,9 +46,7 @@ class ActivityLineChip extends StatelessWidget {
             Text(
               _getLocalizedName(context),
               style: context.typography.medium12.copyWith(
-                color: isSelected
-                    ? context.colors.textWhite
-                    : context.colors.textPrimary,
+                color: isSelected ? context.colors.textWhite : context.colors.textPrimary,
               ),
             ),
           ],
@@ -62,9 +56,7 @@ class ActivityLineChip extends StatelessWidget {
   }
 
   Widget _buildIcon(BuildContext context) {
-    final color = isSelected
-        ? context.colors.textWhite
-        : _getActivityLineColor(context);
+    final color = isSelected ? context.colors.textWhite : _getActivityLineColor(context);
 
     final svgAsset = _getSvgAsset();
     return SvgPicture.asset(

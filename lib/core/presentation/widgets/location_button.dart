@@ -44,8 +44,7 @@ class LocationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final effectiveTextColor = textColor ?? Colors.white;
     final effectiveIconColor = iconColor ?? Colors.white;
-    final effectiveBgColor =
-        backgroundColor ?? context.colors.signatureBlue.withValues(alpha: 0.3);
+    final effectiveBgColor = backgroundColor ?? context.colors.signatureBlue.withValues(alpha: 0.3);
 
     final displayText = selection.isEmpty
         ? context.l10n.allLocation(country)

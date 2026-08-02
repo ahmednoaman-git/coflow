@@ -14,6 +14,5 @@ abstract class VerifyOtpDto with _$VerifyOtpDto {
     @JsonKey(name: 'code') required String otp,
   }) = _VerifyOtpDto;
 
-  factory VerifyOtpDto.fromJson(Map<String, dynamic> json) =>
-      _$VerifyOtpDtoFromJson(json);
+  factory VerifyOtpDto.fromJson(Map<String, dynamic> json) => _$VerifyOtpDtoFromJson(json);
 }

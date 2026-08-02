@@ -64,8 +64,7 @@ class AsyncHandler<C extends Cubit<TWholeState>, TWholeState, TPartialState>
        errorBuilder = null,
        onRetry = null;
 
-  final AsyncRequestManager<TWholeState, TPartialState> Function(C cubit)
-  requestManagerGetter;
+  final AsyncRequestManager<TWholeState, TPartialState> Function(C cubit) requestManagerGetter;
 
   final Widget Function(BuildContext)? initialBuilder;
   final Widget Function(BuildContext)? loadingBuilder;
@@ -89,8 +88,7 @@ class AsyncHandler<C extends Cubit<TWholeState>, TWholeState, TPartialState>
   final Widget Function(BuildContext, bool)? _loadingDependentBuilder;
 
   // Dummy builder for loading-dependent mode (never actually called)
-  static Widget _dummySuccessBuilder(BuildContext context, dynamic data) =>
-      const SizedBox.shrink();
+  static Widget _dummySuccessBuilder(BuildContext context, dynamic data) => const SizedBox.shrink();
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +103,7 @@ class AsyncHandler<C extends Cubit<TWholeState>, TWholeState, TPartialState>
       buildWhen: (previous, current) =>
           requestManager.getPartialStateFromWhole(previous) !=
           requestManager.getPartialStateFromWhole(current),
-      builder: (context, state) =>
-          _buildContent(context, cubit, requestManager),
+      builder: (context, state) => _buildContent(context, cubit, requestManager),
     );
   }
 
@@ -154,8 +151,7 @@ class AsyncHandler<C extends Cubit<TWholeState>, TWholeState, TPartialState>
   }
 
   Widget _buildLoading(BuildContext context) {
-    return loadingBuilder?.call(context) ??
-        const Center(child: CircularProgressIndicator());
+    return loadingBuilder?.call(context) ?? const Center(child: CircularProgressIndicator());
   }
 
   Widget _buildError(BuildContext context, C cubit, Failure failure) {

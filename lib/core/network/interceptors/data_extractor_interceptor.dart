@@ -19,8 +19,7 @@ class DataExtractorInterceptor extends Interceptor {
     final responseData = response.data;
 
     // If the response is a Map and contains a 'data' key, extract it
-    if (responseData is Map<String, dynamic> &&
-        responseData.containsKey('data')) {
+    if (responseData is Map<String, dynamic> && responseData.containsKey('data')) {
       response.data = responseData['data'];
     }
 

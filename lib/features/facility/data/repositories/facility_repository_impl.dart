@@ -1,28 +1,33 @@
 import 'package:coflow_users_v2/core/async/async.dart';
+import 'package:coflow_users_v2/core/domain/enums/enums.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/dtos/dtos.dart';
 import '../../domain/entities/entities.dart';
+import '../../domain/enums/enums.dart';
 import '../../domain/repositories/repositories.dart';
 import '../datasources/datasources.dart';
 import '../mappers/mappers.dart';
 
 @LazySingleton(as: FacilityRepository)
 class FacilityRepositoryImpl implements FacilityRepository {
-  const FacilityRepositoryImpl(this._remote);
+  const FacilityRepositoryImpl(this._remote, this._servicesStub);
 
   final FacilityRemoteDataSource _remote;
+  final FacilityServicesStubDataSource _servicesStub;
 
   @override
   AsyncTask<FacilityPromotionDetailsEntity> getFacilityPromotionDetails(
     GetFacilityPromotionDetailsDto dto,
   ) {
-    return _remote.getFacilityPromotionDetails(dto).flatMap(
-      (model) => AsyncTask.tryCatch(
-        () async => FacilityPromotionDetailsMapper.toEntity(model),
-        _mapPromotionMappingFailure,
-      ),
-    );
+    return _remote
+        .getFacilityPromotionDetails(dto)
+        .flatMap(
+          (model) => AsyncTask.tryCatch(
+            () async => FacilityPromotionDetailsMapper.toEntity(model),
+            _mapPromotionMappingFailure,
+          ),
+        );
   }
 
   @override
@@ -56,6 +61,25 @@ class FacilityRepositoryImpl implements FacilityRepository {
     GetFacilityTicketDetailsDto dto,
   ) {
     return _remote.getFacilityTicketDetails(dto).map(FacilityTicketDetailsMapper.toEntity);
+  }
+
+  @override
+  AsyncTask<FacilityServicesEntity> getFacilityServices(GetFacilityServicesDto dto) {
+    // TODO(backend): remove stub routing once Go activity listings return data.
+    final source = dto.accountType is GoAccount && dto.type == FacilityServiceType.activity
+        ? _servicesStub.getFacilityServices(dto)
+        : _remote.getFacilityServices(dto);
+
+    return source.map((model) => FacilityServiceMapper.toEntity(model, dto.type));
+  }
+
+  @override
+  AsyncTask<FacilityServiceDetailsEntity> getFacilityServiceDetails(
+    GetFacilityServiceDetailsDto dto,
+  ) {
+    return _remote
+        .getFacilityServiceDetails(dto)
+        .map((model) => FacilityServiceDetailsMapper.toEntity(model, dto.type));
   }
 }
 

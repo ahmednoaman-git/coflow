@@ -24,6 +24,9 @@ class AppRouter extends RootStackRouter {
     // Purchase / checkout routes
     AutoRoute(page: TicketPurchaseRoute.page),
     AutoRoute(page: PromotionPurchaseRoute.page),
+
+    // Facility service details
+    AutoRoute(page: FacilityServiceDetailsRoute.page),
   ];
 
   @override

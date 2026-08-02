@@ -60,8 +60,11 @@ import '../../features/authentication/presentation/state/register_cubit.dart'
 import '../../features/facility/data/datasources/datasources.dart' as _i163;
 import '../../features/facility/data/datasources/facility_remote_data_source.dart'
     as _i283;
+import '../../features/facility/data/datasources/facility_services_stub_data_source.dart'
+    as _i831;
 import '../../features/facility/data/repositories/facility_repository_impl.dart'
     as _i85;
+import '../../features/facility/domain/enums/enums.dart' as _i22;
 import '../../features/facility/domain/repositories/repositories.dart' as _i181;
 import '../../features/facility/domain/use_cases/get_facility_profile_use_case.dart'
     as _i587;
@@ -69,6 +72,10 @@ import '../../features/facility/domain/use_cases/get_facility_promotion_details_
     as _i27;
 import '../../features/facility/domain/use_cases/get_facility_promotions_use_case.dart'
     as _i480;
+import '../../features/facility/domain/use_cases/get_facility_service_details_use_case.dart'
+    as _i654;
+import '../../features/facility/domain/use_cases/get_facility_services_use_case.dart'
+    as _i677;
 import '../../features/facility/domain/use_cases/get_facility_ticket_details_use_case.dart'
     as _i631;
 import '../../features/facility/domain/use_cases/get_facility_tickets_use_case.dart'
@@ -78,6 +85,8 @@ import '../../features/facility/presentation/cubit/facility_details_cubit.dart'
     as _i453;
 import '../../features/facility/presentation/cubit/promotion_details_cubit.dart'
     as _i425;
+import '../../features/facility/presentation/cubit/service_details_cubit.dart'
+    as _i624;
 import '../../features/facility/presentation/cubit/ticket_details_cubit.dart'
     as _i134;
 import '../../features/home/data/datasources/datasources.dart' as _i1067;
@@ -142,6 +151,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i719.FilterFacilitiesUseCase>(
       () => const _i719.FilterFacilitiesUseCase(),
     );
+    gh.lazySingleton<_i831.FacilityServicesStubDataSource>(
+      () => _i831.FacilityServicesStubDataSource(),
+    );
     gh.lazySingleton<_i128.LocalizationManager>(
       () => _i128.LocalizationManager(gh<_i460.SharedPreferences>()),
     );
@@ -191,9 +203,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i0.HomeRepository>(
       () => _i76.HomeRepositoryImpl(gh<_i1067.HomeRemoteDataSource>()),
     );
-    gh.lazySingleton<_i181.FacilityRepository>(
-      () => _i85.FacilityRepositoryImpl(gh<_i163.FacilityRemoteDataSource>()),
-    );
     gh.lazySingleton<_i196.ActivityLineRepository>(
       () => _i239.ActivityLineRepositoryImpl(
         gh<_i755.ActivityLineRemoteDataSource>(),
@@ -201,6 +210,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i191.GetFacilitiesUseCase>(
       () => _i191.GetFacilitiesUseCase(gh<_i196.ActivityLineRepository>()),
+    );
+    gh.lazySingleton<_i181.FacilityRepository>(
+      () => _i85.FacilityRepositoryImpl(
+        gh<_i163.FacilityRemoteDataSource>(),
+        gh<_i163.FacilityServicesStubDataSource>(),
+      ),
     );
     gh.lazySingleton<_i146.LoginUseCase>(
       () => _i146.LoginUseCase(gh<_i625.AuthenticationRepository>()),
@@ -251,6 +266,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i480.GetFacilityPromotionsUseCase>(
       () => _i480.GetFacilityPromotionsUseCase(gh<_i181.FacilityRepository>()),
     );
+    gh.lazySingleton<_i654.GetFacilityServiceDetailsUseCase>(
+      () => _i654.GetFacilityServiceDetailsUseCase(
+        gh<_i181.FacilityRepository>(),
+      ),
+    );
+    gh.lazySingleton<_i677.GetFacilityServicesUseCase>(
+      () => _i677.GetFacilityServicesUseCase(gh<_i181.FacilityRepository>()),
+    );
     gh.lazySingleton<_i631.GetFacilityTicketDetailsUseCase>(
       () =>
           _i631.GetFacilityTicketDetailsUseCase(gh<_i181.FacilityRepository>()),
@@ -258,11 +281,31 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i611.GetFacilityTicketsUseCase>(
       () => _i611.GetFacilityTicketsUseCase(gh<_i181.FacilityRepository>()),
     );
+    gh.factoryParam<
+      _i453.FacilityDetailsCubit,
+      _i721.CollapsedFacilityEntity,
+      dynamic
+    >(
+      (facility, _) => _i453.FacilityDetailsCubit(
+        gh<_i312.GetFacilityProfileUseCase>(),
+        gh<_i312.GetFacilityTicketsUseCase>(),
+        gh<_i312.GetFacilityPromotionsUseCase>(),
+        gh<_i312.GetFacilityServicesUseCase>(),
+        facility,
+      ),
+    );
     gh.lazySingleton<_i291.GetPurchaseCouponsUseCase>(
       () => _i291.GetPurchaseCouponsUseCase(gh<_i463.CouponRepository>()),
     );
     gh.lazySingleton<_i913.GetLocationsUseCase>(
       () => _i913.GetLocationsUseCase(gh<_i222.LocationsRepository>()),
+    );
+    gh.factoryParam<_i624.ServiceDetailsCubit, int, _i22.FacilityServiceType>(
+      (serviceId, type) => _i624.ServiceDetailsCubit(
+        gh<_i312.GetFacilityServiceDetailsUseCase>(),
+        serviceId,
+        type,
+      ),
     );
     gh.factoryParam<_i425.PromotionDetailsCubit, int, dynamic>(
       (promotionId, _) => _i425.PromotionDetailsCubit(
@@ -274,18 +317,6 @@ extension GetItInjectableX on _i174.GetIt {
       (ticketId, _) => _i134.TicketDetailsCubit(
         gh<_i312.GetFacilityTicketDetailsUseCase>(),
         ticketId,
-      ),
-    );
-    gh.factoryParam<
-      _i453.FacilityDetailsCubit,
-      _i721.CollapsedFacilityEntity,
-      dynamic
-    >(
-      (facility, _) => _i453.FacilityDetailsCubit(
-        gh<_i312.GetFacilityProfileUseCase>(),
-        gh<_i312.GetFacilityTicketsUseCase>(),
-        gh<_i312.GetFacilityPromotionsUseCase>(),
-        facility,
       ),
     );
     gh.factoryParam<

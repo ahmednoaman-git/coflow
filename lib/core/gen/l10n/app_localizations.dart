@@ -915,6 +915,60 @@ abstract class AppLocalizations {
   /// **'FAQs'**
   String get facilityDetails_faqs;
 
+  /// No description provided for @facilityDetails_allLevels.
+  ///
+  /// In en, this message translates to:
+  /// **'All Levels'**
+  String get facilityDetails_allLevels;
+
+  /// No description provided for @facilityDetails_requirements.
+  ///
+  /// In en, this message translates to:
+  /// **'Requirements'**
+  String get facilityDetails_requirements;
+
+  /// No description provided for @facilityDetails_locationsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Locations'**
+  String get facilityDetails_locationsSectionTitle;
+
+  /// No description provided for @facilityDetails_instructorsSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructors'**
+  String get facilityDetails_instructorsSectionTitle;
+
+  /// No description provided for @facilityDetails_viewPricing.
+  ///
+  /// In en, this message translates to:
+  /// **'View Pricing'**
+  String get facilityDetails_viewPricing;
+
+  /// No description provided for @facilityDetails_noActivities.
+  ///
+  /// In en, this message translates to:
+  /// **'No activities available yet'**
+  String get facilityDetails_noActivities;
+
+  /// No description provided for @facilityDetails_noFlows.
+  ///
+  /// In en, this message translates to:
+  /// **'No flows available yet'**
+  String get facilityDetails_noFlows;
+
+  /// No description provided for @facilityDetails_noCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'No courses available yet'**
+  String get facilityDetails_noCourses;
+
+  /// No description provided for @facilityDetails_folderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} ({count})'**
+  String facilityDetails_folderTitle(String name, int count);
+
   /// No description provided for @purchase_title.
   ///
   /// In en, this message translates to:

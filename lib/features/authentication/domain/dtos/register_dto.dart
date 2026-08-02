@@ -24,8 +24,7 @@ class GenderConverter implements JsonConverter<Gender, String> {
   const GenderConverter();
 
   @override
-  Gender fromJson(String json) =>
-      Gender.values.firstWhere((e) => e.name == json);
+  Gender fromJson(String json) => Gender.values.firstWhere((e) => e.name == json);
 
   @override
   String toJson(Gender object) => object.name;
@@ -49,6 +48,5 @@ abstract class RegisterDto with _$RegisterDto {
     @JsonKey(includeToJson: false, includeFromJson: false) File? image,
   }) = _RegisterDto;
 
-  factory RegisterDto.fromJson(Map<String, dynamic> json) =>
-      _$RegisterDtoFromJson(json);
+  factory RegisterDto.fromJson(Map<String, dynamic> json) => _$RegisterDtoFromJson(json);
 }

@@ -28,8 +28,7 @@ class FacilityHeaderTopGradient extends StatelessWidget {
         );
 
         final double progress =
-            (clampOffset - colorConversionStart) /
-            (colorConversionEnd - colorConversionStart);
+            (clampOffset - colorConversionStart) / (colorConversionEnd - colorConversionStart);
         final double curvedProgress = Curves.easeOut.transform(progress);
 
         final color = Color.lerp(

@@ -437,6 +437,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilityDetails_faqs => 'FAQs';
 
   @override
+  String get facilityDetails_allLevels => 'All Levels';
+
+  @override
+  String get facilityDetails_requirements => 'Requirements';
+
+  @override
+  String get facilityDetails_locationsSectionTitle => 'Locations';
+
+  @override
+  String get facilityDetails_instructorsSectionTitle => 'Instructors';
+
+  @override
+  String get facilityDetails_viewPricing => 'View Pricing';
+
+  @override
+  String get facilityDetails_noActivities => 'No activities available yet';
+
+  @override
+  String get facilityDetails_noFlows => 'No flows available yet';
+
+  @override
+  String get facilityDetails_noCourses => 'No courses available yet';
+
+  @override
+  String facilityDetails_folderTitle(String name, int count) {
+    return '$name ($count)';
+  }
+
+  @override
   String get purchase_title => 'Purchase';
 
   @override

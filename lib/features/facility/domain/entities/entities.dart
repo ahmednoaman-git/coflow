@@ -8,5 +8,8 @@ export 'facility_promotion_details_entity.dart';
 export 'facility_promotion_entity.dart';
 export 'facility_promotion_reward_entity.dart';
 export 'facility_promotion_ticket_line_entity.dart';
+export 'facility_service_details_entity.dart';
+export 'facility_service_entity.dart';
+export 'facility_service_level.dart';
 export 'facility_ticket_details_entity.dart';
 export 'facility_ticket_entity.dart';

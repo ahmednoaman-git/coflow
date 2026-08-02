@@ -73,9 +73,7 @@ class FacilityTabBar extends StatelessWidget {
             child: Text(
               title,
               style: context.typography.medium14.copyWith(
-                color: isSelected
-                    ? context.colors.textPrimary
-                    : context.colors.textTertiary,
+                color: isSelected ? context.colors.textPrimary : context.colors.textTertiary,
               ),
               textAlign: .center,
               maxLines: 1,

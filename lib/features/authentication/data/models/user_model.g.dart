@@ -15,9 +15,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   gender: UserModel._genderFromJson(json['gender'] as String?),
   nationality: json['nationality'] as String?,
   image: json['image'] as String?,
-  totalLikes: json['total_likes'] == null
-      ? '0/0'
-      : UserModel._parseTotalLikes(json['total_likes']),
+  totalLikes: json['total_likes'] == null ? '0/0' : UserModel._parseTotalLikes(json['total_likes']),
   totalTickets: json['total_tickets'] as String? ?? '0',
   totalPromotions: json['total_promotions'] as String? ?? '0',
   totalGifts: (json['total_gifts'] as num?)?.toInt() ?? 0,

@@ -14,8 +14,7 @@ class RegisterStep3 extends StatefulWidget {
   State<RegisterStep3> createState() => _RegisterStep3State();
 }
 
-class _RegisterStep3State extends State<RegisterStep3>
-    with AutomaticKeepAliveClientMixin {
+class _RegisterStep3State extends State<RegisterStep3> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -84,9 +83,7 @@ class _ResendOtpLink extends StatelessWidget {
       builder: (context, isLoading) {
         return Center(
           child: GestureDetector(
-            onTap: isLoading
-                ? null
-                : () => context.read<RegisterCubit>().resendOtp(),
+            onTap: isLoading ? null : () => context.read<RegisterCubit>().resendOtp(),
             child: Text(
               isLoading ? context.l10n.sending : context.l10n.resendOtp,
               style: isLoading

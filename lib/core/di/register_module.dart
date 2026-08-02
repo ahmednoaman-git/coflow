@@ -10,8 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 abstract class RegisterModule {
   /// Register SharedPreferences as a preResolve async singleton
   @preResolve
-  Future<SharedPreferences> get sharedPreferences =>
-      SharedPreferences.getInstance();
+  Future<SharedPreferences> get sharedPreferences => SharedPreferences.getInstance();
 
   /// Register FlutterSecureStorage with default options
   @lazySingleton

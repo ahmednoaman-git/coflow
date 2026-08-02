@@ -11,6 +11,8 @@ abstract final class FacilityEndpoints {
   static String facilityPromotions(int id) => 'promotions/$id';
   static String facilityTickets(int id) => 'tickets/$id';
   static String ticketDetails(int ticketId) => 'ticket/$ticketId';
+  static String facilityServices(int id) => 'services/$id';
+  static String serviceDetails(int serviceId) => 'service/$serviceId';
 }
 
 /// Remote data source for facility API calls.
@@ -65,6 +67,25 @@ class FacilityRemoteDataSource {
     return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
       final response = await _dio.get(FacilityEndpoints.ticketDetails(dto.ticketId));
       return FacilityTicketDetailsModel.fromJson(response.data as Map<String, dynamic>);
+    });
+  }
+
+  AsyncTask<FacilityServicesResponseModel> getFacilityServices(GetFacilityServicesDto dto) {
+    return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
+      final response = await _dio.get(
+        FacilityEndpoints.facilityServices(dto.facilityId),
+        queryParameters: {'type': dto.type.queryParam},
+      );
+      return FacilityServicesResponseModel.fromJson(response.data as Map<String, dynamic>);
+    });
+  }
+
+  AsyncTask<FacilityServiceDetailsModel> getFacilityServiceDetails(
+    GetFacilityServiceDetailsDto dto,
+  ) {
+    return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
+      final response = await _dio.get(FacilityEndpoints.serviceDetails(dto.serviceId));
+      return FacilityServiceDetailsModel.fromJson(response.data as Map<String, dynamic>);
     });
   }
 }

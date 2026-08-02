@@ -436,6 +436,35 @@ class AppLocalizationsAr extends AppLocalizations {
   String get facilityDetails_faqs => 'الأسئلة الشائعة';
 
   @override
+  String get facilityDetails_allLevels => 'كل المستويات';
+
+  @override
+  String get facilityDetails_requirements => 'المتطلبات';
+
+  @override
+  String get facilityDetails_locationsSectionTitle => 'المواقع';
+
+  @override
+  String get facilityDetails_instructorsSectionTitle => 'المدربون';
+
+  @override
+  String get facilityDetails_viewPricing => 'عرض الأسعار';
+
+  @override
+  String get facilityDetails_noActivities => 'لا توجد أنشطة متاحة حاليًا';
+
+  @override
+  String get facilityDetails_noFlows => 'لا توجد تدفقات متاحة حاليًا';
+
+  @override
+  String get facilityDetails_noCourses => 'لا توجد دورات متاحة حاليًا';
+
+  @override
+  String facilityDetails_folderTitle(String name, int count) {
+    return '$name ($count)';
+  }
+
+  @override
   String get purchase_title => 'الشراء';
 
   @override

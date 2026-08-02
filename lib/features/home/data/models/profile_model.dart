@@ -30,8 +30,7 @@ class ProfileModel {
   final CityModel? city;
   final AreaModel? area;
 
-  factory ProfileModel.fromJson(Map<String, dynamic> json) =>
-      _$ProfileModelFromJson(json);
+  factory ProfileModel.fromJson(Map<String, dynamic> json) => _$ProfileModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProfileModelToJson(this);
 }

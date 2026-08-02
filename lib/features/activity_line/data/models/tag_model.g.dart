@@ -30,9 +30,8 @@ TagWithCountModel _$TagWithCountModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$TagWithCountModelToJson(TagWithCountModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'count': instance.count,
-    };
+Map<String, dynamic> _$TagWithCountModelToJson(TagWithCountModel instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'count': instance.count,
+};

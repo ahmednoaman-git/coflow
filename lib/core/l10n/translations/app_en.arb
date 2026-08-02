@@ -185,6 +185,21 @@
   "facilityDetails_ticketFallbackLabel": "Ticket",
   "facilityDetails_trackUpdates": "Track Updates",
   "facilityDetails_faqs": "FAQs",
+  "facilityDetails_allLevels": "All Levels",
+  "facilityDetails_requirements": "Requirements",
+  "facilityDetails_locationsSectionTitle": "Locations",
+  "facilityDetails_instructorsSectionTitle": "Instructors",
+  "facilityDetails_viewPricing": "View Pricing",
+  "facilityDetails_noActivities": "No activities available yet",
+  "facilityDetails_noFlows": "No flows available yet",
+  "facilityDetails_noCourses": "No courses available yet",
+  "facilityDetails_folderTitle": "{name} ({count})",
+  "@facilityDetails_folderTitle": {
+    "placeholders": {
+      "name": {"type": "String"},
+      "count": {"type": "int"}
+    }
+  },
 
   "purchase_title": "Purchase",
   "purchase_couponLabel": "Coupon",

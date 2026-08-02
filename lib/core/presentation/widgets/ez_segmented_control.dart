@@ -133,9 +133,7 @@ class _SegmentButton<T> extends StatelessWidget {
               Icon(
                 segment.icon,
                 size: 16,
-                color: isSelected
-                    ? context.colors.textPrimary
-                    : context.colors.textTertiary,
+                color: isSelected ? context.colors.textPrimary : context.colors.textTertiary,
               ),
             Text(
               segment.label,

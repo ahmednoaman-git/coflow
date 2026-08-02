@@ -75,9 +75,10 @@ class PromotionTile extends StatelessWidget {
                     ],
                   ),
                   switch (promotion) {
-                    final FacilityPromotionDiscountEntity discountPromotion => _DiscountPromotionBody(
-                      promotion: discountPromotion,
-                    ),
+                    final FacilityPromotionDiscountEntity discountPromotion =>
+                      _DiscountPromotionBody(
+                        promotion: discountPromotion,
+                      ),
                     final FacilityPromotionPackageEntity packagePromotion => _PackagePromotionBody(
                       promotion: packagePromotion,
                     ),

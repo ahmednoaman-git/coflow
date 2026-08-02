@@ -2,6 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project overview
+This is a service booking app where users can book services from various facilities.
+
 Flutter app (`coflow_users_v2`) using Clean Architecture with a feature-first layout. Project skills for the common workflows live in `.claude/skills/` (`feature-slice`, `coflow-ui`, `add-translations`) — use them.
 
 ## Commands

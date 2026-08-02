@@ -88,9 +88,7 @@ class _AnimatedTimeDisplayState extends State<AnimatedTimeDisplay> {
       return;
     }
 
-    _direction = newValue > oldValue
-        ? _AnimationDirection.forward
-        : _AnimationDirection.backward;
+    _direction = newValue > oldValue ? _AnimationDirection.forward : _AnimationDirection.backward;
   }
 
   int? _timePortionInSeconds(DateTime? time) {
@@ -131,8 +129,7 @@ class _AnimatedTimeDisplayState extends State<AnimatedTimeDisplay> {
 
     final formatted = switch (widget.layout) {
       AnimatedTimeDisplayLayout.hoursMinutes => '$hours:$minutes',
-      AnimatedTimeDisplayLayout.hoursMinutesSeconds =>
-        '$hours:$minutes:$seconds',
+      AnimatedTimeDisplayLayout.hoursMinutesSeconds => '$hours:$minutes:$seconds',
       AnimatedTimeDisplayLayout.secondsOnly => seconds,
     };
 
@@ -210,8 +207,7 @@ class _AnimatedDigit extends StatefulWidget {
   State<_AnimatedDigit> createState() => _AnimatedDigitState();
 }
 
-class _AnimatedDigitState extends State<_AnimatedDigit>
-    with SingleTickerProviderStateMixin {
+class _AnimatedDigitState extends State<_AnimatedDigit> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   Animation<Offset>? _incomingSlide;
   Animation<Offset>? _outgoingSlide;

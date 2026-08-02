@@ -2,8 +2,10 @@ import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../activity_line/domain/entities/collapsed_facility_entity.dart';
+import '../../../../domain/enums/enums.dart';
 import '../pricing/pricing_tab_screen.dart';
 import '../profile/profile_tab_screen.dart';
+import '../services/services_tab_screen.dart';
 
 /// Utility class for facility tab management.
 ///
@@ -13,6 +15,10 @@ import '../profile/profile_tab_screen.dart';
 /// - **Courses** — shown for Pro accounts.
 /// - **Schedule/Calendar** — shown depending on subscription tier.
 /// - **Pricing** — shown when [FacilityFeature.purchasing] is available.
+///
+/// [getFacilityTabs], [getFacilityTabWidgets], and [pricingTabIndex] all
+/// derive their ordering from the same [FacilityFeature] checks below and
+/// must be kept in sync — the tab bar and tab body lists are index-aligned.
 class FacilityUtils {
   FacilityUtils._();
 
@@ -40,17 +46,32 @@ class FacilityUtils {
     return [
       const ProfileTabScreen(),
       if (features.contains(FacilityFeature.activities))
-        const _FeaturePlaceholderTabScreen(feature: FacilityFeature.activities),
+        const ServicesTabScreen(type: FacilityServiceType.activity),
       if (features.contains(FacilityFeature.flows))
-        const _FeaturePlaceholderTabScreen(feature: FacilityFeature.flows),
+        const ServicesTabScreen(type: FacilityServiceType.flow),
       if (features.contains(FacilityFeature.courses))
-        const _FeaturePlaceholderTabScreen(feature: FacilityFeature.courses),
+        const ServicesTabScreen(type: FacilityServiceType.course),
       if (features.contains(FacilityFeature.schedule))
         const _FeaturePlaceholderTabScreen(feature: FacilityFeature.schedule),
       if (features.contains(FacilityFeature.calendar))
         const _FeaturePlaceholderTabScreen(feature: FacilityFeature.calendar),
       if (features.contains(FacilityFeature.purchasing)) const PricingTabScreen(),
     ];
+  }
+
+  /// Index of the Pricing tab within [getFacilityTabWidgets] for [facility].
+  /// Used to programmatically switch the main tab (e.g. the "View Pricing"
+  /// CTA on the service details screen).
+  static int pricingTabIndex(CollapsedFacilityEntity facility) {
+    final features = facility.accountType.features(facility.subscriptionStatus);
+
+    var index = 0; // Profile
+    if (features.contains(FacilityFeature.activities)) index++;
+    if (features.contains(FacilityFeature.flows)) index++;
+    if (features.contains(FacilityFeature.courses)) index++;
+    if (features.contains(FacilityFeature.schedule)) index++;
+    if (features.contains(FacilityFeature.calendar)) index++;
+    return index;
   }
 }
 

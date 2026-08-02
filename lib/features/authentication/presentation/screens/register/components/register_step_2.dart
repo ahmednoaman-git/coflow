@@ -19,8 +19,7 @@ class RegisterStep2 extends StatefulWidget {
   State<RegisterStep2> createState() => _RegisterStep2State();
 }
 
-class _RegisterStep2State extends State<RegisterStep2>
-    with AutomaticKeepAliveClientMixin {
+class _RegisterStep2State extends State<RegisterStep2> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -129,8 +128,7 @@ class _GenderSelector extends StatelessWidget {
                 final isSelected = state.gender == gender;
                 return Expanded(
                   child: GestureDetector(
-                    onTap: () =>
-                        context.read<RegisterCubit>().genderChanged(gender),
+                    onTap: () => context.read<RegisterCubit>().genderChanged(gender),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                         vertical: context.spacing.s12,
@@ -173,8 +171,7 @@ class _BirthdatePicker extends StatelessWidget {
   Future<void> _selectDate(BuildContext context) async {
     final cubit = context.read<RegisterCubit>();
     final initialDate =
-        cubit.state.birthdate ??
-        DateTime.now().subtract(const Duration(days: 365 * 18));
+        cubit.state.birthdate ?? DateTime.now().subtract(const Duration(days: 365 * 18));
     final picked = await showDatePicker(
       context: context,
       initialDate: initialDate,
@@ -256,8 +253,7 @@ class _NationalityDropdown extends StatelessWidget {
           top: Radius.circular(context.spacing.s24),
         ),
       ),
-      builder: (context) =>
-          _CountrySelectorSheet(selectedCountry: cubit.state.selectedCountry),
+      builder: (context) => _CountrySelectorSheet(selectedCountry: cubit.state.selectedCountry),
     );
     if (country != null && context.mounted) {
       cubit.countryChanged(country);
@@ -275,8 +271,7 @@ class _NationalityDropdown extends StatelessWidget {
           style: context.typography.medium12.primary(context),
         ),
         BlocBuilder<RegisterCubit, RegisterState>(
-          buildWhen: (prev, curr) =>
-              prev.selectedCountry != curr.selectedCountry,
+          buildWhen: (prev, curr) => prev.selectedCountry != curr.selectedCountry,
           builder: (context, state) {
             return GestureDetector(
               onTap: () => _selectCountry(context),
@@ -303,8 +298,7 @@ class _NationalityDropdown extends StatelessWidget {
                     SizedBox(width: context.spacing.s8),
                     Expanded(
                       child: Text(
-                        state.selectedCountry?.name.common ??
-                            context.l10n.nationalityHint,
+                        state.selectedCountry?.name.common ?? context.l10n.nationalityHint,
                         style: state.selectedCountry != null
                             ? context.typography.medium12.primary(context)
                             : context.typography.medium12.tertiary(context),
@@ -436,12 +430,10 @@ class _CountrySelectorSheetState extends State<_CountrySelectorSheet> {
                         horizontal: context.spacing.s16,
                       ),
                       itemCount: _filteredCountries.length,
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: context.spacing.s8),
+                      separatorBuilder: (context, index) => SizedBox(height: context.spacing.s8),
                       itemBuilder: (context, index) {
                         final country = _filteredCountries[index];
-                        final isSelected =
-                            widget.selectedCountry?.code == country.code;
+                        final isSelected = widget.selectedCountry?.code == country.code;
 
                         return _CountryTile(
                           country: country,
@@ -492,9 +484,7 @@ class _CountryTile extends StatelessWidget {
             shape: RoundedSuperellipseBorder(
               borderRadius: BorderRadius.circular(12),
               side: BorderSide(
-                color: isSelected
-                    ? context.colors.signatureBlue
-                    : context.colors.strokePrimary,
+                color: isSelected ? context.colors.signatureBlue : context.colors.strokePrimary,
               ),
             ),
           ),

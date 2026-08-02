@@ -20,4 +20,10 @@ abstract interface class FacilityRepository {
   AsyncTask<FacilityTicketDetailsEntity> getFacilityTicketDetails(
     GetFacilityTicketDetailsDto dto,
   );
+
+  AsyncTask<FacilityServicesEntity> getFacilityServices(GetFacilityServicesDto dto);
+
+  AsyncTask<FacilityServiceDetailsEntity> getFacilityServiceDetails(
+    GetFacilityServiceDetailsDto dto,
+  );
 }
