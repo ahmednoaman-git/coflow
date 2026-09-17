@@ -15,6 +15,18 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
+import '../../features/account/data/datasources/datasources.dart' as _i200;
+import '../../features/account/data/datasources/profile_remote_data_source.dart'
+    as _i757;
+import '../../features/account/data/repositories/profile_repository_impl.dart'
+    as _i761;
+import '../../features/account/domain/repositories/repositories.dart' as _i320;
+import '../../features/account/domain/use_cases/get_account_statistics_use_case.dart'
+    as _i505;
+import '../../features/account/domain/use_cases/get_profile_use_case.dart'
+    as _i113;
+import '../../features/account/domain/use_cases/use_cases.dart' as _i877;
+import '../../features/account/presentation/cubit/profile_cubit.dart' as _i575;
 import '../../features/activity_line/data/datasources/activity_line_remote_datasource.dart'
     as _i198;
 import '../../features/activity_line/data/datasources/datasources.dart'
@@ -51,21 +63,53 @@ import '../../features/authentication/domain/use_cases/resend_otp_use_case.dart'
     as _i460;
 import '../../features/authentication/domain/use_cases/send_otp_use_case.dart'
     as _i339;
+import '../../features/authentication/domain/use_cases/use_cases.dart' as _i106;
 import '../../features/authentication/domain/use_cases/verify_otp_use_case.dart'
     as _i121;
 import '../../features/authentication/presentation/state/login_cubit.dart'
     as _i1017;
 import '../../features/authentication/presentation/state/register_cubit.dart'
     as _i1040;
+import '../../features/calendar/data/datasources/datasources.dart' as _i448;
+import '../../features/calendar/data/datasources/reservation_details_stub_data_source.dart'
+    as _i2;
+import '../../features/calendar/data/datasources/reservation_remote_data_source.dart'
+    as _i466;
+import '../../features/calendar/data/datasources/reservation_stub_data_source.dart'
+    as _i844;
+import '../../features/calendar/data/repositories/reservation_repository_impl.dart'
+    as _i913;
+import '../../features/calendar/domain/entities/entities.dart' as _i982;
+import '../../features/calendar/domain/repositories/repositories.dart' as _i176;
+import '../../features/calendar/domain/use_cases/get_reservation_details_use_case.dart'
+    as _i243;
+import '../../features/calendar/domain/use_cases/get_reservations_use_case.dart'
+    as _i399;
+import '../../features/calendar/domain/use_cases/use_cases.dart' as _i631;
+import '../../features/calendar/domain/use_cases/withdraw_reservation_use_case.dart'
+    as _i551;
+import '../../features/calendar/presentation/cubit/calendar_cubit.dart'
+    as _i131;
+import '../../features/calendar/presentation/cubit/reservation_details_cubit.dart'
+    as _i396;
 import '../../features/facility/data/datasources/datasources.dart' as _i163;
+import '../../features/facility/data/datasources/facility_calendar_remote_data_source.dart'
+    as _i275;
 import '../../features/facility/data/datasources/facility_remote_data_source.dart'
     as _i283;
+import '../../features/facility/data/datasources/facility_schedule_stub_data_source.dart'
+    as _i1056;
 import '../../features/facility/data/datasources/facility_services_stub_data_source.dart'
     as _i831;
+import '../../features/facility/data/datasources/facility_session_details_stub_data_source.dart'
+    as _i84;
 import '../../features/facility/data/repositories/facility_repository_impl.dart'
     as _i85;
+import '../../features/facility/domain/entities/entities.dart' as _i264;
 import '../../features/facility/domain/enums/enums.dart' as _i22;
 import '../../features/facility/domain/repositories/repositories.dart' as _i181;
+import '../../features/facility/domain/use_cases/get_facility_faqs_use_case.dart'
+    as _i1043;
 import '../../features/facility/domain/use_cases/get_facility_profile_use_case.dart'
     as _i587;
 import '../../features/facility/domain/use_cases/get_facility_promotion_details_use_case.dart'
@@ -76,17 +120,37 @@ import '../../features/facility/domain/use_cases/get_facility_service_details_us
     as _i654;
 import '../../features/facility/domain/use_cases/get_facility_services_use_case.dart'
     as _i677;
+import '../../features/facility/domain/use_cases/get_facility_session_details_use_case.dart'
+    as _i418;
+import '../../features/facility/domain/use_cases/get_facility_sessions_use_case.dart'
+    as _i1068;
 import '../../features/facility/domain/use_cases/get_facility_ticket_details_use_case.dart'
     as _i631;
 import '../../features/facility/domain/use_cases/get_facility_tickets_use_case.dart'
     as _i611;
+import '../../features/facility/domain/use_cases/get_facility_weekly_schedule_use_case.dart'
+    as _i362;
+import '../../features/facility/domain/use_cases/toggle_facility_save_use_case.dart'
+    as _i301;
+import '../../features/facility/domain/use_cases/toggle_facility_tracking_use_case.dart'
+    as _i222;
+import '../../features/facility/domain/use_cases/update_session_reservation_use_case.dart'
+    as _i365;
 import '../../features/facility/domain/use_cases/use_cases.dart' as _i312;
 import '../../features/facility/presentation/cubit/facility_details_cubit.dart'
     as _i453;
+import '../../features/facility/presentation/cubit/facility_faq_cubit.dart'
+    as _i890;
+import '../../features/facility/presentation/cubit/facility_schedule_config.dart'
+    as _i674;
+import '../../features/facility/presentation/cubit/facility_schedule_cubit.dart'
+    as _i322;
 import '../../features/facility/presentation/cubit/promotion_details_cubit.dart'
     as _i425;
 import '../../features/facility/presentation/cubit/service_details_cubit.dart'
     as _i624;
+import '../../features/facility/presentation/cubit/session_details_cubit.dart'
+    as _i507;
 import '../../features/facility/presentation/cubit/ticket_details_cubit.dart'
     as _i134;
 import '../../features/home/data/datasources/datasources.dart' as _i1067;
@@ -102,10 +166,16 @@ import '../../features/purchase/data/datasources/purchase_remote_data_source.dar
     as _i377;
 import '../../features/purchase/data/repositories/coupon_repository_impl.dart'
     as _i298;
+import '../../features/purchase/data/repositories/purchase_repository_impl.dart'
+    as _i254;
 import '../../features/purchase/domain/domain.dart' as _i692;
 import '../../features/purchase/domain/repositories/repositories.dart' as _i463;
 import '../../features/purchase/domain/use_cases/get_purchase_coupons_use_case.dart'
     as _i291;
+import '../../features/purchase/domain/use_cases/get_purchase_quote_use_case.dart'
+    as _i254;
+import '../../features/purchase/domain/use_cases/submit_purchase_use_case.dart'
+    as _i134;
 import '../../features/purchase/presentation/cubit/promotion_purchase_args.dart'
     as _i570;
 import '../../features/purchase/presentation/cubit/promotion_purchase_cubit.dart'
@@ -114,6 +184,37 @@ import '../../features/purchase/presentation/cubit/ticket_purchase_args.dart'
     as _i550;
 import '../../features/purchase/presentation/cubit/ticket_purchase_cubit.dart'
     as _i14;
+import '../../features/saved_profiles/data/datasources/datasources.dart'
+    as _i1021;
+import '../../features/saved_profiles/data/datasources/saved_profiles_stub_data_source.dart'
+    as _i334;
+import '../../features/saved_profiles/data/repositories/saved_profiles_repository_impl.dart'
+    as _i347;
+import '../../features/saved_profiles/domain/repositories/repositories.dart'
+    as _i179;
+import '../../features/saved_profiles/domain/use_cases/get_saved_profiles_use_case.dart'
+    as _i657;
+import '../../features/saved_profiles/domain/use_cases/set_profile_tracking_use_case.dart'
+    as _i353;
+import '../../features/saved_profiles/domain/use_cases/unsave_profile_use_case.dart'
+    as _i228;
+import '../../features/saved_profiles/domain/use_cases/use_cases.dart' as _i551;
+import '../../features/saved_profiles/presentation/cubit/saved_profiles_cubit.dart'
+    as _i529;
+import '../../features/search/data/data.dart' as _i461;
+import '../../features/search/data/datasources/search_remote_data_source.dart'
+    as _i280;
+import '../../features/search/data/repositories/search_repository_impl.dart'
+    as _i1017;
+import '../../features/search/domain/domain.dart' as _i686;
+import '../../features/search/domain/repositories/repositories.dart' as _i226;
+import '../../features/search/domain/use_cases/search_businesses_use_case.dart'
+    as _i917;
+import '../../features/search/domain/use_cases/search_instructors_use_case.dart'
+    as _i665;
+import '../../features/search/domain/use_cases/search_services_use_case.dart'
+    as _i397;
+import '../../features/search/presentation/cubit/search_cubit.dart' as _i341;
 import '../../features/splash/presentation/state/splash_cubit.dart' as _i315;
 import '../caching/cache_client.dart' as _i1035;
 import '../core.dart' as _i351;
@@ -151,8 +252,28 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i719.FilterFacilitiesUseCase>(
       () => const _i719.FilterFacilitiesUseCase(),
     );
+    gh.lazySingleton<_i2.ReservationDetailsStubDataSource>(
+      () => _i2.ReservationDetailsStubDataSource(),
+    );
+    gh.lazySingleton<_i844.ReservationStubDataSource>(
+      () => _i844.ReservationStubDataSource(),
+    );
+    gh.lazySingleton<_i1056.FacilityScheduleStubDataSource>(
+      () => _i1056.FacilityScheduleStubDataSource(),
+    );
     gh.lazySingleton<_i831.FacilityServicesStubDataSource>(
       () => _i831.FacilityServicesStubDataSource(),
+    );
+    gh.lazySingleton<_i84.FacilitySessionDetailsStubDataSource>(
+      () => _i84.FacilitySessionDetailsStubDataSource(),
+    );
+    gh.lazySingleton<_i334.SavedProfilesStubDataSource>(
+      () => _i334.SavedProfilesStubDataSource(),
+    );
+    gh.lazySingleton<_i179.SavedProfilesRepository>(
+      () => _i347.SavedProfilesRepositoryImpl(
+        gh<_i1021.SavedProfilesStubDataSource>(),
+      ),
     );
     gh.lazySingleton<_i128.LocalizationManager>(
       () => _i128.LocalizationManager(gh<_i460.SharedPreferences>()),
@@ -176,6 +297,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i34.LocationsRemoteDataSource>(
       () => _i34.LocationsRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i757.ProfileRemoteDataSource>(
+      () => _i757.ProfileRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i198.ActivityLineRemoteDataSource>(
       () => _i198.ActivityLineRemoteDataSource(gh<_i351.DioClient>()),
     );
@@ -191,6 +315,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i377.PurchaseRemoteDataSource>(
       () => _i377.PurchaseRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i280.SearchRemoteDataSource>(
+      () => _i280.SearchRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i625.AuthenticationRepository>(
       () => _i195.AuthenticationRepositoryImpl(
         gh<_i748.AuthRemoteDataSource>(),
@@ -203,10 +330,26 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i0.HomeRepository>(
       () => _i76.HomeRepositoryImpl(gh<_i1067.HomeRemoteDataSource>()),
     );
+    gh.lazySingleton<_i275.FacilityCalendarRemoteDataSource>(
+      () => _i275.FacilityCalendarRemoteDataSource(
+        gh<_i351.DioClient>(),
+        gh<_i351.AuthStateManager>(),
+      ),
+    );
     gh.lazySingleton<_i196.ActivityLineRepository>(
       () => _i239.ActivityLineRepositoryImpl(
         gh<_i755.ActivityLineRemoteDataSource>(),
       ),
+    );
+    gh.lazySingleton<_i657.GetSavedProfilesUseCase>(
+      () => _i657.GetSavedProfilesUseCase(gh<_i179.SavedProfilesRepository>()),
+    );
+    gh.lazySingleton<_i353.SetProfileTrackingUseCase>(
+      () =>
+          _i353.SetProfileTrackingUseCase(gh<_i179.SavedProfilesRepository>()),
+    );
+    gh.lazySingleton<_i228.UnsaveProfileUseCase>(
+      () => _i228.UnsaveProfileUseCase(gh<_i179.SavedProfilesRepository>()),
     );
     gh.lazySingleton<_i191.GetFacilitiesUseCase>(
       () => _i191.GetFacilitiesUseCase(gh<_i196.ActivityLineRepository>()),
@@ -215,6 +358,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i85.FacilityRepositoryImpl(
         gh<_i163.FacilityRemoteDataSource>(),
         gh<_i163.FacilityServicesStubDataSource>(),
+        gh<_i163.FacilityCalendarRemoteDataSource>(),
       ),
     );
     gh.lazySingleton<_i146.LoginUseCase>(
@@ -235,8 +379,33 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i121.VerifyOtpUseCase>(
       () => _i121.VerifyOtpUseCase(gh<_i625.AuthenticationRepository>()),
     );
+    gh.lazySingleton<_i320.ProfileRepository>(
+      () => _i761.ProfileRepositoryImpl(
+        gh<_i200.ProfileRemoteDataSource>(),
+        gh<_i351.AuthStateManager>(),
+      ),
+    );
+    gh.lazySingleton<_i692.PurchaseRepository>(
+      () => _i254.PurchaseRepositoryImpl(gh<_i857.PurchaseRemoteDataSource>()),
+    );
     gh.lazySingleton<_i463.CouponRepository>(
       () => _i298.CouponRepositoryImpl(gh<_i857.PurchaseRemoteDataSource>()),
+    );
+    gh.factory<_i529.SavedProfilesCubit>(
+      () => _i529.SavedProfilesCubit(
+        gh<_i551.GetSavedProfilesUseCase>(),
+        gh<_i551.UnsaveProfileUseCase>(),
+        gh<_i551.SetProfileTrackingUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i686.SearchRepository>(
+      () => _i1017.SearchRepositoryImpl(gh<_i461.SearchRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i466.ReservationRemoteDataSource>(
+      () => _i466.ReservationRemoteDataSource(
+        gh<_i351.DioClient>(),
+        gh<_i163.FacilityCalendarRemoteDataSource>(),
+      ),
     );
     gh.factory<_i1040.RegisterCubit>(
       () => _i1040.RegisterCubit(
@@ -245,8 +414,23 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i22.VerifyOtpUseCase>(),
       ),
     );
+    gh.lazySingleton<_i917.SearchBusinessesUseCase>(
+      () => _i917.SearchBusinessesUseCase(gh<_i226.SearchRepository>()),
+    );
+    gh.lazySingleton<_i665.SearchInstructorsUseCase>(
+      () => _i665.SearchInstructorsUseCase(gh<_i226.SearchRepository>()),
+    );
+    gh.lazySingleton<_i397.SearchServicesUseCase>(
+      () => _i397.SearchServicesUseCase(gh<_i226.SearchRepository>()),
+    );
     gh.factory<_i1017.LoginCubit>(
       () => _i1017.LoginCubit(gh<_i22.LoginUseCase>()),
+    );
+    gh.lazySingleton<_i505.GetAccountStatisticsUseCase>(
+      () => _i505.GetAccountStatisticsUseCase(gh<_i320.ProfileRepository>()),
+    );
+    gh.lazySingleton<_i113.GetProfileUseCase>(
+      () => _i113.GetProfileUseCase(gh<_i320.ProfileRepository>()),
     );
     gh.lazySingleton<_i222.LocationsRepository>(
       () =>
@@ -254,6 +438,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i261.GetHomeUseCase>(
       () => _i261.GetHomeUseCase(gh<_i0.HomeRepository>()),
+    );
+    gh.lazySingleton<_i1043.GetFacilityFaqsUseCase>(
+      () => _i1043.GetFacilityFaqsUseCase(gh<_i181.FacilityRepository>()),
     );
     gh.lazySingleton<_i587.GetFacilityProfileUseCase>(
       () => _i587.GetFacilityProfileUseCase(gh<_i181.FacilityRepository>()),
@@ -274,6 +461,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i677.GetFacilityServicesUseCase>(
       () => _i677.GetFacilityServicesUseCase(gh<_i181.FacilityRepository>()),
     );
+    gh.lazySingleton<_i418.GetFacilitySessionDetailsUseCase>(
+      () => _i418.GetFacilitySessionDetailsUseCase(
+        gh<_i181.FacilityRepository>(),
+      ),
+    );
+    gh.lazySingleton<_i1068.GetFacilitySessionsUseCase>(
+      () => _i1068.GetFacilitySessionsUseCase(gh<_i181.FacilityRepository>()),
+    );
     gh.lazySingleton<_i631.GetFacilityTicketDetailsUseCase>(
       () =>
           _i631.GetFacilityTicketDetailsUseCase(gh<_i181.FacilityRepository>()),
@@ -281,21 +476,60 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i611.GetFacilityTicketsUseCase>(
       () => _i611.GetFacilityTicketsUseCase(gh<_i181.FacilityRepository>()),
     );
+    gh.lazySingleton<_i362.GetFacilityWeeklyScheduleUseCase>(
+      () => _i362.GetFacilityWeeklyScheduleUseCase(
+        gh<_i181.FacilityRepository>(),
+      ),
+    );
+    gh.lazySingleton<_i301.ToggleFacilitySaveUseCase>(
+      () => _i301.ToggleFacilitySaveUseCase(gh<_i181.FacilityRepository>()),
+    );
+    gh.lazySingleton<_i222.ToggleFacilityTrackingUseCase>(
+      () => _i222.ToggleFacilityTrackingUseCase(gh<_i181.FacilityRepository>()),
+    );
+    gh.lazySingleton<_i365.UpdateSessionReservationUseCase>(
+      () =>
+          _i365.UpdateSessionReservationUseCase(gh<_i181.FacilityRepository>()),
+    );
     gh.factoryParam<
-      _i453.FacilityDetailsCubit,
-      _i721.CollapsedFacilityEntity,
-      dynamic
+      _i322.FacilityScheduleCubit,
+      int,
+      _i674.FacilityScheduleConfig
     >(
-      (facility, _) => _i453.FacilityDetailsCubit(
-        gh<_i312.GetFacilityProfileUseCase>(),
-        gh<_i312.GetFacilityTicketsUseCase>(),
-        gh<_i312.GetFacilityPromotionsUseCase>(),
-        gh<_i312.GetFacilityServicesUseCase>(),
-        facility,
+      (_facilityId, config) => _i322.FacilityScheduleCubit(
+        gh<_i312.GetFacilitySessionsUseCase>(),
+        gh<_i312.GetFacilityWeeklyScheduleUseCase>(),
+        _facilityId,
+        config,
+      ),
+    );
+    gh.factory<_i575.ProfileCubit>(
+      () => _i575.ProfileCubit(
+        gh<_i877.GetProfileUseCase>(),
+        gh<_i106.LogoutUseCase>(),
+        gh<_i877.GetAccountStatisticsUseCase>(),
       ),
     );
     gh.lazySingleton<_i291.GetPurchaseCouponsUseCase>(
       () => _i291.GetPurchaseCouponsUseCase(gh<_i463.CouponRepository>()),
+    );
+    gh.lazySingleton<_i254.GetPurchaseQuoteUseCase>(
+      () => _i254.GetPurchaseQuoteUseCase(gh<_i463.PurchaseRepository>()),
+    );
+    gh.lazySingleton<_i134.SubmitPurchaseUseCase>(
+      () => _i134.SubmitPurchaseUseCase(gh<_i463.PurchaseRepository>()),
+    );
+    gh.factoryParam<
+      _i385.PromotionPurchaseCubit,
+      _i570.PromotionPurchaseArgs,
+      dynamic
+    >(
+      (args, _) => _i385.PromotionPurchaseCubit(
+        gh<_i692.GetPurchaseCouponsUseCase>(),
+        gh<_i692.GetPurchaseQuoteUseCase>(),
+        gh<_i692.SubmitPurchaseUseCase>(),
+        args,
+      ),
     );
     gh.lazySingleton<_i913.GetLocationsUseCase>(
       () => _i913.GetLocationsUseCase(gh<_i222.LocationsRepository>()),
@@ -307,10 +541,28 @@ extension GetItInjectableX on _i174.GetIt {
         type,
       ),
     );
+    gh.factory<_i341.SearchCubit>(
+      () => _i341.SearchCubit(
+        gh<_i686.SearchBusinessesUseCase>(),
+        gh<_i686.SearchInstructorsUseCase>(),
+        gh<_i686.SearchServicesUseCase>(),
+      ),
+    );
     gh.factoryParam<_i425.PromotionDetailsCubit, int, dynamic>(
       (promotionId, _) => _i425.PromotionDetailsCubit(
         gh<_i312.GetFacilityPromotionDetailsUseCase>(),
         promotionId,
+      ),
+    );
+    gh.factoryParam<
+      _i507.SessionDetailsCubit,
+      _i264.FacilitySessionEntity,
+      dynamic
+    >(
+      (session, _) => _i507.SessionDetailsCubit(
+        gh<_i312.GetFacilitySessionDetailsUseCase>(),
+        gh<_i312.UpdateSessionReservationUseCase>(),
+        session,
       ),
     );
     gh.factoryParam<_i134.TicketDetailsCubit, int, dynamic>(
@@ -319,15 +571,52 @@ extension GetItInjectableX on _i174.GetIt {
         ticketId,
       ),
     );
+    gh.lazySingleton<_i176.ReservationRepository>(
+      () => _i913.ReservationRepositoryImpl(
+        gh<_i448.ReservationRemoteDataSource>(),
+      ),
+    );
     gh.factoryParam<
-      _i385.PromotionPurchaseCubit,
-      _i570.PromotionPurchaseArgs,
+      _i14.TicketPurchaseCubit,
+      _i550.TicketPurchaseArgs,
       dynamic
     >(
-      (args, _) => _i385.PromotionPurchaseCubit(
+      (args, _) => _i14.TicketPurchaseCubit(
         gh<_i692.GetPurchaseCouponsUseCase>(),
+        gh<_i692.GetPurchaseQuoteUseCase>(),
+        gh<_i692.SubmitPurchaseUseCase>(),
         args,
       ),
+    );
+    gh.factoryParam<_i890.FacilityFaqCubit, int, dynamic>(
+      (facilityId, _) => _i890.FacilityFaqCubit(
+        gh<_i312.GetFacilityFaqsUseCase>(),
+        facilityId,
+      ),
+    );
+    gh.factoryParam<
+      _i453.FacilityDetailsCubit,
+      _i721.CollapsedFacilityEntity,
+      dynamic
+    >(
+      (facility, _) => _i453.FacilityDetailsCubit(
+        gh<_i312.GetFacilityProfileUseCase>(),
+        gh<_i312.GetFacilityTicketsUseCase>(),
+        gh<_i312.GetFacilityPromotionsUseCase>(),
+        gh<_i312.GetFacilityServicesUseCase>(),
+        gh<_i312.ToggleFacilitySaveUseCase>(),
+        facility,
+      ),
+    );
+    gh.lazySingleton<_i243.GetReservationDetailsUseCase>(
+      () =>
+          _i243.GetReservationDetailsUseCase(gh<_i176.ReservationRepository>()),
+    );
+    gh.lazySingleton<_i399.GetReservationsUseCase>(
+      () => _i399.GetReservationsUseCase(gh<_i176.ReservationRepository>()),
+    );
+    gh.lazySingleton<_i551.WithdrawReservationUseCase>(
+      () => _i551.WithdrawReservationUseCase(gh<_i176.ReservationRepository>()),
     );
     gh.factoryParam<
       _i803.ActivityLineFacilitiesCubit,
@@ -336,23 +625,28 @@ extension GetItInjectableX on _i174.GetIt {
     >(
       (activityLine, _) => _i803.ActivityLineFacilitiesCubit(
         gh<_i601.GetFacilitiesUseCase>(),
-        gh<_i601.FilterFacilitiesUseCase>(),
         gh<_i351.GetLocationsUseCase>(),
         activityLine,
       ),
-    );
-    gh.factoryParam<
-      _i14.TicketPurchaseCubit,
-      _i550.TicketPurchaseArgs,
-      dynamic
-    >(
-      (args, _) =>
-          _i14.TicketPurchaseCubit(gh<_i692.GetPurchaseCouponsUseCase>(), args),
     );
     gh.factory<_i9.HomeCubit>(
       () => _i9.HomeCubit(
         gh<_i261.GetHomeUseCase>(),
         gh<_i351.GetLocationsUseCase>(),
+      ),
+    );
+    gh.factory<_i131.CalendarCubit>(
+      () => _i131.CalendarCubit(gh<_i631.GetReservationsUseCase>()),
+    );
+    gh.factoryParam<
+      _i396.ReservationDetailsCubit,
+      _i982.ReservationEntity,
+      dynamic
+    >(
+      (reservation, _) => _i396.ReservationDetailsCubit(
+        gh<_i631.GetReservationDetailsUseCase>(),
+        gh<_i631.WithdrawReservationUseCase>(),
+        reservation,
       ),
     );
     return this;

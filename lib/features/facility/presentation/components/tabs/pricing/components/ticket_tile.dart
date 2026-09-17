@@ -22,10 +22,9 @@ class TicketTile extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        showModalBottomSheet(
+        showMainBottomSheet<void>(
           context: context,
-          isScrollControlled: true,
-          builder: (sheetContext) => BlocProvider<TicketDetailsCubit>(
+          builder: (_) => BlocProvider<TicketDetailsCubit>(
             create: (_) => getIt<TicketDetailsCubit>(param1: ticket.id),
             child: FacilityDataProvider.fromFacilityDataProvider(
               facilityDataProvider: facilityData,

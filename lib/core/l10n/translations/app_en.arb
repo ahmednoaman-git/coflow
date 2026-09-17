@@ -226,5 +226,186 @@
   "purchase_directPurchase": "Direct Purchase",
   "purchase_onlinePayment": "Online Payment",
   "purchase_depositPayment": "Deposit Payment",
-  "purchase_stubSnackBar": "Payment integration is coming soon."
+  "purchase_stubSnackBar": "Payment integration is coming soon.",
+  "facilitySchedule_flowCount": "{count, plural, =0{No Flows} =1{1 Flow} other{{count} Flows}}",
+  "@facilitySchedule_flowCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "facilitySchedule_activityCount": "{count, plural, =0{No Activities} =1{1 Activity} other{{count} Activities}}",
+  "@facilitySchedule_activityCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "facilitySchedule_courseCount": "{count, plural, =0{No Courses} =1{1 Course} other{{count} Courses}}",
+  "@facilitySchedule_courseCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "facilitySchedule_ladiesOnly": "Ladies Only",
+  "facilitySchedule_noFlows": "No flows scheduled on this day",
+  "facilitySchedule_noActivities": "No activities scheduled on this day",
+  "facilitySchedule_noCourses": "No courses scheduled on this day",
+  "facilitySchedule_waitingCount": "{count, plural, =1{1 waiting} other{{count} waiting}}",
+  "@facilitySchedule_waitingCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "facilitySchedule_customers": "Customers",
+  "facilitySchedule_waitlist": "Waitlist",
+  "facilitySchedule_note": "Note",
+  "facilitySchedule_facilityLocation": "Facility Location",
+  "facilitySchedule_location": "Location",
+  "facilitySchedule_reserveNowCta": "{count, plural, =1{Reserve Now (1 Available Ticket)} other{Reserve Now ({count} Available Tickets)}}",
+  "@facilitySchedule_reserveNowCta": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "facilitySchedule_purchaseTicketsCta": "{count, plural, =1{Purchase Tickets (1 Available Ticket)} other{Purchase Tickets ({count} Available Tickets)}}",
+  "@facilitySchedule_purchaseTicketsCta": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "facilitySchedule_joinWaitlist": "Join Waitlist",
+  "facilitySchedule_leaveWaitlist": "Leave Waitlist",
+  "facilitySchedule_cancelReservation": "Cancel Reservation",
+  "facilitySchedule_contactFacility": "Contact {facility}",
+  "@facilitySchedule_contactFacility": {
+    "placeholders": {
+      "facility": {"type": "String"}
+    }
+  },
+  "facilitySchedule_confirmLabel": "Confirm:",
+  "facilitySchedule_reservationLabel": "Reservation",
+  "facilitySchedule_confirmReservationSubtitle": "Review available purchase to confirm reservation.",
+  "facilitySchedule_dateLabel": "Date",
+  "facilitySchedule_timeLabel": "Time",
+  "facilitySchedule_ticketLabel": "Ticket",
+  "facilitySchedule_ticketDue": "DUE",
+  "facilitySchedule_ticketValidFor": "Valid for: {count} Day(s)",
+  "@facilitySchedule_ticketValidFor": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "facilitySchedule_ticketAddOns": "{count} Add-Ons",
+  "@facilitySchedule_ticketAddOns": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "facilitySchedule_cancellationPolicy": "Cancellation Policy",
+  "facilitySchedule_cancellationPolicyBody": "{facility} accepts any cancellation {hours} hours before the reservation. Used ticket will return to your account, and you will be able to reserve again if still available.",
+  "@facilitySchedule_cancellationPolicyBody": {
+    "placeholders": {
+      "facility": {"type": "String"},
+      "hours": {"type": "int"}
+    }
+  },
+
+  "nav_home": "Home",
+  "nav_discover": "Discover",
+  "nav_discounts": "Discounts",
+  "nav_account": "Account",
+  "nav_profile": "Profile",
+
+  "account_title": "Account",
+  "account_calendar": "Calendar",
+  "account_purchases": "Purchases",
+  "account_coupons": "Coupons",
+  "account_management": "Management",
+  "account_information": "Account Information",
+  "account_activityPreferences": "Activity Preferences",
+  "account_supportRequests": "Support Requests",
+  "account_faqs": "FAQ's",
+  "account_termsAndConditions": "Terms & Conditions",
+  "account_privacyPolicy": "Privacy Policy",
+  "account_logout": "Logout",
+  "account_logoutConfirmTitle": "Logout",
+  "account_logoutConfirmBody": "Are you sure you want to log out of your account?",
+  "account_cancel": "Cancel",
+
+  "calendar_title": "Calendar",
+  "calendar_reservationCount": "{count, plural, =0{No Reservations} =1{1 Reservation} other{{count} Reservations}}",
+  "@calendar_reservationCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "calendar_noReservations": "No reservations on this day",
+
+  "savedProfiles_title": "Profiles",
+  "savedProfiles_empty": "No saved profiles yet",
+  "savedProfiles_emptyHint": "Save a facility from its profile to find it here.",
+  "savedProfiles_emptyForLine": "Nothing saved on this activity line",
+  "savedProfiles_unsave": "Unsave",
+  "savedProfiles_unsaved": "Removed from your saved profiles",
+  "savedProfiles_trackUpdates": "Track updates",
+  "savedProfiles_trackingUpdates": "Tracking updates",
+
+  "discounts_title": "Discounts",
+
+  "search_title": "Search",
+  "search_hint": "Search",
+  "search_tabBusiness": "Business",
+  "search_tabInstructor": "Instructor",
+  "search_tabService": "Service",
+  "search_tabLabel": "{label} ({count})",
+  "@search_tabLabel": {
+    "placeholders": {
+      "label": {"type": "String"},
+      "count": {"type": "int"}
+    }
+  },
+  "search_minCharacters": "Type at least {count} characters to search",
+  "@search_minCharacters": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "search_typeActivity": "Activity",
+  "search_typeFlow": "Flow",
+  "search_typeCourse": "Course",
+  "search_noResults": "No results found",
+  "search_noResultsHint": "Try a different keyword",
+
+  "facilityDetails_addressLocationSectionTitle": "Address & Location",
+  "facilityDetails_remoteLocationSectionTitle": "Remote Location",
+  "facilityDetails_locationLink": "Link",
+  "facilityDetails_operatingIn": "Operating in:",
+  "facilityDetails_coverageAll": "ALL",
+  "facilityDetails_contactSectionTitle": "Contact",
+  "facilityDetails_chooseNumberTitle": "Choose a number",
+  "facilityDetails_linkFailed": "Couldn't open this link",
+  "facilityDetails_saveAdded": "Added to your profiles",
+  "facilityDetails_saveRemoved": "Removed from your profiles",
+  "facilityDetails_saveFailed": "Couldn't update your saved profiles",
+  "facilityDetails_trackingOn": "You'll get this facility's updates",
+  "facilityDetails_trackingOff": "Updates turned off",
+  "facilityDetails_trackingFailed": "Couldn't update tracking",
+  "facilityDetails_lastUpdated": "Last Updated: {date}",
+  "@facilityDetails_lastUpdated": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "facilityFaq_title": "FAQs",
+  "facilityFaq_subtitle": "Answers straight from {name}",
+  "@facilityFaq_subtitle": {"placeholders": {"name": {"type": "String"}}},
+  "facilityFaq_empty": "No questions yet",
+  "facilityFaq_emptyHint": "This facility hasn't published any FAQs.",
+
+  "comingSoon": "Coming soon",
+  "purchase_success": "Purchase added to your account.",
+  "purchase_dueNotice": "This purchase will be added to your account with payment due. No online payment will be collected here.",
+  "facilitySchedule_actionUnavailable": "Reservations are unavailable for this session.",
+  "account_gifts": "Gifts"
 }

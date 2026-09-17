@@ -58,7 +58,7 @@ void main() {
   });
 
   group('FacilityServiceMapper.toEntity', () {
-    test('preserves folder structure and flattens folder + root services', () {
+    test('preserves folder structure and root services', () {
       final entity = FacilityServiceMapper.toEntity(
         const FacilityServicesResponseModel(
           folders: [
@@ -80,9 +80,8 @@ void main() {
       expect(entity.folders.single.services, hasLength(2));
       expect(entity.rootServices, hasLength(1));
       expect(entity.isEmpty, isFalse);
-
-      final flattened = entity.flattenedServices.map((s) => s.id).toList();
-      expect(flattened, [10, 11, 20]);
+      expect(entity.folders.single.services.map((s) => s.id), [10, 11]);
+      expect(entity.rootServices.single.id, 20);
     });
 
     test('isEmpty is true when there are no folders and no root services', () {
@@ -92,7 +91,8 @@ void main() {
       );
 
       expect(entity.isEmpty, isTrue);
-      expect(entity.flattenedServices, isEmpty);
+      expect(entity.folders, isEmpty);
+      expect(entity.rootServices, isEmpty);
     });
   });
 }

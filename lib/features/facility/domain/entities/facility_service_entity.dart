@@ -37,13 +37,5 @@ abstract class FacilityServicesEntity with _$FacilityServicesEntity {
     required List<CollapsedFacilityServiceEntity> rootServices,
   }) = _FacilityServicesEntity;
 
-  /// All services in a single flat list — folder services first (in folder
-  /// order), then root-level services. Used by the Flow tab, which has no
-  /// folder UI.
-  List<CollapsedFacilityServiceEntity> get flattenedServices => [
-    for (final folder in folders) ...folder.services,
-    ...rootServices,
-  ];
-
   bool get isEmpty => folders.isEmpty && rootServices.isEmpty;
 }

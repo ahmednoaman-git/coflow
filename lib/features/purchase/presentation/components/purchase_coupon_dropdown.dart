@@ -23,15 +23,10 @@ class PurchaseCouponDropdown extends StatelessWidget {
   final VoidCallback onRetry;
 
   Future<void> _openSelector(BuildContext context, List<PurchaseCouponEntity> coupons) async {
-    final result = await showModalBottomSheet<_CouponPickResult>(
+    final result = await showMainBottomSheet<_CouponPickResult>(
       context: context,
-      isScrollControlled: true,
       useSafeArea: true,
-      backgroundColor: context.colors.backgroundWhite,
-      shape: RoundedSuperellipseBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(context.spacing.s24)),
-      ),
-      builder: (sheetContext) => _CouponSelectorSheet(
+      builder: (_) => _CouponSelectorSheet(
         coupons: coupons,
         selectedCoupon: selectedCoupon,
       ),

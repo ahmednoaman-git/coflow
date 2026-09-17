@@ -4,4 +4,5 @@ library;
 export 'components/components.dart';
 export 'cubit/cubit.dart';
 export 'facility_details_screen.dart';
+export 'facility_faq_screen.dart';
 export 'facility_service_details_screen.dart';

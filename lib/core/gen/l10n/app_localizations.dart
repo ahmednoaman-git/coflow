@@ -1058,6 +1058,594 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Payment integration is coming soon.'**
   String get purchase_stubSnackBar;
+
+  /// No description provided for @facilitySchedule_flowCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No Flows} =1{1 Flow} other{{count} Flows}}'**
+  String facilitySchedule_flowCount(int count);
+
+  /// No description provided for @facilitySchedule_activityCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No Activities} =1{1 Activity} other{{count} Activities}}'**
+  String facilitySchedule_activityCount(int count);
+
+  /// No description provided for @facilitySchedule_courseCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No Courses} =1{1 Course} other{{count} Courses}}'**
+  String facilitySchedule_courseCount(int count);
+
+  /// No description provided for @facilitySchedule_ladiesOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Ladies Only'**
+  String get facilitySchedule_ladiesOnly;
+
+  /// No description provided for @facilitySchedule_noFlows.
+  ///
+  /// In en, this message translates to:
+  /// **'No flows scheduled on this day'**
+  String get facilitySchedule_noFlows;
+
+  /// No description provided for @facilitySchedule_noActivities.
+  ///
+  /// In en, this message translates to:
+  /// **'No activities scheduled on this day'**
+  String get facilitySchedule_noActivities;
+
+  /// No description provided for @facilitySchedule_noCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'No courses scheduled on this day'**
+  String get facilitySchedule_noCourses;
+
+  /// No description provided for @facilitySchedule_waitingCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 waiting} other{{count} waiting}}'**
+  String facilitySchedule_waitingCount(int count);
+
+  /// No description provided for @facilitySchedule_customers.
+  ///
+  /// In en, this message translates to:
+  /// **'Customers'**
+  String get facilitySchedule_customers;
+
+  /// No description provided for @facilitySchedule_waitlist.
+  ///
+  /// In en, this message translates to:
+  /// **'Waitlist'**
+  String get facilitySchedule_waitlist;
+
+  /// No description provided for @facilitySchedule_note.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get facilitySchedule_note;
+
+  /// No description provided for @facilitySchedule_facilityLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Facility Location'**
+  String get facilitySchedule_facilityLocation;
+
+  /// No description provided for @facilitySchedule_location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get facilitySchedule_location;
+
+  /// No description provided for @facilitySchedule_reserveNowCta.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Reserve Now (1 Available Ticket)} other{Reserve Now ({count} Available Tickets)}}'**
+  String facilitySchedule_reserveNowCta(int count);
+
+  /// No description provided for @facilitySchedule_purchaseTicketsCta.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Purchase Tickets (1 Available Ticket)} other{Purchase Tickets ({count} Available Tickets)}}'**
+  String facilitySchedule_purchaseTicketsCta(int count);
+
+  /// No description provided for @facilitySchedule_joinWaitlist.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Waitlist'**
+  String get facilitySchedule_joinWaitlist;
+
+  /// No description provided for @facilitySchedule_leaveWaitlist.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave Waitlist'**
+  String get facilitySchedule_leaveWaitlist;
+
+  /// No description provided for @facilitySchedule_cancelReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Reservation'**
+  String get facilitySchedule_cancelReservation;
+
+  /// No description provided for @facilitySchedule_contactFacility.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact {facility}'**
+  String facilitySchedule_contactFacility(String facility);
+
+  /// No description provided for @facilitySchedule_confirmLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm:'**
+  String get facilitySchedule_confirmLabel;
+
+  /// No description provided for @facilitySchedule_reservationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservation'**
+  String get facilitySchedule_reservationLabel;
+
+  /// No description provided for @facilitySchedule_confirmReservationSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review available purchase to confirm reservation.'**
+  String get facilitySchedule_confirmReservationSubtitle;
+
+  /// No description provided for @facilitySchedule_dateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get facilitySchedule_dateLabel;
+
+  /// No description provided for @facilitySchedule_timeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get facilitySchedule_timeLabel;
+
+  /// No description provided for @facilitySchedule_ticketLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Ticket'**
+  String get facilitySchedule_ticketLabel;
+
+  /// No description provided for @facilitySchedule_ticketDue.
+  ///
+  /// In en, this message translates to:
+  /// **'DUE'**
+  String get facilitySchedule_ticketDue;
+
+  /// No description provided for @facilitySchedule_ticketValidFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Valid for: {count} Day(s)'**
+  String facilitySchedule_ticketValidFor(int count);
+
+  /// No description provided for @facilitySchedule_ticketAddOns.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Add-Ons'**
+  String facilitySchedule_ticketAddOns(int count);
+
+  /// No description provided for @facilitySchedule_cancellationPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancellation Policy'**
+  String get facilitySchedule_cancellationPolicy;
+
+  /// No description provided for @facilitySchedule_cancellationPolicyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{facility} accepts any cancellation {hours} hours before the reservation. Used ticket will return to your account, and you will be able to reserve again if still available.'**
+  String facilitySchedule_cancellationPolicyBody(String facility, int hours);
+
+  /// No description provided for @nav_home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get nav_home;
+
+  /// No description provided for @nav_discover.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover'**
+  String get nav_discover;
+
+  /// No description provided for @nav_discounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Discounts'**
+  String get nav_discounts;
+
+  /// No description provided for @nav_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get nav_account;
+
+  /// No description provided for @nav_profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get nav_profile;
+
+  /// No description provided for @account_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account_title;
+
+  /// No description provided for @account_calendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get account_calendar;
+
+  /// No description provided for @account_purchases.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases'**
+  String get account_purchases;
+
+  /// No description provided for @account_coupons.
+  ///
+  /// In en, this message translates to:
+  /// **'Coupons'**
+  String get account_coupons;
+
+  /// No description provided for @account_management.
+  ///
+  /// In en, this message translates to:
+  /// **'Management'**
+  String get account_management;
+
+  /// No description provided for @account_information.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Information'**
+  String get account_information;
+
+  /// No description provided for @account_activityPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity Preferences'**
+  String get account_activityPreferences;
+
+  /// No description provided for @account_supportRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Support Requests'**
+  String get account_supportRequests;
+
+  /// No description provided for @account_faqs.
+  ///
+  /// In en, this message translates to:
+  /// **'FAQ\'s'**
+  String get account_faqs;
+
+  /// No description provided for @account_termsAndConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get account_termsAndConditions;
+
+  /// No description provided for @account_privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get account_privacyPolicy;
+
+  /// No description provided for @account_logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get account_logout;
+
+  /// No description provided for @account_logoutConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get account_logoutConfirmTitle;
+
+  /// No description provided for @account_logoutConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to log out of your account?'**
+  String get account_logoutConfirmBody;
+
+  /// No description provided for @account_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get account_cancel;
+
+  /// No description provided for @calendar_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get calendar_title;
+
+  /// No description provided for @calendar_reservationCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No Reservations} =1{1 Reservation} other{{count} Reservations}}'**
+  String calendar_reservationCount(int count);
+
+  /// No description provided for @calendar_noReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'No reservations on this day'**
+  String get calendar_noReservations;
+
+  /// No description provided for @savedProfiles_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Profiles'**
+  String get savedProfiles_title;
+
+  /// No description provided for @savedProfiles_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved profiles yet'**
+  String get savedProfiles_empty;
+
+  /// No description provided for @savedProfiles_emptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Save a facility from its profile to find it here.'**
+  String get savedProfiles_emptyHint;
+
+  /// No description provided for @savedProfiles_emptyForLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing saved on this activity line'**
+  String get savedProfiles_emptyForLine;
+
+  /// No description provided for @savedProfiles_unsave.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsave'**
+  String get savedProfiles_unsave;
+
+  /// No description provided for @savedProfiles_unsaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed from your saved profiles'**
+  String get savedProfiles_unsaved;
+
+  /// No description provided for @savedProfiles_trackUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Track updates'**
+  String get savedProfiles_trackUpdates;
+
+  /// No description provided for @savedProfiles_trackingUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracking updates'**
+  String get savedProfiles_trackingUpdates;
+
+  /// No description provided for @discounts_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Discounts'**
+  String get discounts_title;
+
+  /// No description provided for @search_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search_title;
+
+  /// No description provided for @search_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search_hint;
+
+  /// No description provided for @search_tabBusiness.
+  ///
+  /// In en, this message translates to:
+  /// **'Business'**
+  String get search_tabBusiness;
+
+  /// No description provided for @search_tabInstructor.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructor'**
+  String get search_tabInstructor;
+
+  /// No description provided for @search_tabService.
+  ///
+  /// In en, this message translates to:
+  /// **'Service'**
+  String get search_tabService;
+
+  /// No description provided for @search_tabLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{label} ({count})'**
+  String search_tabLabel(String label, int count);
+
+  /// No description provided for @search_minCharacters.
+  ///
+  /// In en, this message translates to:
+  /// **'Type at least {count} characters to search'**
+  String search_minCharacters(int count);
+
+  /// No description provided for @search_typeActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity'**
+  String get search_typeActivity;
+
+  /// No description provided for @search_typeFlow.
+  ///
+  /// In en, this message translates to:
+  /// **'Flow'**
+  String get search_typeFlow;
+
+  /// No description provided for @search_typeCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Course'**
+  String get search_typeCourse;
+
+  /// No description provided for @search_noResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get search_noResults;
+
+  /// No description provided for @search_noResultsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different keyword'**
+  String get search_noResultsHint;
+
+  /// No description provided for @facilityDetails_addressLocationSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Address & Location'**
+  String get facilityDetails_addressLocationSectionTitle;
+
+  /// No description provided for @facilityDetails_remoteLocationSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remote Location'**
+  String get facilityDetails_remoteLocationSectionTitle;
+
+  /// No description provided for @facilityDetails_locationLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Link'**
+  String get facilityDetails_locationLink;
+
+  /// No description provided for @facilityDetails_operatingIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Operating in:'**
+  String get facilityDetails_operatingIn;
+
+  /// No description provided for @facilityDetails_coverageAll.
+  ///
+  /// In en, this message translates to:
+  /// **'ALL'**
+  String get facilityDetails_coverageAll;
+
+  /// No description provided for @facilityDetails_contactSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact'**
+  String get facilityDetails_contactSectionTitle;
+
+  /// No description provided for @facilityDetails_chooseNumberTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a number'**
+  String get facilityDetails_chooseNumberTitle;
+
+  /// No description provided for @facilityDetails_linkFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open this link'**
+  String get facilityDetails_linkFailed;
+
+  /// No description provided for @facilityDetails_saveAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to your profiles'**
+  String get facilityDetails_saveAdded;
+
+  /// No description provided for @facilityDetails_saveRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed from your profiles'**
+  String get facilityDetails_saveRemoved;
+
+  /// No description provided for @facilityDetails_saveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t update your saved profiles'**
+  String get facilityDetails_saveFailed;
+
+  /// No description provided for @facilityDetails_trackingOn.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ll get this facility\'s updates'**
+  String get facilityDetails_trackingOn;
+
+  /// No description provided for @facilityDetails_trackingOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates turned off'**
+  String get facilityDetails_trackingOff;
+
+  /// No description provided for @facilityDetails_trackingFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t update tracking'**
+  String get facilityDetails_trackingFailed;
+
+  /// No description provided for @facilityDetails_lastUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Updated: {date}'**
+  String facilityDetails_lastUpdated(String date);
+
+  /// No description provided for @facilityFaq_title.
+  ///
+  /// In en, this message translates to:
+  /// **'FAQs'**
+  String get facilityFaq_title;
+
+  /// No description provided for @facilityFaq_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Answers straight from {name}'**
+  String facilityFaq_subtitle(String name);
+
+  /// No description provided for @facilityFaq_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No questions yet'**
+  String get facilityFaq_empty;
+
+  /// No description provided for @facilityFaq_emptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This facility hasn\'t published any FAQs.'**
+  String get facilityFaq_emptyHint;
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get comingSoon;
+
+  /// No description provided for @purchase_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase added to your account.'**
+  String get purchase_success;
+
+  /// No description provided for @purchase_dueNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'This purchase will be added to your account with payment due. No online payment will be collected here.'**
+  String get purchase_dueNotice;
+
+  /// No description provided for @facilitySchedule_actionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservations are unavailable for this session.'**
+  String get facilitySchedule_actionUnavailable;
+
+  /// No description provided for @account_gifts.
+  ///
+  /// In en, this message translates to:
+  /// **'Gifts'**
+  String get account_gifts;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

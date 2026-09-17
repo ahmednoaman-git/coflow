@@ -16,6 +16,7 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
     this._getFacilityTickets,
     this._getFacilityPromotions,
     this._getFacilityServices,
+    this._toggleFacilitySave,
     @factoryParam CollapsedFacilityEntity facility,
   ) : super(FacilityDetailsState(facility: facility)) {
     _initManagers();
@@ -25,6 +26,7 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
   final GetFacilityTicketsUseCase _getFacilityTickets;
   final GetFacilityPromotionsUseCase _getFacilityPromotions;
   final GetFacilityServicesUseCase _getFacilityServices;
+  final ToggleFacilitySaveUseCase _toggleFacilitySave;
 
   late final AsyncRequestManager<FacilityDetailsState, FacilityProfileEntity> profileManager;
   late final AsyncRequestManager<FacilityDetailsState, List<FacilityPromotionEntity>>
@@ -33,6 +35,7 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
   late final AsyncRequestManager<FacilityDetailsState, FacilityServicesEntity> activitiesManager;
   late final AsyncRequestManager<FacilityDetailsState, FacilityServicesEntity> flowsManager;
   late final AsyncRequestManager<FacilityDetailsState, FacilityServicesEntity> coursesManager;
+  late final AsyncRequestManager<FacilityDetailsState, void> saveManager;
 
   void _initManagers() {
     profileManager = AsyncRequestManager(
@@ -124,6 +127,46 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
         ),
       ),
     );
+
+    // No `defaultRequest`: the toggle is user-triggered and gets its task
+    // handed to `execute` at the moment of the tap.
+    saveManager = AsyncRequestManager(
+      accessor: (
+        getPartialState: (state) => state.saveRequest,
+        getWholeState: () => state,
+        setWholeState: (state, partial) => state.copyWith(saveRequest: partial),
+      ),
+      emit: emit,
+    );
+  }
+
+  /// Saves or unsaves the facility.
+  ///
+  /// The endpoint is a toggle that reports no resulting state, so the flags are
+  /// flipped optimistically and rolled back if the call fails — which also
+  /// keeps the bookmark responsive on a slow connection.
+  ///
+  /// Un-saving drops tracking with it: the backend stores tracking against the
+  /// saved-facility row, so removing the save clears `has_track` too. Mirroring
+  /// that here keeps the bell from staying lit on a facility that is no longer
+  /// saved.
+  Future<void> toggleSave() async {
+    final profile = profileManager.data;
+    if (profile == null || saveManager.isLoading) return;
+
+    final isSaved = !profile.isSaved;
+    _emitProfile(
+      profile.copyWith(isSaved: isSaved, isTracked: isSaved && profile.isTracked),
+    );
+    await saveManager.execute(_toggleFacilitySave(ToggleFacilitySaveDto(facilityId: profile.id)));
+
+    if (saveManager.isError) _emitProfile(profile);
+  }
+
+  /// Writes a locally-adjusted profile back into the loaded state, so the whole
+  /// screen reads the flags from one place.
+  void _emitProfile(FacilityProfileEntity profile) {
+    emit(state.copyWith(profileRequest: AsyncState.success(profile)));
   }
 
   void setSelectedTab(FacilityDetailsTab tab) {

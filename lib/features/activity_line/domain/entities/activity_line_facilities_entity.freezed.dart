@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ActivityLineFacilitiesEntity {
 
- List<CollapsedFacilityEntity> get facilities; List<TagWithCountEntity> get tags;
+ List<CollapsedFacilityEntity> get facilities; List<TagWithCountEntity> get tags; int get currentPage; int get lastPage; int get total;
 /// Create a copy of ActivityLineFacilitiesEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ActivityLineFacilitiesEntityCopyWith<ActivityLineFacilitiesEntity> get copyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ActivityLineFacilitiesEntity&&const DeepCollectionEquality().equals(other.facilities, facilities)&&const DeepCollectionEquality().equals(other.tags, tags));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ActivityLineFacilitiesEntity&&const DeepCollectionEquality().equals(other.facilities, facilities)&&const DeepCollectionEquality().equals(other.tags, tags)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage)&&(identical(other.lastPage, lastPage) || other.lastPage == lastPage)&&(identical(other.total, total) || other.total == total));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(facilities),const DeepCollectionEquality().hash(tags));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(facilities),const DeepCollectionEquality().hash(tags),currentPage,lastPage,total);
 
 @override
 String toString() {
-  return 'ActivityLineFacilitiesEntity(facilities: $facilities, tags: $tags)';
+  return 'ActivityLineFacilitiesEntity(facilities: $facilities, tags: $tags, currentPage: $currentPage, lastPage: $lastPage, total: $total)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ActivityLineFacilitiesEntityCopyWith<$Res>  {
   factory $ActivityLineFacilitiesEntityCopyWith(ActivityLineFacilitiesEntity value, $Res Function(ActivityLineFacilitiesEntity) _then) = _$ActivityLineFacilitiesEntityCopyWithImpl;
 @useResult
 $Res call({
- List<CollapsedFacilityEntity> facilities, List<TagWithCountEntity> tags
+ List<CollapsedFacilityEntity> facilities, List<TagWithCountEntity> tags, int currentPage, int lastPage, int total
 });
 
 
@@ -62,11 +62,14 @@ class _$ActivityLineFacilitiesEntityCopyWithImpl<$Res>
 
 /// Create a copy of ActivityLineFacilitiesEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? facilities = null,Object? tags = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? facilities = null,Object? tags = null,Object? currentPage = null,Object? lastPage = null,Object? total = null,}) {
   return _then(_self.copyWith(
 facilities: null == facilities ? _self.facilities : facilities // ignore: cast_nullable_to_non_nullable
 as List<CollapsedFacilityEntity>,tags: null == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
-as List<TagWithCountEntity>,
+as List<TagWithCountEntity>,currentPage: null == currentPage ? _self.currentPage : currentPage // ignore: cast_nullable_to_non_nullable
+as int,lastPage: null == lastPage ? _self.lastPage : lastPage // ignore: cast_nullable_to_non_nullable
+as int,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -151,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<CollapsedFacilityEntity> facilities,  List<TagWithCountEntity> tags)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<CollapsedFacilityEntity> facilities,  List<TagWithCountEntity> tags,  int currentPage,  int lastPage,  int total)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ActivityLineFacilitiesEntity() when $default != null:
-return $default(_that.facilities,_that.tags);case _:
+return $default(_that.facilities,_that.tags,_that.currentPage,_that.lastPage,_that.total);case _:
   return orElse();
 
 }
@@ -172,10 +175,10 @@ return $default(_that.facilities,_that.tags);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<CollapsedFacilityEntity> facilities,  List<TagWithCountEntity> tags)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<CollapsedFacilityEntity> facilities,  List<TagWithCountEntity> tags,  int currentPage,  int lastPage,  int total)  $default,) {final _that = this;
 switch (_that) {
 case _ActivityLineFacilitiesEntity():
-return $default(_that.facilities,_that.tags);case _:
+return $default(_that.facilities,_that.tags,_that.currentPage,_that.lastPage,_that.total);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +195,10 @@ return $default(_that.facilities,_that.tags);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<CollapsedFacilityEntity> facilities,  List<TagWithCountEntity> tags)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<CollapsedFacilityEntity> facilities,  List<TagWithCountEntity> tags,  int currentPage,  int lastPage,  int total)?  $default,) {final _that = this;
 switch (_that) {
 case _ActivityLineFacilitiesEntity() when $default != null:
-return $default(_that.facilities,_that.tags);case _:
+return $default(_that.facilities,_that.tags,_that.currentPage,_that.lastPage,_that.total);case _:
   return null;
 
 }
@@ -206,8 +209,8 @@ return $default(_that.facilities,_that.tags);case _:
 /// @nodoc
 
 
-class _ActivityLineFacilitiesEntity implements ActivityLineFacilitiesEntity {
-  const _ActivityLineFacilitiesEntity({required final  List<CollapsedFacilityEntity> facilities, required final  List<TagWithCountEntity> tags}): _facilities = facilities,_tags = tags;
+class _ActivityLineFacilitiesEntity extends ActivityLineFacilitiesEntity {
+  const _ActivityLineFacilitiesEntity({required final  List<CollapsedFacilityEntity> facilities, required final  List<TagWithCountEntity> tags, this.currentPage = 1, this.lastPage = 1, this.total = 0}): _facilities = facilities,_tags = tags,super._();
   
 
  final  List<CollapsedFacilityEntity> _facilities;
@@ -224,6 +227,9 @@ class _ActivityLineFacilitiesEntity implements ActivityLineFacilitiesEntity {
   return EqualUnmodifiableListView(_tags);
 }
 
+@override@JsonKey() final  int currentPage;
+@override@JsonKey() final  int lastPage;
+@override@JsonKey() final  int total;
 
 /// Create a copy of ActivityLineFacilitiesEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -235,16 +241,16 @@ _$ActivityLineFacilitiesEntityCopyWith<_ActivityLineFacilitiesEntity> get copyWi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ActivityLineFacilitiesEntity&&const DeepCollectionEquality().equals(other._facilities, _facilities)&&const DeepCollectionEquality().equals(other._tags, _tags));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ActivityLineFacilitiesEntity&&const DeepCollectionEquality().equals(other._facilities, _facilities)&&const DeepCollectionEquality().equals(other._tags, _tags)&&(identical(other.currentPage, currentPage) || other.currentPage == currentPage)&&(identical(other.lastPage, lastPage) || other.lastPage == lastPage)&&(identical(other.total, total) || other.total == total));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_facilities),const DeepCollectionEquality().hash(_tags));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_facilities),const DeepCollectionEquality().hash(_tags),currentPage,lastPage,total);
 
 @override
 String toString() {
-  return 'ActivityLineFacilitiesEntity(facilities: $facilities, tags: $tags)';
+  return 'ActivityLineFacilitiesEntity(facilities: $facilities, tags: $tags, currentPage: $currentPage, lastPage: $lastPage, total: $total)';
 }
 
 
@@ -255,7 +261,7 @@ abstract mixin class _$ActivityLineFacilitiesEntityCopyWith<$Res> implements $Ac
   factory _$ActivityLineFacilitiesEntityCopyWith(_ActivityLineFacilitiesEntity value, $Res Function(_ActivityLineFacilitiesEntity) _then) = __$ActivityLineFacilitiesEntityCopyWithImpl;
 @override @useResult
 $Res call({
- List<CollapsedFacilityEntity> facilities, List<TagWithCountEntity> tags
+ List<CollapsedFacilityEntity> facilities, List<TagWithCountEntity> tags, int currentPage, int lastPage, int total
 });
 
 
@@ -272,11 +278,14 @@ class __$ActivityLineFacilitiesEntityCopyWithImpl<$Res>
 
 /// Create a copy of ActivityLineFacilitiesEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? facilities = null,Object? tags = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? facilities = null,Object? tags = null,Object? currentPage = null,Object? lastPage = null,Object? total = null,}) {
   return _then(_ActivityLineFacilitiesEntity(
 facilities: null == facilities ? _self._facilities : facilities // ignore: cast_nullable_to_non_nullable
 as List<CollapsedFacilityEntity>,tags: null == tags ? _self._tags : tags // ignore: cast_nullable_to_non_nullable
-as List<TagWithCountEntity>,
+as List<TagWithCountEntity>,currentPage: null == currentPage ? _self.currentPage : currentPage // ignore: cast_nullable_to_non_nullable
+as int,lastPage: null == lastPage ? _self.lastPage : lastPage // ignore: cast_nullable_to_non_nullable
+as int,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

@@ -74,22 +74,18 @@ class ActivityLineFacilitiesAppBar extends StatelessWidget implements PreferredS
     required LocationsEntity locations,
     required SelectedLocation currentSelection,
   }) {
-    showModalBottomSheet<void>(
+    // Captured up front: the sheet mounts on the root navigator, outside this
+    // subtree, so it cannot look the cubit up for itself.
+    final cubit = context.read<ActivityLineFacilitiesCubit>();
+
+    showMainBottomSheet<void>(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: context.colors.backgroundWhite,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(context.spacing.s24),
-        ),
-      ),
       builder: (_) => BlocProvider.value(
-        value: context.read<ActivityLineFacilitiesCubit>(),
+        value: cubit,
         child: LocationSelectorBottomSheet(
           locations: locations,
           initialSelection: currentSelection,
-          onConfirm: (location) =>
-              context.read<ActivityLineFacilitiesCubit>().selectLocation(location),
+          onConfirm: cubit.selectLocation,
         ),
       ),
     );

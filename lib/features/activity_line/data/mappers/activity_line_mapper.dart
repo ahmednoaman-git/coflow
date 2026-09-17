@@ -12,6 +12,9 @@ abstract final class ActivityLineMapper {
     return ActivityLineFacilitiesEntity(
       facilities: model.facilities.map(toFacilityEntity).toList(),
       tags: model.tags.map(toTagWithCountEntity).toList(),
+      currentPage: model.currentPage,
+      lastPage: model.lastPage,
+      total: model.total,
     );
   }
 
@@ -25,7 +28,7 @@ abstract final class ActivityLineMapper {
       logoUrl: model.logo,
       coverUrl: model.cover,
       likeCount: model.reviewsCount,
-      activityLine: ActivityLineEntity.fromId(model.activityLine.id),
+      activityLine: ActivityLineEntity.fromId(model.activityLine?.id ?? model.activityLineId),
       tags: model.tags?.map(toTagEntity).toList() ?? [],
       accountType: AccountType.fromString(model.facilityType ?? ''),
       status: FacilityStatus.fromString(model.status),

@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
+import 'package:coflow_users_v2/features/purchase/domain/domain.dart';
 import 'package:coflow_users_v2/features/purchase/presentation/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,9 +21,32 @@ class PromotionPurchaseScreenBody extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<PromotionPurchaseCubit>();
 
-        return SingleChildScrollView(
-          padding: EdgeInsets.all(context.spacing.s16),
-          child: _PromotionPurchaseCard(state: state, cubit: cubit),
+        return AsyncHandler<
+          PromotionPurchaseCubit,
+          PromotionPurchaseState,
+          PurchaseReceiptEntity
+        >.loadingDependent(
+          requestManagerGetter: (cubit) => cubit.submitManager,
+          onSuccess: (context, receipt) {
+            context.showSuccessSnackBar(context.l10n.purchase_success);
+            context.router.pop<bool>(true);
+          },
+          onError: (context, failure) => context.showErrorSnackBar(failure.message),
+          builder: (context, isSubmitting) => PopScope(
+            canPop: !isSubmitting,
+            child: AbsorbPointer(
+              absorbing: isSubmitting,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(
+                  context.spacing.s16,
+                  context.spacing.s16,
+                  context.spacing.s16,
+                  context.bottomInset + context.spacing.s16,
+                ),
+                child: _PromotionPurchaseCard(state: state, cubit: cubit),
+              ),
+            ),
+          ),
         );
       },
     );
@@ -104,11 +129,28 @@ class _PromotionPurchaseCard extends StatelessWidget {
       bottomChildren: [
         _section(
           context,
-          PurchaseInvoiceSection(invoice: state.invoice, accentColor: accent),
+          AsyncHandler<PromotionPurchaseCubit, PromotionPurchaseState, PurchaseQuoteEntity>(
+            requestManagerGetter: (cubit) => cubit.quoteManager,
+            onRetry: (cubit) => cubit.refreshQuote(),
+            successBuilder: (context, quote) => PurchaseInvoiceSection(
+              invoice: PurchaseInvoiceCalculator.fromQuote(
+                quote: quote,
+                currency: state.currency,
+                itemLabel: promotionDetails.title,
+                addOnsLabel: l10n.facilityDetails_addOns,
+                quantity: state.quantity,
+              ),
+              accentColor: accent,
+            ),
+          ),
         ),
         _section(
           context,
-          PurchaseSubmitButton(paymentType: state.facility.paymentType, accentColor: accent),
+          PurchaseSubmitButton(
+            accentColor: accent,
+            isLoading: cubit.submitManager.isLoading,
+            onPressed: cubit.quoteManager.isSuccess && !cubit.inputsLocked ? cubit.submit : null,
+          ),
         ),
       ],
     );

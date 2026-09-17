@@ -9,6 +9,30 @@ typedef PurchaseAddOnSelection = ({String name, double unitPrice});
 ///
 /// Kept free of Cubit/DI dependencies so it can be unit-tested directly.
 abstract final class PurchaseInvoiceCalculator {
+  /// Checkout only displays backend amounts. In particular, it never invents
+  /// a deposit or independently reapplies quantity/coupon calculations.
+  static PurchaseInvoiceEntity fromQuote({
+    required PurchaseQuoteEntity quote,
+    required String currency,
+    required String itemLabel,
+    required String addOnsLabel,
+    required int quantity,
+  }) => PurchaseInvoiceEntity(
+    currency: quote.currency ?? currency,
+    lines: [
+      PurchaseInvoiceLineEntity(
+        label: itemLabel,
+        quantity: quantity,
+        amount: quote.totalPrice - quote.addOnsPrice,
+      ),
+      if (quote.addOnsPrice > 0)
+        PurchaseInvoiceLineEntity(label: addOnsLabel, quantity: 1, amount: quote.addOnsPrice),
+    ],
+    subtotal: quote.totalPrice,
+    couponDiscount: quote.couponDiscount,
+    total: quote.finalPrice,
+  );
+
   static PurchaseInvoiceEntity compute({
     required String currency,
     required String itemLabel,

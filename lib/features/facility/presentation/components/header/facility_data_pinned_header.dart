@@ -77,10 +77,13 @@ class HeaderAppBar extends StatelessWidget {
           child: SizedBox(
             height: containerContentHeight,
             child: Padding(
+              // The floating controls sit above this bar, so the title has to
+              // keep their space clear — but only while they actually overlap.
+              // Interpolating on the collapse progress closes the gap as the
+              // bar slides up behind them and re-opens the full width on the
+              // way back down, instead of snapping between the two.
               padding: EdgeInsets.symmetric(
-                horizontal: safeAreaScaleProgress > 0
-                    ? FacilityHeaderControls.controlEdgeInsets
-                    : 0,
+                horizontal: FacilityHeaderControls.controlEdgeInsets * safeAreaScaleProgress,
               ),
               child: Column(
                 mainAxisAlignment: .center,
@@ -88,6 +91,7 @@ class HeaderAppBar extends StatelessWidget {
                   Text(
                     facilityDataProvider.facility.name,
                     style: context.typography.bold20.inverse(context),
+                    textAlign: .center,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -95,6 +99,9 @@ class HeaderAppBar extends StatelessWidget {
                   Text(
                     facilityDataProvider.facility.description,
                     style: context.typography.book14.inverse(context),
+                    textAlign: .center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),

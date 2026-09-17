@@ -513,4 +513,376 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get purchase_stubSnackBar => 'Payment integration is coming soon.';
+
+  @override
+  String facilitySchedule_flowCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Flows',
+      one: '1 Flow',
+      zero: 'No Flows',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String facilitySchedule_activityCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Activities',
+      one: '1 Activity',
+      zero: 'No Activities',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String facilitySchedule_courseCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Courses',
+      one: '1 Course',
+      zero: 'No Courses',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get facilitySchedule_ladiesOnly => 'Ladies Only';
+
+  @override
+  String get facilitySchedule_noFlows => 'No flows scheduled on this day';
+
+  @override
+  String get facilitySchedule_noActivities => 'No activities scheduled on this day';
+
+  @override
+  String get facilitySchedule_noCourses => 'No courses scheduled on this day';
+
+  @override
+  String facilitySchedule_waitingCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count waiting',
+      one: '1 waiting',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get facilitySchedule_customers => 'Customers';
+
+  @override
+  String get facilitySchedule_waitlist => 'Waitlist';
+
+  @override
+  String get facilitySchedule_note => 'Note';
+
+  @override
+  String get facilitySchedule_facilityLocation => 'Facility Location';
+
+  @override
+  String get facilitySchedule_location => 'Location';
+
+  @override
+  String facilitySchedule_reserveNowCta(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Reserve Now ($count Available Tickets)',
+      one: 'Reserve Now (1 Available Ticket)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String facilitySchedule_purchaseTicketsCta(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Purchase Tickets ($count Available Tickets)',
+      one: 'Purchase Tickets (1 Available Ticket)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get facilitySchedule_joinWaitlist => 'Join Waitlist';
+
+  @override
+  String get facilitySchedule_leaveWaitlist => 'Leave Waitlist';
+
+  @override
+  String get facilitySchedule_cancelReservation => 'Cancel Reservation';
+
+  @override
+  String facilitySchedule_contactFacility(String facility) {
+    return 'Contact $facility';
+  }
+
+  @override
+  String get facilitySchedule_confirmLabel => 'Confirm:';
+
+  @override
+  String get facilitySchedule_reservationLabel => 'Reservation';
+
+  @override
+  String get facilitySchedule_confirmReservationSubtitle =>
+      'Review available purchase to confirm reservation.';
+
+  @override
+  String get facilitySchedule_dateLabel => 'Date';
+
+  @override
+  String get facilitySchedule_timeLabel => 'Time';
+
+  @override
+  String get facilitySchedule_ticketLabel => 'Ticket';
+
+  @override
+  String get facilitySchedule_ticketDue => 'DUE';
+
+  @override
+  String facilitySchedule_ticketValidFor(int count) {
+    return 'Valid for: $count Day(s)';
+  }
+
+  @override
+  String facilitySchedule_ticketAddOns(int count) {
+    return '$count Add-Ons';
+  }
+
+  @override
+  String get facilitySchedule_cancellationPolicy => 'Cancellation Policy';
+
+  @override
+  String facilitySchedule_cancellationPolicyBody(String facility, int hours) {
+    return '$facility accepts any cancellation $hours hours before the reservation. Used ticket will return to your account, and you will be able to reserve again if still available.';
+  }
+
+  @override
+  String get nav_home => 'Home';
+
+  @override
+  String get nav_discover => 'Discover';
+
+  @override
+  String get nav_discounts => 'Discounts';
+
+  @override
+  String get nav_account => 'Account';
+
+  @override
+  String get nav_profile => 'Profile';
+
+  @override
+  String get account_title => 'Account';
+
+  @override
+  String get account_calendar => 'Calendar';
+
+  @override
+  String get account_purchases => 'Purchases';
+
+  @override
+  String get account_coupons => 'Coupons';
+
+  @override
+  String get account_management => 'Management';
+
+  @override
+  String get account_information => 'Account Information';
+
+  @override
+  String get account_activityPreferences => 'Activity Preferences';
+
+  @override
+  String get account_supportRequests => 'Support Requests';
+
+  @override
+  String get account_faqs => 'FAQ\'s';
+
+  @override
+  String get account_termsAndConditions => 'Terms & Conditions';
+
+  @override
+  String get account_privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get account_logout => 'Logout';
+
+  @override
+  String get account_logoutConfirmTitle => 'Logout';
+
+  @override
+  String get account_logoutConfirmBody => 'Are you sure you want to log out of your account?';
+
+  @override
+  String get account_cancel => 'Cancel';
+
+  @override
+  String get calendar_title => 'Calendar';
+
+  @override
+  String calendar_reservationCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Reservations',
+      one: '1 Reservation',
+      zero: 'No Reservations',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get calendar_noReservations => 'No reservations on this day';
+
+  @override
+  String get savedProfiles_title => 'Profiles';
+
+  @override
+  String get savedProfiles_empty => 'No saved profiles yet';
+
+  @override
+  String get savedProfiles_emptyHint => 'Save a facility from its profile to find it here.';
+
+  @override
+  String get savedProfiles_emptyForLine => 'Nothing saved on this activity line';
+
+  @override
+  String get savedProfiles_unsave => 'Unsave';
+
+  @override
+  String get savedProfiles_unsaved => 'Removed from your saved profiles';
+
+  @override
+  String get savedProfiles_trackUpdates => 'Track updates';
+
+  @override
+  String get savedProfiles_trackingUpdates => 'Tracking updates';
+
+  @override
+  String get discounts_title => 'Discounts';
+
+  @override
+  String get search_title => 'Search';
+
+  @override
+  String get search_hint => 'Search';
+
+  @override
+  String get search_tabBusiness => 'Business';
+
+  @override
+  String get search_tabInstructor => 'Instructor';
+
+  @override
+  String get search_tabService => 'Service';
+
+  @override
+  String search_tabLabel(String label, int count) {
+    return '$label ($count)';
+  }
+
+  @override
+  String search_minCharacters(int count) {
+    return 'Type at least $count characters to search';
+  }
+
+  @override
+  String get search_typeActivity => 'Activity';
+
+  @override
+  String get search_typeFlow => 'Flow';
+
+  @override
+  String get search_typeCourse => 'Course';
+
+  @override
+  String get search_noResults => 'No results found';
+
+  @override
+  String get search_noResultsHint => 'Try a different keyword';
+
+  @override
+  String get facilityDetails_addressLocationSectionTitle => 'Address & Location';
+
+  @override
+  String get facilityDetails_remoteLocationSectionTitle => 'Remote Location';
+
+  @override
+  String get facilityDetails_locationLink => 'Link';
+
+  @override
+  String get facilityDetails_operatingIn => 'Operating in:';
+
+  @override
+  String get facilityDetails_coverageAll => 'ALL';
+
+  @override
+  String get facilityDetails_contactSectionTitle => 'Contact';
+
+  @override
+  String get facilityDetails_chooseNumberTitle => 'Choose a number';
+
+  @override
+  String get facilityDetails_linkFailed => 'Couldn\'t open this link';
+
+  @override
+  String get facilityDetails_saveAdded => 'Added to your profiles';
+
+  @override
+  String get facilityDetails_saveRemoved => 'Removed from your profiles';
+
+  @override
+  String get facilityDetails_saveFailed => 'Couldn\'t update your saved profiles';
+
+  @override
+  String get facilityDetails_trackingOn => 'You\'ll get this facility\'s updates';
+
+  @override
+  String get facilityDetails_trackingOff => 'Updates turned off';
+
+  @override
+  String get facilityDetails_trackingFailed => 'Couldn\'t update tracking';
+
+  @override
+  String facilityDetails_lastUpdated(String date) {
+    return 'Last Updated: $date';
+  }
+
+  @override
+  String get facilityFaq_title => 'FAQs';
+
+  @override
+  String facilityFaq_subtitle(String name) {
+    return 'Answers straight from $name';
+  }
+
+  @override
+  String get facilityFaq_empty => 'No questions yet';
+
+  @override
+  String get facilityFaq_emptyHint => 'This facility hasn\'t published any FAQs.';
+
+  @override
+  String get comingSoon => 'Coming soon';
+
+  @override
+  String get purchase_success => 'Purchase added to your account.';
+
+  @override
+  String get purchase_dueNotice =>
+      'This purchase will be added to your account with payment due. No online payment will be collected here.';
+
+  @override
+  String get facilitySchedule_actionUnavailable => 'Reservations are unavailable for this session.';
+
+  @override
+  String get account_gifts => 'Gifts';
 }

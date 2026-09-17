@@ -103,18 +103,13 @@ class _LocationFilterButton extends StatelessWidget {
     required LocationsEntity locations,
     required SelectedLocation currentSelection,
   }) {
+    // Captured up front: the sheet mounts on the root navigator, outside this
+    // subtree, so it cannot look the cubit up for itself.
     final homeCubit = context.read<HomeCubit>();
 
-    showModalBottomSheet<void>(
+    showMainBottomSheet<void>(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: context.colors.backgroundWhite,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(context.spacing.s24),
-        ),
-      ),
-      builder: (context) => LocationSelectorBottomSheet(
+      builder: (_) => LocationSelectorBottomSheet(
         locations: locations,
         initialSelection: currentSelection,
         onConfirm: homeCubit.selectLocation,

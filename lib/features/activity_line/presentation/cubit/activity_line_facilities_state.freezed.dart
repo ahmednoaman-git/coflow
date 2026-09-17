@@ -16,9 +16,11 @@ mixin _$ActivityLineFacilitiesState {
 
 /// The activity line being displayed.
  ActivityLineEntity get activityLine;/// Async state for facilities request.
- AsyncState<ActivityLineFacilitiesEntity> get facilitiesRequest;/// Async state for locations request.
- AsyncState<LocationsEntity> get locationsRequest;/// Currently selected tag IDs for filtering.
- List<int> get selectedTagIds;/// Selected location for filtering.
+ AsyncState<ActivityLineFacilitiesEntity> get facilitiesRequest; AsyncState<void> get nextPageRequest;/// Complete API tag catalog, retained while a filter request is in flight.
+ List<TagWithCountEntity> get availableTags;/// Unfiltered total for the current location, not the loaded page size.
+ int? get allFacilitiesTotal;/// Async state for locations request.
+ AsyncState<LocationsEntity> get locationsRequest;/// The endpoint accepts one tag ID at a time.
+ int? get selectedTagId;/// Selected location for filtering.
  SelectedLocation get selectedLocation;/// Whether the user has confirmed their location selection.
  bool get hasLockedInSelection;
 /// Create a copy of ActivityLineFacilitiesState
@@ -31,16 +33,16 @@ $ActivityLineFacilitiesStateCopyWith<ActivityLineFacilitiesState> get copyWith =
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ActivityLineFacilitiesState&&(identical(other.activityLine, activityLine) || other.activityLine == activityLine)&&(identical(other.facilitiesRequest, facilitiesRequest) || other.facilitiesRequest == facilitiesRequest)&&(identical(other.locationsRequest, locationsRequest) || other.locationsRequest == locationsRequest)&&const DeepCollectionEquality().equals(other.selectedTagIds, selectedTagIds)&&(identical(other.selectedLocation, selectedLocation) || other.selectedLocation == selectedLocation)&&(identical(other.hasLockedInSelection, hasLockedInSelection) || other.hasLockedInSelection == hasLockedInSelection));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ActivityLineFacilitiesState&&(identical(other.activityLine, activityLine) || other.activityLine == activityLine)&&(identical(other.facilitiesRequest, facilitiesRequest) || other.facilitiesRequest == facilitiesRequest)&&(identical(other.nextPageRequest, nextPageRequest) || other.nextPageRequest == nextPageRequest)&&const DeepCollectionEquality().equals(other.availableTags, availableTags)&&(identical(other.allFacilitiesTotal, allFacilitiesTotal) || other.allFacilitiesTotal == allFacilitiesTotal)&&(identical(other.locationsRequest, locationsRequest) || other.locationsRequest == locationsRequest)&&(identical(other.selectedTagId, selectedTagId) || other.selectedTagId == selectedTagId)&&(identical(other.selectedLocation, selectedLocation) || other.selectedLocation == selectedLocation)&&(identical(other.hasLockedInSelection, hasLockedInSelection) || other.hasLockedInSelection == hasLockedInSelection));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,activityLine,facilitiesRequest,locationsRequest,const DeepCollectionEquality().hash(selectedTagIds),selectedLocation,hasLockedInSelection);
+int get hashCode => Object.hash(runtimeType,activityLine,facilitiesRequest,nextPageRequest,const DeepCollectionEquality().hash(availableTags),allFacilitiesTotal,locationsRequest,selectedTagId,selectedLocation,hasLockedInSelection);
 
 @override
 String toString() {
-  return 'ActivityLineFacilitiesState(activityLine: $activityLine, facilitiesRequest: $facilitiesRequest, locationsRequest: $locationsRequest, selectedTagIds: $selectedTagIds, selectedLocation: $selectedLocation, hasLockedInSelection: $hasLockedInSelection)';
+  return 'ActivityLineFacilitiesState(activityLine: $activityLine, facilitiesRequest: $facilitiesRequest, nextPageRequest: $nextPageRequest, availableTags: $availableTags, allFacilitiesTotal: $allFacilitiesTotal, locationsRequest: $locationsRequest, selectedTagId: $selectedTagId, selectedLocation: $selectedLocation, hasLockedInSelection: $hasLockedInSelection)';
 }
 
 
@@ -51,11 +53,11 @@ abstract mixin class $ActivityLineFacilitiesStateCopyWith<$Res>  {
   factory $ActivityLineFacilitiesStateCopyWith(ActivityLineFacilitiesState value, $Res Function(ActivityLineFacilitiesState) _then) = _$ActivityLineFacilitiesStateCopyWithImpl;
 @useResult
 $Res call({
- ActivityLineEntity activityLine, AsyncState<ActivityLineFacilitiesEntity> facilitiesRequest, AsyncState<LocationsEntity> locationsRequest, List<int> selectedTagIds, SelectedLocation selectedLocation, bool hasLockedInSelection
+ ActivityLineEntity activityLine, AsyncState<ActivityLineFacilitiesEntity> facilitiesRequest, AsyncState<void> nextPageRequest, List<TagWithCountEntity> availableTags, int? allFacilitiesTotal, AsyncState<LocationsEntity> locationsRequest, int? selectedTagId, SelectedLocation selectedLocation, bool hasLockedInSelection
 });
 
 
-$ActivityLineEntityCopyWith<$Res> get activityLine;$AsyncStateCopyWith<ActivityLineFacilitiesEntity, $Res> get facilitiesRequest;$AsyncStateCopyWith<LocationsEntity, $Res> get locationsRequest;$SelectedLocationCopyWith<$Res> get selectedLocation;
+$ActivityLineEntityCopyWith<$Res> get activityLine;$AsyncStateCopyWith<ActivityLineFacilitiesEntity, $Res> get facilitiesRequest;$AsyncStateCopyWith<void, $Res> get nextPageRequest;$AsyncStateCopyWith<LocationsEntity, $Res> get locationsRequest;$SelectedLocationCopyWith<$Res> get selectedLocation;
 
 }
 /// @nodoc
@@ -68,13 +70,16 @@ class _$ActivityLineFacilitiesStateCopyWithImpl<$Res>
 
 /// Create a copy of ActivityLineFacilitiesState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? activityLine = null,Object? facilitiesRequest = null,Object? locationsRequest = null,Object? selectedTagIds = null,Object? selectedLocation = null,Object? hasLockedInSelection = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? activityLine = null,Object? facilitiesRequest = null,Object? nextPageRequest = null,Object? availableTags = null,Object? allFacilitiesTotal = freezed,Object? locationsRequest = null,Object? selectedTagId = freezed,Object? selectedLocation = null,Object? hasLockedInSelection = null,}) {
   return _then(_self.copyWith(
 activityLine: null == activityLine ? _self.activityLine : activityLine // ignore: cast_nullable_to_non_nullable
 as ActivityLineEntity,facilitiesRequest: null == facilitiesRequest ? _self.facilitiesRequest : facilitiesRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<ActivityLineFacilitiesEntity>,locationsRequest: null == locationsRequest ? _self.locationsRequest : locationsRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<LocationsEntity>,selectedTagIds: null == selectedTagIds ? _self.selectedTagIds : selectedTagIds // ignore: cast_nullable_to_non_nullable
-as List<int>,selectedLocation: null == selectedLocation ? _self.selectedLocation : selectedLocation // ignore: cast_nullable_to_non_nullable
+as AsyncState<ActivityLineFacilitiesEntity>,nextPageRequest: null == nextPageRequest ? _self.nextPageRequest : nextPageRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<void>,availableTags: null == availableTags ? _self.availableTags : availableTags // ignore: cast_nullable_to_non_nullable
+as List<TagWithCountEntity>,allFacilitiesTotal: freezed == allFacilitiesTotal ? _self.allFacilitiesTotal : allFacilitiesTotal // ignore: cast_nullable_to_non_nullable
+as int?,locationsRequest: null == locationsRequest ? _self.locationsRequest : locationsRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<LocationsEntity>,selectedTagId: freezed == selectedTagId ? _self.selectedTagId : selectedTagId // ignore: cast_nullable_to_non_nullable
+as int?,selectedLocation: null == selectedLocation ? _self.selectedLocation : selectedLocation // ignore: cast_nullable_to_non_nullable
 as SelectedLocation,hasLockedInSelection: null == hasLockedInSelection ? _self.hasLockedInSelection : hasLockedInSelection // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -96,6 +101,15 @@ $AsyncStateCopyWith<ActivityLineFacilitiesEntity, $Res> get facilitiesRequest {
   
   return $AsyncStateCopyWith<ActivityLineFacilitiesEntity, $Res>(_self.facilitiesRequest, (value) {
     return _then(_self.copyWith(facilitiesRequest: value));
+  });
+}/// Create a copy of ActivityLineFacilitiesState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AsyncStateCopyWith<void, $Res> get nextPageRequest {
+  
+  return $AsyncStateCopyWith<void, $Res>(_self.nextPageRequest, (value) {
+    return _then(_self.copyWith(nextPageRequest: value));
   });
 }/// Create a copy of ActivityLineFacilitiesState
 /// with the given fields replaced by the non-null parameter values.
@@ -197,10 +211,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ActivityLineEntity activityLine,  AsyncState<ActivityLineFacilitiesEntity> facilitiesRequest,  AsyncState<LocationsEntity> locationsRequest,  List<int> selectedTagIds,  SelectedLocation selectedLocation,  bool hasLockedInSelection)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( ActivityLineEntity activityLine,  AsyncState<ActivityLineFacilitiesEntity> facilitiesRequest,  AsyncState<void> nextPageRequest,  List<TagWithCountEntity> availableTags,  int? allFacilitiesTotal,  AsyncState<LocationsEntity> locationsRequest,  int? selectedTagId,  SelectedLocation selectedLocation,  bool hasLockedInSelection)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ActivityLineFacilitiesState() when $default != null:
-return $default(_that.activityLine,_that.facilitiesRequest,_that.locationsRequest,_that.selectedTagIds,_that.selectedLocation,_that.hasLockedInSelection);case _:
+return $default(_that.activityLine,_that.facilitiesRequest,_that.nextPageRequest,_that.availableTags,_that.allFacilitiesTotal,_that.locationsRequest,_that.selectedTagId,_that.selectedLocation,_that.hasLockedInSelection);case _:
   return orElse();
 
 }
@@ -218,10 +232,10 @@ return $default(_that.activityLine,_that.facilitiesRequest,_that.locationsReques
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ActivityLineEntity activityLine,  AsyncState<ActivityLineFacilitiesEntity> facilitiesRequest,  AsyncState<LocationsEntity> locationsRequest,  List<int> selectedTagIds,  SelectedLocation selectedLocation,  bool hasLockedInSelection)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( ActivityLineEntity activityLine,  AsyncState<ActivityLineFacilitiesEntity> facilitiesRequest,  AsyncState<void> nextPageRequest,  List<TagWithCountEntity> availableTags,  int? allFacilitiesTotal,  AsyncState<LocationsEntity> locationsRequest,  int? selectedTagId,  SelectedLocation selectedLocation,  bool hasLockedInSelection)  $default,) {final _that = this;
 switch (_that) {
 case _ActivityLineFacilitiesState():
-return $default(_that.activityLine,_that.facilitiesRequest,_that.locationsRequest,_that.selectedTagIds,_that.selectedLocation,_that.hasLockedInSelection);case _:
+return $default(_that.activityLine,_that.facilitiesRequest,_that.nextPageRequest,_that.availableTags,_that.allFacilitiesTotal,_that.locationsRequest,_that.selectedTagId,_that.selectedLocation,_that.hasLockedInSelection);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -238,10 +252,10 @@ return $default(_that.activityLine,_that.facilitiesRequest,_that.locationsReques
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ActivityLineEntity activityLine,  AsyncState<ActivityLineFacilitiesEntity> facilitiesRequest,  AsyncState<LocationsEntity> locationsRequest,  List<int> selectedTagIds,  SelectedLocation selectedLocation,  bool hasLockedInSelection)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( ActivityLineEntity activityLine,  AsyncState<ActivityLineFacilitiesEntity> facilitiesRequest,  AsyncState<void> nextPageRequest,  List<TagWithCountEntity> availableTags,  int? allFacilitiesTotal,  AsyncState<LocationsEntity> locationsRequest,  int? selectedTagId,  SelectedLocation selectedLocation,  bool hasLockedInSelection)?  $default,) {final _that = this;
 switch (_that) {
 case _ActivityLineFacilitiesState() when $default != null:
-return $default(_that.activityLine,_that.facilitiesRequest,_that.locationsRequest,_that.selectedTagIds,_that.selectedLocation,_that.hasLockedInSelection);case _:
+return $default(_that.activityLine,_that.facilitiesRequest,_that.nextPageRequest,_that.availableTags,_that.allFacilitiesTotal,_that.locationsRequest,_that.selectedTagId,_that.selectedLocation,_that.hasLockedInSelection);case _:
   return null;
 
 }
@@ -253,24 +267,29 @@ return $default(_that.activityLine,_that.facilitiesRequest,_that.locationsReques
 
 
 class _ActivityLineFacilitiesState extends ActivityLineFacilitiesState {
-  const _ActivityLineFacilitiesState({required this.activityLine, this.facilitiesRequest = const AsyncState.idle(), this.locationsRequest = const AsyncState.idle(), final  List<int> selectedTagIds = const [], this.selectedLocation = const SelectedLocation(), this.hasLockedInSelection = false}): _selectedTagIds = selectedTagIds,super._();
+  const _ActivityLineFacilitiesState({required this.activityLine, this.facilitiesRequest = const AsyncState.idle(), this.nextPageRequest = const AsyncState.idle(), final  List<TagWithCountEntity> availableTags = const [], this.allFacilitiesTotal, this.locationsRequest = const AsyncState.idle(), this.selectedTagId, this.selectedLocation = const SelectedLocation(), this.hasLockedInSelection = false}): _availableTags = availableTags,super._();
   
 
 /// The activity line being displayed.
 @override final  ActivityLineEntity activityLine;
 /// Async state for facilities request.
 @override@JsonKey() final  AsyncState<ActivityLineFacilitiesEntity> facilitiesRequest;
-/// Async state for locations request.
-@override@JsonKey() final  AsyncState<LocationsEntity> locationsRequest;
-/// Currently selected tag IDs for filtering.
- final  List<int> _selectedTagIds;
-/// Currently selected tag IDs for filtering.
-@override@JsonKey() List<int> get selectedTagIds {
-  if (_selectedTagIds is EqualUnmodifiableListView) return _selectedTagIds;
+@override@JsonKey() final  AsyncState<void> nextPageRequest;
+/// Complete API tag catalog, retained while a filter request is in flight.
+ final  List<TagWithCountEntity> _availableTags;
+/// Complete API tag catalog, retained while a filter request is in flight.
+@override@JsonKey() List<TagWithCountEntity> get availableTags {
+  if (_availableTags is EqualUnmodifiableListView) return _availableTags;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_selectedTagIds);
+  return EqualUnmodifiableListView(_availableTags);
 }
 
+/// Unfiltered total for the current location, not the loaded page size.
+@override final  int? allFacilitiesTotal;
+/// Async state for locations request.
+@override@JsonKey() final  AsyncState<LocationsEntity> locationsRequest;
+/// The endpoint accepts one tag ID at a time.
+@override final  int? selectedTagId;
 /// Selected location for filtering.
 @override@JsonKey() final  SelectedLocation selectedLocation;
 /// Whether the user has confirmed their location selection.
@@ -286,16 +305,16 @@ _$ActivityLineFacilitiesStateCopyWith<_ActivityLineFacilitiesState> get copyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ActivityLineFacilitiesState&&(identical(other.activityLine, activityLine) || other.activityLine == activityLine)&&(identical(other.facilitiesRequest, facilitiesRequest) || other.facilitiesRequest == facilitiesRequest)&&(identical(other.locationsRequest, locationsRequest) || other.locationsRequest == locationsRequest)&&const DeepCollectionEquality().equals(other._selectedTagIds, _selectedTagIds)&&(identical(other.selectedLocation, selectedLocation) || other.selectedLocation == selectedLocation)&&(identical(other.hasLockedInSelection, hasLockedInSelection) || other.hasLockedInSelection == hasLockedInSelection));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ActivityLineFacilitiesState&&(identical(other.activityLine, activityLine) || other.activityLine == activityLine)&&(identical(other.facilitiesRequest, facilitiesRequest) || other.facilitiesRequest == facilitiesRequest)&&(identical(other.nextPageRequest, nextPageRequest) || other.nextPageRequest == nextPageRequest)&&const DeepCollectionEquality().equals(other._availableTags, _availableTags)&&(identical(other.allFacilitiesTotal, allFacilitiesTotal) || other.allFacilitiesTotal == allFacilitiesTotal)&&(identical(other.locationsRequest, locationsRequest) || other.locationsRequest == locationsRequest)&&(identical(other.selectedTagId, selectedTagId) || other.selectedTagId == selectedTagId)&&(identical(other.selectedLocation, selectedLocation) || other.selectedLocation == selectedLocation)&&(identical(other.hasLockedInSelection, hasLockedInSelection) || other.hasLockedInSelection == hasLockedInSelection));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,activityLine,facilitiesRequest,locationsRequest,const DeepCollectionEquality().hash(_selectedTagIds),selectedLocation,hasLockedInSelection);
+int get hashCode => Object.hash(runtimeType,activityLine,facilitiesRequest,nextPageRequest,const DeepCollectionEquality().hash(_availableTags),allFacilitiesTotal,locationsRequest,selectedTagId,selectedLocation,hasLockedInSelection);
 
 @override
 String toString() {
-  return 'ActivityLineFacilitiesState(activityLine: $activityLine, facilitiesRequest: $facilitiesRequest, locationsRequest: $locationsRequest, selectedTagIds: $selectedTagIds, selectedLocation: $selectedLocation, hasLockedInSelection: $hasLockedInSelection)';
+  return 'ActivityLineFacilitiesState(activityLine: $activityLine, facilitiesRequest: $facilitiesRequest, nextPageRequest: $nextPageRequest, availableTags: $availableTags, allFacilitiesTotal: $allFacilitiesTotal, locationsRequest: $locationsRequest, selectedTagId: $selectedTagId, selectedLocation: $selectedLocation, hasLockedInSelection: $hasLockedInSelection)';
 }
 
 
@@ -306,11 +325,11 @@ abstract mixin class _$ActivityLineFacilitiesStateCopyWith<$Res> implements $Act
   factory _$ActivityLineFacilitiesStateCopyWith(_ActivityLineFacilitiesState value, $Res Function(_ActivityLineFacilitiesState) _then) = __$ActivityLineFacilitiesStateCopyWithImpl;
 @override @useResult
 $Res call({
- ActivityLineEntity activityLine, AsyncState<ActivityLineFacilitiesEntity> facilitiesRequest, AsyncState<LocationsEntity> locationsRequest, List<int> selectedTagIds, SelectedLocation selectedLocation, bool hasLockedInSelection
+ ActivityLineEntity activityLine, AsyncState<ActivityLineFacilitiesEntity> facilitiesRequest, AsyncState<void> nextPageRequest, List<TagWithCountEntity> availableTags, int? allFacilitiesTotal, AsyncState<LocationsEntity> locationsRequest, int? selectedTagId, SelectedLocation selectedLocation, bool hasLockedInSelection
 });
 
 
-@override $ActivityLineEntityCopyWith<$Res> get activityLine;@override $AsyncStateCopyWith<ActivityLineFacilitiesEntity, $Res> get facilitiesRequest;@override $AsyncStateCopyWith<LocationsEntity, $Res> get locationsRequest;@override $SelectedLocationCopyWith<$Res> get selectedLocation;
+@override $ActivityLineEntityCopyWith<$Res> get activityLine;@override $AsyncStateCopyWith<ActivityLineFacilitiesEntity, $Res> get facilitiesRequest;@override $AsyncStateCopyWith<void, $Res> get nextPageRequest;@override $AsyncStateCopyWith<LocationsEntity, $Res> get locationsRequest;@override $SelectedLocationCopyWith<$Res> get selectedLocation;
 
 }
 /// @nodoc
@@ -323,13 +342,16 @@ class __$ActivityLineFacilitiesStateCopyWithImpl<$Res>
 
 /// Create a copy of ActivityLineFacilitiesState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? activityLine = null,Object? facilitiesRequest = null,Object? locationsRequest = null,Object? selectedTagIds = null,Object? selectedLocation = null,Object? hasLockedInSelection = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? activityLine = null,Object? facilitiesRequest = null,Object? nextPageRequest = null,Object? availableTags = null,Object? allFacilitiesTotal = freezed,Object? locationsRequest = null,Object? selectedTagId = freezed,Object? selectedLocation = null,Object? hasLockedInSelection = null,}) {
   return _then(_ActivityLineFacilitiesState(
 activityLine: null == activityLine ? _self.activityLine : activityLine // ignore: cast_nullable_to_non_nullable
 as ActivityLineEntity,facilitiesRequest: null == facilitiesRequest ? _self.facilitiesRequest : facilitiesRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<ActivityLineFacilitiesEntity>,locationsRequest: null == locationsRequest ? _self.locationsRequest : locationsRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<LocationsEntity>,selectedTagIds: null == selectedTagIds ? _self._selectedTagIds : selectedTagIds // ignore: cast_nullable_to_non_nullable
-as List<int>,selectedLocation: null == selectedLocation ? _self.selectedLocation : selectedLocation // ignore: cast_nullable_to_non_nullable
+as AsyncState<ActivityLineFacilitiesEntity>,nextPageRequest: null == nextPageRequest ? _self.nextPageRequest : nextPageRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<void>,availableTags: null == availableTags ? _self._availableTags : availableTags // ignore: cast_nullable_to_non_nullable
+as List<TagWithCountEntity>,allFacilitiesTotal: freezed == allFacilitiesTotal ? _self.allFacilitiesTotal : allFacilitiesTotal // ignore: cast_nullable_to_non_nullable
+as int?,locationsRequest: null == locationsRequest ? _self.locationsRequest : locationsRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<LocationsEntity>,selectedTagId: freezed == selectedTagId ? _self.selectedTagId : selectedTagId // ignore: cast_nullable_to_non_nullable
+as int?,selectedLocation: null == selectedLocation ? _self.selectedLocation : selectedLocation // ignore: cast_nullable_to_non_nullable
 as SelectedLocation,hasLockedInSelection: null == hasLockedInSelection ? _self.hasLockedInSelection : hasLockedInSelection // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -352,6 +374,15 @@ $AsyncStateCopyWith<ActivityLineFacilitiesEntity, $Res> get facilitiesRequest {
   
   return $AsyncStateCopyWith<ActivityLineFacilitiesEntity, $Res>(_self.facilitiesRequest, (value) {
     return _then(_self.copyWith(facilitiesRequest: value));
+  });
+}/// Create a copy of ActivityLineFacilitiesState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AsyncStateCopyWith<void, $Res> get nextPageRequest {
+  
+  return $AsyncStateCopyWith<void, $Res>(_self.nextPageRequest, (value) {
+    return _then(_self.copyWith(nextPageRequest: value));
   });
 }/// Create a copy of ActivityLineFacilitiesState
 /// with the given fields replaced by the non-null parameter values.

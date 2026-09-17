@@ -12,9 +12,9 @@ import 'components/services_shimmer.dart';
 
 /// Renders a facility's Activities/Flows/Courses tab.
 ///
-/// Flow listings render as a flat list (folders flattened); Activities and
-/// Courses render folders as expandable tiles, with the first folder
-/// expanded by default, followed by root-level services.
+/// Every listing type is grouped the same way: folders render as expandable
+/// tiles, with the first folder expanded by default, followed by root-level
+/// services.
 class ServicesTabScreen extends StatefulWidget {
   const ServicesTabScreen({super.key, required this.type});
 
@@ -42,16 +42,6 @@ class _ServicesTabScreenState extends State<ServicesTabScreen> {
         successBuilder: (context, services) {
           if (services.isEmpty) {
             return ServicesEmptyState(type: widget.type);
-          }
-
-          if (widget.type == FacilityServiceType.flow) {
-            return Column(
-              spacing: context.spacing.s12,
-              children: [
-                for (final service in services.flattenedServices)
-                  ServiceTile(service: service, type: widget.type),
-              ],
-            );
           }
 
           return Column(

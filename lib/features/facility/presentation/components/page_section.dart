@@ -13,12 +13,17 @@ class PageSection extends StatelessWidget {
     required this.title,
     required this.svgIconPath,
     this.childPadding,
+    this.trailing,
     required this.children,
   });
 
   final String title;
   final String svgIconPath;
   final EdgeInsets? childPadding;
+
+  /// Optional action pinned to the end of the title row, e.g. the location
+  /// section's "Link" pill.
+  final Widget? trailing;
   final List<Widget> children;
 
   @override
@@ -41,10 +46,13 @@ class PageSection extends StatelessWidget {
                 height: 20,
                 colorFilter: FacilityDataProvider.of(context).activityLineColor.colorFilter,
               ),
-              Text(
-                title,
-                style: context.typography.medium14.primary(context),
+              Expanded(
+                child: Text(
+                  title,
+                  style: context.typography.medium14.primary(context),
+                ),
               ),
+              ?trailing,
             ],
           ),
           ...children.map(

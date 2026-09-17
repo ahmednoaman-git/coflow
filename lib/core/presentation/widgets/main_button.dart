@@ -44,6 +44,9 @@ class MainButton extends StatelessWidget {
   /// Text color override (uses theme color by default)
   final Color? textColor;
 
+  /// Outline color. Null renders the button without a border.
+  final Color? borderColor;
+
   const MainButton({
     super.key,
     required this.text,
@@ -56,6 +59,7 @@ class MainButton extends StatelessWidget {
     this.width,
     this.backgroundColor,
     this.textColor,
+    this.borderColor,
   });
 
   @override
@@ -89,7 +93,13 @@ class MainButton extends StatelessWidget {
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeInOut,
           decoration: ShapeDecoration(
-            shape: StadiumBorder(),
+            shape: StadiumBorder(
+              side: borderColor == null
+                  ? BorderSide.none
+                  : BorderSide(
+                      color: effectiveDisabled ? borderColor!.withValues(alpha: 0.5) : borderColor!,
+                    ),
+            ),
             color: backgroundColor,
           ),
           child: Center(
@@ -110,10 +120,17 @@ class MainButton extends StatelessWidget {
                       spacing: context.spacing.s8,
                       children: [
                         if (leadingIcon != null) Icon(leadingIcon!, color: contentColor, size: 16),
-                        Text(
-                          text,
-                          style: context.typography.medium14.withColor(
-                            contentColor,
+                        // Flexible so a long label in a narrow button (two
+                        // side by side, say) ellipsizes instead of overflowing.
+                        Flexible(
+                          child: Text(
+                            text,
+                            style: context.typography.medium14.withColor(
+                              contentColor,
+                            ),
+                            maxLines: 1,
+                            overflow: .ellipsis,
+                            textAlign: .center,
                           ),
                         ),
                         if (trailingIcon != null)

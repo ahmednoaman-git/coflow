@@ -7,6 +7,9 @@ import 'subscription_status.dart';
 /// under [SubscriptionStatus.basic] and expanded when the subscription is
 /// premium ([SubscriptionStatus.active] or [SubscriptionStatus.trial]).
 ///
+/// [SubscriptionStatus.inactive] resolves to the same set as
+/// [SubscriptionStatus.basic] — see [features].
+///
 /// ## Feature matrix
 ///
 /// | Feature         | Go basic | Go active | Flow basic | Flow active | Pro basic | Pro active |
@@ -43,9 +46,17 @@ sealed class AccountType {
 
   /// Returns the full set of features available for [subscription].
   ///
-  /// [SubscriptionStatus.inactive] returns an empty set.
+  /// [SubscriptionStatus.inactive] is treated as [SubscriptionStatus.basic]:
+  /// a lapsed subscription drops the facility to the free tier rather than
+  /// hiding it. The facility stays browsable — listings, schedule and pricing
+  /// all render — it simply loses the premium features, so purchases and
+  /// reservations become "contact the facility" instead of in-app actions.
+  ///
+  /// Product decision, confirmed 2026-08-15. It matters because the API keeps
+  /// serving content for inactive facilities (facility 94 is `inactive`,
+  /// `visible`, and has 24 schedule slots), so an empty feature set left a live
+  /// facility showing nothing but its Profile tab.
   Set<FacilityFeature> features(SubscriptionStatus subscription) {
-    if (subscription == SubscriptionStatus.inactive) return const {};
     return {
       ..._basicFeatures,
       if (subscription.isPremium) ..._premiumFeatures,
@@ -110,9 +121,11 @@ final class FlowAccount extends AccountType {
   };
 
   /// Flow active replaces [FacilityFeature.schedule] with [FacilityFeature.calendar].
+  ///
+  /// Inactive falls through to the basic set, so a lapsed Flow account keeps
+  /// Schedule and never gets Calendar.
   @override
   Set<FacilityFeature> features(SubscriptionStatus subscription) {
-    if (subscription == SubscriptionStatus.inactive) return const {};
     if (subscription.isPremium) {
       // Calendar replaces schedule for premium Flow accounts.
       return {

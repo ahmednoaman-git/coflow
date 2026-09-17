@@ -17,11 +17,19 @@ abstract class ActivityLineFacilitiesState with _$ActivityLineFacilitiesState {
     /// Async state for facilities request.
     @Default(AsyncState.idle()) AsyncState<ActivityLineFacilitiesEntity> facilitiesRequest,
 
+    @Default(AsyncState.idle()) AsyncState<void> nextPageRequest,
+
+    /// Complete API tag catalog, retained while a filter request is in flight.
+    @Default([]) List<TagWithCountEntity> availableTags,
+
+    /// Unfiltered total for the current location, not the loaded page size.
+    int? allFacilitiesTotal,
+
     /// Async state for locations request.
     @Default(AsyncState.idle()) AsyncState<LocationsEntity> locationsRequest,
 
-    /// Currently selected tag IDs for filtering.
-    @Default([]) List<int> selectedTagIds,
+    /// The endpoint accepts one tag ID at a time.
+    int? selectedTagId,
 
     /// Selected location for filtering.
     @Default(SelectedLocation()) SelectedLocation selectedLocation,
@@ -32,11 +40,10 @@ abstract class ActivityLineFacilitiesState with _$ActivityLineFacilitiesState {
 
   /// All facilities from the request.
   List<CollapsedFacilityEntity> get facilities =>
-      facilitiesRequest.dataOr(ActivityLineFacilitiesEntity.empty()).facilities;
+      facilitiesRequest.dataOrNull?.facilities ?? const [];
 
   /// All tags from the request.
-  List<TagWithCountEntity> get tags =>
-      facilitiesRequest.dataOr(ActivityLineFacilitiesEntity.empty()).tags;
+  List<TagWithCountEntity> get tags => availableTags;
 
   /// Whether no location filter is applied.
   bool get nothingIsSelected => selectedLocation.isEmpty;

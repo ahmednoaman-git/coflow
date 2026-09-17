@@ -1,5 +1,7 @@
 import '../../domain/entities/entities.dart';
 import '../models/models.dart';
+import 'facility_contact_mapper.dart';
+import 'facility_location_mapper.dart';
 
 /// Mapper for facility profile.
 abstract final class FacilityProfileMapper {
@@ -65,35 +67,17 @@ abstract final class FacilityProfileMapper {
             ),
           )
           .toList(),
-      reservationContacts: model.reservationContact
-          .where((c) => c.selectSocial != null && c.selectSocial!.trim().isNotEmpty)
-          .map(
-            (c) => ReservationContactEntity(
-              type: c.selectSocial!.trim(),
-              link: c.link?.toString(),
-            ),
-          )
-          .toList(),
-      location: _mapLocation(model),
+      contacts: FacilityContactMapper.toEntities(model.reservationContact),
+      location: FacilityLocationMapper.toEntity(model),
+      isSaved: model.hasSave,
+      isTracked: model.hasTrack,
+      updatedAt: model.updatedAt == null ? null : DateTime.tryParse(model.updatedAt!),
       mainBranch: (model.main != null && model.main!.name.trim().isNotEmpty)
           ? MainBranchEntity(
               id: model.main!.id,
               name: model.main!.name.trim(),
             )
           : null,
-    );
-  }
-
-  static LocationEntity? _mapLocation(FacilityProfileModel model) {
-    if (model.address == null && model.city == null && model.area == null) {
-      return null;
-    }
-    return LocationEntity(
-      address: model.address?.address,
-      cityName: model.city?.name,
-      areaName: model.area?.name,
-      latitude: model.address?.latitude,
-      longitude: model.address?.longitude,
     );
   }
 }

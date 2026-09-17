@@ -1,0 +1,339 @@
+{
+  "current_page": 1,
+  "data": [
+    {
+      "id": 274,
+      "name": "Flexibility Flow",
+      "duration": null,
+      "description": "In flexibility for beginners, we practice all the corrective postures the body requires to increase your overall mobility. We incorporate a combination of breath work, static stretching, and dynamic stretching to improve your flexibility.",
+      "requirements": "NONE",
+      "conditions": null,
+      "facility_location": 0,
+      "status": "active",
+      "views": 38,
+      "unique_views": 6,
+      "rate": 0,
+      "sort": 1,
+      "type": "flow",
+      "users": [
+        18,
+        15,
+        87,
+        95,
+        85,
+        180
+      ],
+      "tag_id": null,
+      "level_id": 2,
+      "facility_id": 65,
+      "duration_list_id": null,
+      "facility_folder_id": null,
+      "reservations_count": 0,
+      "image": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1675170819-blob",
+      "reservations": 0,
+      "facility": {
+        "id": 65,
+        "name": "Beitna Studio",
+        "title": "Holistic Healing",
+        "email": "beitna.holistichealing@gmail.com",
+        "year": "2022",
+        "logo": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1675168275-blob",
+        "cover": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1675173327-blob",
+        "views": 134,
+        "unique_views": 12,
+        "saves": 7,
+        "tracks": 7,
+        "facility_type": "FLOW",
+        "bio": "Namaste!\n\nWelcome to Beitna Holistic Healing, we are a yoga studio for all yoga types, meditation and healing sessions.\n\nOur Instructors are Certified 500hrs Yoga Teachers. and pre booking is required. \n\nJust send us a DM or whatsapp for reservations via the links below.",
+        "location_type": "address based",
+        "operation_type": "specify days",
+        "profile_step": "completed",
+        "status": "visible",
+        "status_msg": "UPDATING SCHEDULE",
+        "accept_reject_date": null,
+        "activation_date": "2023-01-31",
+        "can_login": true,
+        "online": true,
+        "branches_access": false,
+        "reservation_contact": [
+          {
+            "selectSocial": "Contact Number",
+            "link": [
+              {
+                "type": "Mobile",
+                "number": "01095732142"
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "id": 23,
+            "name": "WC",
+            "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751425-blob"
+          },
+          {
+            "id": 25,
+            "name": "Beverages",
+            "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751589-blob"
+          },
+          {
+            "id": 31,
+            "name": "Showers",
+            "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1671470565-blob"
+          }
+        ],
+        "languages": [
+          {
+            "id": 4,
+            "name": "Arabic"
+          },
+          {
+            "id": 5,
+            "name": "English"
+          }
+        ],
+        "tags": [
+          {
+            "id": 17,
+            "name": "Coordination",
+            "activity_line_id": null
+          },
+          {
+            "id": 30,
+            "name": "Yoga",
+            "activity_line_id": null
+          },
+          {
+            "id": 32,
+            "name": "Healing",
+            "activity_line_id": null
+          },
+          {
+            "id": 52,
+            "name": "Science-Based",
+            "activity_line_id": null
+          },
+          {
+            "id": 75,
+            "name": "NASR CITY",
+            "activity_line_id": null
+          },
+          {
+            "id": 93,
+            "name": "NewCairo",
+            "activity_line_id": null
+          },
+          {
+            "id": 97,
+            "name": "ferw",
+            "activity_line_id": null
+          },
+          {
+            "id": 99,
+            "name": "asdsad",
+            "activity_line_id": null
+          }
+        ],
+        "rate": "0/0",
+        "notes": null,
+        "subscription": "basic",
+        "trial_expire_date": null,
+        "payment_online": false,
+        "payment_type": "contact",
+        "activity_line_id": 4,
+        "payment_method_id": 1,
+        "country_id": 71,
+        "city_id": 13,
+        "area_id": 25,
+        "parent_id": null,
+        "remember_token": null,
+        "created_at": "2024-12-10",
+        "updated_at": "2025-01-13"
+      }
+    },
+    {
+      "id": 306,
+      "name": "Staff Spinning Flow Art",
+      "duration": null,
+      "description": "A light dance while spinning a Staff* in a flowing manner, which creates fitness, stronger willpower & better brain health while enjoying the moves. \n\n*A Bo Staff, made from bonsai, is an exclusive type of stick that is used specifically for this type of exercise.",
+      "requirements": "Please bring your own towel & water.",
+      "conditions": null,
+      "facility_location": 0,
+      "status": "active",
+      "views": 84,
+      "unique_views": 6,
+      "rate": 0,
+      "sort": 11,
+      "type": "flow",
+      "users": [
+        18,
+        74,
+        15,
+        67,
+        122,
+        155
+      ],
+      "tag_id": null,
+      "level_id": 2,
+      "facility_id": 67,
+      "duration_list_id": null,
+      "facility_folder_id": null,
+      "reservations_count": 0,
+      "image": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1679782486-blob",
+      "reservations": 0,
+      "facility": {
+        "id": 67,
+        "name": "DeeFit",
+        "title": "Boutique Studio",
+        "email": "dinadak@yahoo.com",
+        "year": "2021",
+        "logo": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1675601378-blob",
+        "cover": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1675601503-blob",
+        "views": 233,
+        "unique_views": 18,
+        "saves": 9,
+        "tracks": 8,
+        "facility_type": "FLOW",
+        "bio": "Hello, I'm Dina Dakroury. \nWelcome to my Boutique Studio, DeeFit!  \n\nThis is your Home Away from Home. Making Fitness Fun is our slogan & this is what you will find in our BIG variety of classes!\n\nAll our classes will Energize you to the MAX, Positive Vibes + Great Music + Professional Instruction!\n\nRegistration is a must for any class to be confirmed, just message us on any of our links below!\nClasses & Instructors may occasionally be changed, without prior notice.",
+        "location_type": "address based",
+        "operation_type": "specify days",
+        "profile_step": "completed",
+        "status": "visible",
+        "status_msg": "UPDATING SCHEDULE",
+        "accept_reject_date": null,
+        "activation_date": "2023-02-05",
+        "can_login": true,
+        "online": true,
+        "branches_access": false,
+        "reservation_contact": [
+          {
+            "selectSocial": "Contact Number",
+            "link": [
+              {
+                "type": "Mobile",
+                "number": "01009999909"
+              }
+            ]
+          }
+        ],
+        "amenities": [
+          {
+            "id": 23,
+            "name": "WC",
+            "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751425-blob"
+          },
+          {
+            "id": 25,
+            "name": "Beverages",
+            "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751589-blob"
+          }
+        ],
+        "languages": [
+          {
+            "id": 4,
+            "name": "Arabic"
+          },
+          {
+            "id": 5,
+            "name": "English"
+          }
+        ],
+        "tags": [
+          {
+            "id": 6,
+            "name": "Aff",
+            "activity_line_id": 1
+          },
+          {
+            "id": 48,
+            "name": "Soul",
+            "activity_line_id": null
+          },
+          {
+            "id": 51,
+            "name": "Athletic",
+            "activity_line_id": null
+          },
+          {
+            "id": 88,
+            "name": "High End",
+            "activity_line_id": null
+          },
+          {
+            "id": 90,
+            "name": "Renting",
+            "activity_line_id": null
+          },
+          {
+            "id": 95,
+            "name": "TAW",
+            "activity_line_id": null
+          },
+          {
+            "id": 100,
+            "name": "sadsad",
+            "activity_line_id": null
+          },
+          {
+            "id": 101,
+            "name": "sd",
+            "activity_line_id": null
+          }
+        ],
+        "rate": "0/0",
+        "notes": null,
+        "subscription": "basic",
+        "trial_expire_date": null,
+        "payment_online": false,
+        "payment_type": "contact",
+        "activity_line_id": 4,
+        "payment_method_id": 1,
+        "country_id": 71,
+        "city_id": 13,
+        "area_id": 25,
+        "parent_id": null,
+        "remember_token": null,
+        "created_at": "2024-12-10",
+        "updated_at": "2025-01-14"
+      }
+    }
+  ],
+  "first_page_url": "https://api-test.coflow.co/apiApp/search?page=1",
+  "from": 1,
+  "last_page": 3,
+  "last_page_url": "https://api-test.coflow.co/apiApp/search?page=3",
+  "links": [
+    {
+      "url": null,
+      "label": "&laquo; Previous",
+      "active": false
+    },
+    {
+      "url": "https://api-test.coflow.co/apiApp/search?page=1",
+      "label": "1",
+      "active": true
+    },
+    {
+      "url": "https://api-test.coflow.co/apiApp/search?page=2",
+      "label": "2",
+      "active": false
+    },
+    {
+      "url": "https://api-test.coflow.co/apiApp/search?page=3",
+      "label": "3",
+      "active": false
+    },
+    {
+      "url": "https://api-test.coflow.co/apiApp/search?page=2",
+      "label": "Next &raquo;",
+      "active": false
+    }
+  ],
+  "next_page_url": "https://api-test.coflow.co/apiApp/search?page=2",
+  "path": "https://api-test.coflow.co/apiApp/search",
+  "per_page": 10,
+  "prev_page_url": null,
+  "to": 10,
+  "total": 22
+}

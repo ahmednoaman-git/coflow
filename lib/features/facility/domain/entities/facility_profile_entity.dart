@@ -1,5 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'facility_contact_entity.dart';
+import 'facility_location_entity.dart';
+
 part 'facility_profile_entity.freezed.dart';
 
 /// Team member entity.
@@ -54,27 +57,6 @@ abstract class AmenityEntity with _$AmenityEntity {
   }) = _AmenityEntity;
 }
 
-/// Location entity with address details.
-@freezed
-abstract class LocationEntity with _$LocationEntity {
-  const factory LocationEntity({
-    String? address,
-    String? cityName,
-    String? areaName,
-    double? latitude,
-    double? longitude,
-  }) = _LocationEntity;
-}
-
-/// Reservation contact entity.
-@freezed
-abstract class ReservationContactEntity with _$ReservationContactEntity {
-  const factory ReservationContactEntity({
-    required String type,
-    String? link,
-  }) = _ReservationContactEntity;
-}
-
 /// Main branch reference entity.
 @freezed
 abstract class MainBranchEntity with _$MainBranchEntity {
@@ -105,8 +87,24 @@ abstract class FacilityProfileEntity with _$FacilityProfileEntity {
     @Default(<BranchEntity>[]) List<BranchEntity> branches,
     @Default(<LanguageEntity>[]) List<LanguageEntity> languages,
     @Default(<AmenityEntity>[]) List<AmenityEntity> amenities,
-    @Default(<ReservationContactEntity>[]) List<ReservationContactEntity> reservationContacts,
-    LocationEntity? location,
+    @Default(<FacilityContactEntity>[]) List<FacilityContactEntity> contacts,
+    FacilityLocationEntity? location,
     MainBranchEntity? mainBranch,
+
+    /// Whether the signed-in user has this facility in their saved profiles.
+    @Default(false) bool isSaved,
+
+    /// Whether the signed-in user is subscribed to this facility's updates.
+    @Default(false) bool isTracked,
+
+    /// When the facility last edited its profile.
+    DateTime? updatedAt,
   }) = _FacilityProfileEntity;
+
+  const FacilityProfileEntity._();
+
+  /// Contacts worth rendering — a channel with nothing behind it cannot be
+  /// tapped, so it is dropped rather than shown as a dead button.
+  List<FacilityContactEntity> get actionableContacts =>
+      contacts.where((contact) => contact.isActionable).toList(growable: false);
 }

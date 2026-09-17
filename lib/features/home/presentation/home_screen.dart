@@ -55,6 +55,7 @@ class _HomeView extends StatelessWidget {
               child: SingleChildScrollView(
                 padding: EdgeInsets.only(
                   top: MediaQuery.paddingOf(context).top + context.spacing.s24,
+                  bottom: context.bottomInset + context.spacing.s24,
                 ),
                 child: Column(
                   crossAxisAlignment: .start,

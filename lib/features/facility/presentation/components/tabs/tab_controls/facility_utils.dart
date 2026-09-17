@@ -5,6 +5,7 @@ import '../../../../../activity_line/domain/entities/collapsed_facility_entity.d
 import '../../../../domain/enums/enums.dart';
 import '../pricing/pricing_tab_screen.dart';
 import '../profile/profile_tab_screen.dart';
+import '../schedule/schedule_tab_screen.dart';
 import '../services/services_tab_screen.dart';
 
 /// Utility class for facility tab management.
@@ -51,10 +52,8 @@ class FacilityUtils {
         const ServicesTabScreen(type: FacilityServiceType.flow),
       if (features.contains(FacilityFeature.courses))
         const ServicesTabScreen(type: FacilityServiceType.course),
-      if (features.contains(FacilityFeature.schedule))
-        const _FeaturePlaceholderTabScreen(feature: FacilityFeature.schedule),
-      if (features.contains(FacilityFeature.calendar))
-        const _FeaturePlaceholderTabScreen(feature: FacilityFeature.calendar),
+      if (features.contains(FacilityFeature.schedule)) const ScheduleTabScreen(),
+      if (features.contains(FacilityFeature.calendar)) const ScheduleTabScreen(),
       if (features.contains(FacilityFeature.purchasing)) const PricingTabScreen(),
     ];
   }
@@ -72,49 +71,5 @@ class FacilityUtils {
     if (features.contains(FacilityFeature.schedule)) index++;
     if (features.contains(FacilityFeature.calendar)) index++;
     return index;
-  }
-}
-
-class _FeaturePlaceholderTabScreen extends StatelessWidget {
-  const _FeaturePlaceholderTabScreen({required this.feature});
-
-  final FacilityFeature feature;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-
-    final title = switch (feature) {
-      FacilityFeature.activities => l10n.facilityDetails_activitiesTab,
-      FacilityFeature.flows => l10n.facilityDetails_flowsTab,
-      FacilityFeature.courses => l10n.facilityDetails_coursesTab,
-      FacilityFeature.schedule => l10n.facilityDetails_scheduleTab,
-      FacilityFeature.calendar => l10n.facilityDetails_calendarTab,
-      FacilityFeature.purchasing => l10n.facilityDetails_pricingTab,
-      FacilityFeature.onlinePayment => l10n.facilityDetails_pricingTab,
-    };
-
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: context.spacing.s24,
-        vertical: context.spacing.s32,
-      ),
-      child: Column(
-        spacing: context.spacing.s8,
-        crossAxisAlignment: .center,
-        children: [
-          Text(
-            title,
-            style: context.typography.bold18.primary(context),
-            textAlign: .center,
-          ),
-          Text(
-            l10n.facilityDetails_comingSoon,
-            style: context.typography.book14.secondary(context),
-            textAlign: .center,
-          ),
-        ],
-      ),
-    );
   }
 }

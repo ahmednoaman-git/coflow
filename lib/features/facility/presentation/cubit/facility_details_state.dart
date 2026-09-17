@@ -22,5 +22,9 @@ abstract class FacilityDetailsState with _$FacilityDetailsState {
     @Default(AsyncState.idle()) AsyncState<FacilityServicesEntity> activitiesRequest,
     @Default(AsyncState.idle()) AsyncState<FacilityServicesEntity> flowsRequest,
     @Default(AsyncState.idle()) AsyncState<FacilityServicesEntity> coursesRequest,
+
+    /// In-flight state of the save toggle. The resulting flags live on the
+    /// loaded profile, which the toggle updates in place.
+    @Default(AsyncState.idle()) AsyncState<void> saveRequest,
   }) = _FacilityDetailsState;
 }

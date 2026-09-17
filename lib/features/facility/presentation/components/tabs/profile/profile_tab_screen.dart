@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ import 'components/location_section.dart';
 import 'components/operating_hours_section.dart';
 import 'components/profile_header.dart';
 import 'components/profile_team_section.dart';
+import '../../facility_data_provider.dart';
 
 class ProfileTabScreen extends StatelessWidget {
   const ProfileTabScreen({super.key});
@@ -45,7 +47,13 @@ class ProfileTabScreen extends StatelessWidget {
             if (profile.tags.isNotEmpty) _buildDivider(context),
             AmenitiesSection(amenities: profile.amenities),
             if (profile.amenities.isNotEmpty) _buildDivider(context),
-            ActionsSection(contacts: profile.reservationContacts),
+            ActionsSection(
+              contacts: profile.actionableContacts,
+              updatedAt: profile.updatedAt,
+              onOpenFaqs: () => context.router.push(
+                FacilityFaqRoute(facility: FacilityDataProvider.of(context).facility),
+              ),
+            ),
           ],
         );
       },

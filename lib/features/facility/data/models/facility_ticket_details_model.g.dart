@@ -30,67 +30,69 @@ Map<String, dynamic> _$FacilityTicketDetailsModelToJson(
   FacilityTicketDetailsModel instance,
 ) => <String, dynamic>{'ticket': instance.ticket, 'coupons': instance.coupons};
 
-TicketDetailModel _$TicketDetailModelFromJson(Map<String, dynamic> json) => $checkedCreate(
-  'TicketDetailModel',
-  json,
-  ($checkedConvert) {
-    $checkKeys(json, disallowNullValues: const ['services', 'addons']);
-    final val = TicketDetailModel(
-      id: $checkedConvert('id', (v) => (v as num).toInt()),
-      name: $checkedConvert('name', (v) => v as String),
-      unlimited: $checkedConvert('unlimited', (v) => v as bool),
-      validityDays: $checkedConvert(
-        'validity_days',
-        (v) => (v as num?)?.toInt(),
-      ),
-      price: $checkedConvert('price', (v) => (v as num).toDouble()),
-      discountPrice: $checkedConvert(
-        'discount_price',
-        (v) => (v as num?)?.toDouble(),
-      ),
-      currency: $checkedConvert('currency', (v) => v as String),
-      conditions: $checkedConvert('conditions', (v) => v as String?),
-      requirements: $checkedConvert('requirements', (v) => v as String?),
-      services: $checkedConvert(
-        'services',
-        (v) =>
-            (v as List<dynamic>?)
-                ?.map(
-                  (e) => ServiceModel.fromJson(e as Map<String, dynamic>),
-                )
-                .toList() ??
-            [],
-      ),
-      addons: $checkedConvert(
-        'addons',
-        (v) =>
-            (v as List<dynamic>?)
-                ?.map((e) => AddonModel.fromJson(e as Map<String, dynamic>))
-                .toList() ??
-            [],
-      ),
+TicketDetailModel _$TicketDetailModelFromJson(Map<String, dynamic> json) =>
+    $checkedCreate(
+      'TicketDetailModel',
+      json,
+      ($checkedConvert) {
+        $checkKeys(json, disallowNullValues: const ['services', 'addons']);
+        final val = TicketDetailModel(
+          id: $checkedConvert('id', (v) => (v as num).toInt()),
+          name: $checkedConvert('name', (v) => v as String),
+          unlimited: $checkedConvert('unlimited', (v) => v as bool),
+          validityDays: $checkedConvert(
+            'validity_days',
+            (v) => (v as num?)?.toInt(),
+          ),
+          price: $checkedConvert('price', (v) => (v as num).toDouble()),
+          discountPrice: $checkedConvert(
+            'discount_price',
+            (v) => (v as num?)?.toDouble(),
+          ),
+          currency: $checkedConvert('currency', (v) => v as String),
+          conditions: $checkedConvert('conditions', (v) => v as String?),
+          requirements: $checkedConvert('requirements', (v) => v as String?),
+          services: $checkedConvert(
+            'services',
+            (v) =>
+                (v as List<dynamic>?)
+                    ?.map(
+                      (e) => ServiceModel.fromJson(e as Map<String, dynamic>),
+                    )
+                    .toList() ??
+                [],
+          ),
+          addons: $checkedConvert(
+            'addons',
+            (v) =>
+                (v as List<dynamic>?)
+                    ?.map((e) => AddonModel.fromJson(e as Map<String, dynamic>))
+                    .toList() ??
+                [],
+          ),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'validityDays': 'validity_days',
+        'discountPrice': 'discount_price',
+      },
     );
-    return val;
-  },
-  fieldKeyMap: const {
-    'validityDays': 'validity_days',
-    'discountPrice': 'discount_price',
-  },
-);
 
-Map<String, dynamic> _$TicketDetailModelToJson(TicketDetailModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'unlimited': instance.unlimited,
-  'validity_days': instance.validityDays,
-  'price': instance.price,
-  'discount_price': instance.discountPrice,
-  'currency': instance.currency,
-  'conditions': instance.conditions,
-  'requirements': instance.requirements,
-  'services': ?instance.services,
-  'addons': ?instance.addons,
-};
+Map<String, dynamic> _$TicketDetailModelToJson(TicketDetailModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'unlimited': instance.unlimited,
+      'validity_days': instance.validityDays,
+      'price': instance.price,
+      'discount_price': instance.discountPrice,
+      'currency': instance.currency,
+      'conditions': instance.conditions,
+      'requirements': instance.requirements,
+      'services': ?instance.services,
+      'addons': ?instance.addons,
+    };
 
 ServiceModel _$ServiceModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('ServiceModel', json, ($checkedConvert) {
@@ -100,18 +102,20 @@ ServiceModel _$ServiceModelFromJson(Map<String, dynamic> json) =>
         image: $checkedConvert('image', (v) => v as String?),
         pivot: $checkedConvert(
           'pivot',
-          (v) => v == null ? null : PivotModel.fromJson(v as Map<String, dynamic>),
+          (v) =>
+              v == null ? null : PivotModel.fromJson(v as Map<String, dynamic>),
         ),
       );
       return val;
     });
 
-Map<String, dynamic> _$ServiceModelToJson(ServiceModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'image': instance.image,
-  'pivot': instance.pivot,
-};
+Map<String, dynamic> _$ServiceModelToJson(ServiceModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'image': instance.image,
+      'pivot': instance.pivot,
+    };
 
 PivotModel _$PivotModelFromJson(Map<String, dynamic> json) => $checkedCreate(
   'PivotModel',
@@ -126,10 +130,11 @@ PivotModel _$PivotModelFromJson(Map<String, dynamic> json) => $checkedCreate(
   fieldKeyMap: const {'ticketId': 'ticket_id', 'serviceId': 'service_id'},
 );
 
-Map<String, dynamic> _$PivotModelToJson(PivotModel instance) => <String, dynamic>{
-  'ticket_id': instance.ticketId,
-  'service_id': instance.serviceId,
-};
+Map<String, dynamic> _$PivotModelToJson(PivotModel instance) =>
+    <String, dynamic>{
+      'ticket_id': instance.ticketId,
+      'service_id': instance.serviceId,
+    };
 
 AddonModel _$AddonModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('AddonModel', json, ($checkedConvert) {
@@ -141,11 +146,12 @@ AddonModel _$AddonModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$AddonModelToJson(AddonModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'price': instance.price,
-};
+Map<String, dynamic> _$AddonModelToJson(AddonModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'price': instance.price,
+    };
 
 CouponPlaceholderModel _$CouponPlaceholderModelFromJson(
   Map<String, dynamic> json,

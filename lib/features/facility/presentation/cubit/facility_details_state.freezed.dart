@@ -14,7 +14,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FacilityDetailsState {
 
- CollapsedFacilityEntity get facility; FacilityDetailsTab get selectedTab; FacilityPricingTab get selectedPricingTab; AsyncState<FacilityProfileEntity> get profileRequest; AsyncState<List<FacilityPromotionEntity>> get promotionsRequest; AsyncState<List<FacilityTicketEntity>> get ticketsRequest; AsyncState<FacilityServicesEntity> get activitiesRequest; AsyncState<FacilityServicesEntity> get flowsRequest; AsyncState<FacilityServicesEntity> get coursesRequest;
+ CollapsedFacilityEntity get facility; FacilityDetailsTab get selectedTab; FacilityPricingTab get selectedPricingTab; AsyncState<FacilityProfileEntity> get profileRequest; AsyncState<List<FacilityPromotionEntity>> get promotionsRequest; AsyncState<List<FacilityTicketEntity>> get ticketsRequest; AsyncState<FacilityServicesEntity> get activitiesRequest; AsyncState<FacilityServicesEntity> get flowsRequest; AsyncState<FacilityServicesEntity> get coursesRequest;/// In-flight state of the save toggle. The resulting flags live on the
+/// loaded profile, which the toggle updates in place.
+ AsyncState<void> get saveRequest;
 /// Create a copy of FacilityDetailsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +27,16 @@ $FacilityDetailsStateCopyWith<FacilityDetailsState> get copyWith => _$FacilityDe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FacilityDetailsState&&(identical(other.facility, facility) || other.facility == facility)&&(identical(other.selectedTab, selectedTab) || other.selectedTab == selectedTab)&&(identical(other.selectedPricingTab, selectedPricingTab) || other.selectedPricingTab == selectedPricingTab)&&(identical(other.profileRequest, profileRequest) || other.profileRequest == profileRequest)&&(identical(other.promotionsRequest, promotionsRequest) || other.promotionsRequest == promotionsRequest)&&(identical(other.ticketsRequest, ticketsRequest) || other.ticketsRequest == ticketsRequest)&&(identical(other.activitiesRequest, activitiesRequest) || other.activitiesRequest == activitiesRequest)&&(identical(other.flowsRequest, flowsRequest) || other.flowsRequest == flowsRequest)&&(identical(other.coursesRequest, coursesRequest) || other.coursesRequest == coursesRequest));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FacilityDetailsState&&(identical(other.facility, facility) || other.facility == facility)&&(identical(other.selectedTab, selectedTab) || other.selectedTab == selectedTab)&&(identical(other.selectedPricingTab, selectedPricingTab) || other.selectedPricingTab == selectedPricingTab)&&(identical(other.profileRequest, profileRequest) || other.profileRequest == profileRequest)&&(identical(other.promotionsRequest, promotionsRequest) || other.promotionsRequest == promotionsRequest)&&(identical(other.ticketsRequest, ticketsRequest) || other.ticketsRequest == ticketsRequest)&&(identical(other.activitiesRequest, activitiesRequest) || other.activitiesRequest == activitiesRequest)&&(identical(other.flowsRequest, flowsRequest) || other.flowsRequest == flowsRequest)&&(identical(other.coursesRequest, coursesRequest) || other.coursesRequest == coursesRequest)&&(identical(other.saveRequest, saveRequest) || other.saveRequest == saveRequest));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,facility,selectedTab,selectedPricingTab,profileRequest,promotionsRequest,ticketsRequest,activitiesRequest,flowsRequest,coursesRequest);
+int get hashCode => Object.hash(runtimeType,facility,selectedTab,selectedPricingTab,profileRequest,promotionsRequest,ticketsRequest,activitiesRequest,flowsRequest,coursesRequest,saveRequest);
 
 @override
 String toString() {
-  return 'FacilityDetailsState(facility: $facility, selectedTab: $selectedTab, selectedPricingTab: $selectedPricingTab, profileRequest: $profileRequest, promotionsRequest: $promotionsRequest, ticketsRequest: $ticketsRequest, activitiesRequest: $activitiesRequest, flowsRequest: $flowsRequest, coursesRequest: $coursesRequest)';
+  return 'FacilityDetailsState(facility: $facility, selectedTab: $selectedTab, selectedPricingTab: $selectedPricingTab, profileRequest: $profileRequest, promotionsRequest: $promotionsRequest, ticketsRequest: $ticketsRequest, activitiesRequest: $activitiesRequest, flowsRequest: $flowsRequest, coursesRequest: $coursesRequest, saveRequest: $saveRequest)';
 }
 
 
@@ -45,11 +47,11 @@ abstract mixin class $FacilityDetailsStateCopyWith<$Res>  {
   factory $FacilityDetailsStateCopyWith(FacilityDetailsState value, $Res Function(FacilityDetailsState) _then) = _$FacilityDetailsStateCopyWithImpl;
 @useResult
 $Res call({
- CollapsedFacilityEntity facility, FacilityDetailsTab selectedTab, FacilityPricingTab selectedPricingTab, AsyncState<FacilityProfileEntity> profileRequest, AsyncState<List<FacilityPromotionEntity>> promotionsRequest, AsyncState<List<FacilityTicketEntity>> ticketsRequest, AsyncState<FacilityServicesEntity> activitiesRequest, AsyncState<FacilityServicesEntity> flowsRequest, AsyncState<FacilityServicesEntity> coursesRequest
+ CollapsedFacilityEntity facility, FacilityDetailsTab selectedTab, FacilityPricingTab selectedPricingTab, AsyncState<FacilityProfileEntity> profileRequest, AsyncState<List<FacilityPromotionEntity>> promotionsRequest, AsyncState<List<FacilityTicketEntity>> ticketsRequest, AsyncState<FacilityServicesEntity> activitiesRequest, AsyncState<FacilityServicesEntity> flowsRequest, AsyncState<FacilityServicesEntity> coursesRequest, AsyncState<void> saveRequest
 });
 
 
-$CollapsedFacilityEntityCopyWith<$Res> get facility;$AsyncStateCopyWith<FacilityProfileEntity, $Res> get profileRequest;$AsyncStateCopyWith<List<FacilityPromotionEntity>, $Res> get promotionsRequest;$AsyncStateCopyWith<List<FacilityTicketEntity>, $Res> get ticketsRequest;$AsyncStateCopyWith<FacilityServicesEntity, $Res> get activitiesRequest;$AsyncStateCopyWith<FacilityServicesEntity, $Res> get flowsRequest;$AsyncStateCopyWith<FacilityServicesEntity, $Res> get coursesRequest;
+$CollapsedFacilityEntityCopyWith<$Res> get facility;$AsyncStateCopyWith<FacilityProfileEntity, $Res> get profileRequest;$AsyncStateCopyWith<List<FacilityPromotionEntity>, $Res> get promotionsRequest;$AsyncStateCopyWith<List<FacilityTicketEntity>, $Res> get ticketsRequest;$AsyncStateCopyWith<FacilityServicesEntity, $Res> get activitiesRequest;$AsyncStateCopyWith<FacilityServicesEntity, $Res> get flowsRequest;$AsyncStateCopyWith<FacilityServicesEntity, $Res> get coursesRequest;$AsyncStateCopyWith<void, $Res> get saveRequest;
 
 }
 /// @nodoc
@@ -62,7 +64,7 @@ class _$FacilityDetailsStateCopyWithImpl<$Res>
 
 /// Create a copy of FacilityDetailsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? facility = null,Object? selectedTab = null,Object? selectedPricingTab = null,Object? profileRequest = null,Object? promotionsRequest = null,Object? ticketsRequest = null,Object? activitiesRequest = null,Object? flowsRequest = null,Object? coursesRequest = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? facility = null,Object? selectedTab = null,Object? selectedPricingTab = null,Object? profileRequest = null,Object? promotionsRequest = null,Object? ticketsRequest = null,Object? activitiesRequest = null,Object? flowsRequest = null,Object? coursesRequest = null,Object? saveRequest = null,}) {
   return _then(_self.copyWith(
 facility: null == facility ? _self.facility : facility // ignore: cast_nullable_to_non_nullable
 as CollapsedFacilityEntity,selectedTab: null == selectedTab ? _self.selectedTab : selectedTab // ignore: cast_nullable_to_non_nullable
@@ -73,7 +75,8 @@ as AsyncState<List<FacilityPromotionEntity>>,ticketsRequest: null == ticketsRequ
 as AsyncState<List<FacilityTicketEntity>>,activitiesRequest: null == activitiesRequest ? _self.activitiesRequest : activitiesRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<FacilityServicesEntity>,flowsRequest: null == flowsRequest ? _self.flowsRequest : flowsRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<FacilityServicesEntity>,coursesRequest: null == coursesRequest ? _self.coursesRequest : coursesRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<FacilityServicesEntity>,
+as AsyncState<FacilityServicesEntity>,saveRequest: null == saveRequest ? _self.saveRequest : saveRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<void>,
   ));
 }
 /// Create a copy of FacilityDetailsState
@@ -138,6 +141,15 @@ $AsyncStateCopyWith<FacilityServicesEntity, $Res> get coursesRequest {
   
   return $AsyncStateCopyWith<FacilityServicesEntity, $Res>(_self.coursesRequest, (value) {
     return _then(_self.copyWith(coursesRequest: value));
+  });
+}/// Create a copy of FacilityDetailsState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AsyncStateCopyWith<void, $Res> get saveRequest {
+  
+  return $AsyncStateCopyWith<void, $Res>(_self.saveRequest, (value) {
+    return _then(_self.copyWith(saveRequest: value));
   });
 }
 }
@@ -221,10 +233,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CollapsedFacilityEntity facility,  FacilityDetailsTab selectedTab,  FacilityPricingTab selectedPricingTab,  AsyncState<FacilityProfileEntity> profileRequest,  AsyncState<List<FacilityPromotionEntity>> promotionsRequest,  AsyncState<List<FacilityTicketEntity>> ticketsRequest,  AsyncState<FacilityServicesEntity> activitiesRequest,  AsyncState<FacilityServicesEntity> flowsRequest,  AsyncState<FacilityServicesEntity> coursesRequest)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( CollapsedFacilityEntity facility,  FacilityDetailsTab selectedTab,  FacilityPricingTab selectedPricingTab,  AsyncState<FacilityProfileEntity> profileRequest,  AsyncState<List<FacilityPromotionEntity>> promotionsRequest,  AsyncState<List<FacilityTicketEntity>> ticketsRequest,  AsyncState<FacilityServicesEntity> activitiesRequest,  AsyncState<FacilityServicesEntity> flowsRequest,  AsyncState<FacilityServicesEntity> coursesRequest,  AsyncState<void> saveRequest)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FacilityDetailsState() when $default != null:
-return $default(_that.facility,_that.selectedTab,_that.selectedPricingTab,_that.profileRequest,_that.promotionsRequest,_that.ticketsRequest,_that.activitiesRequest,_that.flowsRequest,_that.coursesRequest);case _:
+return $default(_that.facility,_that.selectedTab,_that.selectedPricingTab,_that.profileRequest,_that.promotionsRequest,_that.ticketsRequest,_that.activitiesRequest,_that.flowsRequest,_that.coursesRequest,_that.saveRequest);case _:
   return orElse();
 
 }
@@ -242,10 +254,10 @@ return $default(_that.facility,_that.selectedTab,_that.selectedPricingTab,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CollapsedFacilityEntity facility,  FacilityDetailsTab selectedTab,  FacilityPricingTab selectedPricingTab,  AsyncState<FacilityProfileEntity> profileRequest,  AsyncState<List<FacilityPromotionEntity>> promotionsRequest,  AsyncState<List<FacilityTicketEntity>> ticketsRequest,  AsyncState<FacilityServicesEntity> activitiesRequest,  AsyncState<FacilityServicesEntity> flowsRequest,  AsyncState<FacilityServicesEntity> coursesRequest)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( CollapsedFacilityEntity facility,  FacilityDetailsTab selectedTab,  FacilityPricingTab selectedPricingTab,  AsyncState<FacilityProfileEntity> profileRequest,  AsyncState<List<FacilityPromotionEntity>> promotionsRequest,  AsyncState<List<FacilityTicketEntity>> ticketsRequest,  AsyncState<FacilityServicesEntity> activitiesRequest,  AsyncState<FacilityServicesEntity> flowsRequest,  AsyncState<FacilityServicesEntity> coursesRequest,  AsyncState<void> saveRequest)  $default,) {final _that = this;
 switch (_that) {
 case _FacilityDetailsState():
-return $default(_that.facility,_that.selectedTab,_that.selectedPricingTab,_that.profileRequest,_that.promotionsRequest,_that.ticketsRequest,_that.activitiesRequest,_that.flowsRequest,_that.coursesRequest);case _:
+return $default(_that.facility,_that.selectedTab,_that.selectedPricingTab,_that.profileRequest,_that.promotionsRequest,_that.ticketsRequest,_that.activitiesRequest,_that.flowsRequest,_that.coursesRequest,_that.saveRequest);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -262,10 +274,10 @@ return $default(_that.facility,_that.selectedTab,_that.selectedPricingTab,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CollapsedFacilityEntity facility,  FacilityDetailsTab selectedTab,  FacilityPricingTab selectedPricingTab,  AsyncState<FacilityProfileEntity> profileRequest,  AsyncState<List<FacilityPromotionEntity>> promotionsRequest,  AsyncState<List<FacilityTicketEntity>> ticketsRequest,  AsyncState<FacilityServicesEntity> activitiesRequest,  AsyncState<FacilityServicesEntity> flowsRequest,  AsyncState<FacilityServicesEntity> coursesRequest)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( CollapsedFacilityEntity facility,  FacilityDetailsTab selectedTab,  FacilityPricingTab selectedPricingTab,  AsyncState<FacilityProfileEntity> profileRequest,  AsyncState<List<FacilityPromotionEntity>> promotionsRequest,  AsyncState<List<FacilityTicketEntity>> ticketsRequest,  AsyncState<FacilityServicesEntity> activitiesRequest,  AsyncState<FacilityServicesEntity> flowsRequest,  AsyncState<FacilityServicesEntity> coursesRequest,  AsyncState<void> saveRequest)?  $default,) {final _that = this;
 switch (_that) {
 case _FacilityDetailsState() when $default != null:
-return $default(_that.facility,_that.selectedTab,_that.selectedPricingTab,_that.profileRequest,_that.promotionsRequest,_that.ticketsRequest,_that.activitiesRequest,_that.flowsRequest,_that.coursesRequest);case _:
+return $default(_that.facility,_that.selectedTab,_that.selectedPricingTab,_that.profileRequest,_that.promotionsRequest,_that.ticketsRequest,_that.activitiesRequest,_that.flowsRequest,_that.coursesRequest,_that.saveRequest);case _:
   return null;
 
 }
@@ -277,7 +289,7 @@ return $default(_that.facility,_that.selectedTab,_that.selectedPricingTab,_that.
 
 
 class _FacilityDetailsState implements FacilityDetailsState {
-  const _FacilityDetailsState({required this.facility, this.selectedTab = FacilityDetailsTab.profile, this.selectedPricingTab = FacilityPricingTab.tickets, this.profileRequest = const AsyncState.idle(), this.promotionsRequest = const AsyncState.idle(), this.ticketsRequest = const AsyncState.idle(), this.activitiesRequest = const AsyncState.idle(), this.flowsRequest = const AsyncState.idle(), this.coursesRequest = const AsyncState.idle()});
+  const _FacilityDetailsState({required this.facility, this.selectedTab = FacilityDetailsTab.profile, this.selectedPricingTab = FacilityPricingTab.tickets, this.profileRequest = const AsyncState.idle(), this.promotionsRequest = const AsyncState.idle(), this.ticketsRequest = const AsyncState.idle(), this.activitiesRequest = const AsyncState.idle(), this.flowsRequest = const AsyncState.idle(), this.coursesRequest = const AsyncState.idle(), this.saveRequest = const AsyncState.idle()});
   
 
 @override final  CollapsedFacilityEntity facility;
@@ -289,6 +301,9 @@ class _FacilityDetailsState implements FacilityDetailsState {
 @override@JsonKey() final  AsyncState<FacilityServicesEntity> activitiesRequest;
 @override@JsonKey() final  AsyncState<FacilityServicesEntity> flowsRequest;
 @override@JsonKey() final  AsyncState<FacilityServicesEntity> coursesRequest;
+/// In-flight state of the save toggle. The resulting flags live on the
+/// loaded profile, which the toggle updates in place.
+@override@JsonKey() final  AsyncState<void> saveRequest;
 
 /// Create a copy of FacilityDetailsState
 /// with the given fields replaced by the non-null parameter values.
@@ -300,16 +315,16 @@ _$FacilityDetailsStateCopyWith<_FacilityDetailsState> get copyWith => __$Facilit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FacilityDetailsState&&(identical(other.facility, facility) || other.facility == facility)&&(identical(other.selectedTab, selectedTab) || other.selectedTab == selectedTab)&&(identical(other.selectedPricingTab, selectedPricingTab) || other.selectedPricingTab == selectedPricingTab)&&(identical(other.profileRequest, profileRequest) || other.profileRequest == profileRequest)&&(identical(other.promotionsRequest, promotionsRequest) || other.promotionsRequest == promotionsRequest)&&(identical(other.ticketsRequest, ticketsRequest) || other.ticketsRequest == ticketsRequest)&&(identical(other.activitiesRequest, activitiesRequest) || other.activitiesRequest == activitiesRequest)&&(identical(other.flowsRequest, flowsRequest) || other.flowsRequest == flowsRequest)&&(identical(other.coursesRequest, coursesRequest) || other.coursesRequest == coursesRequest));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FacilityDetailsState&&(identical(other.facility, facility) || other.facility == facility)&&(identical(other.selectedTab, selectedTab) || other.selectedTab == selectedTab)&&(identical(other.selectedPricingTab, selectedPricingTab) || other.selectedPricingTab == selectedPricingTab)&&(identical(other.profileRequest, profileRequest) || other.profileRequest == profileRequest)&&(identical(other.promotionsRequest, promotionsRequest) || other.promotionsRequest == promotionsRequest)&&(identical(other.ticketsRequest, ticketsRequest) || other.ticketsRequest == ticketsRequest)&&(identical(other.activitiesRequest, activitiesRequest) || other.activitiesRequest == activitiesRequest)&&(identical(other.flowsRequest, flowsRequest) || other.flowsRequest == flowsRequest)&&(identical(other.coursesRequest, coursesRequest) || other.coursesRequest == coursesRequest)&&(identical(other.saveRequest, saveRequest) || other.saveRequest == saveRequest));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,facility,selectedTab,selectedPricingTab,profileRequest,promotionsRequest,ticketsRequest,activitiesRequest,flowsRequest,coursesRequest);
+int get hashCode => Object.hash(runtimeType,facility,selectedTab,selectedPricingTab,profileRequest,promotionsRequest,ticketsRequest,activitiesRequest,flowsRequest,coursesRequest,saveRequest);
 
 @override
 String toString() {
-  return 'FacilityDetailsState(facility: $facility, selectedTab: $selectedTab, selectedPricingTab: $selectedPricingTab, profileRequest: $profileRequest, promotionsRequest: $promotionsRequest, ticketsRequest: $ticketsRequest, activitiesRequest: $activitiesRequest, flowsRequest: $flowsRequest, coursesRequest: $coursesRequest)';
+  return 'FacilityDetailsState(facility: $facility, selectedTab: $selectedTab, selectedPricingTab: $selectedPricingTab, profileRequest: $profileRequest, promotionsRequest: $promotionsRequest, ticketsRequest: $ticketsRequest, activitiesRequest: $activitiesRequest, flowsRequest: $flowsRequest, coursesRequest: $coursesRequest, saveRequest: $saveRequest)';
 }
 
 
@@ -320,11 +335,11 @@ abstract mixin class _$FacilityDetailsStateCopyWith<$Res> implements $FacilityDe
   factory _$FacilityDetailsStateCopyWith(_FacilityDetailsState value, $Res Function(_FacilityDetailsState) _then) = __$FacilityDetailsStateCopyWithImpl;
 @override @useResult
 $Res call({
- CollapsedFacilityEntity facility, FacilityDetailsTab selectedTab, FacilityPricingTab selectedPricingTab, AsyncState<FacilityProfileEntity> profileRequest, AsyncState<List<FacilityPromotionEntity>> promotionsRequest, AsyncState<List<FacilityTicketEntity>> ticketsRequest, AsyncState<FacilityServicesEntity> activitiesRequest, AsyncState<FacilityServicesEntity> flowsRequest, AsyncState<FacilityServicesEntity> coursesRequest
+ CollapsedFacilityEntity facility, FacilityDetailsTab selectedTab, FacilityPricingTab selectedPricingTab, AsyncState<FacilityProfileEntity> profileRequest, AsyncState<List<FacilityPromotionEntity>> promotionsRequest, AsyncState<List<FacilityTicketEntity>> ticketsRequest, AsyncState<FacilityServicesEntity> activitiesRequest, AsyncState<FacilityServicesEntity> flowsRequest, AsyncState<FacilityServicesEntity> coursesRequest, AsyncState<void> saveRequest
 });
 
 
-@override $CollapsedFacilityEntityCopyWith<$Res> get facility;@override $AsyncStateCopyWith<FacilityProfileEntity, $Res> get profileRequest;@override $AsyncStateCopyWith<List<FacilityPromotionEntity>, $Res> get promotionsRequest;@override $AsyncStateCopyWith<List<FacilityTicketEntity>, $Res> get ticketsRequest;@override $AsyncStateCopyWith<FacilityServicesEntity, $Res> get activitiesRequest;@override $AsyncStateCopyWith<FacilityServicesEntity, $Res> get flowsRequest;@override $AsyncStateCopyWith<FacilityServicesEntity, $Res> get coursesRequest;
+@override $CollapsedFacilityEntityCopyWith<$Res> get facility;@override $AsyncStateCopyWith<FacilityProfileEntity, $Res> get profileRequest;@override $AsyncStateCopyWith<List<FacilityPromotionEntity>, $Res> get promotionsRequest;@override $AsyncStateCopyWith<List<FacilityTicketEntity>, $Res> get ticketsRequest;@override $AsyncStateCopyWith<FacilityServicesEntity, $Res> get activitiesRequest;@override $AsyncStateCopyWith<FacilityServicesEntity, $Res> get flowsRequest;@override $AsyncStateCopyWith<FacilityServicesEntity, $Res> get coursesRequest;@override $AsyncStateCopyWith<void, $Res> get saveRequest;
 
 }
 /// @nodoc
@@ -337,7 +352,7 @@ class __$FacilityDetailsStateCopyWithImpl<$Res>
 
 /// Create a copy of FacilityDetailsState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? facility = null,Object? selectedTab = null,Object? selectedPricingTab = null,Object? profileRequest = null,Object? promotionsRequest = null,Object? ticketsRequest = null,Object? activitiesRequest = null,Object? flowsRequest = null,Object? coursesRequest = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? facility = null,Object? selectedTab = null,Object? selectedPricingTab = null,Object? profileRequest = null,Object? promotionsRequest = null,Object? ticketsRequest = null,Object? activitiesRequest = null,Object? flowsRequest = null,Object? coursesRequest = null,Object? saveRequest = null,}) {
   return _then(_FacilityDetailsState(
 facility: null == facility ? _self.facility : facility // ignore: cast_nullable_to_non_nullable
 as CollapsedFacilityEntity,selectedTab: null == selectedTab ? _self.selectedTab : selectedTab // ignore: cast_nullable_to_non_nullable
@@ -348,7 +363,8 @@ as AsyncState<List<FacilityPromotionEntity>>,ticketsRequest: null == ticketsRequ
 as AsyncState<List<FacilityTicketEntity>>,activitiesRequest: null == activitiesRequest ? _self.activitiesRequest : activitiesRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<FacilityServicesEntity>,flowsRequest: null == flowsRequest ? _self.flowsRequest : flowsRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<FacilityServicesEntity>,coursesRequest: null == coursesRequest ? _self.coursesRequest : coursesRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<FacilityServicesEntity>,
+as AsyncState<FacilityServicesEntity>,saveRequest: null == saveRequest ? _self.saveRequest : saveRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<void>,
   ));
 }
 
@@ -414,6 +430,15 @@ $AsyncStateCopyWith<FacilityServicesEntity, $Res> get coursesRequest {
   
   return $AsyncStateCopyWith<FacilityServicesEntity, $Res>(_self.coursesRequest, (value) {
     return _then(_self.copyWith(coursesRequest: value));
+  });
+}/// Create a copy of FacilityDetailsState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AsyncStateCopyWith<void, $Res> get saveRequest {
+  
+  return $AsyncStateCopyWith<void, $Res>(_self.saveRequest, (value) {
+    return _then(_self.copyWith(saveRequest: value));
   });
 }
 }

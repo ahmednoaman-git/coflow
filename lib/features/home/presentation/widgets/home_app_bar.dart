@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:coflow_users_v2/features/navigation_root/presentation/user_data_provider.dart';
 import 'package:flutter/material.dart';
@@ -196,9 +197,7 @@ class _ActionButtons extends StatelessWidget {
           iconSize: 24,
           backgroundColor: Colors.transparent,
           iconColor: Colors.white,
-          onPressed: () {
-            // TODO: Navigate to search
-          },
+          onPressed: () => context.router.push(const SearchRoute()),
         ),
         Stack(
           children: [

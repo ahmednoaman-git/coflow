@@ -14,6 +14,8 @@ class GetFacilitiesDto {
     this.areaId,
     required this.activityLineId,
     this.tagId,
+    this.page = 1,
+    this.limit = 10,
   });
 
   /// Location type filter: "address based" or "remote location"
@@ -30,6 +32,9 @@ class GetFacilitiesDto {
 
   /// Tag ID filter (optional)
   final int? tagId;
+
+  final int page;
+  final int limit;
 
   factory GetFacilitiesDto.fromJson(Map<String, dynamic> json) => _$GetFacilitiesDtoFromJson(json);
 

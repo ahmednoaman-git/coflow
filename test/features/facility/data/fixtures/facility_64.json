@@ -1,0 +1,202 @@
+{
+ "id": 64,
+ "name": "X Wake",
+ "title": "Wakeboarding & Surfing School",
+ "email": "xwakeegypt@gmail.com",
+ "year": "2019",
+ "logo": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1675082931-blob",
+ "cover": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1675086541-blob",
+ "views": 96,
+ "unique_views": 20,
+ "saves": 5,
+ "tracks": 5,
+ "facility_type": "PRO",
+ "bio": "We are a company that is dedicated to offering premium & safe Wakeboarding standards for both professional & beginner riders. \n\nOur goal is to raise awareness of the sport in Egypt and raise the competition level in addition to adding new riders to the sport and new talent.\n\nOur team comes from a professional Wakeboarding background in addition to being certified by the International Wakeboarding Federation.\n\nCall us or visit the website link below to reserve your spot!",
+ "location_type": "address based",
+ "operation_type": "specify days",
+ "profile_step": "completed",
+ "status": "visible",
+ "status_msg": "We're closed for the winter season, as the water in The Nile is too cold for our Wake Experience. We'll be back in operation sometime in the Spring season. Stay Tuned!",
+ "accept_reject_date": null,
+ "activation_date": "2023-01-30",
+ "can_login": true,
+ "online": true,
+ "branches_access": false,
+ "reservation_contact": [
+  {
+   "selectSocial": "Website",
+   "link": "https://xwake.simplybook.me/v2/#"
+  }
+ ],
+ "amenities": [
+  {
+   "id": 23,
+   "name": "WC",
+   "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751425-blob"
+  },
+  {
+   "id": 25,
+   "name": "Beverages",
+   "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751589-blob"
+  },
+  {
+   "id": 26,
+   "name": "Cafe",
+   "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751607-blob"
+  },
+  {
+   "id": 27,
+   "name": "Food",
+   "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751622-blob"
+  }
+ ],
+ "languages": [
+  {
+   "id": 4,
+   "name": "Arabic"
+  },
+  {
+   "id": 5,
+   "name": "English"
+  }
+ ],
+ "tags": [
+  {
+   "id": 8,
+   "name": "Horse",
+   "activity_line_id": 3
+  },
+  {
+   "id": 29,
+   "name": "PROFESSIONAL",
+   "activity_line_id": null
+  },
+  {
+   "id": 40,
+   "name": "Crossfit",
+   "activity_line_id": null
+  },
+  {
+   "id": 67,
+   "name": "CREATE",
+   "activity_line_id": null
+  },
+  {
+   "id": 75,
+   "name": "NASR CITY",
+   "activity_line_id": null
+  },
+  {
+   "id": 78,
+   "name": "Paramotor",
+   "activity_line_id": null
+  },
+  {
+   "id": 81,
+   "name": "Aerial Hoop",
+   "activity_line_id": null
+  },
+  {
+   "id": 95,
+   "name": "TAW",
+   "activity_line_id": null
+  }
+ ],
+ "rate": "0/0",
+ "notes": null,
+ "subscription": "active",
+ "trial_expire_date": null,
+ "payment_online": false,
+ "payment_type": "direct purchase",
+ "activity_line_id": 2,
+ "payment_method_id": 1,
+ "country_id": 71,
+ "city_id": 14,
+ "area_id": 34,
+ "parent_id": 62,
+ "remember_token": null,
+ "created_at": "2024-12-10",
+ "updated_at": "2026-08-22",
+ "images_count": 11,
+ "videos_count": 0,
+ "likes_count": 0,
+ "dislikes_count": 0,
+ "has_save": false,
+ "has_track": false,
+ "has_like": false,
+ "locations_string": "",
+ "barcnhes": [
+  {
+   "id": 62,
+   "title": "Horse Riding Academy",
+   "cover": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1674994809-blob"
+  }
+ ],
+ "locations": [],
+ "activity_line": {
+  "id": 2,
+  "name": "Sea",
+  "image": null,
+  "color": null,
+  "facilities": 4
+ },
+ "city": {
+  "id": 14,
+  "name": "Giza",
+  "country_id": 71
+ },
+ "area": {
+  "id": 34,
+  "name": "Giza Nile",
+  "country_id": 71,
+  "city_id": 14
+ },
+ "teams": [
+  {
+   "id": 73,
+   "name": "Aly",
+   "title": "Owner",
+   "image": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1675082931-blob",
+   "bio": null,
+   "facility_id": 64
+  }
+ ],
+ "operations": [
+  {
+   "id": 65,
+   "days": [
+    "Fri",
+    "Sat"
+   ],
+   "from": "12:00",
+   "to": "16:00",
+   "facility_id": 64
+  }
+ ],
+ "address": {
+  "id": 14,
+  "address": "Cairo Yacht Club, 120 El Nil st, Dokki",
+  "phones": [
+   {
+    "type": "Mobile",
+    "number": "01009144355"
+   },
+   {
+    "type": "Landline",
+    "number": "01154619120"
+   }
+  ],
+  "location": "https://goo.gl/maps/GLSJUa1J14EQt3Z48",
+  "longitude": 31.219552,
+  "latitude": 30.034325,
+  "country_id": 71,
+  "city_id": 14,
+  "area_id": 34,
+  "facility_id": 64
+ },
+ "main": {
+  "id": 62,
+  "name": "Cavallo Ranch",
+  "title": "Horse Riding Academy"
+ }
+}

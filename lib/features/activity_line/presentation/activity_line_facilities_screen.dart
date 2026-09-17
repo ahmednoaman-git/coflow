@@ -3,9 +3,7 @@ import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../domain/entities/entities.dart';
 import 'cubit/activity_line_facilities_cubit.dart';
-import 'cubit/activity_line_facilities_state.dart';
 import 'widgets/widgets.dart';
 
 /// Screen displaying facilities for a specific activity line.
@@ -46,16 +44,7 @@ class _ActivityLineFacilitiesView extends StatelessWidget {
       ),
       child: Scaffold(
         appBar: const ActivityLineFacilitiesAppBar(),
-        body:
-            AsyncHandler<
-              ActivityLineFacilitiesCubit,
-              ActivityLineFacilitiesState,
-              ActivityLineFacilitiesEntity
-            >(
-              requestManagerGetter: (cubit) => cubit.facilitiesManager,
-              successBuilder: (context, data) => const ActivityLineFacilitiesBody(),
-              onRetry: (cubit) => cubit.refresh(),
-            ),
+        body: const ActivityLineFacilitiesBody(),
       ),
     );
   }

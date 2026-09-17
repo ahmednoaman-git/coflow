@@ -11,10 +11,15 @@ import '../mappers/mappers.dart';
 
 @LazySingleton(as: FacilityRepository)
 class FacilityRepositoryImpl implements FacilityRepository {
-  const FacilityRepositoryImpl(this._remote, this._servicesStub);
+  const FacilityRepositoryImpl(
+    this._remote,
+    this._servicesStub,
+    this._calendarRemote,
+  );
 
   final FacilityRemoteDataSource _remote;
   final FacilityServicesStubDataSource _servicesStub;
+  final FacilityCalendarRemoteDataSource _calendarRemote;
 
   @override
   AsyncTask<FacilityPromotionDetailsEntity> getFacilityPromotionDetails(
@@ -50,6 +55,21 @@ class FacilityRepositoryImpl implements FacilityRepository {
   }
 
   @override
+  AsyncTask<List<FacilityFaqEntity>> getFacilityFaqs(GetFacilityFaqsDto dto) {
+    return _remote.getFacilityFaqs(dto).map(FacilityFaqMapper.toEntities);
+  }
+
+  @override
+  AsyncTask<void> toggleFacilitySave(ToggleFacilitySaveDto dto) {
+    return _remote.toggleFacilitySave(dto);
+  }
+
+  @override
+  AsyncTask<void> toggleFacilityTracking(ToggleFacilityTrackingDto dto) {
+    return _remote.toggleFacilityTracking(dto);
+  }
+
+  @override
   AsyncTask<List<FacilityTicketEntity>> getFacilityTickets(GetFacilityTicketsDto dto) {
     return _remote
         .getFacilityTickets(dto)
@@ -80,6 +100,32 @@ class FacilityRepositoryImpl implements FacilityRepository {
     return _remote
         .getFacilityServiceDetails(dto)
         .map((model) => FacilityServiceDetailsMapper.toEntity(model, dto.type));
+  }
+
+  @override
+  AsyncTask<FacilityScheduleEntity> getFacilitySessions(GetFacilitySessionsDto dto) {
+    return _calendarRemote
+        .getFacilitySessions(dto)
+        .map((model) => FacilityScheduleMapper.toEntity(model, dto));
+  }
+
+  @override
+  AsyncTask<FacilityScheduleEntity> getFacilityWeeklySchedule(GetFacilityWeeklyScheduleDto dto) {
+    return _remote
+        .getFacilitySchedule(dto)
+        .map((models) => FacilityWeeklyScheduleMapper.toEntity(models, dto));
+  }
+
+  @override
+  AsyncTask<FacilitySessionDetailsEntity> getFacilitySessionDetails(
+    GetFacilitySessionDetailsDto dto,
+  ) {
+    return _calendarRemote.getSessionDetails(dto).map(FacilitySessionDetailsMapper.toEntity);
+  }
+
+  @override
+  AsyncTask<FacilitySessionDetailsEntity> updateSessionReservation(SessionReservationDto dto) {
+    return _calendarRemote.updateReservation(dto).map(FacilitySessionDetailsMapper.toEntity);
   }
 }
 

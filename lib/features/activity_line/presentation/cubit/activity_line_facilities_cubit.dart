@@ -7,99 +7,103 @@ import '../../domain/entities/entities.dart';
 import '../../domain/use_cases/use_cases.dart';
 import 'activity_line_facilities_state.dart';
 
-/// Cubit for managing activity line facilities screen state.
 @injectable
 class ActivityLineFacilitiesCubit extends Cubit<ActivityLineFacilitiesState> {
   ActivityLineFacilitiesCubit(
-    this._getFacilitiesUseCase,
-    this._filterFacilitiesUseCase,
-    this._getLocationsUseCase,
+    this._getFacilities,
+    GetLocationsUseCase getLocations,
     @factoryParam ActivityLineEntity activityLine,
   ) : super(ActivityLineFacilitiesState(activityLine: activityLine)) {
-    _initManagers();
-  }
-
-  final GetFacilitiesUseCase _getFacilitiesUseCase;
-  final FilterFacilitiesUseCase _filterFacilitiesUseCase;
-  final GetLocationsUseCase _getLocationsUseCase;
-
-  /// Manager for facilities request.
-  late final AsyncRequestManager<ActivityLineFacilitiesState, ActivityLineFacilitiesEntity>
-  facilitiesManager;
-
-  /// Manager for locations request.
-  late final AsyncRequestManager<ActivityLineFacilitiesState, LocationsEntity> locationsManager;
-
-  void _initManagers() {
-    facilitiesManager = AsyncRequestManager(
+    facilitiesManager = PaginatedRequestManager(
       accessor: (
         getPartialState: (state) => state.facilitiesRequest,
         getWholeState: () => state,
-        setWholeState: (state, partial) => state.copyWith(facilitiesRequest: partial),
+        setWholeState: (state, partial) {
+          final data = partial.dataOrNull;
+          return state.copyWith(
+            facilitiesRequest: partial,
+            availableTags: data?.tags ?? state.availableTags,
+            allFacilitiesTotal: state.selectedTagId == null && data != null
+                ? data.total
+                : state.allFacilitiesTotal,
+          );
+        },
       ),
-      emit: emit,
+      nextPageAccessor: (
+        getPartialState: (state) => state.nextPageRequest,
+        getWholeState: () => state,
+        setWholeState: (state, partial) => state.copyWith(nextPageRequest: partial),
+      ),
+      emit: _emitIfOpen,
+      requestPage: _requestFor(state),
+      nextPageOf: (data) => data.nextPage,
+      merge: (current, next) => current.mergedWith(next),
       autoExecute: true,
-      // Default to "All" (no location filter) if supported, or provide logic to pick one.
-      // Since city_id is required for addressBased, we shouldn't use addressBased without a city.
-      // We will assume sending just activityLineId fits 'All'.
-      defaultRequest: _getFacilitiesUseCase(
-        GetFacilitiesDto(
-          activityLineId: state.activityLine.id,
-        ),
-      ),
     );
-
     locationsManager = AsyncRequestManager(
       accessor: (
         getPartialState: (state) => state.locationsRequest,
         getWholeState: () => state,
         setWholeState: (state, partial) => state.copyWith(locationsRequest: partial),
       ),
-      emit: emit,
+      emit: _emitIfOpen,
       autoExecute: true,
-      defaultRequest: _getLocationsUseCase(),
+      defaultRequest: getLocations(),
     );
   }
 
-  /// Gets filtered facilities based on selected tags.
-  List<CollapsedFacilityEntity> get filteredFacilities {
-    return _filterFacilitiesUseCase(
-      facilities: state.facilities,
-      tagIds: state.selectedTagIds,
-    );
-  }
+  final GetFacilitiesUseCase _getFacilities;
+  late final PaginatedRequestManager<ActivityLineFacilitiesState, ActivityLineFacilitiesEntity>
+  facilitiesManager;
+  late final AsyncRequestManager<ActivityLineFacilitiesState, LocationsEntity> locationsManager;
 
-  /// Handles tag selection toggle.
+  AsyncTask<ActivityLineFacilitiesEntity> Function(int) _requestFor(
+    ActivityLineFacilitiesState snapshot,
+  ) => (page) {
+    final location = snapshot.selectedLocation;
+    return _getFacilities(
+      GetFacilitiesDto(
+        activityLineId: snapshot.activityLine.id,
+        tagId: snapshot.selectedTagId,
+        page: page,
+        locationType: location.isRemote
+            ? LocationType.remoteLocation.value
+            : location.cityId != null
+            ? LocationType.addressBased.value
+            : null,
+        cityId: location.isRemote ? null : location.cityId,
+        areaId: location.isRemote ? null : location.areaId,
+      ),
+    );
+  };
+
   void handleTagSelection(int tagId) {
-    final selectedTagIds = state.selectedTagIds.contains(tagId)
-        ? state.selectedTagIds.where((id) => id != tagId).toList()
-        : [...state.selectedTagIds, tagId];
-
-    emit(state.copyWith(selectedTagIds: selectedTagIds));
+    emit(state.copyWith(selectedTagId: state.selectedTagId == tagId ? null : tagId));
+    facilitiesManager.execute(requestPage: _requestFor(state));
   }
 
-  /// Clears all selected tags.
   void clearSelectedTags() {
-    emit(state.copyWith(selectedTagIds: []));
+    if (state.selectedTagId == null) return;
+    emit(state.copyWith(selectedTagId: null));
+    facilitiesManager.execute(requestPage: _requestFor(state));
   }
 
-  /// Selects a location and refreshes facilities.
   void selectLocation(SelectedLocation location) {
-    emit(state.copyWith(selectedLocation: location));
-
-    final dto = location.isRemote
-        ? GetFacilitiesDto.remote(activityLineId: state.activityLine.id)
-        : location.cityId != null
-        ? GetFacilitiesDto.addressBased(
-            activityLineId: state.activityLine.id,
-            cityId: location.cityId,
-            areaId: location.areaId,
-          )
-        : GetFacilitiesDto(activityLineId: state.activityLine.id); // All / No filter default
-
-    facilitiesManager.execute(_getFacilitiesUseCase(dto));
+    if (location == state.selectedLocation) return;
+    emit(state.copyWith(selectedLocation: location, allFacilitiesTotal: null));
+    facilitiesManager.execute(requestPage: _requestFor(state));
   }
 
-  /// Refreshes facilities with current filters.
   Future<void> refresh() => facilitiesManager.refresh();
+  Future<void> loadMore() => facilitiesManager.loadMore();
+
+  void _emitIfOpen(ActivityLineFacilitiesState next) {
+    if (!isClosed) emit(next);
+  }
+
+  @override
+  Future<void> close() {
+    facilitiesManager.dispose();
+    return super.close();
+  }
 }

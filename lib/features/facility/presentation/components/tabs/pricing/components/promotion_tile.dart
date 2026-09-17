@@ -25,10 +25,9 @@ class PromotionTile extends StatelessWidget {
     return TappableScale(
       onTap: isInteractive
           ? () {
-              showModalBottomSheet<void>(
+              showMainBottomSheet<void>(
                 context: context,
-                isScrollControlled: true,
-                builder: (sheetContext) => BlocProvider<PromotionDetailsCubit>(
+                builder: (_) => BlocProvider<PromotionDetailsCubit>(
                   create: (_) => getIt<PromotionDetailsCubit>(param1: promotion.id),
                   child: FacilityDataProvider.fromFacilityDataProvider(
                     facilityDataProvider: facilityData,

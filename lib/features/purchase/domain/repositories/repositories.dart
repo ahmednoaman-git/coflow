@@ -2,3 +2,4 @@
 library;
 
 export 'coupon_repository.dart';
+export 'purchase_repository.dart';

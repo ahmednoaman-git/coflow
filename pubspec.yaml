@@ -41,6 +41,9 @@ dependencies:
   sliver_tools: ^0.2.12
   solar_icons: ^0.0.5
   animated_read_more_text: ^0.0.6
+  flutter_map: ^8.2.2
+  latlong2: ^0.9.1
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:

@@ -29,7 +29,7 @@ class FacilityModel {
     this.reviewsCount,
     this.promotionsCount,
     this.slotsCount,
-    required this.activityLine,
+    this.activityLine,
     this.city,
     this.area,
   });
@@ -54,7 +54,11 @@ class FacilityModel {
   final int? reviewsCount;
   final int? promotionsCount;
   final int? slotsCount;
-  final ActivityLineModel activityLine;
+
+  /// Absent when a facility comes back nested inside another payload (search
+  /// results embed the facility without expanding its activity line), so
+  /// [activityLineId] is the reliable source.
+  final ActivityLineModel? activityLine;
   final CityModel? city;
   final AreaModel? area;
 

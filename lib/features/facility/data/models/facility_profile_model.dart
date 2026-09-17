@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'facility_contact_model.dart';
+import 'facility_location_model.dart';
 import 'facility_tag_model.dart';
 
 part 'facility_profile_model.g.dart';
@@ -89,69 +91,6 @@ class AmenityModel {
   factory AmenityModel.fromJson(Map<String, dynamic> json) => _$AmenityModelFromJson(json);
 }
 
-/// City model from API.
-@JsonSerializable(fieldRename: FieldRename.snake, checked: true)
-class CityModel {
-  const CityModel({
-    required this.id,
-    required this.name,
-  });
-
-  final int id;
-  final String name;
-
-  factory CityModel.fromJson(Map<String, dynamic> json) => _$CityModelFromJson(json);
-}
-
-/// Area model from API.
-@JsonSerializable(fieldRename: FieldRename.snake, checked: true)
-class AreaModel {
-  const AreaModel({
-    required this.id,
-    required this.name,
-  });
-
-  final int id;
-  final String name;
-
-  factory AreaModel.fromJson(Map<String, dynamic> json) => _$AreaModelFromJson(json);
-}
-
-/// Address model from API.
-@JsonSerializable(fieldRename: FieldRename.snake, checked: true)
-class AddressModel {
-  const AddressModel({
-    required this.id,
-    required this.address,
-    this.longitude,
-    this.latitude,
-  });
-
-  final int id;
-  final String address;
-  final double? longitude;
-  final double? latitude;
-
-  factory AddressModel.fromJson(Map<String, dynamic> json) => _$AddressModelFromJson(json);
-}
-
-/// Reservation contact model from API.
-@JsonSerializable(fieldRename: FieldRename.snake, checked: true)
-class ReservationContactModel {
-  const ReservationContactModel({
-    required this.selectSocial,
-    this.link,
-  });
-
-  final String? selectSocial;
-
-  /// Backend may return null, string, or other shapes; keep it flexible.
-  final dynamic link;
-
-  factory ReservationContactModel.fromJson(Map<String, dynamic> json) =>
-      _$ReservationContactModelFromJson(json);
-}
-
 /// Main branch model from API.
 @JsonSerializable(fieldRename: FieldRename.snake, checked: true)
 class MainBranchModel {
@@ -169,7 +108,9 @@ class MainBranchModel {
 /// Facility profile model from API.
 ///
 /// Note: The Dio client in v2 already extracts the top-level `data` field.
-@JsonSerializable(fieldRename: FieldRename.snake, checked: true)
+/// `createToJson` is off: the profile is only ever read, and
+/// [ReservationContactModel] is hand-parsed and has no serializer to emit.
+@JsonSerializable(fieldRename: FieldRename.snake, checked: true, createToJson: false)
 class FacilityProfileModel {
   const FacilityProfileModel({
     required this.id,
@@ -187,10 +128,16 @@ class FacilityProfileModel {
     this.languages = const <LanguageModel>[],
     this.amenities = const <AmenityModel>[],
     this.reservationContact = const <ReservationContactModel>[],
+    this.locations = const <FacilityCoverageModel>[],
+    this.locationType,
     this.city,
     this.area,
+    this.country,
     this.address,
     this.main,
+    this.hasSave = false,
+    this.hasTrack = false,
+    this.updatedAt,
   });
 
   final int id;
@@ -223,16 +170,37 @@ class FacilityProfileModel {
   @JsonKey(defaultValue: <AmenityModel>[])
   final List<AmenityModel> amenities;
 
-  @JsonKey(defaultValue: <ReservationContactModel>[])
+  /// Hand-parsed: the backend ships this field in six mutually incompatible
+  /// shapes. See [ReservationContactModel].
+  @JsonKey(fromJson: ReservationContactModel.listFromJson)
   final List<ReservationContactModel> reservationContact;
+
+  /// Coverage rows for a remote facility. Always empty for an address-based
+  /// one.
+  @JsonKey(defaultValue: <FacilityCoverageModel>[])
+  final List<FacilityCoverageModel> locations;
+
+  /// `address based` or `remote location`.
+  final String? locationType;
 
   final CityModel? city;
   final AreaModel? area;
+  final CountryModel? country;
   final AddressModel? address;
   final MainBranchModel? main;
 
+  /// Whether the signed-in user saved this facility. Absent for anonymous
+  /// requests, so it defaults to false.
+  @JsonKey(name: 'has_save', defaultValue: false)
+  final bool hasSave;
+
+  /// Whether the signed-in user tracks this facility's updates.
+  @JsonKey(name: 'has_track', defaultValue: false)
+  final bool hasTrack;
+
+  /// Date the facility last edited its profile, as `yyyy-MM-dd`.
+  final String? updatedAt;
+
   factory FacilityProfileModel.fromJson(Map<String, dynamic> json) =>
       _$FacilityProfileModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$FacilityProfileModelToJson(this);
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/activity_line_facilities_cubit.dart';
+import '../cubit/activity_line_facilities_state.dart';
 import 'facility_card.dart';
 
 /// Grid/list of facilities for the activity line.
@@ -11,22 +12,19 @@ class ActivityLineFacilitiesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<ActivityLineFacilitiesCubit>();
-
     return SliverPadding(
       padding: EdgeInsets.all(context.spacing.s16),
-      sliver: BlocBuilder<ActivityLineFacilitiesCubit, dynamic>(
-        // Rebuild when facilities or selected tags change
-        buildWhen: (previous, current) => true, // Simplified for demo
+      sliver: BlocBuilder<ActivityLineFacilitiesCubit, ActivityLineFacilitiesState>(
+        buildWhen: (previous, current) => previous.facilities != current.facilities,
         builder: (context, state) {
-          final facilities = cubit.filteredFacilities;
+          final facilities = state.facilities;
 
           if (facilities.isEmpty) {
             return SliverFillRemaining(
               hasScrollBody: false,
               child: Center(
                 child: Text(
-                  'No facilities found',
+                  context.l10n.search_noResults,
                   style: context.typography.book14.tertiary(context),
                 ),
               ),

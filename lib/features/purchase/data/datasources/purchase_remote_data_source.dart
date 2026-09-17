@@ -7,6 +7,11 @@ import '../models/models.dart';
 /// Purchase API endpoints.
 abstract final class PurchaseEndpoints {
   static const String coupons = 'coupons';
+  static String purchase(PurchaseSubjectType type) => switch (type) {
+    PurchaseSubjectType.ticket => 'purchase-ticket',
+    PurchaseSubjectType.promotion => 'purchase-promotion',
+  };
+  static String quote(PurchaseSubjectType type) => '${purchase(type)}/validate';
 }
 
 /// Remote data source for purchase API calls.
@@ -15,6 +20,26 @@ class PurchaseRemoteDataSource {
   const PurchaseRemoteDataSource(this._dio);
 
   final DioClient _dio;
+
+  AsyncTask<PurchaseQuoteModel> getQuote(SubmitPurchaseDto dto) {
+    return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
+      final response = await _dio.post(
+        PurchaseEndpoints.quote(dto.subjectType),
+        data: dto.toJson(),
+      );
+      return PurchaseQuoteModel.fromJson(response.data as Map<String, dynamic>);
+    });
+  }
+
+  AsyncTask<PurchaseReceiptModel> submit(SubmitPurchaseDto dto) {
+    return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
+      final response = await _dio.post(
+        PurchaseEndpoints.purchase(dto.subjectType),
+        data: dto.toJson(),
+      );
+      return PurchaseReceiptModel.fromJson(response.data as Map<String, dynamic>);
+    });
+  }
 
   AsyncTask<List<CouponModel>> getCoupons(GetPurchaseCouponsDto dto) {
     return AsyncTaskExtension.tryCatchMapDioToFailure(() async {

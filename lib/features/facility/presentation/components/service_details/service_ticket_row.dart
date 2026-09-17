@@ -73,10 +73,9 @@ class ServiceTicketRow extends StatelessWidget {
   }
 
   void _openTicketDetails(BuildContext context, FacilityDataProvider facilityData) {
-    showModalBottomSheet(
+    showMainBottomSheet<void>(
       context: context,
-      isScrollControlled: true,
-      builder: (sheetContext) => BlocProvider<TicketDetailsCubit>(
+      builder: (_) => BlocProvider<TicketDetailsCubit>(
         create: (_) => getIt<TicketDetailsCubit>(param1: ticket.id),
         child: FacilityDataProvider.fromFacilityDataProvider(
           facilityDataProvider: facilityData,

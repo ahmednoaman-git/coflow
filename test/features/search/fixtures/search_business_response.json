@@ -1,0 +1,393 @@
+{
+  "current_page": 1,
+  "data": [
+    {
+      "id": 60,
+      "name": "Animal Flow",
+      "title": "Movement System",
+      "email": "energyfit@coflow.co",
+      "year": "2010",
+      "logo": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1671471074-blob",
+      "cover": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1671476672-blob",
+      "views": 88,
+      "unique_views": 13,
+      "saves": 6,
+      "tracks": 6,
+      "facility_type": "FLOW",
+      "bio": "Animal Flow is ground based movement, made fun, challenging and effective. This system is designed to improve strength, power, flexibility, mobility, and coordination for all levels of fitness enthusiasts. Whether you want to workout on your own, train with a professional, or take part in group classes, Animal Flow has something for every body!\n\n1st Component: WRIST MOBILIZATIONS. \nSimple, yet effective movements used to prepare the hands and wrists for the challenges of Animal Flow. Healthy wrists are so important to the success of both novice and experienced flow-ists.\n2nd Component: ACTIVATIONS. \nA way of \"waking up\" the body and encouraging it to communicate with itself. We also see the activations as a way to bring conscious awareness to your body and its interaction with the ground. The AF practice uses two activation positions, Beast and Crab, which are foundational forms in the overall program.\n3rd Component: FORM SPECIFIC STRETCHES.\nThe goal of the FSSs is to encourage a combination of flexibility and stability (i.e. mobility) throughout the entire body, building \"strength through motion.\" Each FSS begins in one of our animal base positions and moves through various end ranges of motion. These movements may be used as conditioning tools or integrated into Flows.\n4th Component: TRAVELING FORMS.\nTraveling forms are our animal locomotive movements. They represent the way we mimic animals to improve the function of the \"human animal.\" The basic traveling forms are known as the ABCs of animal movements: Ape, Beast, and Crab, along with their variations.\n5th Component: SWITCHES & TRANSITIONS.\nThe S&Ts make up the bulk of the \"flow\" in the AF practice. These are dynamic movements that can be linked together to form endless combinations or can stand alone as a powerful exercise or drill. The four base S&T categories are Underswitch, Side Kickthrough, Scorpion and Front Kickthrough.\n6th Component: FLOWS.\nFlows are predesigned sequences where movements are linked together to create a continuous series of motion. Learning a Flow for the first time can be a workout in itself, as we recommend practicing each movement before putting them together into the Flow. Once you’ve learned a Flow, you can decide how you would like to use it as your complete workout or integrate it into your regular workout style. How you make the most of your Flow practice is truly up to you.",
+      "location_type": "address based",
+      "operation_type": "24 hours",
+      "profile_step": "completed",
+      "status": "visible",
+      "status_msg": "UPDATING PROFILE",
+      "accept_reject_date": "2022-12-19",
+      "activation_date": "2022-12-19",
+      "can_login": true,
+      "online": true,
+      "branches_access": false,
+      "reservation_contact": [
+        {
+          "selectSocial": "Contact Number",
+          "link": [
+            {
+              "type": "Mobile",
+              "number": "0123456789"
+            }
+          ]
+        }
+      ],
+      "amenities": [
+        {
+          "id": 21,
+          "name": "Sauna",
+          "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751384-blob"
+        },
+        {
+          "id": 22,
+          "name": "Steam",
+          "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751399-blob"
+        },
+        {
+          "id": 23,
+          "name": "WC",
+          "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751425-blob"
+        },
+        {
+          "id": 24,
+          "name": "Lockers",
+          "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751489-blob"
+        },
+        {
+          "id": 26,
+          "name": "Cafe",
+          "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751607-blob"
+        },
+        {
+          "id": 27,
+          "name": "Food",
+          "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751622-blob"
+        },
+        {
+          "id": 29,
+          "name": "Jacuzzi",
+          "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751668-blob"
+        },
+        {
+          "id": 31,
+          "name": "Showers",
+          "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1671470565-blob"
+        }
+      ],
+      "languages": [
+        {
+          "id": 4,
+          "name": "Arabic"
+        },
+        {
+          "id": 5,
+          "name": "English"
+        },
+        {
+          "id": 6,
+          "name": "Russian"
+        },
+        {
+          "id": 7,
+          "name": "German"
+        },
+        {
+          "id": 8,
+          "name": "Italian"
+        },
+        {
+          "id": 9,
+          "name": "French"
+        },
+        {
+          "id": 10,
+          "name": "Spanish"
+        },
+        {
+          "id": 11,
+          "name": "Chinese"
+        },
+        {
+          "id": 12,
+          "name": "Japanese"
+        },
+        {
+          "id": 13,
+          "name": "Indian"
+        },
+        {
+          "id": 14,
+          "name": "Polish"
+        }
+      ],
+      "tags": [
+        {
+          "id": 26,
+          "name": "Heal",
+          "activity_line_id": null
+        },
+        {
+          "id": 45,
+          "name": "Workout",
+          "activity_line_id": null
+        },
+        {
+          "id": 53,
+          "name": "Customized",
+          "activity_line_id": null
+        },
+        {
+          "id": 71,
+          "name": "BOOTCAMP",
+          "activity_line_id": null
+        },
+        {
+          "id": 86,
+          "name": "Skills",
+          "activity_line_id": null
+        },
+        {
+          "id": 91,
+          "name": "Functional Training",
+          "activity_line_id": null
+        },
+        {
+          "id": 102,
+          "name": "Tag 1",
+          "activity_line_id": null
+        }
+      ],
+      "rate": "0/0",
+      "notes": null,
+      "subscription": "trial",
+      "trial_expire_date": "0202-02-07",
+      "payment_online": false,
+      "payment_type": "direct purchase",
+      "activity_line_id": 4,
+      "payment_method_id": 1,
+      "country_id": 72,
+      "city_id": 12,
+      "area_id": 23,
+      "parent_id": null,
+      "remember_token": null,
+      "created_at": "2024-12-10",
+      "updated_at": "2025-01-14",
+      "activities_count": 0,
+      "flows_count": 3,
+      "courses_count": 0,
+      "reviews_count": 0,
+      "promotions_count": 0,
+      "slots_count": 0,
+      "activity_line": {
+        "id": 4,
+        "name": "Energy",
+        "image": null,
+        "color": null,
+        "facilities": 22
+      },
+      "city": {
+        "id": 12,
+        "name": "Governorate",
+        "country_id": 72
+      },
+      "area": {
+        "id": 23,
+        "name": "Area",
+        "country_id": 72,
+        "city_id": 12
+      }
+    },
+    {
+      "id": 191,
+      "name": "Flow Profile",
+      "title": "Mobile Testing",
+      "email": "flow@coflow.co",
+      "year": "2025",
+      "logo": "https://coflow-test.s3.amazonaws.com/public/17852528576a68cbf9651b5logo.jpg",
+      "cover": "https://coflow-test.s3.amazonaws.com/public/17852529336a68cc45e0b33blob",
+      "views": 8,
+      "unique_views": 1,
+      "saves": 0,
+      "tracks": 0,
+      "facility_type": "FLOW",
+      "bio": "Mobile Testing Profile",
+      "location_type": "remote location",
+      "operation_type": "specify days",
+      "profile_step": "completed",
+      "status": "visible",
+      "status_msg": null,
+      "accept_reject_date": null,
+      "activation_date": null,
+      "can_login": true,
+      "online": false,
+      "branches_access": false,
+      "reservation_contact": [
+        "Contact Number"
+      ],
+      "amenities": [
+        {
+          "id": 22,
+          "name": "Steam",
+          "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751399-blob"
+        },
+        {
+          "id": 23,
+          "name": "WC",
+          "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751425-blob"
+        },
+        {
+          "id": 24,
+          "name": "Lockers",
+          "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751489-blob"
+        },
+        {
+          "id": 25,
+          "name": "Beverages",
+          "icon": "https://coflow-test.s3.amazonaws.com/public/assets/uploads/1669751589-blob"
+        }
+      ],
+      "languages": [
+        {
+          "id": 4,
+          "name": "Arabic"
+        },
+        {
+          "id": 5,
+          "name": "English"
+        },
+        {
+          "id": 6,
+          "name": "Russian"
+        },
+        {
+          "id": 7,
+          "name": "German"
+        },
+        {
+          "id": 8,
+          "name": "Italian"
+        },
+        {
+          "id": 9,
+          "name": "French"
+        },
+        {
+          "id": 10,
+          "name": "Spanish"
+        },
+        {
+          "id": 11,
+          "name": "Chinese"
+        },
+        {
+          "id": 12,
+          "name": "Japanese"
+        },
+        {
+          "id": 13,
+          "name": "Indian"
+        },
+        {
+          "id": 14,
+          "name": "Polish"
+        },
+        {
+          "id": 15,
+          "name": "Swiss"
+        },
+        {
+          "id": 16,
+          "name": "Korean"
+        }
+      ],
+      "tags": [
+        {
+          "id": 119,
+          "name": "Calisthenics",
+          "activity_line_id": 4
+        },
+        {
+          "id": 120,
+          "name": "Yoga",
+          "activity_line_id": 4
+        },
+        {
+          "id": 121,
+          "name": "Animal Flow",
+          "activity_line_id": 4
+        },
+        {
+          "id": 122,
+          "name": "Aerial Arts",
+          "activity_line_id": 4
+        },
+        {
+          "id": 131,
+          "name": "Pole Dancing",
+          "activity_line_id": 4
+        }
+      ],
+      "rate": "0/0",
+      "notes": null,
+      "subscription": "trial",
+      "trial_expire_date": null,
+      "payment_online": false,
+      "payment_type": "contact",
+      "activity_line_id": 4,
+      "payment_method_id": 1,
+      "country_id": null,
+      "city_id": null,
+      "area_id": null,
+      "parent_id": null,
+      "remember_token": null,
+      "created_at": "2026-07-28",
+      "updated_at": "2026-08-15",
+      "activities_count": 0,
+      "flows_count": 7,
+      "courses_count": 0,
+      "reviews_count": 0,
+      "promotions_count": 7,
+      "slots_count": 0,
+      "activity_line": {
+        "id": 4,
+        "name": "Energy",
+        "image": null,
+        "color": null,
+        "facilities": 22
+      },
+      "city": null,
+      "area": null
+    }
+  ],
+  "first_page_url": "https://api-test.coflow.co/apiApp/search?page=1",
+  "from": 1,
+  "last_page": 1,
+  "last_page_url": "https://api-test.coflow.co/apiApp/search?page=1",
+  "links": [
+    {
+      "url": null,
+      "label": "&laquo; Previous",
+      "active": false
+    },
+    {
+      "url": "https://api-test.coflow.co/apiApp/search?page=1",
+      "label": "1",
+      "active": true
+    },
+    {
+      "url": null,
+      "label": "Next &raquo;",
+      "active": false
+    }
+  ],
+  "next_page_url": null,
+  "path": "https://api-test.coflow.co/apiApp/search",
+  "per_page": 10,
+  "prev_page_url": null,
+  "to": 2,
+  "total": 2
+}

@@ -55,7 +55,7 @@ FacilityModel _$FacilityModelFromJson(
       slotsCount: $checkedConvert('slots_count', (v) => (v as num?)?.toInt()),
       activityLine: $checkedConvert(
         'activity_line',
-        (v) => ActivityLineModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : ActivityLineModel.fromJson(v as Map<String, dynamic>),
       ),
       city: $checkedConvert(
         'city',

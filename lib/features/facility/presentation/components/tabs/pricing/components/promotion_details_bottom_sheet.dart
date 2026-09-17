@@ -3,6 +3,7 @@ import 'package:coflow_users_v2/core/core.dart';
 import 'package:coflow_users_v2/features/activity_line/domain/entities/collapsed_facility_entity.dart';
 import 'package:coflow_users_v2/features/facility/domain/entities/entities.dart';
 import 'package:coflow_users_v2/features/facility/presentation/cubit/cubit.dart';
+import 'package:coflow_users_v2/features/purchase/domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:solar_icons/solar_icons.dart';
 
@@ -221,30 +222,41 @@ class _PromotionValidityAndActionSection extends StatelessWidget {
           height: 56,
           backgroundColor: accentColor,
           text: _resolveActionText(context, facilityData),
-          onPressed: () {
-            final router = context.router;
+          // A contact-only facility never opens the checkout flow.
+          // TODO(product): route to the facility's reservation contact — the
+          // same gap as `SessionCtaButton`'s contact CTA.
+          onPressed: !PurchaseCtaResolver.allowsInAppPurchase(facilityData.facility)
+              ? () {}
+              : () {
+                  final router = context.router;
 
-            Navigator.pop(context);
+                  Navigator.pop(context);
 
-            router.push(
-              PromotionPurchaseRoute(
-                promotion: promotionDetails,
-                facility: facilityData.facility,
-                accentColor: accentColor,
-              ),
-            );
-          },
+                  router.push(
+                    PromotionPurchaseRoute(
+                      promotion: promotionDetails,
+                      facility: facilityData.facility,
+                      accentColor: accentColor,
+                    ),
+                  );
+                },
         ),
       ],
     );
   }
 
   String _resolveActionText(BuildContext context, FacilityDataProvider facilityData) {
-    return switch (facilityData.facility.paymentType) {
+    final facility = facilityData.facility;
+
+    // Basic and inactive accounts have no online payment, so they are
+    // contact-only whatever `payment_type` says.
+    if (!PurchaseCtaResolver.allowsInAppPurchase(facility)) {
+      return context.l10n.facilityDetails_contactFacility(facility.name);
+    }
+
+    return switch (facility.paymentType) {
       PaymentType.directPurchase ||
-      PaymentType.none => context.l10n.facilityDetails_contactFacility(
-        facilityData.facility.name,
-      ),
+      PaymentType.none => context.l10n.facilityDetails_contactFacility(facility.name),
       PaymentType.fullOnline ||
       PaymentType.depositOnline => context.l10n.facilityDetails_purchaseNow,
     };

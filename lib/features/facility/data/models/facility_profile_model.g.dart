@@ -18,13 +18,14 @@ TeamMemberModel _$TeamMemberModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$TeamMemberModelToJson(TeamMemberModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'title': instance.title,
-  'image': instance.image,
-  'bio': instance.bio,
-};
+Map<String, dynamic> _$TeamMemberModelToJson(TeamMemberModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'title': instance.title,
+      'image': instance.image,
+      'bio': instance.bio,
+    };
 
 OperatingHoursModel _$OperatingHoursModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('OperatingHoursModel', json, ($checkedConvert) {
@@ -59,11 +60,12 @@ BranchModel _$BranchModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$BranchModelToJson(BranchModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'title': instance.title,
-  'cover': instance.cover,
-};
+Map<String, dynamic> _$BranchModelToJson(BranchModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'cover': instance.cover,
+    };
 
 LanguageModel _$LanguageModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('LanguageModel', json, ($checkedConvert) {
@@ -74,10 +76,8 @@ LanguageModel _$LanguageModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$LanguageModelToJson(LanguageModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-};
+Map<String, dynamic> _$LanguageModelToJson(LanguageModel instance) =>
+    <String, dynamic>{'id': instance.id, 'name': instance.name};
 
 AmenityModel _$AmenityModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('AmenityModel', json, ($checkedConvert) {
@@ -89,79 +89,12 @@ AmenityModel _$AmenityModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$AmenityModelToJson(AmenityModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'icon': instance.icon,
-};
-
-CityModel _$CityModelFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('CityModel', json, ($checkedConvert) {
-      final val = CityModel(
-        id: $checkedConvert('id', (v) => (v as num).toInt()),
-        name: $checkedConvert('name', (v) => v as String),
-      );
-      return val;
-    });
-
-Map<String, dynamic> _$CityModelToJson(CityModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-};
-
-AreaModel _$AreaModelFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('AreaModel', json, ($checkedConvert) {
-      final val = AreaModel(
-        id: $checkedConvert('id', (v) => (v as num).toInt()),
-        name: $checkedConvert('name', (v) => v as String),
-      );
-      return val;
-    });
-
-Map<String, dynamic> _$AreaModelToJson(AreaModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-};
-
-AddressModel _$AddressModelFromJson(Map<String, dynamic> json) =>
-    $checkedCreate('AddressModel', json, ($checkedConvert) {
-      final val = AddressModel(
-        id: $checkedConvert('id', (v) => (v as num).toInt()),
-        address: $checkedConvert('address', (v) => v as String),
-        longitude: $checkedConvert('longitude', (v) => (v as num?)?.toDouble()),
-        latitude: $checkedConvert('latitude', (v) => (v as num?)?.toDouble()),
-      );
-      return val;
-    });
-
-Map<String, dynamic> _$AddressModelToJson(AddressModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'address': instance.address,
-  'longitude': instance.longitude,
-  'latitude': instance.latitude,
-};
-
-ReservationContactModel _$ReservationContactModelFromJson(
-  Map<String, dynamic> json,
-) => $checkedCreate(
-  'ReservationContactModel',
-  json,
-  ($checkedConvert) {
-    final val = ReservationContactModel(
-      selectSocial: $checkedConvert('select_social', (v) => v as String?),
-      link: $checkedConvert('link', (v) => v),
-    );
-    return val;
-  },
-  fieldKeyMap: const {'selectSocial': 'select_social'},
-);
-
-Map<String, dynamic> _$ReservationContactModelToJson(
-  ReservationContactModel instance,
-) => <String, dynamic>{
-  'select_social': instance.selectSocial,
-  'link': instance.link,
-};
+Map<String, dynamic> _$AmenityModelToJson(AmenityModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'icon': instance.icon,
+    };
 
 MainBranchModel _$MainBranchModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('MainBranchModel', json, ($checkedConvert) {
@@ -172,10 +105,8 @@ MainBranchModel _$MainBranchModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$MainBranchModelToJson(MainBranchModel instance) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-};
+Map<String, dynamic> _$MainBranchModelToJson(MainBranchModel instance) =>
+    <String, dynamic>{'id': instance.id, 'name': instance.name};
 
 FacilityProfileModel _$FacilityProfileModelFromJson(
   Map<String, dynamic> json,
@@ -217,7 +148,8 @@ FacilityProfileModel _$FacilityProfileModelFromJson(
         (v) =>
             (v as List<dynamic>?)
                 ?.map(
-                  (e) => OperatingHoursModel.fromJson(e as Map<String, dynamic>),
+                  (e) =>
+                      OperatingHoursModel.fromJson(e as Map<String, dynamic>),
                 )
                 .toList() ??
             [],
@@ -248,16 +180,22 @@ FacilityProfileModel _$FacilityProfileModelFromJson(
       ),
       reservationContact: $checkedConvert(
         'reservation_contact',
+        (v) => v == null
+            ? const <ReservationContactModel>[]
+            : ReservationContactModel.listFromJson(v),
+      ),
+      locations: $checkedConvert(
+        'locations',
         (v) =>
             (v as List<dynamic>?)
                 ?.map(
-                  (e) => ReservationContactModel.fromJson(
-                    e as Map<String, dynamic>,
-                  ),
+                  (e) =>
+                      FacilityCoverageModel.fromJson(e as Map<String, dynamic>),
                 )
                 .toList() ??
             [],
       ),
+      locationType: $checkedConvert('location_type', (v) => v as String?),
       city: $checkedConvert(
         'city',
         (v) => v == null ? null : CityModel.fromJson(v as Map<String, dynamic>),
@@ -266,43 +204,34 @@ FacilityProfileModel _$FacilityProfileModelFromJson(
         'area',
         (v) => v == null ? null : AreaModel.fromJson(v as Map<String, dynamic>),
       ),
+      country: $checkedConvert(
+        'country',
+        (v) =>
+            v == null ? null : CountryModel.fromJson(v as Map<String, dynamic>),
+      ),
       address: $checkedConvert(
         'address',
-        (v) => v == null ? null : AddressModel.fromJson(v as Map<String, dynamic>),
+        (v) =>
+            v == null ? null : AddressModel.fromJson(v as Map<String, dynamic>),
       ),
       main: $checkedConvert(
         'main',
-        (v) => v == null ? null : MainBranchModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null
+            ? null
+            : MainBranchModel.fromJson(v as Map<String, dynamic>),
       ),
+      hasSave: $checkedConvert('has_save', (v) => v as bool? ?? false),
+      hasTrack: $checkedConvert('has_track', (v) => v as bool? ?? false),
+      updatedAt: $checkedConvert('updated_at', (v) => v as String?),
     );
     return val;
   },
   fieldKeyMap: const {
     'likesCount': 'likes_count',
     'reservationContact': 'reservation_contact',
+    'locationType': 'location_type',
+    'hasSave': 'has_save',
+    'hasTrack': 'has_track',
+    'updatedAt': 'updated_at',
   },
 );
-
-Map<String, dynamic> _$FacilityProfileModelToJson(
-  FacilityProfileModel instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'title': instance.title,
-  'year': instance.year,
-  'bio': instance.bio,
-  'likes_count': instance.likesCount,
-  'logo': instance.logo,
-  'cover': instance.cover,
-  'tags': instance.tags,
-  'teams': instance.teams,
-  'operations': instance.operations,
-  'barcnhes': instance.barcnhes,
-  'languages': instance.languages,
-  'amenities': instance.amenities,
-  'reservation_contact': instance.reservationContact,
-  'city': instance.city,
-  'area': instance.area,
-  'address': instance.address,
-  'main': instance.main,
-};

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TicketPurchaseState {
 
- FacilityTicketDetailsEntity get ticket; CollapsedFacilityEntity get facility; Color get accentColor; Set<int> get selectedAddOnIds; int get quantity; PurchaseCouponEntity? get selectedCoupon; AsyncState<List<PurchaseCouponEntity>> get couponsRequest;
+ FacilityTicketDetailsEntity get ticket; CollapsedFacilityEntity get facility; Color get accentColor; Set<int> get selectedAddOnIds; int get quantity; PurchaseCouponEntity? get selectedCoupon; AsyncState<List<PurchaseCouponEntity>> get couponsRequest; AsyncState<PurchaseQuoteEntity> get quoteRequest; AsyncState<PurchaseReceiptEntity> get submitRequest;
 /// Create a copy of TicketPurchaseState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $TicketPurchaseStateCopyWith<TicketPurchaseState> get copyWith => _$TicketPurcha
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketPurchaseState&&(identical(other.ticket, ticket) || other.ticket == ticket)&&(identical(other.facility, facility) || other.facility == facility)&&(identical(other.accentColor, accentColor) || other.accentColor == accentColor)&&const DeepCollectionEquality().equals(other.selectedAddOnIds, selectedAddOnIds)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.selectedCoupon, selectedCoupon) || other.selectedCoupon == selectedCoupon)&&(identical(other.couponsRequest, couponsRequest) || other.couponsRequest == couponsRequest));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TicketPurchaseState&&(identical(other.ticket, ticket) || other.ticket == ticket)&&(identical(other.facility, facility) || other.facility == facility)&&(identical(other.accentColor, accentColor) || other.accentColor == accentColor)&&const DeepCollectionEquality().equals(other.selectedAddOnIds, selectedAddOnIds)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.selectedCoupon, selectedCoupon) || other.selectedCoupon == selectedCoupon)&&(identical(other.couponsRequest, couponsRequest) || other.couponsRequest == couponsRequest)&&(identical(other.quoteRequest, quoteRequest) || other.quoteRequest == quoteRequest)&&(identical(other.submitRequest, submitRequest) || other.submitRequest == submitRequest));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,ticket,facility,accentColor,const DeepCollectionEquality().hash(selectedAddOnIds),quantity,selectedCoupon,couponsRequest);
+int get hashCode => Object.hash(runtimeType,ticket,facility,accentColor,const DeepCollectionEquality().hash(selectedAddOnIds),quantity,selectedCoupon,couponsRequest,quoteRequest,submitRequest);
 
 @override
 String toString() {
-  return 'TicketPurchaseState(ticket: $ticket, facility: $facility, accentColor: $accentColor, selectedAddOnIds: $selectedAddOnIds, quantity: $quantity, selectedCoupon: $selectedCoupon, couponsRequest: $couponsRequest)';
+  return 'TicketPurchaseState(ticket: $ticket, facility: $facility, accentColor: $accentColor, selectedAddOnIds: $selectedAddOnIds, quantity: $quantity, selectedCoupon: $selectedCoupon, couponsRequest: $couponsRequest, quoteRequest: $quoteRequest, submitRequest: $submitRequest)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $TicketPurchaseStateCopyWith<$Res>  {
   factory $TicketPurchaseStateCopyWith(TicketPurchaseState value, $Res Function(TicketPurchaseState) _then) = _$TicketPurchaseStateCopyWithImpl;
 @useResult
 $Res call({
- FacilityTicketDetailsEntity ticket, CollapsedFacilityEntity facility, Color accentColor, Set<int> selectedAddOnIds, int quantity, PurchaseCouponEntity? selectedCoupon, AsyncState<List<PurchaseCouponEntity>> couponsRequest
+ FacilityTicketDetailsEntity ticket, CollapsedFacilityEntity facility, Color accentColor, Set<int> selectedAddOnIds, int quantity, PurchaseCouponEntity? selectedCoupon, AsyncState<List<PurchaseCouponEntity>> couponsRequest, AsyncState<PurchaseQuoteEntity> quoteRequest, AsyncState<PurchaseReceiptEntity> submitRequest
 });
 
 
-$FacilityTicketDetailsEntityCopyWith<$Res> get ticket;$CollapsedFacilityEntityCopyWith<$Res> get facility;$PurchaseCouponEntityCopyWith<$Res>? get selectedCoupon;$AsyncStateCopyWith<List<PurchaseCouponEntity>, $Res> get couponsRequest;
+$FacilityTicketDetailsEntityCopyWith<$Res> get ticket;$CollapsedFacilityEntityCopyWith<$Res> get facility;$PurchaseCouponEntityCopyWith<$Res>? get selectedCoupon;$AsyncStateCopyWith<List<PurchaseCouponEntity>, $Res> get couponsRequest;$AsyncStateCopyWith<PurchaseQuoteEntity, $Res> get quoteRequest;$AsyncStateCopyWith<PurchaseReceiptEntity, $Res> get submitRequest;
 
 }
 /// @nodoc
@@ -62,7 +62,7 @@ class _$TicketPurchaseStateCopyWithImpl<$Res>
 
 /// Create a copy of TicketPurchaseState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? ticket = null,Object? facility = null,Object? accentColor = null,Object? selectedAddOnIds = null,Object? quantity = null,Object? selectedCoupon = freezed,Object? couponsRequest = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? ticket = null,Object? facility = null,Object? accentColor = null,Object? selectedAddOnIds = null,Object? quantity = null,Object? selectedCoupon = freezed,Object? couponsRequest = null,Object? quoteRequest = null,Object? submitRequest = null,}) {
   return _then(_self.copyWith(
 ticket: null == ticket ? _self.ticket : ticket // ignore: cast_nullable_to_non_nullable
 as FacilityTicketDetailsEntity,facility: null == facility ? _self.facility : facility // ignore: cast_nullable_to_non_nullable
@@ -71,7 +71,9 @@ as Color,selectedAddOnIds: null == selectedAddOnIds ? _self.selectedAddOnIds : s
 as Set<int>,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as int,selectedCoupon: freezed == selectedCoupon ? _self.selectedCoupon : selectedCoupon // ignore: cast_nullable_to_non_nullable
 as PurchaseCouponEntity?,couponsRequest: null == couponsRequest ? _self.couponsRequest : couponsRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<List<PurchaseCouponEntity>>,
+as AsyncState<List<PurchaseCouponEntity>>,quoteRequest: null == quoteRequest ? _self.quoteRequest : quoteRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<PurchaseQuoteEntity>,submitRequest: null == submitRequest ? _self.submitRequest : submitRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<PurchaseReceiptEntity>,
   ));
 }
 /// Create a copy of TicketPurchaseState
@@ -112,6 +114,24 @@ $AsyncStateCopyWith<List<PurchaseCouponEntity>, $Res> get couponsRequest {
   
   return $AsyncStateCopyWith<List<PurchaseCouponEntity>, $Res>(_self.couponsRequest, (value) {
     return _then(_self.copyWith(couponsRequest: value));
+  });
+}/// Create a copy of TicketPurchaseState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AsyncStateCopyWith<PurchaseQuoteEntity, $Res> get quoteRequest {
+  
+  return $AsyncStateCopyWith<PurchaseQuoteEntity, $Res>(_self.quoteRequest, (value) {
+    return _then(_self.copyWith(quoteRequest: value));
+  });
+}/// Create a copy of TicketPurchaseState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AsyncStateCopyWith<PurchaseReceiptEntity, $Res> get submitRequest {
+  
+  return $AsyncStateCopyWith<PurchaseReceiptEntity, $Res>(_self.submitRequest, (value) {
+    return _then(_self.copyWith(submitRequest: value));
   });
 }
 }
@@ -195,10 +215,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FacilityTicketDetailsEntity ticket,  CollapsedFacilityEntity facility,  Color accentColor,  Set<int> selectedAddOnIds,  int quantity,  PurchaseCouponEntity? selectedCoupon,  AsyncState<List<PurchaseCouponEntity>> couponsRequest)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FacilityTicketDetailsEntity ticket,  CollapsedFacilityEntity facility,  Color accentColor,  Set<int> selectedAddOnIds,  int quantity,  PurchaseCouponEntity? selectedCoupon,  AsyncState<List<PurchaseCouponEntity>> couponsRequest,  AsyncState<PurchaseQuoteEntity> quoteRequest,  AsyncState<PurchaseReceiptEntity> submitRequest)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _TicketPurchaseState() when $default != null:
-return $default(_that.ticket,_that.facility,_that.accentColor,_that.selectedAddOnIds,_that.quantity,_that.selectedCoupon,_that.couponsRequest);case _:
+return $default(_that.ticket,_that.facility,_that.accentColor,_that.selectedAddOnIds,_that.quantity,_that.selectedCoupon,_that.couponsRequest,_that.quoteRequest,_that.submitRequest);case _:
   return orElse();
 
 }
@@ -216,10 +236,10 @@ return $default(_that.ticket,_that.facility,_that.accentColor,_that.selectedAddO
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FacilityTicketDetailsEntity ticket,  CollapsedFacilityEntity facility,  Color accentColor,  Set<int> selectedAddOnIds,  int quantity,  PurchaseCouponEntity? selectedCoupon,  AsyncState<List<PurchaseCouponEntity>> couponsRequest)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FacilityTicketDetailsEntity ticket,  CollapsedFacilityEntity facility,  Color accentColor,  Set<int> selectedAddOnIds,  int quantity,  PurchaseCouponEntity? selectedCoupon,  AsyncState<List<PurchaseCouponEntity>> couponsRequest,  AsyncState<PurchaseQuoteEntity> quoteRequest,  AsyncState<PurchaseReceiptEntity> submitRequest)  $default,) {final _that = this;
 switch (_that) {
 case _TicketPurchaseState():
-return $default(_that.ticket,_that.facility,_that.accentColor,_that.selectedAddOnIds,_that.quantity,_that.selectedCoupon,_that.couponsRequest);case _:
+return $default(_that.ticket,_that.facility,_that.accentColor,_that.selectedAddOnIds,_that.quantity,_that.selectedCoupon,_that.couponsRequest,_that.quoteRequest,_that.submitRequest);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -236,10 +256,10 @@ return $default(_that.ticket,_that.facility,_that.accentColor,_that.selectedAddO
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FacilityTicketDetailsEntity ticket,  CollapsedFacilityEntity facility,  Color accentColor,  Set<int> selectedAddOnIds,  int quantity,  PurchaseCouponEntity? selectedCoupon,  AsyncState<List<PurchaseCouponEntity>> couponsRequest)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FacilityTicketDetailsEntity ticket,  CollapsedFacilityEntity facility,  Color accentColor,  Set<int> selectedAddOnIds,  int quantity,  PurchaseCouponEntity? selectedCoupon,  AsyncState<List<PurchaseCouponEntity>> couponsRequest,  AsyncState<PurchaseQuoteEntity> quoteRequest,  AsyncState<PurchaseReceiptEntity> submitRequest)?  $default,) {final _that = this;
 switch (_that) {
 case _TicketPurchaseState() when $default != null:
-return $default(_that.ticket,_that.facility,_that.accentColor,_that.selectedAddOnIds,_that.quantity,_that.selectedCoupon,_that.couponsRequest);case _:
+return $default(_that.ticket,_that.facility,_that.accentColor,_that.selectedAddOnIds,_that.quantity,_that.selectedCoupon,_that.couponsRequest,_that.quoteRequest,_that.submitRequest);case _:
   return null;
 
 }
@@ -251,7 +271,7 @@ return $default(_that.ticket,_that.facility,_that.accentColor,_that.selectedAddO
 
 
 class _TicketPurchaseState extends TicketPurchaseState {
-  const _TicketPurchaseState({required this.ticket, required this.facility, required this.accentColor, final  Set<int> selectedAddOnIds = const <int>{}, this.quantity = 1, this.selectedCoupon, this.couponsRequest = const AsyncState.idle()}): _selectedAddOnIds = selectedAddOnIds,super._();
+  const _TicketPurchaseState({required this.ticket, required this.facility, required this.accentColor, final  Set<int> selectedAddOnIds = const <int>{}, this.quantity = 1, this.selectedCoupon, this.couponsRequest = const AsyncState.idle(), this.quoteRequest = const AsyncState.idle(), this.submitRequest = const AsyncState.idle()}): _selectedAddOnIds = selectedAddOnIds,super._();
   
 
 @override final  FacilityTicketDetailsEntity ticket;
@@ -267,6 +287,8 @@ class _TicketPurchaseState extends TicketPurchaseState {
 @override@JsonKey() final  int quantity;
 @override final  PurchaseCouponEntity? selectedCoupon;
 @override@JsonKey() final  AsyncState<List<PurchaseCouponEntity>> couponsRequest;
+@override@JsonKey() final  AsyncState<PurchaseQuoteEntity> quoteRequest;
+@override@JsonKey() final  AsyncState<PurchaseReceiptEntity> submitRequest;
 
 /// Create a copy of TicketPurchaseState
 /// with the given fields replaced by the non-null parameter values.
@@ -278,16 +300,16 @@ _$TicketPurchaseStateCopyWith<_TicketPurchaseState> get copyWith => __$TicketPur
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketPurchaseState&&(identical(other.ticket, ticket) || other.ticket == ticket)&&(identical(other.facility, facility) || other.facility == facility)&&(identical(other.accentColor, accentColor) || other.accentColor == accentColor)&&const DeepCollectionEquality().equals(other._selectedAddOnIds, _selectedAddOnIds)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.selectedCoupon, selectedCoupon) || other.selectedCoupon == selectedCoupon)&&(identical(other.couponsRequest, couponsRequest) || other.couponsRequest == couponsRequest));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TicketPurchaseState&&(identical(other.ticket, ticket) || other.ticket == ticket)&&(identical(other.facility, facility) || other.facility == facility)&&(identical(other.accentColor, accentColor) || other.accentColor == accentColor)&&const DeepCollectionEquality().equals(other._selectedAddOnIds, _selectedAddOnIds)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.selectedCoupon, selectedCoupon) || other.selectedCoupon == selectedCoupon)&&(identical(other.couponsRequest, couponsRequest) || other.couponsRequest == couponsRequest)&&(identical(other.quoteRequest, quoteRequest) || other.quoteRequest == quoteRequest)&&(identical(other.submitRequest, submitRequest) || other.submitRequest == submitRequest));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,ticket,facility,accentColor,const DeepCollectionEquality().hash(_selectedAddOnIds),quantity,selectedCoupon,couponsRequest);
+int get hashCode => Object.hash(runtimeType,ticket,facility,accentColor,const DeepCollectionEquality().hash(_selectedAddOnIds),quantity,selectedCoupon,couponsRequest,quoteRequest,submitRequest);
 
 @override
 String toString() {
-  return 'TicketPurchaseState(ticket: $ticket, facility: $facility, accentColor: $accentColor, selectedAddOnIds: $selectedAddOnIds, quantity: $quantity, selectedCoupon: $selectedCoupon, couponsRequest: $couponsRequest)';
+  return 'TicketPurchaseState(ticket: $ticket, facility: $facility, accentColor: $accentColor, selectedAddOnIds: $selectedAddOnIds, quantity: $quantity, selectedCoupon: $selectedCoupon, couponsRequest: $couponsRequest, quoteRequest: $quoteRequest, submitRequest: $submitRequest)';
 }
 
 
@@ -298,11 +320,11 @@ abstract mixin class _$TicketPurchaseStateCopyWith<$Res> implements $TicketPurch
   factory _$TicketPurchaseStateCopyWith(_TicketPurchaseState value, $Res Function(_TicketPurchaseState) _then) = __$TicketPurchaseStateCopyWithImpl;
 @override @useResult
 $Res call({
- FacilityTicketDetailsEntity ticket, CollapsedFacilityEntity facility, Color accentColor, Set<int> selectedAddOnIds, int quantity, PurchaseCouponEntity? selectedCoupon, AsyncState<List<PurchaseCouponEntity>> couponsRequest
+ FacilityTicketDetailsEntity ticket, CollapsedFacilityEntity facility, Color accentColor, Set<int> selectedAddOnIds, int quantity, PurchaseCouponEntity? selectedCoupon, AsyncState<List<PurchaseCouponEntity>> couponsRequest, AsyncState<PurchaseQuoteEntity> quoteRequest, AsyncState<PurchaseReceiptEntity> submitRequest
 });
 
 
-@override $FacilityTicketDetailsEntityCopyWith<$Res> get ticket;@override $CollapsedFacilityEntityCopyWith<$Res> get facility;@override $PurchaseCouponEntityCopyWith<$Res>? get selectedCoupon;@override $AsyncStateCopyWith<List<PurchaseCouponEntity>, $Res> get couponsRequest;
+@override $FacilityTicketDetailsEntityCopyWith<$Res> get ticket;@override $CollapsedFacilityEntityCopyWith<$Res> get facility;@override $PurchaseCouponEntityCopyWith<$Res>? get selectedCoupon;@override $AsyncStateCopyWith<List<PurchaseCouponEntity>, $Res> get couponsRequest;@override $AsyncStateCopyWith<PurchaseQuoteEntity, $Res> get quoteRequest;@override $AsyncStateCopyWith<PurchaseReceiptEntity, $Res> get submitRequest;
 
 }
 /// @nodoc
@@ -315,7 +337,7 @@ class __$TicketPurchaseStateCopyWithImpl<$Res>
 
 /// Create a copy of TicketPurchaseState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? ticket = null,Object? facility = null,Object? accentColor = null,Object? selectedAddOnIds = null,Object? quantity = null,Object? selectedCoupon = freezed,Object? couponsRequest = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? ticket = null,Object? facility = null,Object? accentColor = null,Object? selectedAddOnIds = null,Object? quantity = null,Object? selectedCoupon = freezed,Object? couponsRequest = null,Object? quoteRequest = null,Object? submitRequest = null,}) {
   return _then(_TicketPurchaseState(
 ticket: null == ticket ? _self.ticket : ticket // ignore: cast_nullable_to_non_nullable
 as FacilityTicketDetailsEntity,facility: null == facility ? _self.facility : facility // ignore: cast_nullable_to_non_nullable
@@ -324,7 +346,9 @@ as Color,selectedAddOnIds: null == selectedAddOnIds ? _self._selectedAddOnIds : 
 as Set<int>,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as int,selectedCoupon: freezed == selectedCoupon ? _self.selectedCoupon : selectedCoupon // ignore: cast_nullable_to_non_nullable
 as PurchaseCouponEntity?,couponsRequest: null == couponsRequest ? _self.couponsRequest : couponsRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<List<PurchaseCouponEntity>>,
+as AsyncState<List<PurchaseCouponEntity>>,quoteRequest: null == quoteRequest ? _self.quoteRequest : quoteRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<PurchaseQuoteEntity>,submitRequest: null == submitRequest ? _self.submitRequest : submitRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<PurchaseReceiptEntity>,
   ));
 }
 
@@ -366,6 +390,24 @@ $AsyncStateCopyWith<List<PurchaseCouponEntity>, $Res> get couponsRequest {
   
   return $AsyncStateCopyWith<List<PurchaseCouponEntity>, $Res>(_self.couponsRequest, (value) {
     return _then(_self.copyWith(couponsRequest: value));
+  });
+}/// Create a copy of TicketPurchaseState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AsyncStateCopyWith<PurchaseQuoteEntity, $Res> get quoteRequest {
+  
+  return $AsyncStateCopyWith<PurchaseQuoteEntity, $Res>(_self.quoteRequest, (value) {
+    return _then(_self.copyWith(quoteRequest: value));
+  });
+}/// Create a copy of TicketPurchaseState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AsyncStateCopyWith<PurchaseReceiptEntity, $Res> get submitRequest {
+  
+  return $AsyncStateCopyWith<PurchaseReceiptEntity, $Res>(_self.submitRequest, (value) {
+    return _then(_self.copyWith(submitRequest: value));
   });
 }
 }

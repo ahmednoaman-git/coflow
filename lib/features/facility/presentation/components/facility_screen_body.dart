@@ -1,3 +1,4 @@
+import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 
 import 'header/facility_header.dart';
@@ -38,6 +39,7 @@ class _FacilityScreenBodyState extends State<FacilityScreenBody> {
             slivers: const [
               FacilityHeader(),
               FacilitySelectedTab(),
+              SliverBottomInset(),
               SliverFillRemaining(),
             ],
           ),

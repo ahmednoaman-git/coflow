@@ -243,17 +243,10 @@ class _NationalityDropdown extends StatelessWidget {
 
   Future<void> _selectCountry(BuildContext context) async {
     final cubit = context.read<RegisterCubit>();
-    final country = await showModalBottomSheet<WorldCountry>(
+    final country = await showMainBottomSheet<WorldCountry>(
       context: context,
-      isScrollControlled: true,
       useSafeArea: true,
-      backgroundColor: context.colors.backgroundWhite,
-      shape: RoundedSuperellipseBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(context.spacing.s24),
-        ),
-      ),
-      builder: (context) => _CountrySelectorSheet(selectedCountry: cubit.state.selectedCountry),
+      builder: (_) => _CountrySelectorSheet(selectedCountry: cubit.state.selectedCountry),
     );
     if (country != null && context.mounted) {
       cubit.countryChanged(country);

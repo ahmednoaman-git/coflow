@@ -1,130 +1,77 @@
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
+import 'package:solar_icons/solar_icons.dart';
 
-import '../../../../../../facility/domain/entities/entities.dart';
+import '../../../../../domain/entities/entities.dart';
 import '../../../facility_data_provider.dart';
-import '../../../page_section.dart';
+import 'contact_channel_visuals.dart';
+import 'contact_values_sheet.dart';
 
-/// Actions section for facility profile.
-/// Contains buttons for tracking updates, FAQs, and contact options.
+/// Closing block of the profile tab: how to reach the facility, its FAQ, and
+/// when it last updated the page.
 class ActionsSection extends StatelessWidget {
-  const ActionsSection({super.key, required this.contacts});
+  const ActionsSection({
+    super.key,
+    required this.contacts,
+    required this.updatedAt,
+    required this.onOpenFaqs,
+  });
 
-  final List<ReservationContactEntity> contacts;
+  /// Already filtered to channels that have something behind them.
+  final List<FacilityContactEntity> contacts;
+  final DateTime? updatedAt;
+  final VoidCallback onOpenFaqs;
 
   @override
   Widget build(BuildContext context) {
-    final facilityData = FacilityDataProvider.of(context);
+    final accent = FacilityDataProvider.of(context).activityLineColor;
 
-    return PageSection(
-      title: context.l10n.facilityDetails_actionsSectionTitle,
-      svgIconPath: Assets.svgs.phone.path,
-      children: [
-        Column(
-          spacing: context.spacing.s16,
-          children: [
-            Row(
-              mainAxisAlignment: .center,
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: context.spacing.s24,
+        vertical: context.spacing.s32,
+      ),
+      child: Column(
+        spacing: context.spacing.s24,
+        children: [
+          if (contacts.isNotEmpty)
+            Wrap(
+              alignment: .center,
               spacing: context.spacing.s16,
+              runSpacing: context.spacing.s16,
               children: [
-                _ElevatedActionButton(
-                  icon: Assets.svgs.trackUpdates.svg(),
-                  text: context.l10n.facilityDetails_trackUpdates,
-                  color: facilityData.activityLineColor,
-                  onTap: () {},
-                ),
-                _ElevatedActionButton(
-                  icon: Assets.svgs.faqs.svg(),
-                  text: context.l10n.facilityDetails_faqs,
-                  color: facilityData.activityLineColor,
-                  onTap: () {},
-                ),
+                for (final contact in contacts)
+                  _ContactButton(contact: contact, accentColor: accent),
               ],
             ),
-            if (contacts.isNotEmpty)
-              Row(
-                mainAxisAlignment: .center,
-                spacing: context.spacing.s16,
-                children: [
-                  for (final contact in contacts)
-                    _ElevatedIconButton(
-                      icon: SvgPicture.asset(_getSocialIcon(contact.type)),
-                      color: facilityData.activityLineColor,
-                      onTap: () {
-                        // TODO: Handle contact action
-                      },
-                    ),
-                ],
-              ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  String _getSocialIcon(String social) {
-    return switch (social) {
-      'Contact Number' => Assets.svgs.phone.path,
-      _ => Assets.svgs.mail.path,
-    };
-  }
-}
-
-class _ElevatedActionButton extends StatelessWidget {
-  const _ElevatedActionButton({
-    required this.icon,
-    required this.text,
-    required this.color,
-    required this.onTap,
-  });
-
-  final Widget icon;
-  final String text;
-  final Color color;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 44,
-      decoration: ShapeDecoration(
-        shape: const StadiumBorder(),
-        color: context.colors.backgroundWhite,
-        shadows: context.shadows.sm,
-      ),
-      child: TappableScale(
-        borderRadius: BorderRadius.circular(22),
-        onTap: onTap,
-        splashColor: color.withValues(alpha: 0.1),
-        child: Padding(
-          padding: EdgeInsets.all(context.spacing.s8),
-          child: Row(
-            spacing: context.spacing.s8,
-            children: [
-              ColorFiltered(colorFilter: color.colorFilter, child: icon),
-              Padding(
-                padding: EdgeInsets.only(right: context.spacing.s4),
-                child: Text(text, style: context.typography.medium16.primary(context)),
-              ),
-            ],
+          MainButton(
+            text: context.l10n.facilityDetails_faqs,
+            leadingIcon: SolarIconsOutline.infoCircle,
+            backgroundColor: accent,
+            height: 48,
+            onPressed: onOpenFaqs,
           ),
-        ),
+          if (updatedAt != null)
+            Text(
+              context.l10n.facilityDetails_lastUpdated(
+                DateFormat('dd/MM/yyyy').format(updatedAt!),
+              ),
+              style: context.typography.book12.tertiary(context),
+            ),
+        ],
       ),
     );
   }
 }
 
-class _ElevatedIconButton extends StatelessWidget {
-  const _ElevatedIconButton({
-    required this.icon,
-    required this.color,
-    required this.onTap,
-  });
+/// One circular channel button. Tapping launches the single value behind it, or
+/// opens a picker when the facility published several.
+class _ContactButton extends StatelessWidget {
+  const _ContactButton({required this.contact, required this.accentColor});
 
-  final Widget icon;
-  final Color color;
-  final VoidCallback onTap;
+  final FacilityContactEntity contact;
+  final Color accentColor;
 
   @override
   Widget build(BuildContext context) {
@@ -138,13 +85,33 @@ class _ElevatedIconButton extends StatelessWidget {
       ),
       child: TappableScale(
         borderRadius: BorderRadius.circular(22),
-        onTap: onTap,
-        splashColor: color.withValues(alpha: 0.1),
+        onTap: () => _handleTap(context),
+        splashColor: accentColor.withValues(alpha: 0.1),
         child: Padding(
-          padding: EdgeInsets.all(context.spacing.s8),
-          child: ColorFiltered(colorFilter: color.colorFilter, child: icon),
+          padding: EdgeInsets.all(context.spacing.s12),
+          child: ContactChannelVisuals.icon(contact.channel, color: accentColor),
         ),
       ),
     );
+  }
+
+  Future<void> _handleTap(BuildContext context) async {
+    if (contact.needsChoice) {
+      // The sheet mounts on the root navigator, outside this tab's tree, so the
+      // accent colour is read here and passed in.
+      showMainBottomSheet<void>(
+        context: context,
+        builder: (_) => ContactValuesSheet(contact: contact, accentColor: accentColor),
+      );
+      return;
+    }
+
+    final opened = await ContactChannelVisuals.launch(
+      contact.channel,
+      contact.links.first.value,
+    );
+    if (!opened && context.mounted) {
+      context.showErrorSnackBar(context.l10n.facilityDetails_linkFailed);
+    }
   }
 }

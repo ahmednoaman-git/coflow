@@ -1,0 +1,148 @@
+{
+  "data": {
+    "current_page": 1,
+    "data": [
+      {
+        "id": 71,
+        "name": "Calisthenics Club",
+        "title": "BODY WEIGHT GYM",
+        "views": 301,
+        "rate": "0/0",
+        "tags": [
+          {
+            "id": 40,
+            "name": "Crossfit",
+            "activity_line_id": 4,
+            "description": "Crossfit Description",
+            "photo": "https://coflow-test.s3.amazonaws.com/public/17889733756aa1913ff38d2LogoDark.JPG",
+            "pivot": {
+              "facility_id": 71,
+              "tag_id": 40
+            }
+          }
+        ],
+        "facility_type": "FLOW",
+        "activity_line_id": 4,
+        "status": "visible",
+        "status_msg": "Updating Profile",
+        "subscription": "basic",
+        "payment_type": "contact"
+      },
+      {
+        "id": 67,
+        "name": "DeeFit",
+        "title": "Boutique Studio",
+        "views": 234,
+        "rate": "0/0",
+        "tags": [],
+        "facility_type": "FLOW",
+        "activity_line_id": 4,
+        "status": "visible",
+        "status_msg": "UPDATING SCHEDULE",
+        "subscription": "basic",
+        "payment_type": "contact"
+      },
+      {
+        "id": 66,
+        "name": "V-Cut",
+        "title": "Functional Training",
+        "views": 214,
+        "rate": "0/0",
+        "tags": [
+          {
+            "id": 5,
+            "name": "Kayaking",
+            "activity_line_id": 2,
+            "description": "Kayaking Description",
+            "photo": "https://coflow-test.s3.amazonaws.com/public/17889758126aa19ac4cd27bLogoDark.JPG",
+            "pivot": {
+              "facility_id": 66,
+              "tag_id": 5
+            }
+          }
+        ],
+        "facility_type": "FLOW",
+        "activity_line_id": 4,
+        "status": "visible",
+        "status_msg": "UPDATING SCHEDULE",
+        "subscription": "active",
+        "payment_type": "full online"
+      },
+      {
+        "id": 72,
+        "name": "The GRID",
+        "title": "Wellness Hub",
+        "views": 210,
+        "rate": "0/0",
+        "tags": [],
+        "facility_type": "PRO",
+        "activity_line_id": 4,
+        "status": "visible",
+        "status_msg": "UPDATING PROFILE",
+        "subscription": "basic",
+        "payment_type": "contact"
+      },
+      {
+        "id": 82,
+        "name": "Gravity",
+        "title": "Aerial Silks & Flexibility",
+        "views": 183,
+        "rate": "0/0",
+        "tags": [],
+        "facility_type": "FLOW",
+        "activity_line_id": 4,
+        "status": "visible",
+        "status_msg": null,
+        "subscription": "basic",
+        "payment_type": "contact"
+      }
+    ],
+    "total": 23,
+    "last_page": 5
+  },
+  "extra_data": {
+    "tags": [
+      {
+        "id": 37,
+        "name": "Dance",
+        "facilities_count": 4
+      },
+      {
+        "id": 40,
+        "name": "Crossfit",
+        "facilities_count": 5
+      },
+      {
+        "id": 91,
+        "name": "Functional Training",
+        "facilities_count": 5
+      },
+      {
+        "id": 119,
+        "name": "Calisthenics",
+        "facilities_count": 3
+      },
+      {
+        "id": 120,
+        "name": "Yoga",
+        "facilities_count": 4
+      },
+      {
+        "id": 121,
+        "name": "Animal Flow",
+        "facilities_count": 2
+      },
+      {
+        "id": 122,
+        "name": "Aerial Arts",
+        "facilities_count": 3
+      },
+      {
+        "id": 131,
+        "name": "Pole Dancing",
+        "facilities_count": 3
+      }
+    ]
+  },
+  "status": true
+}

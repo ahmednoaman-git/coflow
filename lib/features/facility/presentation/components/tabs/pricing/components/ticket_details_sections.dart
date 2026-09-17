@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:coflow_users_v2/features/facility/domain/entities/entities.dart';
+import 'package:coflow_users_v2/features/purchase/domain/domain.dart';
 import 'package:flutter/material.dart';
 
 import 'ticket_details_bottom_sheet.dart';
@@ -228,28 +229,51 @@ class ValidityAndPurchaseSection extends StatelessWidget {
             ),
           ],
         ),
-        FractionallySizedBox(
-          widthFactor: 0.5,
-          child: MainButton(
-            backgroundColor: accentColor,
-            text: l10n.facilityDetails_purchase,
-            onPressed: () {
-              final router = context.router;
-
-              // Close the bottom sheet
-              Navigator.pop(context);
-
-              router.push(
-                TicketPurchaseRoute(
-                  ticket: ticketDetails.data,
-                  facility: ticketDetails.facilityData.facility,
-                  accentColor: accentColor,
-                ),
-              );
-            },
-          ),
-        ),
+        _PurchaseCta(accentColor: accentColor),
       ],
+    );
+  }
+}
+
+/// Buys the ticket, or points the user at the facility when the account has no
+/// online payment (basic and inactive tiers) — those are contact-only.
+class _PurchaseCta extends StatelessWidget {
+  const _PurchaseCta({required this.accentColor});
+
+  final Color accentColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final ticketDetails = TicketDetailsProvider.of(context);
+    final facility = ticketDetails.facilityData.facility;
+    final canPurchase = PurchaseCtaResolver.allowsInAppPurchase(facility);
+
+    return FractionallySizedBox(
+      widthFactor: canPurchase ? 0.5 : 1,
+      child: MainButton(
+        backgroundColor: accentColor,
+        text: canPurchase
+            ? context.l10n.facilityDetails_purchase
+            : context.l10n.facilityDetails_contactFacility(facility.name),
+        // TODO(product): route to the facility's reservation contact — the
+        // same gap as `SessionCtaButton`'s contact CTA.
+        onPressed: !canPurchase
+            ? () {}
+            : () {
+                final router = context.router;
+
+                // Close the bottom sheet
+                Navigator.pop(context);
+
+                router.push(
+                  TicketPurchaseRoute(
+                    ticket: ticketDetails.data,
+                    facility: facility,
+                    accentColor: accentColor,
+                  ),
+                );
+              },
+      ),
     );
   }
 }

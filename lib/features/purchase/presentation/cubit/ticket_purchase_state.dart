@@ -19,21 +19,10 @@ abstract class TicketPurchaseState with _$TicketPurchaseState {
     @Default(1) int quantity,
     PurchaseCouponEntity? selectedCoupon,
     @Default(AsyncState.idle()) AsyncState<List<PurchaseCouponEntity>> couponsRequest,
+    @Default(AsyncState.idle()) AsyncState<PurchaseQuoteEntity> quoteRequest,
+    @Default(AsyncState.idle()) AsyncState<PurchaseReceiptEntity> submitRequest,
   }) = _TicketPurchaseState;
 
   List<AddOnEntity> get selectedAddOns =>
       ticket.addOns.where((addOn) => selectedAddOnIds.contains(addOn.id)).toList(growable: false);
-
-  PurchaseInvoiceEntity get invoice => PurchaseInvoiceCalculator.compute(
-    currency: ticket.currency,
-    itemLabel: ticket.name,
-    unitPrice: ticket.totalPrice,
-    quantity: quantity,
-    selectedAddOns: selectedAddOns
-        .map((addOn) => (name: addOn.name, unitPrice: addOn.price))
-        .toList(growable: false),
-    coupon: selectedCoupon,
-    paymentType: facility.paymentType,
-    depositRatio: kPlaceholderDepositRatio,
-  );
 }

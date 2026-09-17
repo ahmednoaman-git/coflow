@@ -104,7 +104,9 @@ CollapsedFacilityServiceModel _$CollapsedFacilityServiceModelFromJson(
       ),
       level: $checkedConvert(
         'level',
-        (v) => v == null ? null : FacilityServiceLevelModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null
+            ? null
+            : FacilityServiceLevelModel.fromJson(v as Map<String, dynamic>),
       ),
     );
     return val;
@@ -130,13 +132,14 @@ Map<String, dynamic> _$CollapsedFacilityServiceModelToJson(
 
 FacilityServiceDurationListModel _$FacilityServiceDurationListModelFromJson(
   Map<String, dynamic> json,
-) => $checkedCreate('FacilityServiceDurationListModel', json, ($checkedConvert) {
-  final val = FacilityServiceDurationListModel(
-    id: $checkedConvert('id', (v) => (v as num).toInt()),
-    name: $checkedConvert('name', (v) => v as String),
-  );
-  return val;
-});
+) =>
+    $checkedCreate('FacilityServiceDurationListModel', json, ($checkedConvert) {
+      final val = FacilityServiceDurationListModel(
+        id: $checkedConvert('id', (v) => (v as num).toInt()),
+        name: $checkedConvert('name', (v) => v as String),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$FacilityServiceDurationListModelToJson(
   FacilityServiceDurationListModel instance,

@@ -20,17 +20,29 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/amenities.svg
   SvgGenImage get amenities => const SvgGenImage('assets/svgs/amenities.svg');
 
+  /// File path: assets/svgs/bookmark.svg
+  SvgGenImage get bookmark => const SvgGenImage('assets/svgs/bookmark.svg');
+
   /// File path: assets/svgs/branch.svg
   SvgGenImage get branch => const SvgGenImage('assets/svgs/branch.svg');
 
+  /// File path: assets/svgs/calendar.svg
+  SvgGenImage get calendar => const SvgGenImage('assets/svgs/calendar.svg');
+
   /// File path: assets/svgs/cash.svg
   SvgGenImage get cash => const SvgGenImage('assets/svgs/cash.svg');
+
+  /// File path: assets/svgs/discount.svg
+  SvgGenImage get discount => const SvgGenImage('assets/svgs/discount.svg');
 
   /// File path: assets/svgs/earth.svg
   SvgGenImage get earth => const SvgGenImage('assets/svgs/earth.svg');
 
   /// File path: assets/svgs/energy.svg
   SvgGenImage get energy => const SvgGenImage('assets/svgs/energy.svg');
+
+  /// File path: assets/svgs/facebook.svg
+  SvgGenImage get facebook => const SvgGenImage('assets/svgs/facebook.svg');
 
   /// File path: assets/svgs/faqs.svg
   SvgGenImage get faqs => const SvgGenImage('assets/svgs/faqs.svg');
@@ -40,6 +52,9 @@ class $AssetsSvgsGen {
 
   /// File path: assets/svgs/hours.svg
   SvgGenImage get hours => const SvgGenImage('assets/svgs/hours.svg');
+
+  /// File path: assets/svgs/instagram.svg
+  SvgGenImage get instagram => const SvgGenImage('assets/svgs/instagram.svg');
 
   /// File path: assets/svgs/language.svg
   SvgGenImage get language => const SvgGenImage('assets/svgs/language.svg');
@@ -71,16 +86,30 @@ class $AssetsSvgsGen {
   /// File path: assets/svgs/track_updates.svg
   SvgGenImage get trackUpdates => const SvgGenImage('assets/svgs/track_updates.svg');
 
+  /// File path: assets/svgs/website.svg
+  SvgGenImage get website => const SvgGenImage('assets/svgs/website.svg');
+
+  /// File path: assets/svgs/whatsapp.svg
+  SvgGenImage get whatsapp => const SvgGenImage('assets/svgs/whatsapp.svg');
+
+  /// File path: assets/svgs/youtube.svg
+  SvgGenImage get youtube => const SvgGenImage('assets/svgs/youtube.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
     amenities,
+    bookmark,
     branch,
+    calendar,
     cash,
+    discount,
     earth,
     energy,
+    facebook,
     faqs,
     flows,
     hours,
+    instagram,
     language,
     location,
     logo,
@@ -91,6 +120,9 @@ class $AssetsSvgsGen {
     team,
     ticket,
     trackUpdates,
+    website,
+    whatsapp,
+    youtube,
   ];
 }
 

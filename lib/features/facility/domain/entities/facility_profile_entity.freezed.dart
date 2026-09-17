@@ -1339,535 +1339,6 @@ as String,
 }
 
 /// @nodoc
-mixin _$LocationEntity {
-
- String? get address; String? get cityName; String? get areaName; double? get latitude; double? get longitude;
-/// Create a copy of LocationEntity
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$LocationEntityCopyWith<LocationEntity> get copyWith => _$LocationEntityCopyWithImpl<LocationEntity>(this as LocationEntity, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LocationEntity&&(identical(other.address, address) || other.address == address)&&(identical(other.cityName, cityName) || other.cityName == cityName)&&(identical(other.areaName, areaName) || other.areaName == areaName)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,address,cityName,areaName,latitude,longitude);
-
-@override
-String toString() {
-  return 'LocationEntity(address: $address, cityName: $cityName, areaName: $areaName, latitude: $latitude, longitude: $longitude)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $LocationEntityCopyWith<$Res>  {
-  factory $LocationEntityCopyWith(LocationEntity value, $Res Function(LocationEntity) _then) = _$LocationEntityCopyWithImpl;
-@useResult
-$Res call({
- String? address, String? cityName, String? areaName, double? latitude, double? longitude
-});
-
-
-
-
-}
-/// @nodoc
-class _$LocationEntityCopyWithImpl<$Res>
-    implements $LocationEntityCopyWith<$Res> {
-  _$LocationEntityCopyWithImpl(this._self, this._then);
-
-  final LocationEntity _self;
-  final $Res Function(LocationEntity) _then;
-
-/// Create a copy of LocationEntity
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? address = freezed,Object? cityName = freezed,Object? areaName = freezed,Object? latitude = freezed,Object? longitude = freezed,}) {
-  return _then(_self.copyWith(
-address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
-as String?,cityName: freezed == cityName ? _self.cityName : cityName // ignore: cast_nullable_to_non_nullable
-as String?,areaName: freezed == areaName ? _self.areaName : areaName // ignore: cast_nullable_to_non_nullable
-as String?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
-as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
-as double?,
-  ));
-}
-
-}
-
-
-/// Adds pattern-matching-related methods to [LocationEntity].
-extension LocationEntityPatterns on LocationEntity {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _LocationEntity value)?  $default,{required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case _LocationEntity() when $default != null:
-return $default(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _LocationEntity value)  $default,){
-final _that = this;
-switch (_that) {
-case _LocationEntity():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _LocationEntity value)?  $default,){
-final _that = this;
-switch (_that) {
-case _LocationEntity() when $default != null:
-return $default(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? address,  String? cityName,  String? areaName,  double? latitude,  double? longitude)?  $default,{required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case _LocationEntity() when $default != null:
-return $default(_that.address,_that.cityName,_that.areaName,_that.latitude,_that.longitude);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? address,  String? cityName,  String? areaName,  double? latitude,  double? longitude)  $default,) {final _that = this;
-switch (_that) {
-case _LocationEntity():
-return $default(_that.address,_that.cityName,_that.areaName,_that.latitude,_that.longitude);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? address,  String? cityName,  String? areaName,  double? latitude,  double? longitude)?  $default,) {final _that = this;
-switch (_that) {
-case _LocationEntity() when $default != null:
-return $default(_that.address,_that.cityName,_that.areaName,_that.latitude,_that.longitude);case _:
-  return null;
-
-}
-}
-
-}
-
-/// @nodoc
-
-
-class _LocationEntity implements LocationEntity {
-  const _LocationEntity({this.address, this.cityName, this.areaName, this.latitude, this.longitude});
-  
-
-@override final  String? address;
-@override final  String? cityName;
-@override final  String? areaName;
-@override final  double? latitude;
-@override final  double? longitude;
-
-/// Create a copy of LocationEntity
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$LocationEntityCopyWith<_LocationEntity> get copyWith => __$LocationEntityCopyWithImpl<_LocationEntity>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LocationEntity&&(identical(other.address, address) || other.address == address)&&(identical(other.cityName, cityName) || other.cityName == cityName)&&(identical(other.areaName, areaName) || other.areaName == areaName)&&(identical(other.latitude, latitude) || other.latitude == latitude)&&(identical(other.longitude, longitude) || other.longitude == longitude));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,address,cityName,areaName,latitude,longitude);
-
-@override
-String toString() {
-  return 'LocationEntity(address: $address, cityName: $cityName, areaName: $areaName, latitude: $latitude, longitude: $longitude)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$LocationEntityCopyWith<$Res> implements $LocationEntityCopyWith<$Res> {
-  factory _$LocationEntityCopyWith(_LocationEntity value, $Res Function(_LocationEntity) _then) = __$LocationEntityCopyWithImpl;
-@override @useResult
-$Res call({
- String? address, String? cityName, String? areaName, double? latitude, double? longitude
-});
-
-
-
-
-}
-/// @nodoc
-class __$LocationEntityCopyWithImpl<$Res>
-    implements _$LocationEntityCopyWith<$Res> {
-  __$LocationEntityCopyWithImpl(this._self, this._then);
-
-  final _LocationEntity _self;
-  final $Res Function(_LocationEntity) _then;
-
-/// Create a copy of LocationEntity
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? address = freezed,Object? cityName = freezed,Object? areaName = freezed,Object? latitude = freezed,Object? longitude = freezed,}) {
-  return _then(_LocationEntity(
-address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
-as String?,cityName: freezed == cityName ? _self.cityName : cityName // ignore: cast_nullable_to_non_nullable
-as String?,areaName: freezed == areaName ? _self.areaName : areaName // ignore: cast_nullable_to_non_nullable
-as String?,latitude: freezed == latitude ? _self.latitude : latitude // ignore: cast_nullable_to_non_nullable
-as double?,longitude: freezed == longitude ? _self.longitude : longitude // ignore: cast_nullable_to_non_nullable
-as double?,
-  ));
-}
-
-
-}
-
-/// @nodoc
-mixin _$ReservationContactEntity {
-
- String get type; String? get link;
-/// Create a copy of ReservationContactEntity
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ReservationContactEntityCopyWith<ReservationContactEntity> get copyWith => _$ReservationContactEntityCopyWithImpl<ReservationContactEntity>(this as ReservationContactEntity, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReservationContactEntity&&(identical(other.type, type) || other.type == type)&&(identical(other.link, link) || other.link == link));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,type,link);
-
-@override
-String toString() {
-  return 'ReservationContactEntity(type: $type, link: $link)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $ReservationContactEntityCopyWith<$Res>  {
-  factory $ReservationContactEntityCopyWith(ReservationContactEntity value, $Res Function(ReservationContactEntity) _then) = _$ReservationContactEntityCopyWithImpl;
-@useResult
-$Res call({
- String type, String? link
-});
-
-
-
-
-}
-/// @nodoc
-class _$ReservationContactEntityCopyWithImpl<$Res>
-    implements $ReservationContactEntityCopyWith<$Res> {
-  _$ReservationContactEntityCopyWithImpl(this._self, this._then);
-
-  final ReservationContactEntity _self;
-  final $Res Function(ReservationContactEntity) _then;
-
-/// Create a copy of ReservationContactEntity
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? link = freezed,}) {
-  return _then(_self.copyWith(
-type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as String,link: freezed == link ? _self.link : link // ignore: cast_nullable_to_non_nullable
-as String?,
-  ));
-}
-
-}
-
-
-/// Adds pattern-matching-related methods to [ReservationContactEntity].
-extension ReservationContactEntityPatterns on ReservationContactEntity {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ReservationContactEntity value)?  $default,{required TResult orElse(),}){
-final _that = this;
-switch (_that) {
-case _ReservationContactEntity() when $default != null:
-return $default(_that);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// Callbacks receives the raw object, upcasted.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case final Subclass2 value:
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ReservationContactEntity value)  $default,){
-final _that = this;
-switch (_that) {
-case _ReservationContactEntity():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `map` that fallback to returning `null`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ReservationContactEntity value)?  $default,){
-final _that = this;
-switch (_that) {
-case _ReservationContactEntity() when $default != null:
-return $default(_that);case _:
-  return null;
-
-}
-}
-/// A variant of `when` that fallback to an `orElse` callback.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
-
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String type,  String? link)?  $default,{required TResult orElse(),}) {final _that = this;
-switch (_that) {
-case _ReservationContactEntity() when $default != null:
-return $default(_that.type,_that.link);case _:
-  return orElse();
-
-}
-}
-/// A `switch`-like method, using callbacks.
-///
-/// As opposed to `map`, this offers destructuring.
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case Subclass2(:final field2):
-///     return ...;
-/// }
-/// ```
-
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String type,  String? link)  $default,) {final _that = this;
-switch (_that) {
-case _ReservationContactEntity():
-return $default(_that.type,_that.link);case _:
-  throw StateError('Unexpected subclass');
-
-}
-}
-/// A variant of `when` that fallback to returning `null`
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case Subclass(:final field):
-///     return ...;
-///   case _:
-///     return null;
-/// }
-/// ```
-
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String type,  String? link)?  $default,) {final _that = this;
-switch (_that) {
-case _ReservationContactEntity() when $default != null:
-return $default(_that.type,_that.link);case _:
-  return null;
-
-}
-}
-
-}
-
-/// @nodoc
-
-
-class _ReservationContactEntity implements ReservationContactEntity {
-  const _ReservationContactEntity({required this.type, this.link});
-  
-
-@override final  String type;
-@override final  String? link;
-
-/// Create a copy of ReservationContactEntity
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$ReservationContactEntityCopyWith<_ReservationContactEntity> get copyWith => __$ReservationContactEntityCopyWithImpl<_ReservationContactEntity>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReservationContactEntity&&(identical(other.type, type) || other.type == type)&&(identical(other.link, link) || other.link == link));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,type,link);
-
-@override
-String toString() {
-  return 'ReservationContactEntity(type: $type, link: $link)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$ReservationContactEntityCopyWith<$Res> implements $ReservationContactEntityCopyWith<$Res> {
-  factory _$ReservationContactEntityCopyWith(_ReservationContactEntity value, $Res Function(_ReservationContactEntity) _then) = __$ReservationContactEntityCopyWithImpl;
-@override @useResult
-$Res call({
- String type, String? link
-});
-
-
-
-
-}
-/// @nodoc
-class __$ReservationContactEntityCopyWithImpl<$Res>
-    implements _$ReservationContactEntityCopyWith<$Res> {
-  __$ReservationContactEntityCopyWithImpl(this._self, this._then);
-
-  final _ReservationContactEntity _self;
-  final $Res Function(_ReservationContactEntity) _then;
-
-/// Create a copy of ReservationContactEntity
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? link = freezed,}) {
-  return _then(_ReservationContactEntity(
-type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as String,link: freezed == link ? _self.link : link // ignore: cast_nullable_to_non_nullable
-as String?,
-  ));
-}
-
-
-}
-
-/// @nodoc
 mixin _$MainBranchEntity {
 
  int get id; String get name;
@@ -2130,7 +1601,10 @@ as String,
 /// @nodoc
 mixin _$FacilityProfileEntity {
 
- int get id; String get name; String? get title; String? get year; String? get bio; int? get likesCount; String? get logoUrl; String? get coverUrl; List<String> get tags; List<TeamMemberEntity> get teamMembers; List<OperatingHoursEntity> get operatingHours; List<BranchEntity> get branches; List<LanguageEntity> get languages; List<AmenityEntity> get amenities; List<ReservationContactEntity> get reservationContacts; LocationEntity? get location; MainBranchEntity? get mainBranch;
+ int get id; String get name; String? get title; String? get year; String? get bio; int? get likesCount; String? get logoUrl; String? get coverUrl; List<String> get tags; List<TeamMemberEntity> get teamMembers; List<OperatingHoursEntity> get operatingHours; List<BranchEntity> get branches; List<LanguageEntity> get languages; List<AmenityEntity> get amenities; List<FacilityContactEntity> get contacts; FacilityLocationEntity? get location; MainBranchEntity? get mainBranch;/// Whether the signed-in user has this facility in their saved profiles.
+ bool get isSaved;/// Whether the signed-in user is subscribed to this facility's updates.
+ bool get isTracked;/// When the facility last edited its profile.
+ DateTime? get updatedAt;
 /// Create a copy of FacilityProfileEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2141,16 +1615,16 @@ $FacilityProfileEntityCopyWith<FacilityProfileEntity> get copyWith => _$Facility
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FacilityProfileEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.title, title) || other.title == title)&&(identical(other.year, year) || other.year == year)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&const DeepCollectionEquality().equals(other.tags, tags)&&const DeepCollectionEquality().equals(other.teamMembers, teamMembers)&&const DeepCollectionEquality().equals(other.operatingHours, operatingHours)&&const DeepCollectionEquality().equals(other.branches, branches)&&const DeepCollectionEquality().equals(other.languages, languages)&&const DeepCollectionEquality().equals(other.amenities, amenities)&&const DeepCollectionEquality().equals(other.reservationContacts, reservationContacts)&&(identical(other.location, location) || other.location == location)&&(identical(other.mainBranch, mainBranch) || other.mainBranch == mainBranch));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FacilityProfileEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.title, title) || other.title == title)&&(identical(other.year, year) || other.year == year)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&const DeepCollectionEquality().equals(other.tags, tags)&&const DeepCollectionEquality().equals(other.teamMembers, teamMembers)&&const DeepCollectionEquality().equals(other.operatingHours, operatingHours)&&const DeepCollectionEquality().equals(other.branches, branches)&&const DeepCollectionEquality().equals(other.languages, languages)&&const DeepCollectionEquality().equals(other.amenities, amenities)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&(identical(other.location, location) || other.location == location)&&(identical(other.mainBranch, mainBranch) || other.mainBranch == mainBranch)&&(identical(other.isSaved, isSaved) || other.isSaved == isSaved)&&(identical(other.isTracked, isTracked) || other.isTracked == isTracked)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,title,year,bio,likesCount,logoUrl,coverUrl,const DeepCollectionEquality().hash(tags),const DeepCollectionEquality().hash(teamMembers),const DeepCollectionEquality().hash(operatingHours),const DeepCollectionEquality().hash(branches),const DeepCollectionEquality().hash(languages),const DeepCollectionEquality().hash(amenities),const DeepCollectionEquality().hash(reservationContacts),location,mainBranch);
+int get hashCode => Object.hashAll([runtimeType,id,name,title,year,bio,likesCount,logoUrl,coverUrl,const DeepCollectionEquality().hash(tags),const DeepCollectionEquality().hash(teamMembers),const DeepCollectionEquality().hash(operatingHours),const DeepCollectionEquality().hash(branches),const DeepCollectionEquality().hash(languages),const DeepCollectionEquality().hash(amenities),const DeepCollectionEquality().hash(contacts),location,mainBranch,isSaved,isTracked,updatedAt]);
 
 @override
 String toString() {
-  return 'FacilityProfileEntity(id: $id, name: $name, title: $title, year: $year, bio: $bio, likesCount: $likesCount, logoUrl: $logoUrl, coverUrl: $coverUrl, tags: $tags, teamMembers: $teamMembers, operatingHours: $operatingHours, branches: $branches, languages: $languages, amenities: $amenities, reservationContacts: $reservationContacts, location: $location, mainBranch: $mainBranch)';
+  return 'FacilityProfileEntity(id: $id, name: $name, title: $title, year: $year, bio: $bio, likesCount: $likesCount, logoUrl: $logoUrl, coverUrl: $coverUrl, tags: $tags, teamMembers: $teamMembers, operatingHours: $operatingHours, branches: $branches, languages: $languages, amenities: $amenities, contacts: $contacts, location: $location, mainBranch: $mainBranch, isSaved: $isSaved, isTracked: $isTracked, updatedAt: $updatedAt)';
 }
 
 
@@ -2161,11 +1635,11 @@ abstract mixin class $FacilityProfileEntityCopyWith<$Res>  {
   factory $FacilityProfileEntityCopyWith(FacilityProfileEntity value, $Res Function(FacilityProfileEntity) _then) = _$FacilityProfileEntityCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, String? title, String? year, String? bio, int? likesCount, String? logoUrl, String? coverUrl, List<String> tags, List<TeamMemberEntity> teamMembers, List<OperatingHoursEntity> operatingHours, List<BranchEntity> branches, List<LanguageEntity> languages, List<AmenityEntity> amenities, List<ReservationContactEntity> reservationContacts, LocationEntity? location, MainBranchEntity? mainBranch
+ int id, String name, String? title, String? year, String? bio, int? likesCount, String? logoUrl, String? coverUrl, List<String> tags, List<TeamMemberEntity> teamMembers, List<OperatingHoursEntity> operatingHours, List<BranchEntity> branches, List<LanguageEntity> languages, List<AmenityEntity> amenities, List<FacilityContactEntity> contacts, FacilityLocationEntity? location, MainBranchEntity? mainBranch, bool isSaved, bool isTracked, DateTime? updatedAt
 });
 
 
-$LocationEntityCopyWith<$Res>? get location;$MainBranchEntityCopyWith<$Res>? get mainBranch;
+$FacilityLocationEntityCopyWith<$Res>? get location;$MainBranchEntityCopyWith<$Res>? get mainBranch;
 
 }
 /// @nodoc
@@ -2178,7 +1652,7 @@ class _$FacilityProfileEntityCopyWithImpl<$Res>
 
 /// Create a copy of FacilityProfileEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? title = freezed,Object? year = freezed,Object? bio = freezed,Object? likesCount = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? tags = null,Object? teamMembers = null,Object? operatingHours = null,Object? branches = null,Object? languages = null,Object? amenities = null,Object? reservationContacts = null,Object? location = freezed,Object? mainBranch = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? title = freezed,Object? year = freezed,Object? bio = freezed,Object? likesCount = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? tags = null,Object? teamMembers = null,Object? operatingHours = null,Object? branches = null,Object? languages = null,Object? amenities = null,Object? contacts = null,Object? location = freezed,Object? mainBranch = freezed,Object? isSaved = null,Object? isTracked = null,Object? updatedAt = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -2194,22 +1668,25 @@ as List<TeamMemberEntity>,operatingHours: null == operatingHours ? _self.operati
 as List<OperatingHoursEntity>,branches: null == branches ? _self.branches : branches // ignore: cast_nullable_to_non_nullable
 as List<BranchEntity>,languages: null == languages ? _self.languages : languages // ignore: cast_nullable_to_non_nullable
 as List<LanguageEntity>,amenities: null == amenities ? _self.amenities : amenities // ignore: cast_nullable_to_non_nullable
-as List<AmenityEntity>,reservationContacts: null == reservationContacts ? _self.reservationContacts : reservationContacts // ignore: cast_nullable_to_non_nullable
-as List<ReservationContactEntity>,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
-as LocationEntity?,mainBranch: freezed == mainBranch ? _self.mainBranch : mainBranch // ignore: cast_nullable_to_non_nullable
-as MainBranchEntity?,
+as List<AmenityEntity>,contacts: null == contacts ? _self.contacts : contacts // ignore: cast_nullable_to_non_nullable
+as List<FacilityContactEntity>,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
+as FacilityLocationEntity?,mainBranch: freezed == mainBranch ? _self.mainBranch : mainBranch // ignore: cast_nullable_to_non_nullable
+as MainBranchEntity?,isSaved: null == isSaved ? _self.isSaved : isSaved // ignore: cast_nullable_to_non_nullable
+as bool,isTracked: null == isTracked ? _self.isTracked : isTracked // ignore: cast_nullable_to_non_nullable
+as bool,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 /// Create a copy of FacilityProfileEntity
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LocationEntityCopyWith<$Res>? get location {
+$FacilityLocationEntityCopyWith<$Res>? get location {
     if (_self.location == null) {
     return null;
   }
 
-  return $LocationEntityCopyWith<$Res>(_self.location!, (value) {
+  return $FacilityLocationEntityCopyWith<$Res>(_self.location!, (value) {
     return _then(_self.copyWith(location: value));
   });
 }/// Create a copy of FacilityProfileEntity
@@ -2306,10 +1783,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<ReservationContactEntity> reservationContacts,  LocationEntity? location,  MainBranchEntity? mainBranch)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FacilityProfileEntity() when $default != null:
-return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.reservationContacts,_that.location,_that.mainBranch);case _:
+return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -2327,10 +1804,10 @@ return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likes
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<ReservationContactEntity> reservationContacts,  LocationEntity? location,  MainBranchEntity? mainBranch)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _FacilityProfileEntity():
-return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.reservationContacts,_that.location,_that.mainBranch);case _:
+return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2347,10 +1824,10 @@ return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likes
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<ReservationContactEntity> reservationContacts,  LocationEntity? location,  MainBranchEntity? mainBranch)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _FacilityProfileEntity() when $default != null:
-return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.reservationContacts,_that.location,_that.mainBranch);case _:
+return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt);case _:
   return null;
 
 }
@@ -2361,8 +1838,8 @@ return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likes
 /// @nodoc
 
 
-class _FacilityProfileEntity implements FacilityProfileEntity {
-  const _FacilityProfileEntity({required this.id, required this.name, this.title, this.year, this.bio, this.likesCount, this.logoUrl, this.coverUrl, final  List<String> tags = const <String>[], final  List<TeamMemberEntity> teamMembers = const <TeamMemberEntity>[], final  List<OperatingHoursEntity> operatingHours = const <OperatingHoursEntity>[], final  List<BranchEntity> branches = const <BranchEntity>[], final  List<LanguageEntity> languages = const <LanguageEntity>[], final  List<AmenityEntity> amenities = const <AmenityEntity>[], final  List<ReservationContactEntity> reservationContacts = const <ReservationContactEntity>[], this.location, this.mainBranch}): _tags = tags,_teamMembers = teamMembers,_operatingHours = operatingHours,_branches = branches,_languages = languages,_amenities = amenities,_reservationContacts = reservationContacts;
+class _FacilityProfileEntity extends FacilityProfileEntity {
+  const _FacilityProfileEntity({required this.id, required this.name, this.title, this.year, this.bio, this.likesCount, this.logoUrl, this.coverUrl, final  List<String> tags = const <String>[], final  List<TeamMemberEntity> teamMembers = const <TeamMemberEntity>[], final  List<OperatingHoursEntity> operatingHours = const <OperatingHoursEntity>[], final  List<BranchEntity> branches = const <BranchEntity>[], final  List<LanguageEntity> languages = const <LanguageEntity>[], final  List<AmenityEntity> amenities = const <AmenityEntity>[], final  List<FacilityContactEntity> contacts = const <FacilityContactEntity>[], this.location, this.mainBranch, this.isSaved = false, this.isTracked = false, this.updatedAt}): _tags = tags,_teamMembers = teamMembers,_operatingHours = operatingHours,_branches = branches,_languages = languages,_amenities = amenities,_contacts = contacts,super._();
   
 
 @override final  int id;
@@ -2415,15 +1892,21 @@ class _FacilityProfileEntity implements FacilityProfileEntity {
   return EqualUnmodifiableListView(_amenities);
 }
 
- final  List<ReservationContactEntity> _reservationContacts;
-@override@JsonKey() List<ReservationContactEntity> get reservationContacts {
-  if (_reservationContacts is EqualUnmodifiableListView) return _reservationContacts;
+ final  List<FacilityContactEntity> _contacts;
+@override@JsonKey() List<FacilityContactEntity> get contacts {
+  if (_contacts is EqualUnmodifiableListView) return _contacts;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_reservationContacts);
+  return EqualUnmodifiableListView(_contacts);
 }
 
-@override final  LocationEntity? location;
+@override final  FacilityLocationEntity? location;
 @override final  MainBranchEntity? mainBranch;
+/// Whether the signed-in user has this facility in their saved profiles.
+@override@JsonKey() final  bool isSaved;
+/// Whether the signed-in user is subscribed to this facility's updates.
+@override@JsonKey() final  bool isTracked;
+/// When the facility last edited its profile.
+@override final  DateTime? updatedAt;
 
 /// Create a copy of FacilityProfileEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -2435,16 +1918,16 @@ _$FacilityProfileEntityCopyWith<_FacilityProfileEntity> get copyWith => __$Facil
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FacilityProfileEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.title, title) || other.title == title)&&(identical(other.year, year) || other.year == year)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&const DeepCollectionEquality().equals(other._tags, _tags)&&const DeepCollectionEquality().equals(other._teamMembers, _teamMembers)&&const DeepCollectionEquality().equals(other._operatingHours, _operatingHours)&&const DeepCollectionEquality().equals(other._branches, _branches)&&const DeepCollectionEquality().equals(other._languages, _languages)&&const DeepCollectionEquality().equals(other._amenities, _amenities)&&const DeepCollectionEquality().equals(other._reservationContacts, _reservationContacts)&&(identical(other.location, location) || other.location == location)&&(identical(other.mainBranch, mainBranch) || other.mainBranch == mainBranch));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FacilityProfileEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.title, title) || other.title == title)&&(identical(other.year, year) || other.year == year)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&const DeepCollectionEquality().equals(other._tags, _tags)&&const DeepCollectionEquality().equals(other._teamMembers, _teamMembers)&&const DeepCollectionEquality().equals(other._operatingHours, _operatingHours)&&const DeepCollectionEquality().equals(other._branches, _branches)&&const DeepCollectionEquality().equals(other._languages, _languages)&&const DeepCollectionEquality().equals(other._amenities, _amenities)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&(identical(other.location, location) || other.location == location)&&(identical(other.mainBranch, mainBranch) || other.mainBranch == mainBranch)&&(identical(other.isSaved, isSaved) || other.isSaved == isSaved)&&(identical(other.isTracked, isTracked) || other.isTracked == isTracked)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,title,year,bio,likesCount,logoUrl,coverUrl,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_teamMembers),const DeepCollectionEquality().hash(_operatingHours),const DeepCollectionEquality().hash(_branches),const DeepCollectionEquality().hash(_languages),const DeepCollectionEquality().hash(_amenities),const DeepCollectionEquality().hash(_reservationContacts),location,mainBranch);
+int get hashCode => Object.hashAll([runtimeType,id,name,title,year,bio,likesCount,logoUrl,coverUrl,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_teamMembers),const DeepCollectionEquality().hash(_operatingHours),const DeepCollectionEquality().hash(_branches),const DeepCollectionEquality().hash(_languages),const DeepCollectionEquality().hash(_amenities),const DeepCollectionEquality().hash(_contacts),location,mainBranch,isSaved,isTracked,updatedAt]);
 
 @override
 String toString() {
-  return 'FacilityProfileEntity(id: $id, name: $name, title: $title, year: $year, bio: $bio, likesCount: $likesCount, logoUrl: $logoUrl, coverUrl: $coverUrl, tags: $tags, teamMembers: $teamMembers, operatingHours: $operatingHours, branches: $branches, languages: $languages, amenities: $amenities, reservationContacts: $reservationContacts, location: $location, mainBranch: $mainBranch)';
+  return 'FacilityProfileEntity(id: $id, name: $name, title: $title, year: $year, bio: $bio, likesCount: $likesCount, logoUrl: $logoUrl, coverUrl: $coverUrl, tags: $tags, teamMembers: $teamMembers, operatingHours: $operatingHours, branches: $branches, languages: $languages, amenities: $amenities, contacts: $contacts, location: $location, mainBranch: $mainBranch, isSaved: $isSaved, isTracked: $isTracked, updatedAt: $updatedAt)';
 }
 
 
@@ -2455,11 +1938,11 @@ abstract mixin class _$FacilityProfileEntityCopyWith<$Res> implements $FacilityP
   factory _$FacilityProfileEntityCopyWith(_FacilityProfileEntity value, $Res Function(_FacilityProfileEntity) _then) = __$FacilityProfileEntityCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, String? title, String? year, String? bio, int? likesCount, String? logoUrl, String? coverUrl, List<String> tags, List<TeamMemberEntity> teamMembers, List<OperatingHoursEntity> operatingHours, List<BranchEntity> branches, List<LanguageEntity> languages, List<AmenityEntity> amenities, List<ReservationContactEntity> reservationContacts, LocationEntity? location, MainBranchEntity? mainBranch
+ int id, String name, String? title, String? year, String? bio, int? likesCount, String? logoUrl, String? coverUrl, List<String> tags, List<TeamMemberEntity> teamMembers, List<OperatingHoursEntity> operatingHours, List<BranchEntity> branches, List<LanguageEntity> languages, List<AmenityEntity> amenities, List<FacilityContactEntity> contacts, FacilityLocationEntity? location, MainBranchEntity? mainBranch, bool isSaved, bool isTracked, DateTime? updatedAt
 });
 
 
-@override $LocationEntityCopyWith<$Res>? get location;@override $MainBranchEntityCopyWith<$Res>? get mainBranch;
+@override $FacilityLocationEntityCopyWith<$Res>? get location;@override $MainBranchEntityCopyWith<$Res>? get mainBranch;
 
 }
 /// @nodoc
@@ -2472,7 +1955,7 @@ class __$FacilityProfileEntityCopyWithImpl<$Res>
 
 /// Create a copy of FacilityProfileEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? title = freezed,Object? year = freezed,Object? bio = freezed,Object? likesCount = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? tags = null,Object? teamMembers = null,Object? operatingHours = null,Object? branches = null,Object? languages = null,Object? amenities = null,Object? reservationContacts = null,Object? location = freezed,Object? mainBranch = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? title = freezed,Object? year = freezed,Object? bio = freezed,Object? likesCount = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? tags = null,Object? teamMembers = null,Object? operatingHours = null,Object? branches = null,Object? languages = null,Object? amenities = null,Object? contacts = null,Object? location = freezed,Object? mainBranch = freezed,Object? isSaved = null,Object? isTracked = null,Object? updatedAt = freezed,}) {
   return _then(_FacilityProfileEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -2488,10 +1971,13 @@ as List<TeamMemberEntity>,operatingHours: null == operatingHours ? _self._operat
 as List<OperatingHoursEntity>,branches: null == branches ? _self._branches : branches // ignore: cast_nullable_to_non_nullable
 as List<BranchEntity>,languages: null == languages ? _self._languages : languages // ignore: cast_nullable_to_non_nullable
 as List<LanguageEntity>,amenities: null == amenities ? _self._amenities : amenities // ignore: cast_nullable_to_non_nullable
-as List<AmenityEntity>,reservationContacts: null == reservationContacts ? _self._reservationContacts : reservationContacts // ignore: cast_nullable_to_non_nullable
-as List<ReservationContactEntity>,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
-as LocationEntity?,mainBranch: freezed == mainBranch ? _self.mainBranch : mainBranch // ignore: cast_nullable_to_non_nullable
-as MainBranchEntity?,
+as List<AmenityEntity>,contacts: null == contacts ? _self._contacts : contacts // ignore: cast_nullable_to_non_nullable
+as List<FacilityContactEntity>,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
+as FacilityLocationEntity?,mainBranch: freezed == mainBranch ? _self.mainBranch : mainBranch // ignore: cast_nullable_to_non_nullable
+as MainBranchEntity?,isSaved: null == isSaved ? _self.isSaved : isSaved // ignore: cast_nullable_to_non_nullable
+as bool,isTracked: null == isTracked ? _self.isTracked : isTracked // ignore: cast_nullable_to_non_nullable
+as bool,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 
@@ -2499,12 +1985,12 @@ as MainBranchEntity?,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$LocationEntityCopyWith<$Res>? get location {
+$FacilityLocationEntityCopyWith<$Res>? get location {
     if (_self.location == null) {
     return null;
   }
 
-  return $LocationEntityCopyWith<$Res>(_self.location!, (value) {
+  return $FacilityLocationEntityCopyWith<$Res>(_self.location!, (value) {
     return _then(_self.copyWith(location: value));
   });
 }/// Create a copy of FacilityProfileEntity

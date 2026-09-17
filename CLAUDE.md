@@ -78,6 +78,8 @@ Key UI rules:
 - All rounded rectangles use `RoundedSuperellipseBorder` (built into the Flutter SDK) with `ShapeDecoration` — not `RoundedRectangleBorder` or `BoxDecoration` + `BorderRadius`.
 - Icons: prefer `SolarIconsOutline.*` (`solar_icons` package); for design-specific icons, add the SVG to `assets/svgs/` and use `Assets.svgs.<name>.svg()` (flutter_gen, output in `lib/core/gen/`).
 - Tappable surfaces use `TappableScale`, not ad-hoc `InkWell`/`GestureDetector`.
+- The bottom nav bar floats over the content (`extendBody: true` on the shell scaffold). Reserve room for it with `context.bottomInset` as *trailing padding* on the screen's scroll view — or a trailing `SliverBottomInset` in a `CustomScrollView` — so content still scrolls under the bar but never comes to rest under it. Never read `CoflowBottomNavBar`'s constants outside the bar, and never wrap a scroll view in `SafeArea` to do this.
+- Modals mount on the **root navigator** so they paint over the bottom nav bar. Open bottom sheets with `showMainBottomSheet`, never `showModalBottomSheet` directly (its `useRootNavigator` defaults to `false`, which renders the sheet behind the nav bar). `showDialog` already defaults to the root navigator — don't override it. Because a root-navigator modal is built outside the tab's tree, capture any cubit/provider it needs *before* the call and re-provide it inside the builder.
 
 ### Providing data down the tree
 
