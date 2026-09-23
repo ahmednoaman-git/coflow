@@ -1530,7 +1530,7 @@ abstract class AppLocalizations {
   /// No description provided for @facilityDetails_coverageAll.
   ///
   /// In en, this message translates to:
-  /// **'ALL'**
+  /// **'All areas'**
   String get facilityDetails_coverageAll;
 
   /// No description provided for @facilityDetails_contactSectionTitle.

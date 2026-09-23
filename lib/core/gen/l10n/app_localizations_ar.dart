@@ -841,7 +841,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get facilityDetails_operatingIn => 'يعمل في:';
 
   @override
-  String get facilityDetails_coverageAll => 'الكل';
+  String get facilityDetails_coverageAll => 'كل المناطق';
 
   @override
   String get facilityDetails_contactSectionTitle => 'التواصل';

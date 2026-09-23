@@ -50,7 +50,7 @@ void main() {
   });
 
   group('LocationSection — remote', () {
-    testWidgets('lists coverage, collapsing a full city to ALL', (tester) async {
+    testWidgets('lists each governorate with its areas, a full one as All areas', (tester) async {
       await tester.pumpWidget(
         _TestApp(
           child: LocationSection(
@@ -69,13 +69,12 @@ void main() {
       expect(find.text('Operating in:'), findsOneWidget);
       expect(find.byType(FacilityMapPreview), findsNothing);
 
-      // The lines are `LABEL: value` spans, so match on the rendered text.
-      final lines = tester
-          .widgetList<Text>(find.byType(Text))
-          .map((text) => text.textSpan?.toPlainText() ?? text.data ?? '')
-          .toList();
-      expect(lines, contains('CAIRO: New Cairo, Maadi'));
-      expect(lines, contains('GIZA: ALL'));
+      expect(find.text('Cairo'), findsOneWidget);
+      expect(find.text('New Cairo'), findsOneWidget);
+      expect(find.text('Maadi'), findsOneWidget);
+      expect(find.text('Giza'), findsOneWidget);
+      expect(find.text('All areas'), findsOneWidget);
+      expect(tester.takeException(), isNull);
     });
   });
 

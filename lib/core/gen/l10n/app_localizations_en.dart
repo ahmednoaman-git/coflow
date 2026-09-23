@@ -822,7 +822,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilityDetails_operatingIn => 'Operating in:';
 
   @override
-  String get facilityDetails_coverageAll => 'ALL';
+  String get facilityDetails_coverageAll => 'All areas';
 
   @override
   String get facilityDetails_contactSectionTitle => 'Contact';
