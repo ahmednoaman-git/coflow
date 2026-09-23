@@ -67,7 +67,12 @@ abstract final class FacilityProfileMapper {
             ),
           )
           .toList(),
-      contacts: FacilityContactMapper.toEntities(model.reservationContact),
+      contacts: FacilityContactMapper.fromDetails(phones: model.phones, links: model.links),
+      reservationContacts: FacilityContactMapper.toEntities(
+        model.reservationContact,
+        phones: model.phones,
+        links: model.links,
+      ),
       location: FacilityLocationMapper.toEntity(model),
       isSaved: model.hasSave,
       isTracked: model.hasTrack,

@@ -1601,7 +1601,11 @@ as String,
 /// @nodoc
 mixin _$FacilityProfileEntity {
 
- int get id; String get name; String? get title; String? get year; String? get bio; int? get likesCount; String? get logoUrl; String? get coverUrl; List<String> get tags; List<TeamMemberEntity> get teamMembers; List<OperatingHoursEntity> get operatingHours; List<BranchEntity> get branches; List<LanguageEntity> get languages; List<AmenityEntity> get amenities; List<FacilityContactEntity> get contacts; FacilityLocationEntity? get location; MainBranchEntity? get mainBranch;/// Whether the signed-in user has this facility in their saved profiles.
+ int get id; String get name; String? get title; String? get year; String? get bio; int? get likesCount; String? get logoUrl; String? get coverUrl; List<String> get tags; List<TeamMemberEntity> get teamMembers; List<OperatingHoursEntity> get operatingHours; List<BranchEntity> get branches; List<LanguageEntity> get languages; List<AmenityEntity> get amenities;/// Every way to reach the facility — its phones and media links — shown as
+/// the button row on the profile.
+ List<FacilityContactEntity> get contacts;/// The channels the facility takes reservations through, offered when a
+/// session cannot be booked in the app.
+ List<FacilityContactEntity> get reservationContacts; FacilityLocationEntity? get location; MainBranchEntity? get mainBranch;/// Whether the signed-in user has this facility in their saved profiles.
  bool get isSaved;/// Whether the signed-in user is subscribed to this facility's updates.
  bool get isTracked;/// When the facility last edited its profile.
  DateTime? get updatedAt;
@@ -1615,16 +1619,16 @@ $FacilityProfileEntityCopyWith<FacilityProfileEntity> get copyWith => _$Facility
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FacilityProfileEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.title, title) || other.title == title)&&(identical(other.year, year) || other.year == year)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&const DeepCollectionEquality().equals(other.tags, tags)&&const DeepCollectionEquality().equals(other.teamMembers, teamMembers)&&const DeepCollectionEquality().equals(other.operatingHours, operatingHours)&&const DeepCollectionEquality().equals(other.branches, branches)&&const DeepCollectionEquality().equals(other.languages, languages)&&const DeepCollectionEquality().equals(other.amenities, amenities)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&(identical(other.location, location) || other.location == location)&&(identical(other.mainBranch, mainBranch) || other.mainBranch == mainBranch)&&(identical(other.isSaved, isSaved) || other.isSaved == isSaved)&&(identical(other.isTracked, isTracked) || other.isTracked == isTracked)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FacilityProfileEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.title, title) || other.title == title)&&(identical(other.year, year) || other.year == year)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&const DeepCollectionEquality().equals(other.tags, tags)&&const DeepCollectionEquality().equals(other.teamMembers, teamMembers)&&const DeepCollectionEquality().equals(other.operatingHours, operatingHours)&&const DeepCollectionEquality().equals(other.branches, branches)&&const DeepCollectionEquality().equals(other.languages, languages)&&const DeepCollectionEquality().equals(other.amenities, amenities)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&const DeepCollectionEquality().equals(other.reservationContacts, reservationContacts)&&(identical(other.location, location) || other.location == location)&&(identical(other.mainBranch, mainBranch) || other.mainBranch == mainBranch)&&(identical(other.isSaved, isSaved) || other.isSaved == isSaved)&&(identical(other.isTracked, isTracked) || other.isTracked == isTracked)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,title,year,bio,likesCount,logoUrl,coverUrl,const DeepCollectionEquality().hash(tags),const DeepCollectionEquality().hash(teamMembers),const DeepCollectionEquality().hash(operatingHours),const DeepCollectionEquality().hash(branches),const DeepCollectionEquality().hash(languages),const DeepCollectionEquality().hash(amenities),const DeepCollectionEquality().hash(contacts),location,mainBranch,isSaved,isTracked,updatedAt]);
+int get hashCode => Object.hashAll([runtimeType,id,name,title,year,bio,likesCount,logoUrl,coverUrl,const DeepCollectionEquality().hash(tags),const DeepCollectionEquality().hash(teamMembers),const DeepCollectionEquality().hash(operatingHours),const DeepCollectionEquality().hash(branches),const DeepCollectionEquality().hash(languages),const DeepCollectionEquality().hash(amenities),const DeepCollectionEquality().hash(contacts),const DeepCollectionEquality().hash(reservationContacts),location,mainBranch,isSaved,isTracked,updatedAt]);
 
 @override
 String toString() {
-  return 'FacilityProfileEntity(id: $id, name: $name, title: $title, year: $year, bio: $bio, likesCount: $likesCount, logoUrl: $logoUrl, coverUrl: $coverUrl, tags: $tags, teamMembers: $teamMembers, operatingHours: $operatingHours, branches: $branches, languages: $languages, amenities: $amenities, contacts: $contacts, location: $location, mainBranch: $mainBranch, isSaved: $isSaved, isTracked: $isTracked, updatedAt: $updatedAt)';
+  return 'FacilityProfileEntity(id: $id, name: $name, title: $title, year: $year, bio: $bio, likesCount: $likesCount, logoUrl: $logoUrl, coverUrl: $coverUrl, tags: $tags, teamMembers: $teamMembers, operatingHours: $operatingHours, branches: $branches, languages: $languages, amenities: $amenities, contacts: $contacts, reservationContacts: $reservationContacts, location: $location, mainBranch: $mainBranch, isSaved: $isSaved, isTracked: $isTracked, updatedAt: $updatedAt)';
 }
 
 
@@ -1635,7 +1639,7 @@ abstract mixin class $FacilityProfileEntityCopyWith<$Res>  {
   factory $FacilityProfileEntityCopyWith(FacilityProfileEntity value, $Res Function(FacilityProfileEntity) _then) = _$FacilityProfileEntityCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, String? title, String? year, String? bio, int? likesCount, String? logoUrl, String? coverUrl, List<String> tags, List<TeamMemberEntity> teamMembers, List<OperatingHoursEntity> operatingHours, List<BranchEntity> branches, List<LanguageEntity> languages, List<AmenityEntity> amenities, List<FacilityContactEntity> contacts, FacilityLocationEntity? location, MainBranchEntity? mainBranch, bool isSaved, bool isTracked, DateTime? updatedAt
+ int id, String name, String? title, String? year, String? bio, int? likesCount, String? logoUrl, String? coverUrl, List<String> tags, List<TeamMemberEntity> teamMembers, List<OperatingHoursEntity> operatingHours, List<BranchEntity> branches, List<LanguageEntity> languages, List<AmenityEntity> amenities, List<FacilityContactEntity> contacts, List<FacilityContactEntity> reservationContacts, FacilityLocationEntity? location, MainBranchEntity? mainBranch, bool isSaved, bool isTracked, DateTime? updatedAt
 });
 
 
@@ -1652,7 +1656,7 @@ class _$FacilityProfileEntityCopyWithImpl<$Res>
 
 /// Create a copy of FacilityProfileEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? title = freezed,Object? year = freezed,Object? bio = freezed,Object? likesCount = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? tags = null,Object? teamMembers = null,Object? operatingHours = null,Object? branches = null,Object? languages = null,Object? amenities = null,Object? contacts = null,Object? location = freezed,Object? mainBranch = freezed,Object? isSaved = null,Object? isTracked = null,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? title = freezed,Object? year = freezed,Object? bio = freezed,Object? likesCount = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? tags = null,Object? teamMembers = null,Object? operatingHours = null,Object? branches = null,Object? languages = null,Object? amenities = null,Object? contacts = null,Object? reservationContacts = null,Object? location = freezed,Object? mainBranch = freezed,Object? isSaved = null,Object? isTracked = null,Object? updatedAt = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -1669,6 +1673,7 @@ as List<OperatingHoursEntity>,branches: null == branches ? _self.branches : bran
 as List<BranchEntity>,languages: null == languages ? _self.languages : languages // ignore: cast_nullable_to_non_nullable
 as List<LanguageEntity>,amenities: null == amenities ? _self.amenities : amenities // ignore: cast_nullable_to_non_nullable
 as List<AmenityEntity>,contacts: null == contacts ? _self.contacts : contacts // ignore: cast_nullable_to_non_nullable
+as List<FacilityContactEntity>,reservationContacts: null == reservationContacts ? _self.reservationContacts : reservationContacts // ignore: cast_nullable_to_non_nullable
 as List<FacilityContactEntity>,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as FacilityLocationEntity?,mainBranch: freezed == mainBranch ? _self.mainBranch : mainBranch // ignore: cast_nullable_to_non_nullable
 as MainBranchEntity?,isSaved: null == isSaved ? _self.isSaved : isSaved // ignore: cast_nullable_to_non_nullable
@@ -1783,10 +1788,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  List<FacilityContactEntity> reservationContacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FacilityProfileEntity() when $default != null:
-return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.reservationContacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -1804,10 +1809,10 @@ return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likes
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  List<FacilityContactEntity> reservationContacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _FacilityProfileEntity():
-return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.reservationContacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1824,10 +1829,10 @@ return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likes
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  List<FacilityContactEntity> reservationContacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _FacilityProfileEntity() when $default != null:
-return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.reservationContacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt);case _:
   return null;
 
 }
@@ -1839,7 +1844,7 @@ return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likes
 
 
 class _FacilityProfileEntity extends FacilityProfileEntity {
-  const _FacilityProfileEntity({required this.id, required this.name, this.title, this.year, this.bio, this.likesCount, this.logoUrl, this.coverUrl, final  List<String> tags = const <String>[], final  List<TeamMemberEntity> teamMembers = const <TeamMemberEntity>[], final  List<OperatingHoursEntity> operatingHours = const <OperatingHoursEntity>[], final  List<BranchEntity> branches = const <BranchEntity>[], final  List<LanguageEntity> languages = const <LanguageEntity>[], final  List<AmenityEntity> amenities = const <AmenityEntity>[], final  List<FacilityContactEntity> contacts = const <FacilityContactEntity>[], this.location, this.mainBranch, this.isSaved = false, this.isTracked = false, this.updatedAt}): _tags = tags,_teamMembers = teamMembers,_operatingHours = operatingHours,_branches = branches,_languages = languages,_amenities = amenities,_contacts = contacts,super._();
+  const _FacilityProfileEntity({required this.id, required this.name, this.title, this.year, this.bio, this.likesCount, this.logoUrl, this.coverUrl, final  List<String> tags = const <String>[], final  List<TeamMemberEntity> teamMembers = const <TeamMemberEntity>[], final  List<OperatingHoursEntity> operatingHours = const <OperatingHoursEntity>[], final  List<BranchEntity> branches = const <BranchEntity>[], final  List<LanguageEntity> languages = const <LanguageEntity>[], final  List<AmenityEntity> amenities = const <AmenityEntity>[], final  List<FacilityContactEntity> contacts = const <FacilityContactEntity>[], final  List<FacilityContactEntity> reservationContacts = const <FacilityContactEntity>[], this.location, this.mainBranch, this.isSaved = false, this.isTracked = false, this.updatedAt}): _tags = tags,_teamMembers = teamMembers,_operatingHours = operatingHours,_branches = branches,_languages = languages,_amenities = amenities,_contacts = contacts,_reservationContacts = reservationContacts,super._();
   
 
 @override final  int id;
@@ -1892,11 +1897,26 @@ class _FacilityProfileEntity extends FacilityProfileEntity {
   return EqualUnmodifiableListView(_amenities);
 }
 
+/// Every way to reach the facility — its phones and media links — shown as
+/// the button row on the profile.
  final  List<FacilityContactEntity> _contacts;
+/// Every way to reach the facility — its phones and media links — shown as
+/// the button row on the profile.
 @override@JsonKey() List<FacilityContactEntity> get contacts {
   if (_contacts is EqualUnmodifiableListView) return _contacts;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_contacts);
+}
+
+/// The channels the facility takes reservations through, offered when a
+/// session cannot be booked in the app.
+ final  List<FacilityContactEntity> _reservationContacts;
+/// The channels the facility takes reservations through, offered when a
+/// session cannot be booked in the app.
+@override@JsonKey() List<FacilityContactEntity> get reservationContacts {
+  if (_reservationContacts is EqualUnmodifiableListView) return _reservationContacts;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_reservationContacts);
 }
 
 @override final  FacilityLocationEntity? location;
@@ -1918,16 +1938,16 @@ _$FacilityProfileEntityCopyWith<_FacilityProfileEntity> get copyWith => __$Facil
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FacilityProfileEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.title, title) || other.title == title)&&(identical(other.year, year) || other.year == year)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&const DeepCollectionEquality().equals(other._tags, _tags)&&const DeepCollectionEquality().equals(other._teamMembers, _teamMembers)&&const DeepCollectionEquality().equals(other._operatingHours, _operatingHours)&&const DeepCollectionEquality().equals(other._branches, _branches)&&const DeepCollectionEquality().equals(other._languages, _languages)&&const DeepCollectionEquality().equals(other._amenities, _amenities)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&(identical(other.location, location) || other.location == location)&&(identical(other.mainBranch, mainBranch) || other.mainBranch == mainBranch)&&(identical(other.isSaved, isSaved) || other.isSaved == isSaved)&&(identical(other.isTracked, isTracked) || other.isTracked == isTracked)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FacilityProfileEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.title, title) || other.title == title)&&(identical(other.year, year) || other.year == year)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&const DeepCollectionEquality().equals(other._tags, _tags)&&const DeepCollectionEquality().equals(other._teamMembers, _teamMembers)&&const DeepCollectionEquality().equals(other._operatingHours, _operatingHours)&&const DeepCollectionEquality().equals(other._branches, _branches)&&const DeepCollectionEquality().equals(other._languages, _languages)&&const DeepCollectionEquality().equals(other._amenities, _amenities)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&const DeepCollectionEquality().equals(other._reservationContacts, _reservationContacts)&&(identical(other.location, location) || other.location == location)&&(identical(other.mainBranch, mainBranch) || other.mainBranch == mainBranch)&&(identical(other.isSaved, isSaved) || other.isSaved == isSaved)&&(identical(other.isTracked, isTracked) || other.isTracked == isTracked)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,title,year,bio,likesCount,logoUrl,coverUrl,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_teamMembers),const DeepCollectionEquality().hash(_operatingHours),const DeepCollectionEquality().hash(_branches),const DeepCollectionEquality().hash(_languages),const DeepCollectionEquality().hash(_amenities),const DeepCollectionEquality().hash(_contacts),location,mainBranch,isSaved,isTracked,updatedAt]);
+int get hashCode => Object.hashAll([runtimeType,id,name,title,year,bio,likesCount,logoUrl,coverUrl,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_teamMembers),const DeepCollectionEquality().hash(_operatingHours),const DeepCollectionEquality().hash(_branches),const DeepCollectionEquality().hash(_languages),const DeepCollectionEquality().hash(_amenities),const DeepCollectionEquality().hash(_contacts),const DeepCollectionEquality().hash(_reservationContacts),location,mainBranch,isSaved,isTracked,updatedAt]);
 
 @override
 String toString() {
-  return 'FacilityProfileEntity(id: $id, name: $name, title: $title, year: $year, bio: $bio, likesCount: $likesCount, logoUrl: $logoUrl, coverUrl: $coverUrl, tags: $tags, teamMembers: $teamMembers, operatingHours: $operatingHours, branches: $branches, languages: $languages, amenities: $amenities, contacts: $contacts, location: $location, mainBranch: $mainBranch, isSaved: $isSaved, isTracked: $isTracked, updatedAt: $updatedAt)';
+  return 'FacilityProfileEntity(id: $id, name: $name, title: $title, year: $year, bio: $bio, likesCount: $likesCount, logoUrl: $logoUrl, coverUrl: $coverUrl, tags: $tags, teamMembers: $teamMembers, operatingHours: $operatingHours, branches: $branches, languages: $languages, amenities: $amenities, contacts: $contacts, reservationContacts: $reservationContacts, location: $location, mainBranch: $mainBranch, isSaved: $isSaved, isTracked: $isTracked, updatedAt: $updatedAt)';
 }
 
 
@@ -1938,7 +1958,7 @@ abstract mixin class _$FacilityProfileEntityCopyWith<$Res> implements $FacilityP
   factory _$FacilityProfileEntityCopyWith(_FacilityProfileEntity value, $Res Function(_FacilityProfileEntity) _then) = __$FacilityProfileEntityCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, String? title, String? year, String? bio, int? likesCount, String? logoUrl, String? coverUrl, List<String> tags, List<TeamMemberEntity> teamMembers, List<OperatingHoursEntity> operatingHours, List<BranchEntity> branches, List<LanguageEntity> languages, List<AmenityEntity> amenities, List<FacilityContactEntity> contacts, FacilityLocationEntity? location, MainBranchEntity? mainBranch, bool isSaved, bool isTracked, DateTime? updatedAt
+ int id, String name, String? title, String? year, String? bio, int? likesCount, String? logoUrl, String? coverUrl, List<String> tags, List<TeamMemberEntity> teamMembers, List<OperatingHoursEntity> operatingHours, List<BranchEntity> branches, List<LanguageEntity> languages, List<AmenityEntity> amenities, List<FacilityContactEntity> contacts, List<FacilityContactEntity> reservationContacts, FacilityLocationEntity? location, MainBranchEntity? mainBranch, bool isSaved, bool isTracked, DateTime? updatedAt
 });
 
 
@@ -1955,7 +1975,7 @@ class __$FacilityProfileEntityCopyWithImpl<$Res>
 
 /// Create a copy of FacilityProfileEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? title = freezed,Object? year = freezed,Object? bio = freezed,Object? likesCount = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? tags = null,Object? teamMembers = null,Object? operatingHours = null,Object? branches = null,Object? languages = null,Object? amenities = null,Object? contacts = null,Object? location = freezed,Object? mainBranch = freezed,Object? isSaved = null,Object? isTracked = null,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? title = freezed,Object? year = freezed,Object? bio = freezed,Object? likesCount = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? tags = null,Object? teamMembers = null,Object? operatingHours = null,Object? branches = null,Object? languages = null,Object? amenities = null,Object? contacts = null,Object? reservationContacts = null,Object? location = freezed,Object? mainBranch = freezed,Object? isSaved = null,Object? isTracked = null,Object? updatedAt = freezed,}) {
   return _then(_FacilityProfileEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -1972,6 +1992,7 @@ as List<OperatingHoursEntity>,branches: null == branches ? _self._branches : bra
 as List<BranchEntity>,languages: null == languages ? _self._languages : languages // ignore: cast_nullable_to_non_nullable
 as List<LanguageEntity>,amenities: null == amenities ? _self._amenities : amenities // ignore: cast_nullable_to_non_nullable
 as List<AmenityEntity>,contacts: null == contacts ? _self._contacts : contacts // ignore: cast_nullable_to_non_nullable
+as List<FacilityContactEntity>,reservationContacts: null == reservationContacts ? _self._reservationContacts : reservationContacts // ignore: cast_nullable_to_non_nullable
 as List<FacilityContactEntity>,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
 as FacilityLocationEntity?,mainBranch: freezed == mainBranch ? _self.mainBranch : mainBranch // ignore: cast_nullable_to_non_nullable
 as MainBranchEntity?,isSaved: null == isSaved ? _self.isSaved : isSaved // ignore: cast_nullable_to_non_nullable

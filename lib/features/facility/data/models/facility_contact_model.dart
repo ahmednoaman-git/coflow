@@ -9,6 +9,43 @@ class ReservationContactLinkModel {
   final String? label;
 }
 
+/// One row of the profile's `phones` or `links` list — the facility's own
+/// contact details, which `reservation_contact` only names:
+///
+/// ```jsonc
+/// "phones": [{"id": 395, "name": "Landline", "phone": "19019"}]
+/// "links":  [{"id": 479, "name": "Instagram", "url": "https://www.instagram.com/..."}]
+/// ```
+class FacilityContactDetailModel {
+  const FacilityContactDetailModel({required this.value, this.name});
+
+  /// The phone number or URL.
+  final String value;
+
+  /// `Landline`/`Mobile` for a phone, the channel (`Instagram`, ...) for a link.
+  final String? name;
+
+  /// Parses either list, skipping rows with no value. Never throws, for the
+  /// same reason as [ReservationContactModel.listFromJson].
+  static List<FacilityContactDetailModel> listFromJson(dynamic raw) {
+    if (raw is! List) return const <FacilityContactDetailModel>[];
+
+    return raw
+        .whereType<Map<dynamic, dynamic>>()
+        .map((entry) {
+          final json = entry.cast<String, dynamic>();
+          final value = ReservationContactModel._firstString(json, const ['phone', 'url']);
+          if (value == null) return null;
+          return FacilityContactDetailModel(
+            value: value,
+            name: ReservationContactModel._firstString(json, const ['name']),
+          );
+        })
+        .whereType<FacilityContactDetailModel>()
+        .toList(growable: false);
+  }
+}
+
 /// A reservation contact as the API sends it.
 ///
 /// `reservation_contact` is the messiest field on the profile payload: the

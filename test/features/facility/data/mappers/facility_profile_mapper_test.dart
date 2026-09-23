@@ -34,9 +34,9 @@ void main() {
       // to blow up the whole profile parse.
       final profile = load(173);
 
-      expect(profile.contacts.single.channel, FacilityContactChannel.instagram);
-      expect(profile.contacts.single.isActionable, isFalse);
-      expect(profile.actionableContacts, isEmpty);
+      expect(profile.reservationContacts.single.channel, FacilityContactChannel.instagram);
+      expect(profile.reservationContacts.single.isActionable, isFalse);
+      expect(profile.actionableReservationContacts, isEmpty);
     });
   });
 
@@ -87,9 +87,9 @@ void main() {
     });
   });
 
-  group('contacts', () {
+  group('reservation contacts', () {
     test('reads a nested phone list, labels and all (facility 184)', () {
-      final contact = load(184).contacts.single;
+      final contact = load(184).reservationContacts.single;
 
       expect(contact.channel, FacilityContactChannel.contactNumber);
       expect(contact.links.map((link) => link.value), ['19019', '01234567890']);
@@ -98,7 +98,7 @@ void main() {
     });
 
     test('reads a value stored directly in `url` (facility 194)', () {
-      final contact = load(194).contacts.single;
+      final contact = load(194).reservationContacts.single;
 
       expect(contact.channel, FacilityContactChannel.whatsapp);
       expect(contact.links.single.value, '00971600511115');
@@ -106,7 +106,7 @@ void main() {
     });
 
     test('reads the legacy selectSocial shape (facility 64)', () {
-      final contact = load(64).contacts.single;
+      final contact = load(64).reservationContacts.single;
 
       expect(contact.channel, FacilityContactChannel.website);
       expect(contact.links.single.value, 'https://xwake.simplybook.me/v2/#');

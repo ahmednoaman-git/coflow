@@ -1,5 +1,6 @@
 import 'package:coflow_users_v2/features/facility/data/mappers/mappers.dart';
 import 'package:coflow_users_v2/features/facility/data/models/models.dart';
+import 'package:coflow_users_v2/features/facility/domain/entities/entities.dart';
 import 'package:coflow_users_v2/features/facility/domain/enums/enums.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -143,6 +144,110 @@ void main() {
 
       expect(contact.isActionable, isTrue);
       expect(contact.needsChoice, isTrue);
+    });
+  });
+
+  /// The current shape names a channel in `reservation_contact` and keeps its
+  /// values in the profile's `phones`/`links` — copied from the test API.
+  group('FacilityContactMapper resolving named channels', () {
+    final phones = FacilityContactDetailModel.listFromJson([
+      {'id': 395, 'name': 'Landline', 'phone': '19019', 'facility_id': 192},
+      {'id': 396, 'name': 'Mobile', 'phone': '01234567891', 'facility_id': 192},
+    ]);
+    final links = FacilityContactDetailModel.listFromJson([
+      {
+        'id': 479,
+        'name': 'Instagram',
+        'url': 'https://www.instagram.com/SkywingsParagliding/',
+        'facility_id': 173,
+      },
+      {
+        'id': 480,
+        'name': 'Facebook',
+        'url': 'https://www.facebook.com/SkywingsParagliding',
+        'facility_id': 173,
+      },
+    ]);
+
+    FacilityContactEntity resolve(dynamic reservationContact) => FacilityContactMapper.toEntities(
+      ReservationContactModel.listFromJson(reservationContact),
+      phones: phones,
+      links: links,
+    ).single;
+
+    test('takes a named social channel\'s URL from links (facility 173)', () {
+      final contact = resolve(['Instagram']);
+
+      expect(contact.channel, FacilityContactChannel.instagram);
+      expect(contact.links.single.value, 'https://www.instagram.com/SkywingsParagliding/');
+      expect(contact.isActionable, isTrue);
+    });
+
+    test('takes every phone for Contact Number, keeping their labels (facility 192)', () {
+      final contact = resolve(['Contact Number']);
+
+      expect(contact.channel, FacilityContactChannel.contactNumber);
+      expect(contact.links.map((link) => link.value), ['19019', '01234567891']);
+      expect(contact.links.map((link) => link.label), ['Landline', 'Mobile']);
+      expect(contact.needsChoice, isTrue);
+    });
+
+    test('keeps a value the reservation row already carries (facility 64)', () {
+      final contact = resolve([
+        {'selectSocial': 'Instagram', 'link': 'https://www.instagram.com/xwakeegypt/'},
+      ]);
+
+      expect(contact.links.single.value, 'https://www.instagram.com/xwakeegypt/');
+    });
+
+    test('stays not actionable when the facility has no matching link', () {
+      final contact = resolve(['Youtube']);
+
+      expect(contact.links, isEmpty);
+      expect(contact.isActionable, isFalse);
+    });
+
+    test('builds the profile row from every phone and link, phones first', () {
+      final contacts = FacilityContactMapper.fromDetails(phones: phones, links: links);
+
+      expect(contacts.map((contact) => contact.channel), [
+        FacilityContactChannel.contactNumber,
+        FacilityContactChannel.instagram,
+        FacilityContactChannel.facebook,
+      ]);
+      expect(contacts.first.links.map((link) => link.value), ['19019', '01234567891']);
+      expect(contacts.first.links.map((link) => link.label), ['Landline', 'Mobile']);
+      expect(contacts.every((contact) => contact.isActionable), isTrue);
+    });
+
+    test('folds links on the same channel into one button that asks', () {
+      final contacts = FacilityContactMapper.fromDetails(
+        links: FacilityContactDetailModel.listFromJson([
+          {'name': 'Instagram', 'url': 'https://instagram.com/one'},
+          {'name': 'instagram ', 'url': 'https://instagram.com/two'},
+          {'name': 'Linktree', 'url': 'https://linktr.ee/one'},
+          {'name': 'Booking', 'url': 'https://book.example'},
+        ]),
+      );
+
+      expect(contacts, hasLength(3));
+      expect(contacts.first.needsChoice, isTrue);
+      expect(contacts.skip(1).map((contact) => contact.label), ['Linktree', 'Booking']);
+    });
+
+    test('has no row when the facility published nothing', () {
+      expect(FacilityContactMapper.fromDetails(), isEmpty);
+    });
+
+    test('skips phone and link rows with no value', () {
+      final details = FacilityContactDetailModel.listFromJson([
+        {'name': 'Mobile', 'phone': '  '},
+        {'name': 'Website'},
+        'not a row',
+        {'name': 'Mobile', 'phone': '01009144355'},
+      ]);
+
+      expect(details.map((detail) => detail.value), ['01009144355']);
     });
   });
 }

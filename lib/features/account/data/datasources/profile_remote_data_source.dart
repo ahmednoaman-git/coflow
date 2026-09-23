@@ -17,7 +17,8 @@ class ProfileRemoteDataSource {
 
   AsyncTask<ProfileModel> getProfile() {
     return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
-      final response = await _dio.post(ProfileEndpoints.profile);
+      // GET reads the profile; POST on the same path is the update.
+      final response = await _dio.get(ProfileEndpoints.profile);
       return ProfileModel.fromJson(response.data as Map<String, dynamic>);
     });
   }

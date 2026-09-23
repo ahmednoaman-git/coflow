@@ -87,7 +87,14 @@ abstract class FacilityProfileEntity with _$FacilityProfileEntity {
     @Default(<BranchEntity>[]) List<BranchEntity> branches,
     @Default(<LanguageEntity>[]) List<LanguageEntity> languages,
     @Default(<AmenityEntity>[]) List<AmenityEntity> amenities,
+
+    /// Every way to reach the facility — its phones and media links — shown as
+    /// the button row on the profile.
     @Default(<FacilityContactEntity>[]) List<FacilityContactEntity> contacts,
+
+    /// The channels the facility takes reservations through, offered when a
+    /// session cannot be booked in the app.
+    @Default(<FacilityContactEntity>[]) List<FacilityContactEntity> reservationContacts,
     FacilityLocationEntity? location,
     MainBranchEntity? mainBranch,
 
@@ -107,4 +114,8 @@ abstract class FacilityProfileEntity with _$FacilityProfileEntity {
   /// tapped, so it is dropped rather than shown as a dead button.
   List<FacilityContactEntity> get actionableContacts =>
       contacts.where((contact) => contact.isActionable).toList(growable: false);
+
+  /// [reservationContacts] worth offering, by the same rule.
+  List<FacilityContactEntity> get actionableReservationContacts =>
+      reservationContacts.where((contact) => contact.isActionable).toList(growable: false);
 }

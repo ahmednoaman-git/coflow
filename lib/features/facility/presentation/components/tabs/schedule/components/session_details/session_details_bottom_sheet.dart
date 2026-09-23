@@ -55,7 +55,7 @@ class SessionDetailsBottomSheet extends StatelessWidget {
               }
               if (!sheetContext.mounted) return;
               final contacts =
-                  facilityCubit.profileManager.data?.actionableContacts ??
+                  facilityCubit.profileManager.data?.actionableReservationContacts ??
                   const <FacilityContactEntity>[];
               if (contacts.isEmpty) {
                 sheetContext.showInfoSnackBar(sheetContext.l10n.facilityDetails_linkFailed);

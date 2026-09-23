@@ -128,6 +128,8 @@ class FacilityProfileModel {
     this.languages = const <LanguageModel>[],
     this.amenities = const <AmenityModel>[],
     this.reservationContact = const <ReservationContactModel>[],
+    this.phones = const <FacilityContactDetailModel>[],
+    this.links = const <FacilityContactDetailModel>[],
     this.locations = const <FacilityCoverageModel>[],
     this.locationType,
     this.city,
@@ -174,6 +176,16 @@ class FacilityProfileModel {
   /// shapes. See [ReservationContactModel].
   @JsonKey(fromJson: ReservationContactModel.listFromJson)
   final List<ReservationContactModel> reservationContact;
+
+  /// The facility's phone numbers. The current `reservation_contact` shape
+  /// names `Contact Number` without any number, so they are looked up here.
+  @JsonKey(fromJson: FacilityContactDetailModel.listFromJson)
+  final List<FacilityContactDetailModel> phones;
+
+  /// The facility's social and web links, where a bare reservation label such
+  /// as `Instagram` finds its URL.
+  @JsonKey(fromJson: FacilityContactDetailModel.listFromJson)
+  final List<FacilityContactDetailModel> links;
 
   /// Coverage rows for a remote facility. Always empty for an address-based
   /// one.
