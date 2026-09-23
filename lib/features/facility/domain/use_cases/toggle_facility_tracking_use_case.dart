@@ -7,9 +7,8 @@ import '../repositories/repositories.dart';
 /// Use case for turning update-tracking on/off for a facility.
 ///
 /// Not called from the facility profile — the design has no tracking control
-/// there. It is kept wired because the Profiles screen's own track toggle
-/// (`SavedProfilesCubit.toggleTracking`) still runs on a stub and this is the
-/// real `track/{facilityId}` verb it needs.
+/// there. Its caller is the Profiles screen's track toggle
+/// (`SavedProfilesCubit.toggleTracking`).
 ///
 /// Note the backend couples the two flags: tracking an unsaved facility saves
 /// it as well, and un-saving clears the tracking.

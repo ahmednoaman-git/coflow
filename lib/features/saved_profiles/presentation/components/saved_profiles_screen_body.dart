@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -109,10 +110,19 @@ class _SavedProfilesList extends StatelessWidget {
             onUnsaved: () => cubit.removeUnsaved(profile),
             child: SavedProfileCard(
               profile: profile,
+              onTap: () => _openFacility(context, profile),
               onTrackToggled: () => cubit.toggleTracking(profile),
             ),
           ),
       ],
     );
+  }
+
+  /// Opens the facility's profile, then re-reads the list on the way back —
+  /// the user may have unsaved it from there.
+  Future<void> _openFacility(BuildContext context, SavedProfileEntity profile) async {
+    final cubit = context.read<SavedProfilesCubit>();
+    await context.router.push<void>(FacilityDetailsRoute(facility: profile.facility));
+    await cubit.resync();
   }
 }

@@ -186,18 +186,14 @@ import '../../features/purchase/presentation/cubit/ticket_purchase_cubit.dart'
     as _i14;
 import '../../features/saved_profiles/data/datasources/datasources.dart'
     as _i1021;
-import '../../features/saved_profiles/data/datasources/saved_profiles_stub_data_source.dart'
-    as _i334;
+import '../../features/saved_profiles/data/datasources/saved_profiles_remote_data_source.dart'
+    as _i1050;
 import '../../features/saved_profiles/data/repositories/saved_profiles_repository_impl.dart'
     as _i347;
 import '../../features/saved_profiles/domain/repositories/repositories.dart'
     as _i179;
 import '../../features/saved_profiles/domain/use_cases/get_saved_profiles_use_case.dart'
     as _i657;
-import '../../features/saved_profiles/domain/use_cases/set_profile_tracking_use_case.dart'
-    as _i353;
-import '../../features/saved_profiles/domain/use_cases/unsave_profile_use_case.dart'
-    as _i228;
 import '../../features/saved_profiles/domain/use_cases/use_cases.dart' as _i551;
 import '../../features/saved_profiles/presentation/cubit/saved_profiles_cubit.dart'
     as _i529;
@@ -267,14 +263,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i84.FacilitySessionDetailsStubDataSource>(
       () => _i84.FacilitySessionDetailsStubDataSource(),
     );
-    gh.lazySingleton<_i334.SavedProfilesStubDataSource>(
-      () => _i334.SavedProfilesStubDataSource(),
-    );
-    gh.lazySingleton<_i179.SavedProfilesRepository>(
-      () => _i347.SavedProfilesRepositoryImpl(
-        gh<_i1021.SavedProfilesStubDataSource>(),
-      ),
-    );
     gh.lazySingleton<_i128.LocalizationManager>(
       () => _i128.LocalizationManager(gh<_i460.SharedPreferences>()),
     );
@@ -315,8 +303,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i377.PurchaseRemoteDataSource>(
       () => _i377.PurchaseRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i1050.SavedProfilesRemoteDataSource>(
+      () => _i1050.SavedProfilesRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i280.SearchRemoteDataSource>(
       () => _i280.SearchRemoteDataSource(gh<_i351.DioClient>()),
+    );
+    gh.lazySingleton<_i179.SavedProfilesRepository>(
+      () => _i347.SavedProfilesRepositoryImpl(
+        gh<_i1021.SavedProfilesRemoteDataSource>(),
+      ),
     );
     gh.lazySingleton<_i625.AuthenticationRepository>(
       () => _i195.AuthenticationRepositoryImpl(
@@ -343,13 +339,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i657.GetSavedProfilesUseCase>(
       () => _i657.GetSavedProfilesUseCase(gh<_i179.SavedProfilesRepository>()),
-    );
-    gh.lazySingleton<_i353.SetProfileTrackingUseCase>(
-      () =>
-          _i353.SetProfileTrackingUseCase(gh<_i179.SavedProfilesRepository>()),
-    );
-    gh.lazySingleton<_i228.UnsaveProfileUseCase>(
-      () => _i228.UnsaveProfileUseCase(gh<_i179.SavedProfilesRepository>()),
     );
     gh.lazySingleton<_i191.GetFacilitiesUseCase>(
       () => _i191.GetFacilitiesUseCase(gh<_i196.ActivityLineRepository>()),
@@ -390,13 +379,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i463.CouponRepository>(
       () => _i298.CouponRepositoryImpl(gh<_i857.PurchaseRemoteDataSource>()),
-    );
-    gh.factory<_i529.SavedProfilesCubit>(
-      () => _i529.SavedProfilesCubit(
-        gh<_i551.GetSavedProfilesUseCase>(),
-        gh<_i551.UnsaveProfileUseCase>(),
-        gh<_i551.SetProfileTrackingUseCase>(),
-      ),
     );
     gh.lazySingleton<_i686.SearchRepository>(
       () => _i1017.SearchRepositoryImpl(gh<_i461.SearchRemoteDataSource>()),
@@ -508,6 +490,13 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i877.GetProfileUseCase>(),
         gh<_i106.LogoutUseCase>(),
         gh<_i877.GetAccountStatisticsUseCase>(),
+      ),
+    );
+    gh.factory<_i529.SavedProfilesCubit>(
+      () => _i529.SavedProfilesCubit(
+        gh<_i551.GetSavedProfilesUseCase>(),
+        gh<_i312.ToggleFacilitySaveUseCase>(),
+        gh<_i312.ToggleFacilityTrackingUseCase>(),
       ),
     );
     gh.lazySingleton<_i291.GetPurchaseCouponsUseCase>(

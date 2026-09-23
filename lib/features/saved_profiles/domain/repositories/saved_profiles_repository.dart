@@ -1,19 +1,16 @@
 import 'package:coflow_users_v2/core/async/async.dart';
 
-import '../dtos/dtos.dart';
 import '../entities/entities.dart';
 
 /// Saved facilities ("Profiles") for the signed-in user.
+///
+/// Only the listing lives here. Saving, unsaving and tracking are the
+/// facility's own toggles (`ToggleFacilitySaveUseCase`,
+/// `ToggleFacilityTrackingUseCase`), shared with the facility profile screen.
 abstract interface class SavedProfilesRepository {
-  /// Every facility the user has saved, newest first.
+  /// Every facility the user has saved.
   ///
   /// Activity-line filtering is done client-side: the whole list is small and
   /// the filter has to feel instant.
   AsyncTask<List<SavedProfileEntity>> getSavedProfiles();
-
-  /// Removes a facility from the saved list.
-  AsyncTask<void> unsaveProfile(UnsaveProfileDto dto);
-
-  /// Turns update-tracking on or off for a saved facility.
-  AsyncTask<void> setProfileTracking(SetProfileTrackingDto dto);
 }

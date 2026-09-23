@@ -54,6 +54,10 @@ class AppRouter extends RootStackRouter {
             AutoRoute(page: AccountRoute.page, initial: true),
             AutoRoute(page: CalendarRoute.page),
             AutoRoute(page: SavedProfilesRoute.page),
+            // Registered here as well as under Home: a push only resolves
+            // against the current stack and its ancestors, never a sibling
+            // tab's, so a saved profile opens its facility inside this tab.
+            AutoRoute(page: FacilityDetailsRoute.page),
           ],
         ),
         AutoRoute(page: UserProfileRoute.page),

@@ -1,35 +1,54 @@
-import 'package:coflow_users_v2/core/core.dart';
-import 'package:coflow_users_v2/features/activity_line/domain/entities/collapsed_facility_entity.dart';
+import 'package:coflow_users_v2/features/activity_line/data/mappers/activity_line_mapper.dart';
+import 'package:coflow_users_v2/features/activity_line/data/models/facility_model.dart';
 
 import '../../domain/entities/entities.dart';
 import '../models/models.dart';
 
 abstract final class SavedProfileMapper {
-  static List<SavedProfileEntity> toEntities(SavedProfilesResponseModel model) =>
-      model.profiles.map(toEntity).toList(growable: false);
+  static const String _savedType = 'save';
+  static const String _trackedType = 'track';
 
-  static SavedProfileEntity toEntity(SavedProfileModel model) {
+  /// Folds the wishlist's per-flag rows into one entity per saved facility.
+  ///
+  /// A facility is listed when it has a `save` row, and tracked when it also
+  /// has a `track` row. Rows whose facility is gone — deleted since it was
+  /// saved — are dropped: there is nothing to show on the card or to open.
+  static List<SavedProfileEntity> toEntities(List<SavedProfileModel> models) {
+    final saved = <int, FacilityModel>{};
+    final trackedIds = <int>{};
+
+    for (final model in models) {
+      final (facilityId, facility) = (model.facilityId, model.facility);
+      if (facilityId == null) continue;
+
+      switch (model.type) {
+        case _savedType when facility != null:
+          saved.putIfAbsent(facilityId, () => facility);
+        case _trackedType:
+          trackedIds.add(facilityId);
+      }
+    }
+
+    return [
+      for (final MapEntry(key: facilityId, value: facility) in saved.entries)
+        toEntity(facility, isTracked: trackedIds.contains(facilityId)),
+    ];
+  }
+
+  static SavedProfileEntity toEntity(FacilityModel facility, {required bool isTracked}) {
     return SavedProfileEntity(
-      id: model.id,
-      name: model.name,
-      description: model.description,
-      activityLine: ActivityLineEntity.fromId(model.activityLineId),
-      status: FacilityStatus.fromString(model.status ?? ''),
-      logoUrl: model.logo,
-      likeCount: model.likesCount ?? 0,
-      branchLabel: _branchLabel(model.branch),
-      isTracked: model.isTracked,
+      facility: ActivityLineMapper.toFacilityEntity(facility),
+      branchLabel: _branchLabel(area: facility.area?.name, city: facility.city?.name),
+      isTracked: isTracked,
     );
   }
 
   /// `New Cairo, Cairo` — dropping whichever half the API left out rather than
   /// rendering a stray comma.
-  static String? _branchLabel(SavedProfileBranchModel? branch) {
-    if (branch == null) return null;
-
+  static String? _branchLabel({String? area, String? city}) {
     final parts = [
-      branch.area?.trim(),
-      branch.city?.trim(),
+      area?.trim(),
+      city?.trim(),
     ].whereType<String>().where((part) => part.isNotEmpty);
 
     return parts.isEmpty ? null : parts.join(', ');

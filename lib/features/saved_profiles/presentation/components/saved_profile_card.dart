@@ -14,16 +14,22 @@ class SavedProfileCard extends StatelessWidget {
   const SavedProfileCard({
     super.key,
     required this.profile,
+    required this.onTap,
     required this.onTrackToggled,
   });
 
   final SavedProfileEntity profile;
+
+  /// Opens the facility's profile.
+  final VoidCallback onTap;
+
   final VoidCallback onTrackToggled;
 
   static const double _logoSize = 64;
 
   @override
   Widget build(BuildContext context) {
+    final facility = profile.facility;
     final (accent, accentContainer) = profile.activityLine.getColors(context);
     final radius = BorderRadius.circular(context.spacing.s16);
 
@@ -38,18 +44,14 @@ class SavedProfileCard extends StatelessWidget {
       ),
       child: TappableScale(
         borderRadius: radius,
-        // TODO: open the facility profile. `FacilityDetailsRoute` wants a whole
-        // `CollapsedFacilityEntity`, which the saved list does not carry — wire
-        // this up once the endpoint lands (either it returns the collapsed
-        // facility, or the details route takes an id).
-        onTap: null,
+        onTap: onTap,
         child: Padding(
           padding: EdgeInsets.all(context.spacing.s12),
           child: Row(
             crossAxisAlignment: .start,
             spacing: context.spacing.s12,
             children: [
-              _Logo(profile: profile),
+              _Logo(name: facility.name, logoUrl: facility.logoUrl),
               Expanded(
                 child: Column(
                   crossAxisAlignment: .start,
@@ -61,13 +63,13 @@ class SavedProfileCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            profile.name,
+                            facility.name,
                             style: context.typography.bold16.primary(context),
                             maxLines: 1,
                             overflow: .ellipsis,
                           ),
                         ),
-                        _LikeCount(count: profile.likeCount, accent: accent),
+                        _LikeCount(count: facility.likeCount ?? 0, accent: accent),
                       ],
                     ),
                     if (profile.isTemporarilyClosed)
@@ -76,7 +78,7 @@ class SavedProfileCard extends StatelessWidget {
                         style: context.typography.book12.error(context),
                       ),
                     Text(
-                      profile.description,
+                      facility.description,
                       style: context.typography.book14.secondary(context),
                       maxLines: 1,
                       overflow: .ellipsis,
@@ -121,9 +123,10 @@ class SavedProfileCard extends StatelessWidget {
 }
 
 class _Logo extends StatelessWidget {
-  const _Logo({required this.profile});
+  const _Logo({required this.name, required this.logoUrl});
 
-  final SavedProfileEntity profile;
+  final String name;
+  final String? logoUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +134,7 @@ class _Logo extends StatelessWidget {
       child: SizedBox.square(
         dimension: SavedProfileCard._logoSize,
         child: ShimmerImage(
-          imageUrl: profile.logoUrl,
+          imageUrl: logoUrl,
           width: SavedProfileCard._logoSize,
           height: SavedProfileCard._logoSize,
           borderRadius: SavedProfileCard._logoSize / 2,
@@ -139,7 +142,7 @@ class _Logo extends StatelessWidget {
             color: context.colors.backgroundGrey,
             child: Center(
               child: Text(
-                profile.name.characters.first.toUpperCase(),
+                name.characters.first.toUpperCase(),
                 style: context.typography.bold18.tertiary(context),
               ),
             ),

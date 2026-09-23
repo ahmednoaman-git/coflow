@@ -1,8 +1,9 @@
 import 'package:coflow_users_v2/core/core.dart';
+import 'package:coflow_users_v2/features/facility/domain/dtos/dtos.dart';
+import 'package:coflow_users_v2/features/facility/domain/use_cases/use_cases.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/dtos/dtos.dart';
 import '../../domain/entities/entities.dart';
 import '../../domain/use_cases/use_cases.dart';
 import 'saved_profiles_state.dart';
@@ -10,11 +11,12 @@ import 'saved_profiles_state.dart';
 /// Drives the Profiles screen: the saved list, the activity-line filter, and
 /// the two per-card verbs (tracking and unsaving).
 ///
-/// Tracking is applied optimistically — the toggle flips on tap and rolls back
-/// if the request fails — so the button never sits waiting on the network.
+/// Both verbs are the facility's own toggles — the same call flips the flag
+/// either way — so neither may be fired again while one is in flight: a
+/// second tap would quietly undo the first on the server.
 @injectable
 class SavedProfilesCubit extends Cubit<SavedProfilesState> {
-  SavedProfilesCubit(this._getSavedProfiles, this._unsaveProfile, this._setProfileTracking)
+  SavedProfilesCubit(this._getSavedProfiles, this._toggleFacilitySave, this._toggleFacilityTracking)
     : super(const SavedProfilesState()) {
     profilesManager = .new(
       accessor: (
@@ -47,14 +49,28 @@ class SavedProfilesCubit extends Cubit<SavedProfilesState> {
   }
 
   final GetSavedProfilesUseCase _getSavedProfiles;
-  final UnsaveProfileUseCase _unsaveProfile;
-  final SetProfileTrackingUseCase _setProfileTracking;
+  final ToggleFacilitySaveUseCase _toggleFacilitySave;
+  final ToggleFacilityTrackingUseCase _toggleFacilityTracking;
 
   late final AsyncRequestManager<SavedProfilesState, List<SavedProfileEntity>> profilesManager;
   late final AsyncRequestManager<SavedProfilesState, void> unsaveManager;
   late final AsyncRequestManager<SavedProfilesState, void> trackingManager;
 
   Future<void> refresh() => profilesManager.refresh();
+
+  /// Re-reads the list in place, without dropping back to the shimmer.
+  ///
+  /// Used on return from a facility's profile, where the user may have unsaved
+  /// it. A failure keeps the list already on screen: it was right a moment ago,
+  /// and pull-to-refresh is there if it has drifted.
+  Future<void> resync() async {
+    if (!profilesManager.isSuccess) return;
+
+    final result = await _getSavedProfiles().run();
+    if (isClosed) return;
+
+    result.match((_) {}, _emitProfiles);
+  }
 
   /// Picks a line to filter on. Tapping the selected one clears back to "All",
   /// which is also where the screen starts.
@@ -65,11 +81,12 @@ class SavedProfilesCubit extends Cubit<SavedProfilesState> {
   /// Flips update-tracking for one card, restoring the old value if the request
   /// fails so the button never claims a state the server did not take.
   Future<void> toggleTracking(SavedProfileEntity profile) async {
-    final isTracked = !profile.isTracked;
-    _replaceProfile(profile.copyWith(isTracked: isTracked));
+    if (trackingManager.isLoading) return;
+
+    _replaceProfile(profile.copyWith(isTracked: !profile.isTracked));
 
     await trackingManager.execute(
-      _setProfileTracking(SetProfileTrackingDto(profileId: profile.id, isTracked: isTracked)),
+      _toggleFacilityTracking(ToggleFacilityTrackingDto(facilityId: profile.id)),
     );
 
     if (trackingManager.isError) _replaceProfile(profile);
@@ -81,7 +98,11 @@ class SavedProfilesCubit extends Cubit<SavedProfilesState> {
   /// the user's finger, so a failure can simply put it back rather than having
   /// to explain a card that vanished and returned.
   Future<bool> unsave(SavedProfileEntity profile) async {
-    await unsaveManager.execute(_unsaveProfile(UnsaveProfileDto(profileId: profile.id)));
+    if (unsaveManager.isLoading) return false;
+
+    await unsaveManager.execute(
+      _toggleFacilitySave(ToggleFacilitySaveDto(facilityId: profile.id)),
+    );
 
     return !unsaveManager.isError;
   }
