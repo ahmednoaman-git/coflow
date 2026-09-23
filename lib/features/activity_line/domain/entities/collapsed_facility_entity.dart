@@ -26,6 +26,10 @@ abstract class CollapsedFacilityEntity with _$CollapsedFacilityEntity {
     required SubscriptionStatus subscriptionStatus,
     required PaymentType paymentType,
     required int views,
+
+    /// Where the facility is, e.g. `Maadi, Cairo`. Null when the payload names
+    /// neither the area nor the city.
+    String? locationLabel,
   }) = _CollapsedFacilityEntity;
 }
 

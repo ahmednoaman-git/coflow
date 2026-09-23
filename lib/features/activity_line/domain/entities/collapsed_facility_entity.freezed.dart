@@ -14,7 +14,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CollapsedFacilityEntity {
 
- int get id; String get name; String get description; String? get statusMessage; String? get logoUrl; String? get coverUrl; int? get likeCount; ActivityLineEntity get activityLine; List<TagEntity> get tags; AccountType get accountType; FacilityStatus get status; SubscriptionStatus get subscriptionStatus; PaymentType get paymentType; int get views;
+ int get id; String get name; String get description; String? get statusMessage; String? get logoUrl; String? get coverUrl; int? get likeCount; ActivityLineEntity get activityLine; List<TagEntity> get tags; AccountType get accountType; FacilityStatus get status; SubscriptionStatus get subscriptionStatus; PaymentType get paymentType; int get views;/// Where the facility is, e.g. `Maadi, Cairo`. Null when the payload names
+/// neither the area nor the city.
+ String? get locationLabel;
 /// Create a copy of CollapsedFacilityEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +27,16 @@ $CollapsedFacilityEntityCopyWith<CollapsedFacilityEntity> get copyWith => _$Coll
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CollapsedFacilityEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.statusMessage, statusMessage) || other.statusMessage == statusMessage)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&(identical(other.likeCount, likeCount) || other.likeCount == likeCount)&&(identical(other.activityLine, activityLine) || other.activityLine == activityLine)&&const DeepCollectionEquality().equals(other.tags, tags)&&(identical(other.accountType, accountType) || other.accountType == accountType)&&(identical(other.status, status) || other.status == status)&&(identical(other.subscriptionStatus, subscriptionStatus) || other.subscriptionStatus == subscriptionStatus)&&(identical(other.paymentType, paymentType) || other.paymentType == paymentType)&&(identical(other.views, views) || other.views == views));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CollapsedFacilityEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.statusMessage, statusMessage) || other.statusMessage == statusMessage)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&(identical(other.likeCount, likeCount) || other.likeCount == likeCount)&&(identical(other.activityLine, activityLine) || other.activityLine == activityLine)&&const DeepCollectionEquality().equals(other.tags, tags)&&(identical(other.accountType, accountType) || other.accountType == accountType)&&(identical(other.status, status) || other.status == status)&&(identical(other.subscriptionStatus, subscriptionStatus) || other.subscriptionStatus == subscriptionStatus)&&(identical(other.paymentType, paymentType) || other.paymentType == paymentType)&&(identical(other.views, views) || other.views == views)&&(identical(other.locationLabel, locationLabel) || other.locationLabel == locationLabel));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,description,statusMessage,logoUrl,coverUrl,likeCount,activityLine,const DeepCollectionEquality().hash(tags),accountType,status,subscriptionStatus,paymentType,views);
+int get hashCode => Object.hash(runtimeType,id,name,description,statusMessage,logoUrl,coverUrl,likeCount,activityLine,const DeepCollectionEquality().hash(tags),accountType,status,subscriptionStatus,paymentType,views,locationLabel);
 
 @override
 String toString() {
-  return 'CollapsedFacilityEntity(id: $id, name: $name, description: $description, statusMessage: $statusMessage, logoUrl: $logoUrl, coverUrl: $coverUrl, likeCount: $likeCount, activityLine: $activityLine, tags: $tags, accountType: $accountType, status: $status, subscriptionStatus: $subscriptionStatus, paymentType: $paymentType, views: $views)';
+  return 'CollapsedFacilityEntity(id: $id, name: $name, description: $description, statusMessage: $statusMessage, logoUrl: $logoUrl, coverUrl: $coverUrl, likeCount: $likeCount, activityLine: $activityLine, tags: $tags, accountType: $accountType, status: $status, subscriptionStatus: $subscriptionStatus, paymentType: $paymentType, views: $views, locationLabel: $locationLabel)';
 }
 
 
@@ -45,7 +47,7 @@ abstract mixin class $CollapsedFacilityEntityCopyWith<$Res>  {
   factory $CollapsedFacilityEntityCopyWith(CollapsedFacilityEntity value, $Res Function(CollapsedFacilityEntity) _then) = _$CollapsedFacilityEntityCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, String description, String? statusMessage, String? logoUrl, String? coverUrl, int? likeCount, ActivityLineEntity activityLine, List<TagEntity> tags, AccountType accountType, FacilityStatus status, SubscriptionStatus subscriptionStatus, PaymentType paymentType, int views
+ int id, String name, String description, String? statusMessage, String? logoUrl, String? coverUrl, int? likeCount, ActivityLineEntity activityLine, List<TagEntity> tags, AccountType accountType, FacilityStatus status, SubscriptionStatus subscriptionStatus, PaymentType paymentType, int views, String? locationLabel
 });
 
 
@@ -62,7 +64,7 @@ class _$CollapsedFacilityEntityCopyWithImpl<$Res>
 
 /// Create a copy of CollapsedFacilityEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? description = null,Object? statusMessage = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? likeCount = freezed,Object? activityLine = null,Object? tags = null,Object? accountType = null,Object? status = null,Object? subscriptionStatus = null,Object? paymentType = null,Object? views = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? description = null,Object? statusMessage = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? likeCount = freezed,Object? activityLine = null,Object? tags = null,Object? accountType = null,Object? status = null,Object? subscriptionStatus = null,Object? paymentType = null,Object? views = null,Object? locationLabel = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -78,7 +80,8 @@ as AccountType,status: null == status ? _self.status : status // ignore: cast_nu
 as FacilityStatus,subscriptionStatus: null == subscriptionStatus ? _self.subscriptionStatus : subscriptionStatus // ignore: cast_nullable_to_non_nullable
 as SubscriptionStatus,paymentType: null == paymentType ? _self.paymentType : paymentType // ignore: cast_nullable_to_non_nullable
 as PaymentType,views: null == views ? _self.views : views // ignore: cast_nullable_to_non_nullable
-as int,
+as int,locationLabel: freezed == locationLabel ? _self.locationLabel : locationLabel // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 /// Create a copy of CollapsedFacilityEntity
@@ -172,10 +175,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String description,  String? statusMessage,  String? logoUrl,  String? coverUrl,  int? likeCount,  ActivityLineEntity activityLine,  List<TagEntity> tags,  AccountType accountType,  FacilityStatus status,  SubscriptionStatus subscriptionStatus,  PaymentType paymentType,  int views)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String description,  String? statusMessage,  String? logoUrl,  String? coverUrl,  int? likeCount,  ActivityLineEntity activityLine,  List<TagEntity> tags,  AccountType accountType,  FacilityStatus status,  SubscriptionStatus subscriptionStatus,  PaymentType paymentType,  int views,  String? locationLabel)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CollapsedFacilityEntity() when $default != null:
-return $default(_that.id,_that.name,_that.description,_that.statusMessage,_that.logoUrl,_that.coverUrl,_that.likeCount,_that.activityLine,_that.tags,_that.accountType,_that.status,_that.subscriptionStatus,_that.paymentType,_that.views);case _:
+return $default(_that.id,_that.name,_that.description,_that.statusMessage,_that.logoUrl,_that.coverUrl,_that.likeCount,_that.activityLine,_that.tags,_that.accountType,_that.status,_that.subscriptionStatus,_that.paymentType,_that.views,_that.locationLabel);case _:
   return orElse();
 
 }
@@ -193,10 +196,10 @@ return $default(_that.id,_that.name,_that.description,_that.statusMessage,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String description,  String? statusMessage,  String? logoUrl,  String? coverUrl,  int? likeCount,  ActivityLineEntity activityLine,  List<TagEntity> tags,  AccountType accountType,  FacilityStatus status,  SubscriptionStatus subscriptionStatus,  PaymentType paymentType,  int views)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String description,  String? statusMessage,  String? logoUrl,  String? coverUrl,  int? likeCount,  ActivityLineEntity activityLine,  List<TagEntity> tags,  AccountType accountType,  FacilityStatus status,  SubscriptionStatus subscriptionStatus,  PaymentType paymentType,  int views,  String? locationLabel)  $default,) {final _that = this;
 switch (_that) {
 case _CollapsedFacilityEntity():
-return $default(_that.id,_that.name,_that.description,_that.statusMessage,_that.logoUrl,_that.coverUrl,_that.likeCount,_that.activityLine,_that.tags,_that.accountType,_that.status,_that.subscriptionStatus,_that.paymentType,_that.views);case _:
+return $default(_that.id,_that.name,_that.description,_that.statusMessage,_that.logoUrl,_that.coverUrl,_that.likeCount,_that.activityLine,_that.tags,_that.accountType,_that.status,_that.subscriptionStatus,_that.paymentType,_that.views,_that.locationLabel);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -213,10 +216,10 @@ return $default(_that.id,_that.name,_that.description,_that.statusMessage,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String description,  String? statusMessage,  String? logoUrl,  String? coverUrl,  int? likeCount,  ActivityLineEntity activityLine,  List<TagEntity> tags,  AccountType accountType,  FacilityStatus status,  SubscriptionStatus subscriptionStatus,  PaymentType paymentType,  int views)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String description,  String? statusMessage,  String? logoUrl,  String? coverUrl,  int? likeCount,  ActivityLineEntity activityLine,  List<TagEntity> tags,  AccountType accountType,  FacilityStatus status,  SubscriptionStatus subscriptionStatus,  PaymentType paymentType,  int views,  String? locationLabel)?  $default,) {final _that = this;
 switch (_that) {
 case _CollapsedFacilityEntity() when $default != null:
-return $default(_that.id,_that.name,_that.description,_that.statusMessage,_that.logoUrl,_that.coverUrl,_that.likeCount,_that.activityLine,_that.tags,_that.accountType,_that.status,_that.subscriptionStatus,_that.paymentType,_that.views);case _:
+return $default(_that.id,_that.name,_that.description,_that.statusMessage,_that.logoUrl,_that.coverUrl,_that.likeCount,_that.activityLine,_that.tags,_that.accountType,_that.status,_that.subscriptionStatus,_that.paymentType,_that.views,_that.locationLabel);case _:
   return null;
 
 }
@@ -228,7 +231,7 @@ return $default(_that.id,_that.name,_that.description,_that.statusMessage,_that.
 
 
 class _CollapsedFacilityEntity implements CollapsedFacilityEntity {
-  const _CollapsedFacilityEntity({required this.id, required this.name, required this.description, this.statusMessage, this.logoUrl, this.coverUrl, this.likeCount, required this.activityLine, final  List<TagEntity> tags = const [], required this.accountType, required this.status, required this.subscriptionStatus, required this.paymentType, required this.views}): _tags = tags;
+  const _CollapsedFacilityEntity({required this.id, required this.name, required this.description, this.statusMessage, this.logoUrl, this.coverUrl, this.likeCount, required this.activityLine, final  List<TagEntity> tags = const [], required this.accountType, required this.status, required this.subscriptionStatus, required this.paymentType, required this.views, this.locationLabel}): _tags = tags;
   
 
 @override final  int id;
@@ -251,6 +254,9 @@ class _CollapsedFacilityEntity implements CollapsedFacilityEntity {
 @override final  SubscriptionStatus subscriptionStatus;
 @override final  PaymentType paymentType;
 @override final  int views;
+/// Where the facility is, e.g. `Maadi, Cairo`. Null when the payload names
+/// neither the area nor the city.
+@override final  String? locationLabel;
 
 /// Create a copy of CollapsedFacilityEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -262,16 +268,16 @@ _$CollapsedFacilityEntityCopyWith<_CollapsedFacilityEntity> get copyWith => __$C
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CollapsedFacilityEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.statusMessage, statusMessage) || other.statusMessage == statusMessage)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&(identical(other.likeCount, likeCount) || other.likeCount == likeCount)&&(identical(other.activityLine, activityLine) || other.activityLine == activityLine)&&const DeepCollectionEquality().equals(other._tags, _tags)&&(identical(other.accountType, accountType) || other.accountType == accountType)&&(identical(other.status, status) || other.status == status)&&(identical(other.subscriptionStatus, subscriptionStatus) || other.subscriptionStatus == subscriptionStatus)&&(identical(other.paymentType, paymentType) || other.paymentType == paymentType)&&(identical(other.views, views) || other.views == views));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CollapsedFacilityEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.statusMessage, statusMessage) || other.statusMessage == statusMessage)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&(identical(other.likeCount, likeCount) || other.likeCount == likeCount)&&(identical(other.activityLine, activityLine) || other.activityLine == activityLine)&&const DeepCollectionEquality().equals(other._tags, _tags)&&(identical(other.accountType, accountType) || other.accountType == accountType)&&(identical(other.status, status) || other.status == status)&&(identical(other.subscriptionStatus, subscriptionStatus) || other.subscriptionStatus == subscriptionStatus)&&(identical(other.paymentType, paymentType) || other.paymentType == paymentType)&&(identical(other.views, views) || other.views == views)&&(identical(other.locationLabel, locationLabel) || other.locationLabel == locationLabel));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,description,statusMessage,logoUrl,coverUrl,likeCount,activityLine,const DeepCollectionEquality().hash(_tags),accountType,status,subscriptionStatus,paymentType,views);
+int get hashCode => Object.hash(runtimeType,id,name,description,statusMessage,logoUrl,coverUrl,likeCount,activityLine,const DeepCollectionEquality().hash(_tags),accountType,status,subscriptionStatus,paymentType,views,locationLabel);
 
 @override
 String toString() {
-  return 'CollapsedFacilityEntity(id: $id, name: $name, description: $description, statusMessage: $statusMessage, logoUrl: $logoUrl, coverUrl: $coverUrl, likeCount: $likeCount, activityLine: $activityLine, tags: $tags, accountType: $accountType, status: $status, subscriptionStatus: $subscriptionStatus, paymentType: $paymentType, views: $views)';
+  return 'CollapsedFacilityEntity(id: $id, name: $name, description: $description, statusMessage: $statusMessage, logoUrl: $logoUrl, coverUrl: $coverUrl, likeCount: $likeCount, activityLine: $activityLine, tags: $tags, accountType: $accountType, status: $status, subscriptionStatus: $subscriptionStatus, paymentType: $paymentType, views: $views, locationLabel: $locationLabel)';
 }
 
 
@@ -282,7 +288,7 @@ abstract mixin class _$CollapsedFacilityEntityCopyWith<$Res> implements $Collaps
   factory _$CollapsedFacilityEntityCopyWith(_CollapsedFacilityEntity value, $Res Function(_CollapsedFacilityEntity) _then) = __$CollapsedFacilityEntityCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, String description, String? statusMessage, String? logoUrl, String? coverUrl, int? likeCount, ActivityLineEntity activityLine, List<TagEntity> tags, AccountType accountType, FacilityStatus status, SubscriptionStatus subscriptionStatus, PaymentType paymentType, int views
+ int id, String name, String description, String? statusMessage, String? logoUrl, String? coverUrl, int? likeCount, ActivityLineEntity activityLine, List<TagEntity> tags, AccountType accountType, FacilityStatus status, SubscriptionStatus subscriptionStatus, PaymentType paymentType, int views, String? locationLabel
 });
 
 
@@ -299,7 +305,7 @@ class __$CollapsedFacilityEntityCopyWithImpl<$Res>
 
 /// Create a copy of CollapsedFacilityEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? description = null,Object? statusMessage = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? likeCount = freezed,Object? activityLine = null,Object? tags = null,Object? accountType = null,Object? status = null,Object? subscriptionStatus = null,Object? paymentType = null,Object? views = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? description = null,Object? statusMessage = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? likeCount = freezed,Object? activityLine = null,Object? tags = null,Object? accountType = null,Object? status = null,Object? subscriptionStatus = null,Object? paymentType = null,Object? views = null,Object? locationLabel = freezed,}) {
   return _then(_CollapsedFacilityEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -315,7 +321,8 @@ as AccountType,status: null == status ? _self.status : status // ignore: cast_nu
 as FacilityStatus,subscriptionStatus: null == subscriptionStatus ? _self.subscriptionStatus : subscriptionStatus // ignore: cast_nullable_to_non_nullable
 as SubscriptionStatus,paymentType: null == paymentType ? _self.paymentType : paymentType // ignore: cast_nullable_to_non_nullable
 as PaymentType,views: null == views ? _self.views : views // ignore: cast_nullable_to_non_nullable
-as int,
+as int,locationLabel: freezed == locationLabel ? _self.locationLabel : locationLabel // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

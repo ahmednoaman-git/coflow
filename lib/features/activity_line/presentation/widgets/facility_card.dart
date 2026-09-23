@@ -107,9 +107,16 @@ class FacilityCard extends StatelessWidget {
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
-        // Icons
+        // Icons, then where the facility is
         SizedBox(height: context.spacing.s4),
-        FacilityCardIconSection(facility: facility),
+        Row(
+          spacing: context.spacing.s8,
+          children: [
+            FacilityCardIconSection(facility: facility),
+            if (facility.locationLabel case final location?)
+              Flexible(child: _LocationLabel(location)),
+          ],
+        ),
       ],
     );
   }
@@ -125,6 +132,36 @@ class FacilityCard extends StatelessWidget {
         Text(
           facility.likeCount.toString(),
           style: context.typography.book12.primary(context),
+        ),
+      ],
+    );
+  }
+}
+
+/// `📍 Maadi, Cairo`, sized to sit on the same line as the feature icons.
+class _LocationLabel extends StatelessWidget {
+  const _LocationLabel(this.location);
+
+  final String location;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: .min,
+      spacing: context.spacing.s4,
+      children: [
+        Assets.svgs.location.svg(
+          width: 16,
+          height: 16,
+          colorFilter: context.colors.textSecondary.colorFilter,
+        ),
+        Flexible(
+          child: Text(
+            location,
+            style: context.typography.book12.secondary(context),
+            maxLines: 1,
+            overflow: .ellipsis,
+          ),
         ),
       ],
     );

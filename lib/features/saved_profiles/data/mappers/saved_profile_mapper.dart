@@ -36,21 +36,12 @@ abstract final class SavedProfileMapper {
   }
 
   static SavedProfileEntity toEntity(FacilityModel facility, {required bool isTracked}) {
+    final entity = ActivityLineMapper.toFacilityEntity(facility);
+
     return SavedProfileEntity(
-      facility: ActivityLineMapper.toFacilityEntity(facility),
-      branchLabel: _branchLabel(area: facility.area?.name, city: facility.city?.name),
+      facility: entity,
+      branchLabel: entity.locationLabel,
       isTracked: isTracked,
     );
-  }
-
-  /// `New Cairo, Cairo` — dropping whichever half the API left out rather than
-  /// rendering a stray comma.
-  static String? _branchLabel({String? area, String? city}) {
-    final parts = [
-      area?.trim(),
-      city?.trim(),
-    ].whereType<String>().where((part) => part.isNotEmpty);
-
-    return parts.isEmpty ? null : parts.join(', ');
   }
 }
