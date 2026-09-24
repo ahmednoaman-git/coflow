@@ -90,10 +90,7 @@ CollapsedFacilityServiceModel _$CollapsedFacilityServiceModelFromJson(
         (v) => (v as num?)?.toInt(),
       ),
       image: $checkedConvert('image', (v) => v as String?),
-      reservations: $checkedConvert(
-        'reservations',
-        (v) => (v as num?)?.toInt(),
-      ),
+      reservations: $checkedConvert('reservations', (v) => _countFromJson(v)),
       durationList: $checkedConvert(
         'duration_list',
         (v) => v == null
