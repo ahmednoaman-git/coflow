@@ -1,5 +1,6 @@
 import '../../domain/entities/entities.dart';
 import '../models/models.dart';
+import 'ticket_price_mapper.dart';
 
 abstract final class FacilityTicketDetailsMapper {
   static FacilityTicketDetailsEntity toEntity(FacilityTicketDetailsModel model) {
@@ -9,7 +10,12 @@ abstract final class FacilityTicketDetailsMapper {
       id: ticket.id,
       name: ticket.name,
       price: ticket.price,
-      discountPrice: ticket.discountPrice,
+      discountPrice: TicketPriceMapper.reducedPrice(
+        price: ticket.price,
+        discountPrice: ticket.discountPrice,
+        hasDiscount: ticket.hasDiscount,
+        offerPercent: ticket.offer,
+      ),
       currency: ticket.currency,
       unlimited: ticket.unlimited,
       validityDays: ticket.validityDays,

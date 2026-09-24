@@ -11,7 +11,6 @@ CouponDetailsModel _$CouponDetailsModelFromJson(Map<String, dynamic> json) =>
       'CouponDetailsModel',
       json,
       ($checkedConvert) {
-        $checkKeys(json, disallowNullValues: const ['tickets', 'promotions']);
         final val = CouponDetailsModel(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           discountRatio: $checkedConvert(
@@ -23,8 +22,8 @@ CouponDetailsModel _$CouponDetailsModelFromJson(Map<String, dynamic> json) =>
             'validity_days',
             (v) => (v as num?)?.toInt(),
           ),
-          appliesOn: $checkedConvert('applies_on', (v) => v as String),
-          status: $checkedConvert('status', (v) => v as String),
+          appliesOn: $checkedConvert('applies_on', (v) => v as String?),
+          status: $checkedConvert('status', (v) => v as String?),
           facilityId: $checkedConvert('facility_id', (v) => (v as num).toInt()),
           deletedAt: $checkedConvert(
             'deleted_at',
@@ -36,12 +35,29 @@ CouponDetailsModel _$CouponDetailsModelFromJson(Map<String, dynamic> json) =>
           ),
           laravelThroughKey: $checkedConvert(
             'laravel_through_key',
-            (v) => (v as num).toInt(),
+            (v) => (v as num?)?.toInt(),
           ),
-          tickets: $checkedConvert('tickets', (v) => v as List<dynamic>? ?? []),
+          tickets: $checkedConvert(
+            'tickets',
+            (v) =>
+                (v as List<dynamic>?)
+                    ?.map(
+                      (e) =>
+                          CouponTargetModel.fromJson(e as Map<String, dynamic>),
+                    )
+                    .toList() ??
+                [],
+          ),
           promotions: $checkedConvert(
             'promotions',
-            (v) => v as List<dynamic>? ?? [],
+            (v) =>
+                (v as List<dynamic>?)
+                    ?.map(
+                      (e) =>
+                          CouponTargetModel.fromJson(e as Map<String, dynamic>),
+                    )
+                    .toList() ??
+                [],
           ),
         );
         return val;
@@ -69,6 +85,6 @@ Map<String, dynamic> _$CouponDetailsModelToJson(CouponDetailsModel instance) =>
       'deleted_at': instance.deletedAt?.toIso8601String(),
       'purchases_count': instance.purchasesCount,
       'laravel_through_key': instance.laravelThroughKey,
-      'tickets': ?instance.tickets,
-      'promotions': ?instance.promotions,
+      'tickets': instance.tickets,
+      'promotions': instance.promotions,
     };

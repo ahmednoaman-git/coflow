@@ -25,6 +25,7 @@ FacilityTicketModel _$FacilityTicketModelFromJson(Map<String, dynamic> json) =>
             'services_count',
             (v) => (v as num).toInt(),
           ),
+          offer: $checkedConvert('offer', (v) => (v as num?)?.toDouble()),
         );
         return val;
       },
@@ -45,4 +46,5 @@ Map<String, dynamic> _$FacilityTicketModelToJson(
   'currency': instance.currency,
   'facility_id': instance.facilityId,
   'services_count': instance.servicesCount,
+  'offer': instance.offer,
 };

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:coflow_users_v2/features/activity_line/domain/entities/entities.dart';
 import 'package:coflow_users_v2/features/facility/data/mappers/mappers.dart';
 import 'package:coflow_users_v2/features/facility/data/models/models.dart';
 import 'package:coflow_users_v2/features/facility/domain/entities/entities.dart';
@@ -119,5 +120,10 @@ void main() {
     expect(profile.isSaved, isFalse);
     expect(profile.isTracked, isFalse);
     expect(profile.updatedAt, isNotNull);
+  });
+
+  test('reads how the facility takes purchases', () {
+    expect(load(194).paymentType, PaymentType.contact);
+    expect(load(64).paymentType, PaymentType.directPurchase);
   });
 }

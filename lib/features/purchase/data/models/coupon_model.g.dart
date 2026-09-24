@@ -64,7 +64,9 @@ CouponModel _$CouponModelFromJson(Map<String, dynamic> json) => $checkedCreate(
       ),
       coupon: $checkedConvert(
         'coupon',
-        (v) => CouponDetailsModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null
+            ? null
+            : CouponDetailsModel.fromJson(v as Map<String, dynamic>),
       ),
       facility: $checkedConvert(
         'facility',

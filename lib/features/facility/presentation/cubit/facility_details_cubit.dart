@@ -42,7 +42,10 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
       accessor: (
         getPartialState: (state) => state.profileRequest,
         getWholeState: () => state,
-        setWholeState: (state, partial) => state.copyWith(profileRequest: partial),
+        setWholeState: (state, partial) => state.copyWith(
+          profileRequest: partial,
+          facility: _withProfile(state.facility, partial.dataOrNull),
+        ),
       ),
       emit: emit,
       autoExecute: true,
@@ -161,6 +164,22 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
     await saveManager.execute(_toggleFacilitySave(ToggleFacilitySaveDto(facilityId: profile.id)));
 
     if (saveManager.isError) _emitProfile(profile);
+  }
+
+  /// Brings the payment type of [facility] — the list card's copy the screen
+  /// was opened with — up to date with a freshly read [profile].
+  ///
+  /// The card can be stale (a results list left open while the facility
+  /// switched to `contact`), and the pricing tab decides between "Purchase
+  /// Now" and "Contact" from it. The subscription is left alone: it also
+  /// decides which tabs exist, and those must not change under the user.
+  static CollapsedFacilityEntity _withProfile(
+    CollapsedFacilityEntity facility,
+    FacilityProfileEntity? profile,
+  ) {
+    final paymentType = profile?.paymentType;
+    if (paymentType == null) return facility;
+    return facility.copyWith(paymentType: paymentType);
   }
 
   /// Writes a locally-adjusted profile back into the loaded state, so the whole

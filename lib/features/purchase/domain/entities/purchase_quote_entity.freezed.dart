@@ -209,8 +209,8 @@ return $default(_that.totalPrice,_that.finalPrice,_that.couponDiscount,_that.add
 /// @nodoc
 
 
-class _PurchaseQuoteEntity implements PurchaseQuoteEntity {
-  const _PurchaseQuoteEntity({required this.totalPrice, required this.finalPrice, required this.couponDiscount, this.addOnsPrice = 0, this.currency});
+class _PurchaseQuoteEntity extends PurchaseQuoteEntity {
+  const _PurchaseQuoteEntity({required this.totalPrice, required this.finalPrice, required this.couponDiscount, this.addOnsPrice = 0, this.currency}): super._();
   
 
 @override final  double totalPrice;

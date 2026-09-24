@@ -37,13 +37,18 @@ class _FacilityDetailsScreenState extends State<FacilityDetailsScreen> {
 
     return BlocProvider<FacilityDetailsCubit>(
       create: (context) => getIt<FacilityDetailsCubit>(param1: widget.facility),
-      child: FacilityDataProvider(
-        scrollController: _scrollController,
-        facility: widget.facility,
-        activityLineColor: activityLineColor,
-        activityLineBackground: activityLineBackground,
-        child: Scaffold(
-          body: FacilityScreenBody(scrollController: _scrollController),
+      // The cubit's copy, not `widget.facility`: it picks up the payment type
+      // from the freshly read profile.
+      child: BlocSelector<FacilityDetailsCubit, FacilityDetailsState, CollapsedFacilityEntity>(
+        selector: (state) => state.facility,
+        builder: (context, facility) => FacilityDataProvider(
+          scrollController: _scrollController,
+          facility: facility,
+          activityLineColor: activityLineColor,
+          activityLineBackground: activityLineBackground,
+          child: Scaffold(
+            body: FacilityScreenBody(scrollController: _scrollController),
+          ),
         ),
       ),
     );

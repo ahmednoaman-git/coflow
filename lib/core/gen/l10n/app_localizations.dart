@@ -675,12 +675,6 @@ abstract class AppLocalizations {
   /// **'Promotion Price'**
   String get facilityDetails_promotionPrice;
 
-  /// No description provided for @facilityDetails_purchase.
-  ///
-  /// In en, this message translates to:
-  /// **'Purchase'**
-  String get facilityDetails_purchase;
-
   /// No description provided for @facilityDetails_purchaseNow.
   ///
   /// In en, this message translates to:
@@ -1011,11 +1005,11 @@ abstract class AppLocalizations {
   /// **'Purchase Invoice'**
   String get purchase_invoiceTitle;
 
-  /// No description provided for @purchase_invoiceLine.
+  /// No description provided for @purchase_addOnLine.
   ///
   /// In en, this message translates to:
-  /// **'{count}x {label}'**
-  String purchase_invoiceLine(int count, String label);
+  /// **'Add-On: {name}'**
+  String purchase_addOnLine(String name);
 
   /// No description provided for @purchase_couponDiscount.
   ///
@@ -1029,35 +1023,59 @@ abstract class AppLocalizations {
   /// **'Total Amount'**
   String get purchase_totalAmount;
 
-  /// No description provided for @purchase_depositAmount.
-  ///
-  /// In en, this message translates to:
-  /// **'Deposit Amount'**
-  String get purchase_depositAmount;
-
   /// No description provided for @purchase_directPurchase.
   ///
   /// In en, this message translates to:
   /// **'Direct Purchase'**
   String get purchase_directPurchase;
 
-  /// No description provided for @purchase_onlinePayment.
+  /// No description provided for @purchase_couponOption.
   ///
   /// In en, this message translates to:
-  /// **'Online Payment'**
-  String get purchase_onlinePayment;
+  /// **'{percent} Discount ({scope})'**
+  String purchase_couponOption(String percent, String scope);
 
-  /// No description provided for @purchase_depositPayment.
+  /// No description provided for @purchase_couponRejected.
   ///
   /// In en, this message translates to:
-  /// **'Deposit Payment'**
-  String get purchase_depositPayment;
+  /// **'This coupon can\'t be used on this purchase, so it was removed.'**
+  String get purchase_couponRejected;
 
-  /// No description provided for @purchase_stubSnackBar.
+  /// No description provided for @purchase_paymentSummary.
   ///
   /// In en, this message translates to:
-  /// **'Payment integration is coming soon.'**
-  String get purchase_stubSnackBar;
+  /// **'Payment Summary'**
+  String get purchase_paymentSummary;
+
+  /// No description provided for @purchase_purchasePrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Price'**
+  String get purchase_purchasePrice;
+
+  /// No description provided for @purchase_addOnsPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Add-Ons Price'**
+  String get purchase_addOnsPrice;
+
+  /// No description provided for @purchase_dueAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'DUE Amount'**
+  String get purchase_dueAmount;
+
+  /// No description provided for @purchase_confirmPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Purchase'**
+  String get purchase_confirmPurchase;
+
+  /// No description provided for @purchase_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get purchase_cancel;
 
   /// No description provided for @facilitySchedule_flowCount.
   ///
@@ -1551,6 +1569,12 @@ abstract class AppLocalizations {
   /// **'Couldn\'t open this link'**
   String get facilityDetails_linkFailed;
 
+  /// No description provided for @facilityDetails_noContactChannels.
+  ///
+  /// In en, this message translates to:
+  /// **'This facility hasn\'t added a way to contact it yet.'**
+  String get facilityDetails_noContactChannels;
+
   /// No description provided for @facilityDetails_saveAdded.
   ///
   /// In en, this message translates to:
@@ -1632,7 +1656,7 @@ abstract class AppLocalizations {
   /// No description provided for @purchase_dueNotice.
   ///
   /// In en, this message translates to:
-  /// **'This purchase will be added to your account with payment due. No online payment will be collected here.'**
+  /// **'Payment will be due directly with the business. Purchase will be added to your account and you will be able to make reservations right away.'**
   String get purchase_dueNotice;
 
   /// No description provided for @facilitySchedule_actionUnavailable.

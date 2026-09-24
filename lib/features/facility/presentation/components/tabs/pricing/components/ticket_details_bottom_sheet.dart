@@ -7,9 +7,16 @@ import '../../../facility_data_provider.dart';
 import 'ticket_details_sections.dart';
 
 class TicketDetailsBottomSheet extends StatelessWidget {
-  const TicketDetailsBottomSheet({super.key, required this.ticketId});
+  const TicketDetailsBottomSheet({
+    super.key,
+    required this.ticketId,
+    required this.onContactFacility,
+  });
 
   final int ticketId;
+
+  /// Reaches the facility when it does not sell the ticket in the app.
+  final VoidCallback onContactFacility;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +27,10 @@ class TicketDetailsBottomSheet extends StatelessWidget {
         child: Center(child: CircularProgressIndicator()),
       ),
       successBuilder: (context, ticketDetails) {
-        return _TicketDetailsContent(ticketDetails: ticketDetails);
+        return _TicketDetailsContent(
+          ticketDetails: ticketDetails,
+          onContactFacility: onContactFacility,
+        );
       },
       onRetry: (cubit) => cubit.refresh(),
     );
@@ -28,9 +38,10 @@ class TicketDetailsBottomSheet extends StatelessWidget {
 }
 
 class _TicketDetailsContent extends StatelessWidget {
-  const _TicketDetailsContent({required this.ticketDetails});
+  const _TicketDetailsContent({required this.ticketDetails, required this.onContactFacility});
 
   final FacilityTicketDetailsEntity ticketDetails;
+  final VoidCallback onContactFacility;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +50,7 @@ class _TicketDetailsContent extends StatelessWidget {
               PriceSection(),
               AccessSection(),
               if (ticketDetails.conditions.isNotEmpty) ConditionsSection(),
-              ValidityAndPurchaseSection(),
+              ValidityAndPurchaseSection(onContactFacility: onContactFacility),
             ]
             .map(
               (w) => Padding(
@@ -72,7 +83,7 @@ class _TicketDetailsContent extends StatelessWidget {
       data: ticketDetails,
       child: ListView.separated(
         shrinkWrap: true,
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(bottom: MediaQuery.viewPaddingOf(context).bottom),
         itemCount: children.length,
         itemBuilder: (context, index) => children[index],
         separatorBuilder: (context, index) => Divider(

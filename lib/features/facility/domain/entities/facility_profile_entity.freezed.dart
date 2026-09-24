@@ -1608,7 +1608,9 @@ mixin _$FacilityProfileEntity {
  List<FacilityContactEntity> get reservationContacts; FacilityLocationEntity? get location; MainBranchEntity? get mainBranch;/// Whether the signed-in user has this facility in their saved profiles.
  bool get isSaved;/// Whether the signed-in user is subscribed to this facility's updates.
  bool get isTracked;/// When the facility last edited its profile.
- DateTime? get updatedAt;
+ DateTime? get updatedAt;/// How the facility takes purchases as of this read. Null when the payload
+/// omits it.
+ PaymentType? get paymentType;
 /// Create a copy of FacilityProfileEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1619,16 +1621,16 @@ $FacilityProfileEntityCopyWith<FacilityProfileEntity> get copyWith => _$Facility
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FacilityProfileEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.title, title) || other.title == title)&&(identical(other.year, year) || other.year == year)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&const DeepCollectionEquality().equals(other.tags, tags)&&const DeepCollectionEquality().equals(other.teamMembers, teamMembers)&&const DeepCollectionEquality().equals(other.operatingHours, operatingHours)&&const DeepCollectionEquality().equals(other.branches, branches)&&const DeepCollectionEquality().equals(other.languages, languages)&&const DeepCollectionEquality().equals(other.amenities, amenities)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&const DeepCollectionEquality().equals(other.reservationContacts, reservationContacts)&&(identical(other.location, location) || other.location == location)&&(identical(other.mainBranch, mainBranch) || other.mainBranch == mainBranch)&&(identical(other.isSaved, isSaved) || other.isSaved == isSaved)&&(identical(other.isTracked, isTracked) || other.isTracked == isTracked)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FacilityProfileEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.title, title) || other.title == title)&&(identical(other.year, year) || other.year == year)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&const DeepCollectionEquality().equals(other.tags, tags)&&const DeepCollectionEquality().equals(other.teamMembers, teamMembers)&&const DeepCollectionEquality().equals(other.operatingHours, operatingHours)&&const DeepCollectionEquality().equals(other.branches, branches)&&const DeepCollectionEquality().equals(other.languages, languages)&&const DeepCollectionEquality().equals(other.amenities, amenities)&&const DeepCollectionEquality().equals(other.contacts, contacts)&&const DeepCollectionEquality().equals(other.reservationContacts, reservationContacts)&&(identical(other.location, location) || other.location == location)&&(identical(other.mainBranch, mainBranch) || other.mainBranch == mainBranch)&&(identical(other.isSaved, isSaved) || other.isSaved == isSaved)&&(identical(other.isTracked, isTracked) || other.isTracked == isTracked)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.paymentType, paymentType) || other.paymentType == paymentType));
 }
 
 
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,title,year,bio,likesCount,logoUrl,coverUrl,const DeepCollectionEquality().hash(tags),const DeepCollectionEquality().hash(teamMembers),const DeepCollectionEquality().hash(operatingHours),const DeepCollectionEquality().hash(branches),const DeepCollectionEquality().hash(languages),const DeepCollectionEquality().hash(amenities),const DeepCollectionEquality().hash(contacts),const DeepCollectionEquality().hash(reservationContacts),location,mainBranch,isSaved,isTracked,updatedAt]);
+int get hashCode => Object.hashAll([runtimeType,id,name,title,year,bio,likesCount,logoUrl,coverUrl,const DeepCollectionEquality().hash(tags),const DeepCollectionEquality().hash(teamMembers),const DeepCollectionEquality().hash(operatingHours),const DeepCollectionEquality().hash(branches),const DeepCollectionEquality().hash(languages),const DeepCollectionEquality().hash(amenities),const DeepCollectionEquality().hash(contacts),const DeepCollectionEquality().hash(reservationContacts),location,mainBranch,isSaved,isTracked,updatedAt,paymentType]);
 
 @override
 String toString() {
-  return 'FacilityProfileEntity(id: $id, name: $name, title: $title, year: $year, bio: $bio, likesCount: $likesCount, logoUrl: $logoUrl, coverUrl: $coverUrl, tags: $tags, teamMembers: $teamMembers, operatingHours: $operatingHours, branches: $branches, languages: $languages, amenities: $amenities, contacts: $contacts, reservationContacts: $reservationContacts, location: $location, mainBranch: $mainBranch, isSaved: $isSaved, isTracked: $isTracked, updatedAt: $updatedAt)';
+  return 'FacilityProfileEntity(id: $id, name: $name, title: $title, year: $year, bio: $bio, likesCount: $likesCount, logoUrl: $logoUrl, coverUrl: $coverUrl, tags: $tags, teamMembers: $teamMembers, operatingHours: $operatingHours, branches: $branches, languages: $languages, amenities: $amenities, contacts: $contacts, reservationContacts: $reservationContacts, location: $location, mainBranch: $mainBranch, isSaved: $isSaved, isTracked: $isTracked, updatedAt: $updatedAt, paymentType: $paymentType)';
 }
 
 
@@ -1639,7 +1641,7 @@ abstract mixin class $FacilityProfileEntityCopyWith<$Res>  {
   factory $FacilityProfileEntityCopyWith(FacilityProfileEntity value, $Res Function(FacilityProfileEntity) _then) = _$FacilityProfileEntityCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, String? title, String? year, String? bio, int? likesCount, String? logoUrl, String? coverUrl, List<String> tags, List<TeamMemberEntity> teamMembers, List<OperatingHoursEntity> operatingHours, List<BranchEntity> branches, List<LanguageEntity> languages, List<AmenityEntity> amenities, List<FacilityContactEntity> contacts, List<FacilityContactEntity> reservationContacts, FacilityLocationEntity? location, MainBranchEntity? mainBranch, bool isSaved, bool isTracked, DateTime? updatedAt
+ int id, String name, String? title, String? year, String? bio, int? likesCount, String? logoUrl, String? coverUrl, List<String> tags, List<TeamMemberEntity> teamMembers, List<OperatingHoursEntity> operatingHours, List<BranchEntity> branches, List<LanguageEntity> languages, List<AmenityEntity> amenities, List<FacilityContactEntity> contacts, List<FacilityContactEntity> reservationContacts, FacilityLocationEntity? location, MainBranchEntity? mainBranch, bool isSaved, bool isTracked, DateTime? updatedAt, PaymentType? paymentType
 });
 
 
@@ -1656,7 +1658,7 @@ class _$FacilityProfileEntityCopyWithImpl<$Res>
 
 /// Create a copy of FacilityProfileEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? title = freezed,Object? year = freezed,Object? bio = freezed,Object? likesCount = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? tags = null,Object? teamMembers = null,Object? operatingHours = null,Object? branches = null,Object? languages = null,Object? amenities = null,Object? contacts = null,Object? reservationContacts = null,Object? location = freezed,Object? mainBranch = freezed,Object? isSaved = null,Object? isTracked = null,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? title = freezed,Object? year = freezed,Object? bio = freezed,Object? likesCount = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? tags = null,Object? teamMembers = null,Object? operatingHours = null,Object? branches = null,Object? languages = null,Object? amenities = null,Object? contacts = null,Object? reservationContacts = null,Object? location = freezed,Object? mainBranch = freezed,Object? isSaved = null,Object? isTracked = null,Object? updatedAt = freezed,Object? paymentType = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -1679,7 +1681,8 @@ as FacilityLocationEntity?,mainBranch: freezed == mainBranch ? _self.mainBranch 
 as MainBranchEntity?,isSaved: null == isSaved ? _self.isSaved : isSaved // ignore: cast_nullable_to_non_nullable
 as bool,isTracked: null == isTracked ? _self.isTracked : isTracked // ignore: cast_nullable_to_non_nullable
 as bool,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as DateTime?,paymentType: freezed == paymentType ? _self.paymentType : paymentType // ignore: cast_nullable_to_non_nullable
+as PaymentType?,
   ));
 }
 /// Create a copy of FacilityProfileEntity
@@ -1788,10 +1791,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  List<FacilityContactEntity> reservationContacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  List<FacilityContactEntity> reservationContacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt,  PaymentType? paymentType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FacilityProfileEntity() when $default != null:
-return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.reservationContacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.reservationContacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt,_that.paymentType);case _:
   return orElse();
 
 }
@@ -1809,10 +1812,10 @@ return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likes
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  List<FacilityContactEntity> reservationContacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  List<FacilityContactEntity> reservationContacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt,  PaymentType? paymentType)  $default,) {final _that = this;
 switch (_that) {
 case _FacilityProfileEntity():
-return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.reservationContacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.reservationContacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt,_that.paymentType);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1829,10 +1832,10 @@ return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likes
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  List<FacilityContactEntity> reservationContacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String? title,  String? year,  String? bio,  int? likesCount,  String? logoUrl,  String? coverUrl,  List<String> tags,  List<TeamMemberEntity> teamMembers,  List<OperatingHoursEntity> operatingHours,  List<BranchEntity> branches,  List<LanguageEntity> languages,  List<AmenityEntity> amenities,  List<FacilityContactEntity> contacts,  List<FacilityContactEntity> reservationContacts,  FacilityLocationEntity? location,  MainBranchEntity? mainBranch,  bool isSaved,  bool isTracked,  DateTime? updatedAt,  PaymentType? paymentType)?  $default,) {final _that = this;
 switch (_that) {
 case _FacilityProfileEntity() when $default != null:
-return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.reservationContacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt);case _:
+return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likesCount,_that.logoUrl,_that.coverUrl,_that.tags,_that.teamMembers,_that.operatingHours,_that.branches,_that.languages,_that.amenities,_that.contacts,_that.reservationContacts,_that.location,_that.mainBranch,_that.isSaved,_that.isTracked,_that.updatedAt,_that.paymentType);case _:
   return null;
 
 }
@@ -1844,7 +1847,7 @@ return $default(_that.id,_that.name,_that.title,_that.year,_that.bio,_that.likes
 
 
 class _FacilityProfileEntity extends FacilityProfileEntity {
-  const _FacilityProfileEntity({required this.id, required this.name, this.title, this.year, this.bio, this.likesCount, this.logoUrl, this.coverUrl, final  List<String> tags = const <String>[], final  List<TeamMemberEntity> teamMembers = const <TeamMemberEntity>[], final  List<OperatingHoursEntity> operatingHours = const <OperatingHoursEntity>[], final  List<BranchEntity> branches = const <BranchEntity>[], final  List<LanguageEntity> languages = const <LanguageEntity>[], final  List<AmenityEntity> amenities = const <AmenityEntity>[], final  List<FacilityContactEntity> contacts = const <FacilityContactEntity>[], final  List<FacilityContactEntity> reservationContacts = const <FacilityContactEntity>[], this.location, this.mainBranch, this.isSaved = false, this.isTracked = false, this.updatedAt}): _tags = tags,_teamMembers = teamMembers,_operatingHours = operatingHours,_branches = branches,_languages = languages,_amenities = amenities,_contacts = contacts,_reservationContacts = reservationContacts,super._();
+  const _FacilityProfileEntity({required this.id, required this.name, this.title, this.year, this.bio, this.likesCount, this.logoUrl, this.coverUrl, final  List<String> tags = const <String>[], final  List<TeamMemberEntity> teamMembers = const <TeamMemberEntity>[], final  List<OperatingHoursEntity> operatingHours = const <OperatingHoursEntity>[], final  List<BranchEntity> branches = const <BranchEntity>[], final  List<LanguageEntity> languages = const <LanguageEntity>[], final  List<AmenityEntity> amenities = const <AmenityEntity>[], final  List<FacilityContactEntity> contacts = const <FacilityContactEntity>[], final  List<FacilityContactEntity> reservationContacts = const <FacilityContactEntity>[], this.location, this.mainBranch, this.isSaved = false, this.isTracked = false, this.updatedAt, this.paymentType}): _tags = tags,_teamMembers = teamMembers,_operatingHours = operatingHours,_branches = branches,_languages = languages,_amenities = amenities,_contacts = contacts,_reservationContacts = reservationContacts,super._();
   
 
 @override final  int id;
@@ -1927,6 +1930,9 @@ class _FacilityProfileEntity extends FacilityProfileEntity {
 @override@JsonKey() final  bool isTracked;
 /// When the facility last edited its profile.
 @override final  DateTime? updatedAt;
+/// How the facility takes purchases as of this read. Null when the payload
+/// omits it.
+@override final  PaymentType? paymentType;
 
 /// Create a copy of FacilityProfileEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -1938,16 +1944,16 @@ _$FacilityProfileEntityCopyWith<_FacilityProfileEntity> get copyWith => __$Facil
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FacilityProfileEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.title, title) || other.title == title)&&(identical(other.year, year) || other.year == year)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&const DeepCollectionEquality().equals(other._tags, _tags)&&const DeepCollectionEquality().equals(other._teamMembers, _teamMembers)&&const DeepCollectionEquality().equals(other._operatingHours, _operatingHours)&&const DeepCollectionEquality().equals(other._branches, _branches)&&const DeepCollectionEquality().equals(other._languages, _languages)&&const DeepCollectionEquality().equals(other._amenities, _amenities)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&const DeepCollectionEquality().equals(other._reservationContacts, _reservationContacts)&&(identical(other.location, location) || other.location == location)&&(identical(other.mainBranch, mainBranch) || other.mainBranch == mainBranch)&&(identical(other.isSaved, isSaved) || other.isSaved == isSaved)&&(identical(other.isTracked, isTracked) || other.isTracked == isTracked)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FacilityProfileEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.title, title) || other.title == title)&&(identical(other.year, year) || other.year == year)&&(identical(other.bio, bio) || other.bio == bio)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.logoUrl, logoUrl) || other.logoUrl == logoUrl)&&(identical(other.coverUrl, coverUrl) || other.coverUrl == coverUrl)&&const DeepCollectionEquality().equals(other._tags, _tags)&&const DeepCollectionEquality().equals(other._teamMembers, _teamMembers)&&const DeepCollectionEquality().equals(other._operatingHours, _operatingHours)&&const DeepCollectionEquality().equals(other._branches, _branches)&&const DeepCollectionEquality().equals(other._languages, _languages)&&const DeepCollectionEquality().equals(other._amenities, _amenities)&&const DeepCollectionEquality().equals(other._contacts, _contacts)&&const DeepCollectionEquality().equals(other._reservationContacts, _reservationContacts)&&(identical(other.location, location) || other.location == location)&&(identical(other.mainBranch, mainBranch) || other.mainBranch == mainBranch)&&(identical(other.isSaved, isSaved) || other.isSaved == isSaved)&&(identical(other.isTracked, isTracked) || other.isTracked == isTracked)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.paymentType, paymentType) || other.paymentType == paymentType));
 }
 
 
 @override
-int get hashCode => Object.hashAll([runtimeType,id,name,title,year,bio,likesCount,logoUrl,coverUrl,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_teamMembers),const DeepCollectionEquality().hash(_operatingHours),const DeepCollectionEquality().hash(_branches),const DeepCollectionEquality().hash(_languages),const DeepCollectionEquality().hash(_amenities),const DeepCollectionEquality().hash(_contacts),const DeepCollectionEquality().hash(_reservationContacts),location,mainBranch,isSaved,isTracked,updatedAt]);
+int get hashCode => Object.hashAll([runtimeType,id,name,title,year,bio,likesCount,logoUrl,coverUrl,const DeepCollectionEquality().hash(_tags),const DeepCollectionEquality().hash(_teamMembers),const DeepCollectionEquality().hash(_operatingHours),const DeepCollectionEquality().hash(_branches),const DeepCollectionEquality().hash(_languages),const DeepCollectionEquality().hash(_amenities),const DeepCollectionEquality().hash(_contacts),const DeepCollectionEquality().hash(_reservationContacts),location,mainBranch,isSaved,isTracked,updatedAt,paymentType]);
 
 @override
 String toString() {
-  return 'FacilityProfileEntity(id: $id, name: $name, title: $title, year: $year, bio: $bio, likesCount: $likesCount, logoUrl: $logoUrl, coverUrl: $coverUrl, tags: $tags, teamMembers: $teamMembers, operatingHours: $operatingHours, branches: $branches, languages: $languages, amenities: $amenities, contacts: $contacts, reservationContacts: $reservationContacts, location: $location, mainBranch: $mainBranch, isSaved: $isSaved, isTracked: $isTracked, updatedAt: $updatedAt)';
+  return 'FacilityProfileEntity(id: $id, name: $name, title: $title, year: $year, bio: $bio, likesCount: $likesCount, logoUrl: $logoUrl, coverUrl: $coverUrl, tags: $tags, teamMembers: $teamMembers, operatingHours: $operatingHours, branches: $branches, languages: $languages, amenities: $amenities, contacts: $contacts, reservationContacts: $reservationContacts, location: $location, mainBranch: $mainBranch, isSaved: $isSaved, isTracked: $isTracked, updatedAt: $updatedAt, paymentType: $paymentType)';
 }
 
 
@@ -1958,7 +1964,7 @@ abstract mixin class _$FacilityProfileEntityCopyWith<$Res> implements $FacilityP
   factory _$FacilityProfileEntityCopyWith(_FacilityProfileEntity value, $Res Function(_FacilityProfileEntity) _then) = __$FacilityProfileEntityCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, String? title, String? year, String? bio, int? likesCount, String? logoUrl, String? coverUrl, List<String> tags, List<TeamMemberEntity> teamMembers, List<OperatingHoursEntity> operatingHours, List<BranchEntity> branches, List<LanguageEntity> languages, List<AmenityEntity> amenities, List<FacilityContactEntity> contacts, List<FacilityContactEntity> reservationContacts, FacilityLocationEntity? location, MainBranchEntity? mainBranch, bool isSaved, bool isTracked, DateTime? updatedAt
+ int id, String name, String? title, String? year, String? bio, int? likesCount, String? logoUrl, String? coverUrl, List<String> tags, List<TeamMemberEntity> teamMembers, List<OperatingHoursEntity> operatingHours, List<BranchEntity> branches, List<LanguageEntity> languages, List<AmenityEntity> amenities, List<FacilityContactEntity> contacts, List<FacilityContactEntity> reservationContacts, FacilityLocationEntity? location, MainBranchEntity? mainBranch, bool isSaved, bool isTracked, DateTime? updatedAt, PaymentType? paymentType
 });
 
 
@@ -1975,7 +1981,7 @@ class __$FacilityProfileEntityCopyWithImpl<$Res>
 
 /// Create a copy of FacilityProfileEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? title = freezed,Object? year = freezed,Object? bio = freezed,Object? likesCount = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? tags = null,Object? teamMembers = null,Object? operatingHours = null,Object? branches = null,Object? languages = null,Object? amenities = null,Object? contacts = null,Object? reservationContacts = null,Object? location = freezed,Object? mainBranch = freezed,Object? isSaved = null,Object? isTracked = null,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? title = freezed,Object? year = freezed,Object? bio = freezed,Object? likesCount = freezed,Object? logoUrl = freezed,Object? coverUrl = freezed,Object? tags = null,Object? teamMembers = null,Object? operatingHours = null,Object? branches = null,Object? languages = null,Object? amenities = null,Object? contacts = null,Object? reservationContacts = null,Object? location = freezed,Object? mainBranch = freezed,Object? isSaved = null,Object? isTracked = null,Object? updatedAt = freezed,Object? paymentType = freezed,}) {
   return _then(_FacilityProfileEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -1998,7 +2004,8 @@ as FacilityLocationEntity?,mainBranch: freezed == mainBranch ? _self.mainBranch 
 as MainBranchEntity?,isSaved: null == isSaved ? _self.isSaved : isSaved // ignore: cast_nullable_to_non_nullable
 as bool,isTracked: null == isTracked ? _self.isTracked : isTracked // ignore: cast_nullable_to_non_nullable
 as bool,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as DateTime?,paymentType: freezed == paymentType ? _self.paymentType : paymentType // ignore: cast_nullable_to_non_nullable
+as PaymentType?,
   ));
 }
 

@@ -87,7 +87,7 @@ class _AddOnRow extends StatelessWidget {
             ),
           ),
           Text(
-            '$currency ${addOn.price}',
+            addOn.price.priceText(currency),
             style: context.typography.medium14.withColor(accentColor),
           ),
         ],

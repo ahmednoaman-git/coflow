@@ -6,6 +6,7 @@ export 'components/amenities_section.dart';
 export 'components/branches_section.dart';
 export 'components/contact_channel_visuals.dart';
 export 'components/contact_values_sheet.dart';
+export 'components/facility_contact_options.dart';
 export 'components/facility_map_preview.dart';
 export 'components/flows_section.dart';
 export 'components/languages_section.dart';

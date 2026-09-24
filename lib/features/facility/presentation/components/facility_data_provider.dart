@@ -50,7 +50,7 @@ class FacilityDataProvider extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
-    return false;
+  bool updateShouldNotify(covariant FacilityDataProvider oldWidget) {
+    return oldWidget.facility != facility;
   }
 }

@@ -309,9 +309,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilityDetails_promotionPrice => 'Promotion Price';
 
   @override
-  String get facilityDetails_purchase => 'Purchase';
-
-  @override
   String get facilityDetails_purchaseNow => 'Purchase Now';
 
   @override
@@ -489,8 +486,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get purchase_invoiceTitle => 'Purchase Invoice';
 
   @override
-  String purchase_invoiceLine(int count, String label) {
-    return '${count}x $label';
+  String purchase_addOnLine(String name) {
+    return 'Add-On: $name';
   }
 
   @override
@@ -500,19 +497,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get purchase_totalAmount => 'Total Amount';
 
   @override
-  String get purchase_depositAmount => 'Deposit Amount';
-
-  @override
   String get purchase_directPurchase => 'Direct Purchase';
 
   @override
-  String get purchase_onlinePayment => 'Online Payment';
+  String purchase_couponOption(String percent, String scope) {
+    return '$percent Discount ($scope)';
+  }
 
   @override
-  String get purchase_depositPayment => 'Deposit Payment';
+  String get purchase_couponRejected =>
+      'This coupon can\'t be used on this purchase, so it was removed.';
 
   @override
-  String get purchase_stubSnackBar => 'Payment integration is coming soon.';
+  String get purchase_paymentSummary => 'Payment Summary';
+
+  @override
+  String get purchase_purchasePrice => 'Purchase Price';
+
+  @override
+  String get purchase_addOnsPrice => 'Add-Ons Price';
+
+  @override
+  String get purchase_dueAmount => 'DUE Amount';
+
+  @override
+  String get purchase_confirmPurchase => 'Confirm Purchase';
+
+  @override
+  String get purchase_cancel => 'Cancel';
 
   @override
   String facilitySchedule_flowCount(int count) {
@@ -834,6 +846,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilityDetails_linkFailed => 'Couldn\'t open this link';
 
   @override
+  String get facilityDetails_noContactChannels =>
+      'This facility hasn\'t added a way to contact it yet.';
+
+  @override
   String get facilityDetails_saveAdded => 'Added to your profiles';
 
   @override
@@ -878,7 +894,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get purchase_dueNotice =>
-      'This purchase will be added to your account with payment due. No online payment will be collected here.';
+      'Payment will be due directly with the business. Purchase will be added to your account and you will be able to make reservations right away.';
 
   @override
   String get facilitySchedule_actionUnavailable => 'Reservations are unavailable for this session.';

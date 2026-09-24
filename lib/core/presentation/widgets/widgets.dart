@@ -19,6 +19,7 @@ export 'main_back_button.dart';
 export 'main_bottom_sheet.dart';
 export 'main_button.dart';
 export 'main_text_field.dart';
+export 'price_text.dart';
 export 'shimmer.dart';
 export 'shimmer_image.dart';
 export 'sliver_bottom_inset.dart';

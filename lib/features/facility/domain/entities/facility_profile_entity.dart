@@ -1,3 +1,4 @@
+import 'package:coflow_users_v2/features/activity_line/domain/entities/entities.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'facility_contact_entity.dart';
@@ -106,6 +107,10 @@ abstract class FacilityProfileEntity with _$FacilityProfileEntity {
 
     /// When the facility last edited its profile.
     DateTime? updatedAt,
+
+    /// How the facility takes purchases as of this read. Null when the payload
+    /// omits it.
+    PaymentType? paymentType,
   }) = _FacilityProfileEntity;
 
   const FacilityProfileEntity._();

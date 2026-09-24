@@ -17,6 +17,6 @@ class CouponRepositoryImpl implements CouponRepository {
   AsyncTask<List<PurchaseCouponEntity>> getCoupons(GetPurchaseCouponsDto dto) {
     return _remote
         .getCoupons(dto)
-        .map((models) => models.map(CouponMapper.toEntity).toList(growable: false));
+        .map((models) => models.map(CouponMapper.toEntity).nonNulls.toList(growable: false));
   }
 }

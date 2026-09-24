@@ -10,7 +10,11 @@ abstract class FacilityServiceTicketEntity with _$FacilityServiceTicketEntity {
     required int id,
     required String name,
     required double price,
+
+    /// What the ticket sells for when it is reduced — by its own discount or
+    /// an active discount promotion. Null when it sells at full price.
     double? discountPrice,
+
     required String currency,
   }) = _FacilityServiceTicketEntity;
 }

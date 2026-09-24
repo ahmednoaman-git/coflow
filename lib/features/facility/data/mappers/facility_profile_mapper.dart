@@ -1,3 +1,5 @@
+import 'package:coflow_users_v2/features/activity_line/domain/entities/entities.dart';
+
 import '../../domain/entities/entities.dart';
 import '../models/models.dart';
 import 'facility_contact_mapper.dart';
@@ -77,6 +79,10 @@ abstract final class FacilityProfileMapper {
       isSaved: model.hasSave,
       isTracked: model.hasTrack,
       updatedAt: model.updatedAt == null ? null : DateTime.tryParse(model.updatedAt!),
+      paymentType: switch (model.paymentType) {
+        final value? => PaymentType.fromString(value),
+        null => null,
+      },
       mainBranch: (model.main != null && model.main!.name.trim().isNotEmpty)
           ? MainBranchEntity(
               id: model.main!.id,

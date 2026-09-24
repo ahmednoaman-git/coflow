@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'coupon_target_model.dart';
+
 part 'coupon_details_model.g.dart';
 
 /// The nested `coupon` object on a [CouponModel] response entry — the coupon
@@ -11,14 +13,14 @@ class CouponDetailsModel {
     required this.discountRatio,
     required this.unlimited,
     this.validityDays,
-    required this.appliesOn,
-    required this.status,
+    this.appliesOn,
+    this.status,
     required this.facilityId,
     this.deletedAt,
     this.purchasesCount,
-    required this.laravelThroughKey,
-    this.tickets,
-    this.promotions,
+    this.laravelThroughKey,
+    this.tickets = const [],
+    this.promotions = const [],
   });
 
   final int id;
@@ -31,10 +33,12 @@ class CouponDetailsModel {
   @JsonKey(name: 'validity_days')
   final int? validityDays;
 
+  /// `purchases`, `tickets` or `promotions`; null when the coupon only covers
+  /// the [tickets] and [promotions] it lists.
   @JsonKey(name: 'applies_on')
-  final String appliesOn;
+  final String? appliesOn;
 
-  final String status;
+  final String? status;
 
   @JsonKey(name: 'facility_id')
   final int facilityId;
@@ -46,13 +50,15 @@ class CouponDetailsModel {
   final int? purchasesCount;
 
   @JsonKey(name: 'laravel_through_key')
-  final int laravelThroughKey;
+  final int? laravelThroughKey;
 
-  @JsonKey(defaultValue: <dynamic>[], disallowNullValue: true)
-  final List<dynamic>? tickets;
+  /// The tickets the coupon is limited to.
+  @JsonKey(defaultValue: <CouponTargetModel>[])
+  final List<CouponTargetModel> tickets;
 
-  @JsonKey(defaultValue: <dynamic>[], disallowNullValue: true)
-  final List<dynamic>? promotions;
+  /// The promotions the coupon is limited to.
+  @JsonKey(defaultValue: <CouponTargetModel>[])
+  final List<CouponTargetModel> promotions;
 
   factory CouponDetailsModel.fromJson(Map<String, dynamic> json) =>
       _$CouponDetailsModelFromJson(json);

@@ -45,10 +45,12 @@ TicketDetailModel _$TicketDetailModelFromJson(Map<String, dynamic> json) =>
             (v) => (v as num?)?.toInt(),
           ),
           price: $checkedConvert('price', (v) => (v as num).toDouble()),
+          hasDiscount: $checkedConvert('has_discount', (v) => v as bool?),
           discountPrice: $checkedConvert(
             'discount_price',
             (v) => (v as num?)?.toDouble(),
           ),
+          offer: $checkedConvert('offer', (v) => (v as num?)?.toDouble()),
           currency: $checkedConvert('currency', (v) => v as String),
           conditions: $checkedConvert('conditions', (v) => v as String?),
           requirements: $checkedConvert('requirements', (v) => v as String?),
@@ -75,6 +77,7 @@ TicketDetailModel _$TicketDetailModelFromJson(Map<String, dynamic> json) =>
       },
       fieldKeyMap: const {
         'validityDays': 'validity_days',
+        'hasDiscount': 'has_discount',
         'discountPrice': 'discount_price',
       },
     );
@@ -86,7 +89,9 @@ Map<String, dynamic> _$TicketDetailModelToJson(TicketDetailModel instance) =>
       'unlimited': instance.unlimited,
       'validity_days': instance.validityDays,
       'price': instance.price,
+      'has_discount': instance.hasDiscount,
       'discount_price': instance.discountPrice,
+      'offer': instance.offer,
       'currency': instance.currency,
       'conditions': instance.conditions,
       'requirements': instance.requirements,

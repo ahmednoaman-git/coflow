@@ -1,3 +1,4 @@
+export 'amount_extensions.dart';
 export 'color_extensions.dart';
 export 'context_extensions.dart';
 export 'layout_extensions.dart';

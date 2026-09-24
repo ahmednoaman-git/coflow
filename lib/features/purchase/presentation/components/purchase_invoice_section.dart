@@ -24,7 +24,7 @@ class PurchaseInvoiceSection extends StatelessWidget {
             label: line.quantity > 1
                 ? _QuantityLabel(count: line.quantity, label: line.label, accentColor: accentColor)
                 : Text(line.label, style: context.typography.book14.secondary(context)),
-            value: '+ ${invoice.currency} ${line.amount}',
+            value: '+ ${line.amount.priceText(invoice.currency)}',
             accentColor: accentColor,
           ),
         if (invoice.hasCouponDiscount)
@@ -33,7 +33,7 @@ class PurchaseInvoiceSection extends StatelessWidget {
               context.l10n.purchase_couponDiscount,
               style: context.typography.book14.secondary(context),
             ),
-            value: '- ${invoice.currency} ${invoice.couponDiscount}',
+            value: '- ${invoice.couponDiscount.priceText(invoice.currency)}',
             accentColor: accentColor,
           ),
         Divider(height: context.spacing.s16, color: context.colors.strokeSecondary),
@@ -42,18 +42,9 @@ class PurchaseInvoiceSection extends StatelessWidget {
             context.l10n.purchase_totalAmount,
             style: context.typography.medium14.primary(context),
           ),
-          value: '${invoice.currency} ${invoice.total}',
+          value: invoice.total.priceText(invoice.currency),
           accentColor: accentColor,
         ),
-        if (invoice.hasDeposit)
-          _InvoiceRow(
-            label: Text(
-              context.l10n.purchase_depositAmount,
-              style: context.typography.medium14.primary(context),
-            ),
-            value: '${invoice.currency} ${invoice.depositAmount}',
-            accentColor: accentColor,
-          ),
       ],
     );
   }
@@ -93,8 +84,9 @@ class _InvoiceRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: .spaceBetween,
+      spacing: context.spacing.s12,
       children: [
-        label,
+        Flexible(child: label),
         Text(value, style: context.typography.bold14.withColor(accentColor)),
       ],
     );

@@ -14,7 +14,14 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PurchaseCouponEntity {
 
- int get id; String get name; double get discountRatio;
+/// The coupon's own id — what quotes and purchases take as `coupon_id`.
+/// The customer can hold the same coupon more than once; the copies share
+/// this id.
+ int get id; int get facilityId; double get discountRatio;/// Whether it discounts every ticket of the facility.
+ bool get coversAllTickets;/// Whether it discounts every promotion of the facility.
+ bool get coversAllPromotions;/// The tickets it is limited to, when it does not cover them all.
+ List<PurchaseCouponTarget> get tickets;/// The promotions it is limited to, when it does not cover them all.
+ List<PurchaseCouponTarget> get promotions;
 /// Create a copy of PurchaseCouponEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +32,16 @@ $PurchaseCouponEntityCopyWith<PurchaseCouponEntity> get copyWith => _$PurchaseCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchaseCouponEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.discountRatio, discountRatio) || other.discountRatio == discountRatio));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchaseCouponEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.facilityId, facilityId) || other.facilityId == facilityId)&&(identical(other.discountRatio, discountRatio) || other.discountRatio == discountRatio)&&(identical(other.coversAllTickets, coversAllTickets) || other.coversAllTickets == coversAllTickets)&&(identical(other.coversAllPromotions, coversAllPromotions) || other.coversAllPromotions == coversAllPromotions)&&const DeepCollectionEquality().equals(other.tickets, tickets)&&const DeepCollectionEquality().equals(other.promotions, promotions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,discountRatio);
+int get hashCode => Object.hash(runtimeType,id,facilityId,discountRatio,coversAllTickets,coversAllPromotions,const DeepCollectionEquality().hash(tickets),const DeepCollectionEquality().hash(promotions));
 
 @override
 String toString() {
-  return 'PurchaseCouponEntity(id: $id, name: $name, discountRatio: $discountRatio)';
+  return 'PurchaseCouponEntity(id: $id, facilityId: $facilityId, discountRatio: $discountRatio, coversAllTickets: $coversAllTickets, coversAllPromotions: $coversAllPromotions, tickets: $tickets, promotions: $promotions)';
 }
 
 
@@ -45,7 +52,7 @@ abstract mixin class $PurchaseCouponEntityCopyWith<$Res>  {
   factory $PurchaseCouponEntityCopyWith(PurchaseCouponEntity value, $Res Function(PurchaseCouponEntity) _then) = _$PurchaseCouponEntityCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, double discountRatio
+ int id, int facilityId, double discountRatio, bool coversAllTickets, bool coversAllPromotions, List<PurchaseCouponTarget> tickets, List<PurchaseCouponTarget> promotions
 });
 
 
@@ -62,12 +69,16 @@ class _$PurchaseCouponEntityCopyWithImpl<$Res>
 
 /// Create a copy of PurchaseCouponEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? discountRatio = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? facilityId = null,Object? discountRatio = null,Object? coversAllTickets = null,Object? coversAllPromotions = null,Object? tickets = null,Object? promotions = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,discountRatio: null == discountRatio ? _self.discountRatio : discountRatio // ignore: cast_nullable_to_non_nullable
-as double,
+as int,facilityId: null == facilityId ? _self.facilityId : facilityId // ignore: cast_nullable_to_non_nullable
+as int,discountRatio: null == discountRatio ? _self.discountRatio : discountRatio // ignore: cast_nullable_to_non_nullable
+as double,coversAllTickets: null == coversAllTickets ? _self.coversAllTickets : coversAllTickets // ignore: cast_nullable_to_non_nullable
+as bool,coversAllPromotions: null == coversAllPromotions ? _self.coversAllPromotions : coversAllPromotions // ignore: cast_nullable_to_non_nullable
+as bool,tickets: null == tickets ? _self.tickets : tickets // ignore: cast_nullable_to_non_nullable
+as List<PurchaseCouponTarget>,promotions: null == promotions ? _self.promotions : promotions // ignore: cast_nullable_to_non_nullable
+as List<PurchaseCouponTarget>,
   ));
 }
 
@@ -152,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  double discountRatio)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int facilityId,  double discountRatio,  bool coversAllTickets,  bool coversAllPromotions,  List<PurchaseCouponTarget> tickets,  List<PurchaseCouponTarget> promotions)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PurchaseCouponEntity() when $default != null:
-return $default(_that.id,_that.name,_that.discountRatio);case _:
+return $default(_that.id,_that.facilityId,_that.discountRatio,_that.coversAllTickets,_that.coversAllPromotions,_that.tickets,_that.promotions);case _:
   return orElse();
 
 }
@@ -173,10 +184,10 @@ return $default(_that.id,_that.name,_that.discountRatio);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  double discountRatio)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int facilityId,  double discountRatio,  bool coversAllTickets,  bool coversAllPromotions,  List<PurchaseCouponTarget> tickets,  List<PurchaseCouponTarget> promotions)  $default,) {final _that = this;
 switch (_that) {
 case _PurchaseCouponEntity():
-return $default(_that.id,_that.name,_that.discountRatio);case _:
+return $default(_that.id,_that.facilityId,_that.discountRatio,_that.coversAllTickets,_that.coversAllPromotions,_that.tickets,_that.promotions);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -193,10 +204,10 @@ return $default(_that.id,_that.name,_that.discountRatio);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  double discountRatio)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int facilityId,  double discountRatio,  bool coversAllTickets,  bool coversAllPromotions,  List<PurchaseCouponTarget> tickets,  List<PurchaseCouponTarget> promotions)?  $default,) {final _that = this;
 switch (_that) {
 case _PurchaseCouponEntity() when $default != null:
-return $default(_that.id,_that.name,_that.discountRatio);case _:
+return $default(_that.id,_that.facilityId,_that.discountRatio,_that.coversAllTickets,_that.coversAllPromotions,_that.tickets,_that.promotions);case _:
   return null;
 
 }
@@ -208,12 +219,37 @@ return $default(_that.id,_that.name,_that.discountRatio);case _:
 
 
 class _PurchaseCouponEntity extends PurchaseCouponEntity {
-  const _PurchaseCouponEntity({required this.id, required this.name, required this.discountRatio}): super._();
+  const _PurchaseCouponEntity({required this.id, required this.facilityId, required this.discountRatio, this.coversAllTickets = false, this.coversAllPromotions = false, final  List<PurchaseCouponTarget> tickets = const <PurchaseCouponTarget>[], final  List<PurchaseCouponTarget> promotions = const <PurchaseCouponTarget>[]}): _tickets = tickets,_promotions = promotions,super._();
   
 
+/// The coupon's own id — what quotes and purchases take as `coupon_id`.
+/// The customer can hold the same coupon more than once; the copies share
+/// this id.
 @override final  int id;
-@override final  String name;
+@override final  int facilityId;
 @override final  double discountRatio;
+/// Whether it discounts every ticket of the facility.
+@override@JsonKey() final  bool coversAllTickets;
+/// Whether it discounts every promotion of the facility.
+@override@JsonKey() final  bool coversAllPromotions;
+/// The tickets it is limited to, when it does not cover them all.
+ final  List<PurchaseCouponTarget> _tickets;
+/// The tickets it is limited to, when it does not cover them all.
+@override@JsonKey() List<PurchaseCouponTarget> get tickets {
+  if (_tickets is EqualUnmodifiableListView) return _tickets;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tickets);
+}
+
+/// The promotions it is limited to, when it does not cover them all.
+ final  List<PurchaseCouponTarget> _promotions;
+/// The promotions it is limited to, when it does not cover them all.
+@override@JsonKey() List<PurchaseCouponTarget> get promotions {
+  if (_promotions is EqualUnmodifiableListView) return _promotions;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_promotions);
+}
+
 
 /// Create a copy of PurchaseCouponEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -225,16 +261,16 @@ _$PurchaseCouponEntityCopyWith<_PurchaseCouponEntity> get copyWith => __$Purchas
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PurchaseCouponEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.discountRatio, discountRatio) || other.discountRatio == discountRatio));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PurchaseCouponEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.facilityId, facilityId) || other.facilityId == facilityId)&&(identical(other.discountRatio, discountRatio) || other.discountRatio == discountRatio)&&(identical(other.coversAllTickets, coversAllTickets) || other.coversAllTickets == coversAllTickets)&&(identical(other.coversAllPromotions, coversAllPromotions) || other.coversAllPromotions == coversAllPromotions)&&const DeepCollectionEquality().equals(other._tickets, _tickets)&&const DeepCollectionEquality().equals(other._promotions, _promotions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,name,discountRatio);
+int get hashCode => Object.hash(runtimeType,id,facilityId,discountRatio,coversAllTickets,coversAllPromotions,const DeepCollectionEquality().hash(_tickets),const DeepCollectionEquality().hash(_promotions));
 
 @override
 String toString() {
-  return 'PurchaseCouponEntity(id: $id, name: $name, discountRatio: $discountRatio)';
+  return 'PurchaseCouponEntity(id: $id, facilityId: $facilityId, discountRatio: $discountRatio, coversAllTickets: $coversAllTickets, coversAllPromotions: $coversAllPromotions, tickets: $tickets, promotions: $promotions)';
 }
 
 
@@ -245,7 +281,7 @@ abstract mixin class _$PurchaseCouponEntityCopyWith<$Res> implements $PurchaseCo
   factory _$PurchaseCouponEntityCopyWith(_PurchaseCouponEntity value, $Res Function(_PurchaseCouponEntity) _then) = __$PurchaseCouponEntityCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, double discountRatio
+ int id, int facilityId, double discountRatio, bool coversAllTickets, bool coversAllPromotions, List<PurchaseCouponTarget> tickets, List<PurchaseCouponTarget> promotions
 });
 
 
@@ -262,12 +298,16 @@ class __$PurchaseCouponEntityCopyWithImpl<$Res>
 
 /// Create a copy of PurchaseCouponEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? discountRatio = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? facilityId = null,Object? discountRatio = null,Object? coversAllTickets = null,Object? coversAllPromotions = null,Object? tickets = null,Object? promotions = null,}) {
   return _then(_PurchaseCouponEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,discountRatio: null == discountRatio ? _self.discountRatio : discountRatio // ignore: cast_nullable_to_non_nullable
-as double,
+as int,facilityId: null == facilityId ? _self.facilityId : facilityId // ignore: cast_nullable_to_non_nullable
+as int,discountRatio: null == discountRatio ? _self.discountRatio : discountRatio // ignore: cast_nullable_to_non_nullable
+as double,coversAllTickets: null == coversAllTickets ? _self.coversAllTickets : coversAllTickets // ignore: cast_nullable_to_non_nullable
+as bool,coversAllPromotions: null == coversAllPromotions ? _self.coversAllPromotions : coversAllPromotions // ignore: cast_nullable_to_non_nullable
+as bool,tickets: null == tickets ? _self._tickets : tickets // ignore: cast_nullable_to_non_nullable
+as List<PurchaseCouponTarget>,promotions: null == promotions ? _self._promotions : promotions // ignore: cast_nullable_to_non_nullable
+as List<PurchaseCouponTarget>,
   ));
 }
 

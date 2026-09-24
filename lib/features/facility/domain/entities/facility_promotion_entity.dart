@@ -1,3 +1,4 @@
+import 'package:coflow_users_v2/core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'facility_promotion_applies_on.dart';
@@ -85,7 +86,7 @@ class FacilityPromotionDiscountEntity extends FacilityPromotionEntity
   FacilityPromotionType get type => .discount;
 
   @override
-  String get trailingValueText => '${_formatPromotionNumber(discountRatio)}%';
+  String get trailingValueText => '${discountRatio.amountText}%';
 
   @override
   bool get hasRemainingInfo => false;
@@ -135,7 +136,7 @@ class FacilityPromotionPackageEntity extends FacilityPromotionEntity
   FacilityPromotionType get type => .package;
 
   @override
-  String get trailingValueText => _formatPriceText(currency: currency, value: displayPrice);
+  String get trailingValueText => displayPrice.priceText(currency);
 
   @override
   bool get hasRemainingInfo => true;
@@ -188,7 +189,7 @@ class FacilityPromotionBuyGetEntity extends FacilityPromotionEntity
   FacilityPromotionType get type => .buyGet;
 
   @override
-  String get trailingValueText => _formatPriceText(currency: currency, value: displayPrice);
+  String get trailingValueText => displayPrice.priceText(currency);
 
   @override
   bool get hasRemainingInfo => true;
@@ -198,21 +199,4 @@ class FacilityPromotionBuyGetEntity extends FacilityPromotionEntity
 
   @override
   int? get remainingCountOrNull => remainingUnlimited ? null : remainingCount;
-}
-
-String _formatPriceText({required String currency, required double value}) {
-  final formattedValue = _formatPromotionNumber(value);
-  if (currency.trim().isEmpty) {
-    return formattedValue;
-  }
-
-  return '$currency $formattedValue';
-}
-
-String _formatPromotionNumber(double value) {
-  if (value == value.roundToDouble()) {
-    return value.toStringAsFixed(0);
-  }
-
-  return value.toStringAsFixed(2).replaceFirst(RegExp(r'0+$'), '').replaceFirst(RegExp(r'\.$'), '');
 }

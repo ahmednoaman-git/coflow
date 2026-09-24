@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
-import 'package:coflow_users_v2/features/activity_line/domain/entities/collapsed_facility_entity.dart';
 import 'package:coflow_users_v2/features/facility/domain/entities/entities.dart';
 import 'package:coflow_users_v2/features/facility/presentation/cubit/cubit.dart';
 import 'package:coflow_users_v2/features/purchase/domain/domain.dart';
@@ -11,7 +10,10 @@ import '../../../facility_data_provider.dart';
 import 'promotion_display_utils.dart';
 
 class PromotionDetailsBottomSheet extends StatelessWidget {
-  const PromotionDetailsBottomSheet({super.key});
+  const PromotionDetailsBottomSheet({super.key, required this.onContactFacility});
+
+  /// Reaches the facility when it does not sell the promotion in the app.
+  final VoidCallback onContactFacility;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,10 @@ class PromotionDetailsBottomSheet extends StatelessWidget {
         child: Center(child: CircularProgressIndicator()),
       ),
       successBuilder: (context, promotionDetails) {
-        return _PromotionDetailsContent(promotionDetails: promotionDetails);
+        return _PromotionDetailsContent(
+          promotionDetails: promotionDetails,
+          onContactFacility: onContactFacility,
+        );
       },
       onRetry: (cubit) => cubit.refresh(),
     );
@@ -34,9 +39,13 @@ class PromotionDetailsBottomSheet extends StatelessWidget {
 }
 
 class _PromotionDetailsContent extends StatelessWidget {
-  const _PromotionDetailsContent({required this.promotionDetails});
+  const _PromotionDetailsContent({
+    required this.promotionDetails,
+    required this.onContactFacility,
+  });
 
   final FacilityPromotionDetailsEntity promotionDetails;
+  final VoidCallback onContactFacility;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +58,10 @@ class _PromotionDetailsContent extends StatelessWidget {
               title: context.l10n.facilityDetails_descriptionLabel,
               body: promotionDetails.description,
             ),
-          _PromotionValidityAndActionSection(promotionDetails: promotionDetails),
+          _PromotionValidityAndActionSection(
+            promotionDetails: promotionDetails,
+            onContactFacility: onContactFacility,
+          ),
         ].map(
           (section) => Padding(
             padding: EdgeInsets.symmetric(
@@ -193,14 +205,20 @@ class _PromotionTextSection extends StatelessWidget {
 }
 
 class _PromotionValidityAndActionSection extends StatelessWidget {
-  const _PromotionValidityAndActionSection({required this.promotionDetails});
+  const _PromotionValidityAndActionSection({
+    required this.promotionDetails,
+    required this.onContactFacility,
+  });
 
   final FacilityPromotionDetailsEntity promotionDetails;
+  final VoidCallback onContactFacility;
 
   @override
   Widget build(BuildContext context) {
     final facilityData = FacilityDataProvider.of(context);
+    final facility = facilityData.facility;
     final accentColor = facilityData.activityLineColor;
+    final canPurchase = PurchaseCtaResolver.allowsInAppPurchase(facility);
 
     return Column(
       spacing: context.spacing.s24,
@@ -218,16 +236,16 @@ class _PromotionValidityAndActionSection extends StatelessWidget {
             ),
           ],
         ),
+        // Buys the promotion, or reaches the facility when it does not sell in
+        // the app (see [PurchaseCtaResolver.allowsInAppPurchase]).
         MainButton(
           height: 56,
           backgroundColor: accentColor,
-          text: _resolveActionText(context, facilityData),
-          // A contact-only facility never opens the checkout flow.
-          // TODO(product): route to the facility's reservation contact — the
-          // same gap as `SessionCtaButton`'s contact CTA.
-          onPressed: !PurchaseCtaResolver.allowsInAppPurchase(facilityData.facility)
-              ? () {}
-              : () {
+          text: canPurchase
+              ? context.l10n.facilityDetails_purchaseNow
+              : context.l10n.facilityDetails_contactFacility(facility.name),
+          onPressed: canPurchase
+              ? () {
                   final router = context.router;
 
                   Navigator.pop(context);
@@ -235,30 +253,14 @@ class _PromotionValidityAndActionSection extends StatelessWidget {
                   router.push(
                     PromotionPurchaseRoute(
                       promotion: promotionDetails,
-                      facility: facilityData.facility,
+                      facility: facility,
                       accentColor: accentColor,
                     ),
                   );
-                },
+                }
+              : onContactFacility,
         ),
       ],
     );
-  }
-
-  String _resolveActionText(BuildContext context, FacilityDataProvider facilityData) {
-    final facility = facilityData.facility;
-
-    // Basic and inactive accounts have no online payment, so they are
-    // contact-only whatever `payment_type` says.
-    if (!PurchaseCtaResolver.allowsInAppPurchase(facility)) {
-      return context.l10n.facilityDetails_contactFacility(facility.name);
-    }
-
-    return switch (facility.paymentType) {
-      PaymentType.directPurchase ||
-      PaymentType.none => context.l10n.facilityDetails_contactFacility(facility.name),
-      PaymentType.fullOnline ||
-      PaymentType.depositOnline => context.l10n.facilityDetails_purchaseNow,
-    };
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solar_icons/solar_icons.dart';
 
 import '../../../facility_data_provider.dart';
+import '../../profile/components/facility_contact_options.dart';
 import 'promotion_details_bottom_sheet.dart';
 import 'promotion_display_utils.dart';
 
@@ -25,13 +26,22 @@ class PromotionTile extends StatelessWidget {
     return TappableScale(
       onTap: isInteractive
           ? () {
+              final facilityCubit = context.read<FacilityDetailsCubit>();
+
               showMainBottomSheet<void>(
                 context: context,
-                builder: (_) => BlocProvider<PromotionDetailsCubit>(
+                builder: (sheetContext) => BlocProvider<PromotionDetailsCubit>(
                   create: (_) => getIt<PromotionDetailsCubit>(param1: promotion.id),
                   child: FacilityDataProvider.fromFacilityDataProvider(
                     facilityDataProvider: facilityData,
-                    child: const PromotionDetailsBottomSheet(),
+                    child: PromotionDetailsBottomSheet(
+                      onContactFacility: () => FacilityContactOptions.show(
+                        sheetContext,
+                        facilityId: facilityData.facility.id,
+                        accentColor: facilityData.activityLineColor,
+                        facilityCubit: facilityCubit,
+                      ),
+                    ),
                   ),
                 ),
               );

@@ -125,7 +125,6 @@
   "facilityDetails_conditions": "Conditions",
   "facilityDetails_validity": "Validity",
   "facilityDetails_promotionPrice": "Promotion Price",
-  "facilityDetails_purchase": "Purchase",
   "facilityDetails_purchaseNow": "Purchase Now",
   "facilityDetails_tickets": "Tickets",
   "facilityDetails_promotions": "Promotions",
@@ -213,20 +212,29 @@
   "purchase_noCoupon": "No Coupon",
   "purchase_quantity": "Quantity",
   "purchase_invoiceTitle": "Purchase Invoice",
-  "purchase_invoiceLine": "{count}x {label}",
-  "@purchase_invoiceLine": {
+  "purchase_addOnLine": "Add-On: {name}",
+  "@purchase_addOnLine": {
     "placeholders": {
-      "count": {"type": "int"},
-      "label": {"type": "String"}
+      "name": {"type": "String"}
     }
   },
   "purchase_couponDiscount": "Coupon Discount",
   "purchase_totalAmount": "Total Amount",
-  "purchase_depositAmount": "Deposit Amount",
   "purchase_directPurchase": "Direct Purchase",
-  "purchase_onlinePayment": "Online Payment",
-  "purchase_depositPayment": "Deposit Payment",
-  "purchase_stubSnackBar": "Payment integration is coming soon.",
+  "purchase_couponOption": "{percent} Discount ({scope})",
+  "@purchase_couponOption": {
+    "placeholders": {
+      "percent": {"type": "String"},
+      "scope": {"type": "String"}
+    }
+  },
+  "purchase_couponRejected": "This coupon can't be used on this purchase, so it was removed.",
+  "purchase_paymentSummary": "Payment Summary",
+  "purchase_purchasePrice": "Purchase Price",
+  "purchase_addOnsPrice": "Add-Ons Price",
+  "purchase_dueAmount": "DUE Amount",
+  "purchase_confirmPurchase": "Confirm Purchase",
+  "purchase_cancel": "Cancel",
   "facilitySchedule_flowCount": "{count, plural, =0{No Flows} =1{1 Flow} other{{count} Flows}}",
   "@facilitySchedule_flowCount": {
     "placeholders": {
@@ -383,6 +391,7 @@
   "facilityDetails_contactSectionTitle": "Contact",
   "facilityDetails_chooseNumberTitle": "Choose a number",
   "facilityDetails_linkFailed": "Couldn't open this link",
+  "facilityDetails_noContactChannels": "This facility hasn't added a way to contact it yet.",
   "facilityDetails_saveAdded": "Added to your profiles",
   "facilityDetails_saveRemoved": "Removed from your profiles",
   "facilityDetails_saveFailed": "Couldn't update your saved profiles",
@@ -405,7 +414,7 @@
 
   "comingSoon": "Coming soon",
   "purchase_success": "Purchase added to your account.",
-  "purchase_dueNotice": "This purchase will be added to your account with payment due. No online payment will be collected here.",
+  "purchase_dueNotice": "Payment will be due directly with the business. Purchase will be added to your account and you will be able to make reservations right away.",
   "facilitySchedule_actionUnavailable": "Reservations are unavailable for this session.",
   "account_gifts": "Gifts"
 }

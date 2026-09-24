@@ -308,9 +308,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get facilityDetails_promotionPrice => 'سعر العرض';
 
   @override
-  String get facilityDetails_purchase => 'شراء';
-
-  @override
   String get facilityDetails_purchaseNow => 'اشترِ الآن';
 
   @override
@@ -488,8 +485,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get purchase_invoiceTitle => 'فاتورة الشراء';
 
   @override
-  String purchase_invoiceLine(int count, String label) {
-    return '$count× $label';
+  String purchase_addOnLine(String name) {
+    return 'إضافة: $name';
   }
 
   @override
@@ -499,19 +496,34 @@ class AppLocalizationsAr extends AppLocalizations {
   String get purchase_totalAmount => 'المبلغ الإجمالي';
 
   @override
-  String get purchase_depositAmount => 'مبلغ العربون';
-
-  @override
   String get purchase_directPurchase => 'شراء مباشر';
 
   @override
-  String get purchase_onlinePayment => 'دفع إلكتروني';
+  String purchase_couponOption(String percent, String scope) {
+    return 'خصم $percent ($scope)';
+  }
 
   @override
-  String get purchase_depositPayment => 'دفع عربون';
+  String get purchase_couponRejected =>
+      'لا يمكن استخدام هذا الكوبون في عملية الشراء هذه، لذا تمت إزالته.';
 
   @override
-  String get purchase_stubSnackBar => 'الدفع الإلكتروني قادم قريبًا.';
+  String get purchase_paymentSummary => 'ملخص الدفع';
+
+  @override
+  String get purchase_purchasePrice => 'سعر الشراء';
+
+  @override
+  String get purchase_addOnsPrice => 'سعر الإضافات';
+
+  @override
+  String get purchase_dueAmount => 'المبلغ المستحق';
+
+  @override
+  String get purchase_confirmPurchase => 'تأكيد الشراء';
+
+  @override
+  String get purchase_cancel => 'إلغاء';
 
   @override
   String facilitySchedule_flowCount(int count) {
@@ -853,6 +865,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get facilityDetails_linkFailed => 'تعذّر فتح هذا الرابط';
 
   @override
+  String get facilityDetails_noContactChannels => 'لم تُضِف هذه المنشأة وسيلة للتواصل بعد.';
+
+  @override
   String get facilityDetails_saveAdded => 'تمت الإضافة إلى ملفاتك';
 
   @override
@@ -897,7 +912,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get purchase_dueNotice =>
-      'ستُضاف عملية الشراء إلى حسابك كمبلغ مستحق. لن يتم تحصيل دفع إلكتروني هنا.';
+      'سيُستحق الدفع مباشرةً لدى المنشأة. ستُضاف عملية الشراء إلى حسابك ويمكنك الحجز فورًا.';
 
   @override
   String get facilitySchedule_actionUnavailable => 'الحجز غير متاح لهذه الجلسة.';

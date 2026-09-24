@@ -59,6 +59,7 @@ class FacilityServiceTicketModel {
     required this.price,
     this.hasDiscount,
     this.discountPrice,
+    this.offer,
     this.currency,
   });
 
@@ -67,6 +68,10 @@ class FacilityServiceTicketModel {
   final double price;
   final bool? hasDiscount;
   final double? discountPrice;
+
+  /// The percentage an active discount promotion takes off this ticket.
+  final double? offer;
+
   final String? currency;
 
   factory FacilityServiceTicketModel.fromJson(Map<String, dynamic> json) =>

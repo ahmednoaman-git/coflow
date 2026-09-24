@@ -16,3 +16,4 @@ export 'facility_session_details_mapper.dart';
 export 'facility_ticket_details_mapper.dart';
 export 'facility_ticket_mapper.dart';
 export 'facility_weekly_schedule_mapper.dart';
+export 'ticket_price_mapper.dart';

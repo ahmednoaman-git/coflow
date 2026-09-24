@@ -140,6 +140,7 @@ class FacilityProfileModel {
     this.hasSave = false,
     this.hasTrack = false,
     this.updatedAt,
+    this.paymentType,
   });
 
   final int id;
@@ -212,6 +213,10 @@ class FacilityProfileModel {
 
   /// Date the facility last edited its profile, as `yyyy-MM-dd`.
   final String? updatedAt;
+
+  /// How the facility takes purchases (`contact`, `direct purchase`, ...),
+  /// fresher than the copy on the list card the profile was opened from.
+  final String? paymentType;
 
   factory FacilityProfileModel.fromJson(Map<String, dynamic> json) =>
       _$FacilityProfileModelFromJson(json);

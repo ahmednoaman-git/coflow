@@ -23,10 +23,7 @@ abstract class PurchaseInvoiceEntity with _$PurchaseInvoiceEntity {
     required double subtotal,
     required double couponDiscount,
     required double total,
-    double? depositAmount,
   }) = _PurchaseInvoiceEntity;
 
   bool get hasCouponDiscount => couponDiscount > 0;
-
-  bool get hasDeposit => depositAmount != null;
 }

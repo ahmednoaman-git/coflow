@@ -30,7 +30,11 @@ abstract class FacilityTicketDetailsEntity with _$FacilityTicketDetailsEntity {
     required int id,
     required String name,
     required double price,
+
+    /// What the ticket sells for when it is reduced — by its own discount or
+    /// an active discount promotion. Null when it sells at full price.
     double? discountPrice,
+
     required String currency,
     required bool unlimited,
     int? validityDays,
@@ -44,10 +48,7 @@ abstract class FacilityTicketDetailsEntity with _$FacilityTicketDetailsEntity {
 
   List<String> get accessList => services.map((s) => s.name).toList(growable: false);
 
-  String priceText({double? value}) {
-    final v = value ?? totalPrice;
-    return '$currency $v';
-  }
+  String priceText({double? value}) => (value ?? totalPrice).priceText(currency);
 
   String validityText(AppLocalizations l10n) {
     if (unlimited && validityDays == null) {
