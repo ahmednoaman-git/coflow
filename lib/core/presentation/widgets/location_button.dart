@@ -40,6 +40,11 @@ class LocationButton extends StatelessWidget {
   /// Background color override.
   final Color? backgroundColor;
 
+  /// Roughly the width of a short location name, so the button keeps its
+  /// size while the locations load.
+  static const double _loadingTextWidth = 80;
+  static const double _loadingBoneOpacity = 0.35;
+
   @override
   Widget build(BuildContext context) {
     final effectiveTextColor = textColor ?? Colors.white;
@@ -71,12 +76,12 @@ class LocationButton extends StatelessWidget {
               color: effectiveIconColor,
             ),
             if (isLoading)
-              SizedBox(
-                width: 14,
-                height: 14,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(effectiveIconColor),
+              // A bone in place of the name, softened so it sits on the
+              // button's dark fill like the text it stands in for.
+              Opacity(
+                opacity: _loadingBoneOpacity,
+                child: Skeleton(
+                  child: SkeletonText(style: context.typography.book14, width: _loadingTextWidth),
                 ),
               )
             else
