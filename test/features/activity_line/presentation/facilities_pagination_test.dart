@@ -8,9 +8,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 
 class _Locations implements GetLocationsUseCase {
+  _Locations([this.locations = const LocationsEntity(cities: [], remoteCount: 0)]);
+
+  final LocationsEntity locations;
+
   @override
-  AsyncTask<LocationsEntity> call() =>
-      TaskEither.right(const LocationsEntity(cities: [], remoteCount: 0));
+  AsyncTask<LocationsEntity> call({int? activityLineId}) => TaskEither.right(locations);
 }
 
 class _Repository implements ActivityLineRepository {
@@ -61,6 +64,7 @@ void main() {
       GetFacilitiesUseCase(repository),
       _Locations(),
       ActivityLineEntity.energy,
+      null,
     );
     addTearDown(cubit.close);
     await tester.pumpWidget(
@@ -86,6 +90,7 @@ void main() {
       GetFacilitiesUseCase(repository),
       _Locations(),
       ActivityLineEntity.energy,
+      null,
     );
     addTearDown(cubit.close);
     await Future<void>.delayed(Duration.zero);
@@ -124,6 +129,7 @@ void main() {
       GetFacilitiesUseCase(repository),
       _Locations(),
       ActivityLineEntity.energy,
+      null,
     );
     addTearDown(cubit.close);
     await tester.pumpWidget(
@@ -150,5 +156,79 @@ void main() {
     expect(cubit.state.facilities, isEmpty);
     expect(cubit.state.tags, hasLength(2));
     expect(tester.takeException(), isNull);
+  });
+
+  group('location carried over from the dashboard', () {
+    const cairo = LocationCityEntity(
+      id: 13,
+      name: 'Cairo',
+      facilityCount: 4,
+      areas: [LocationAreaEntity(id: 2, name: 'Maadi', facilityCount: 3)],
+    );
+
+    Future<(ActivityLineFacilitiesCubit, _Repository)> open(
+      SelectedLocation initial,
+      LocationsEntity lineLocations,
+    ) async {
+      final repository = _Repository();
+      final cubit = ActivityLineFacilitiesCubit(
+        GetFacilitiesUseCase(repository),
+        _Locations(lineLocations),
+        ActivityLineEntity.energy,
+        initial,
+      );
+      addTearDown(cubit.close);
+      await Future<void>.delayed(Duration.zero);
+      await Future<void>.delayed(Duration.zero);
+      return (cubit, repository);
+    }
+
+    test('filters the first page by it and keeps it when the line has it', () async {
+      final (cubit, repository) = await open(
+        const SelectedLocation(cityId: 13, cityName: 'Cairo', areaId: 2, areaName: 'Maadi'),
+        const LocationsEntity(cities: [cairo], remoteCount: 0),
+      );
+      expect(repository.requests, hasLength(1));
+      expect(repository.requests.single.areaId, 2);
+      expect(cubit.state.selectedLocation.areaId, 2);
+    });
+
+    test('resets to every location and refetches when the line lacks it', () async {
+      final (cubit, repository) = await open(
+        const SelectedLocation(cityId: 99, cityName: 'Aswan'),
+        const LocationsEntity(cities: [cairo], remoteCount: 0),
+      );
+      expect(repository.requests.first.cityId, 99);
+      expect(repository.requests.last.cityId, isNull);
+      expect(cubit.state.selectedLocation.isEmpty, isTrue);
+    });
+
+    test('drops remote when the line has nothing remote', () async {
+      final (cubit, _) = await open(
+        const SelectedLocation(isRemote: true),
+        const LocationsEntity(cities: [cairo], remoteCount: 0),
+      );
+      expect(cubit.state.selectedLocation.isEmpty, isTrue);
+    });
+  });
+
+  test('LocationsEntity.match refreshes names and rejects empty places', () {
+    const locations = LocationsEntity(
+      cities: [
+        LocationCityEntity(
+          id: 1,
+          name: 'Giza',
+          areas: [LocationAreaEntity(id: 5, name: 'Dokki', facilityCount: 0)],
+        ),
+      ],
+      remoteCount: 2,
+    );
+    expect(
+      locations.match(const SelectedLocation(cityId: 1, cityName: 'old')),
+      const SelectedLocation(cityId: 1, cityName: 'Giza'),
+    );
+    expect(locations.match(const SelectedLocation(cityId: 1, areaId: 5)), isNull);
+    expect(locations.match(const SelectedLocation(isRemote: true)), isNotNull);
+    expect(locations.match(const SelectedLocation()), const SelectedLocation());
   });
 }

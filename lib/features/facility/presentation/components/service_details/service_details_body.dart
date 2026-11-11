@@ -7,7 +7,7 @@ import '../../cubit/cubit.dart';
 import '../facility_data_provider.dart';
 import 'service_details_header_controls.dart';
 import 'service_details_sections.dart';
-import 'service_details_shimmer.dart';
+import 'service_details_skeleton.dart';
 import 'service_image_header.dart';
 import 'service_level_pill_row.dart';
 
@@ -82,7 +82,7 @@ class ServiceDetailsBody extends StatelessWidget {
                               FacilityServiceDetailsEntity
                             >(
                               requestManagerGetter: (cubit) => cubit.detailsManager,
-                              loadingBuilder: (context) => const ServiceDetailsShimmer(),
+                              skeletonBuilder: (context) => const ServiceDetailsSkeleton(),
                               onRetry: (cubit) => cubit.refresh(),
                               successBuilder: (context, details) =>
                                   ServiceDetailsSections(details: details),

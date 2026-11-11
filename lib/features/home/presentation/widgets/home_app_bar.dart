@@ -119,7 +119,6 @@ class _UserAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.user;
-    final hasImage = user.image != null && user.image!.isNotEmpty;
 
     return Container(
       width: 52,
@@ -130,22 +129,13 @@ class _UserAvatar extends StatelessWidget {
         ),
       ),
       child: ClipOval(
-        child: hasImage
-            ? ShimmerImage(
-                imageUrl: user.image,
-                width: 52,
-                height: 52,
-                borderRadius: 100,
-              )
-            : Container(
-                color: Colors.white.withValues(alpha: 0.2),
-                child: Center(
-                  child: Text(
-                    user.name.isNotEmpty ? user.name[0].toUpperCase() : '?',
-                    style: context.typography.bold18.copyWith(color: Colors.white),
-                  ),
-                ),
-              ),
+        child: ShimmerImage(
+          imageUrl: user.image,
+          width: 52,
+          height: 52,
+          borderRadius: 100,
+          fallback: ImageFallback.person(user.name),
+        ),
       ),
     );
   }

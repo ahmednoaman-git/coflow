@@ -141,8 +141,9 @@ class _Slot extends StatelessWidget {
 
     final glyph = switch (destination) {
       CoflowNavIconDestination(:final icon) => Icon(icon, size: _iconSize, color: color),
-      CoflowNavAvatarDestination(:final imageUrl, :final fallback) => _Avatar(
+      CoflowNavAvatarDestination(:final imageUrl, :final name, :final fallback) => _Avatar(
         imageUrl: imageUrl,
+        name: name,
         fallback: fallback,
         isSelected: isSelected,
       ),
@@ -191,9 +192,15 @@ class _Slot extends StatelessWidget {
 
 /// The user's photo in a thin ring, sized to sit in an icon's box.
 class _Avatar extends StatelessWidget {
-  const _Avatar({required this.imageUrl, required this.fallback, required this.isSelected});
+  const _Avatar({
+    required this.imageUrl,
+    required this.name,
+    required this.fallback,
+    required this.isSelected,
+  });
 
   final String? imageUrl;
+  final String? name;
   final IconData fallback;
   final bool isSelected;
 
@@ -219,7 +226,8 @@ class _Avatar extends StatelessWidget {
           imageUrl: imageUrl,
           width: _photoSize,
           height: _photoSize,
-          errorWidget: Icon(fallback, size: 16, color: colors.textTertiary),
+          borderRadius: _photoSize / 2,
+          fallback: ImageFallback.person(name, icon: fallback),
         ),
       ),
     );

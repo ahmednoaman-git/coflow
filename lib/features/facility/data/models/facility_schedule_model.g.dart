@@ -77,9 +77,7 @@ FacilityScheduleSlotModel _$FacilityScheduleSlotModelFromJson(
       ),
       service: $checkedConvert(
         'service',
-        (v) => v == null
-            ? null
-            : FacilityScheduleServiceModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : FacilityScheduleServiceModel.fromJson(v as Map<String, dynamic>),
       ),
     );
     return val;
@@ -116,9 +114,7 @@ FacilityScheduleServiceModel _$FacilityScheduleServiceModelFromJson(
     image: $checkedConvert('image', (v) => v as String?),
     level: $checkedConvert(
       'level',
-      (v) => v == null
-          ? null
-          : FacilityServiceLevelModel.fromJson(v as Map<String, dynamic>),
+      (v) => v == null ? null : FacilityServiceLevelModel.fromJson(v as Map<String, dynamic>),
     ),
   );
   return val;

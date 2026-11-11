@@ -26,13 +26,12 @@ SearchServiceModel _$SearchServiceModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$SearchServiceModelToJson(SearchServiceModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'type': instance.type,
-      'image': instance.image,
-      'duration': instance.duration,
-      'reservations': instance.reservations,
-      'facility': instance.facility,
-    };
+Map<String, dynamic> _$SearchServiceModelToJson(SearchServiceModel instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'type': instance.type,
+  'image': instance.image,
+  'duration': instance.duration,
+  'reservations': instance.reservations,
+  'facility': instance.facility,
+};

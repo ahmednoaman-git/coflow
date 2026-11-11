@@ -48,6 +48,10 @@ abstract class SessionReservationTicketEntity with _$SessionReservationTicketEnt
     DateTime? purchasedAt,
     int? validForDays,
     @Default(0) int addOnsCount,
+
+    /// The package or promotion the ticket came from; null for a ticket bought
+    /// on its own.
+    String? purchaseName,
   }) = _SessionReservationTicketEntity;
 }
 

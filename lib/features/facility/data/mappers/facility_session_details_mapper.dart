@@ -83,6 +83,7 @@ abstract final class FacilitySessionDetailsMapper {
       purchasedAt: model.purchasedAt,
       validForDays: model.validForDays,
       addOnsCount: model.addOns ?? 0,
+      purchaseName: model.purchaseName,
     );
   }
 }

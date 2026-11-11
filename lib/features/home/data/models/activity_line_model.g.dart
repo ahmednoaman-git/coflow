@@ -18,11 +18,10 @@ ActivityLineModel _$ActivityLineModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$ActivityLineModelToJson(ActivityLineModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'image': instance.image,
-      'color': instance.color,
-      'facilities': instance.facilities,
-    };
+Map<String, dynamic> _$ActivityLineModelToJson(ActivityLineModel instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'image': instance.image,
+  'color': instance.color,
+  'facilities': instance.facilities,
+};

@@ -43,6 +43,9 @@ class ServiceTile extends StatelessWidget {
               width: 56,
               height: 56,
               borderRadius: 12,
+              fallback: ImageFallback.cover(
+                accent: FacilityDataProvider.maybeOf(context)?.activityLineColor,
+              ),
             ),
             Expanded(
               child: Column(

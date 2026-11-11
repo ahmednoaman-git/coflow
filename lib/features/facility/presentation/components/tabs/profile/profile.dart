@@ -13,5 +13,6 @@ export 'components/languages_section.dart';
 export 'components/location_section.dart';
 export 'components/operating_hours_section.dart';
 export 'components/profile_header.dart';
+export 'components/profile_tab_skeleton.dart';
 export 'components/profile_team_section.dart';
 export 'profile_tab_screen.dart';

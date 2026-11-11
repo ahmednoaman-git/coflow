@@ -22,9 +22,7 @@ ReservationDetailsModel _$ReservationDetailsModelFromJson(
       facilityLogo: $checkedConvert('facility_logo', (v) => v as String?),
       facility: $checkedConvert(
         'facility',
-        (v) => v == null
-            ? null
-            : FacilityModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : FacilityModel.fromJson(v as Map<String, dynamic>),
       ),
     );
     return val;

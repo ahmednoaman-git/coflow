@@ -4,6 +4,7 @@ import '../entities/entities.dart';
 
 /// Repository interface for locations data.
 abstract interface class LocationsRepository {
-  /// Fetches all available locations (cities and areas).
-  AsyncTask<LocationsEntity> getLocations();
+  /// Fetches all available locations (cities and areas), with facility counts
+  /// limited to [activityLineId] when given.
+  AsyncTask<LocationsEntity> getLocations({int? activityLineId});
 }

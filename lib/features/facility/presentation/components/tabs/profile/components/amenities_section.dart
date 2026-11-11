@@ -1,7 +1,9 @@
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 import '../../../../../../facility/domain/entities/entities.dart';
+import '../../../facility_data_provider.dart';
 import '../../../page_section.dart';
 
 /// Amenities section for facility profile.
@@ -43,6 +45,11 @@ class AmenitiesSection extends StatelessWidget {
             width: 30,
             height: 30,
             fit: BoxFit.contain,
+            borderRadius: context.spacing.s8,
+            fallback: ImageFallback.icon(
+              SolarIconsOutline.stars,
+              accent: FacilityDataProvider.maybeOf(context)?.activityLineColor,
+            ),
           ),
           Text(
             amenity.name,

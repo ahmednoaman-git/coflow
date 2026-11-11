@@ -26,13 +26,14 @@ class PageSection extends StatelessWidget {
   final Widget? trailing;
   final List<Widget> children;
 
+  /// Around a section — shared with the skeletons standing in for one.
+  static EdgeInsets padding(BuildContext context) =>
+      EdgeInsets.symmetric(horizontal: context.spacing.s24, vertical: context.spacing.s32);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: context.spacing.s24,
-        vertical: context.spacing.s32,
-      ),
+      padding: padding(context),
       child: Column(
         crossAxisAlignment: .start,
         spacing: context.spacing.s16,

@@ -1,6 +1,6 @@
 ---
 name: coflow-ui
-description: Theme system and UI conventions for coflow_users_v2 — semantic colors, typography tokens, spacing, shadows, shimmer placeholders, core widgets (MainButton, TappableScale, CircularButton), icons, and superellipse shapes. Use before building or styling ANY widget, screen, or visual component in the app.
+description: Theme system and UI conventions for coflow_users_v2 — semantic colors, typography tokens, spacing, shadows, skeleton loading placeholders, core widgets (MainButton, TappableScale, CircularButton), icons, and superellipse shapes. Use before building or styling ANY widget, screen, or visual component in the app.
 ---
 
 # Coflow UI & Theme System
@@ -129,23 +129,43 @@ Anything pinned to the bottom of a screen (bars, floating buttons) offsets by `c
 - **`CircularButton`** — circular icon-only actions (header controls).
 - **`MainButton`** — primary button: `text`, `onPressed`, `isLoading`, `isDisabled`, `leadingIcon`/`trailingIcon`, defaults to 40px height / full width. Pair `isLoading` with `AsyncHandler.loadingDependent`.
 - **`showMainBottomSheet`** — the only sanctioned way to open a bottom sheet (see "Modals" above).
+- **`LogoRefreshIndicator`** — the only pull-to-refresh; never `RefreshIndicator`. Drop-in (`onRefresh`, `child`): the content itself pulls down and the logo draws itself in the gap, then loops (rings spin opposite ways, sheen, pulse) while refreshing. The child must be sliver-based — a `CustomScrollView` with the content in a `SliverToBoxAdapter` — never a `SingleChildScrollView`, which snaps out of the pull when it re-lays out (rejected in debug). Leave its physics at `AlwaysScrollableScrollPhysics()`; pass `edgeOffset` when the scroll view runs behind an app bar (Home).
 - **`SliverBottomInset`** — trailing sliver that keeps a `CustomScrollView` clear of the nav bar (see above).
 - **`MainTextField`**, **`MainBackButton`**, **`MainAnimatedSwitcher`**, **`EzSegmentedControl`**, **`EzFileUpload`**, **`ShimmerImage`**, **`LocationButton`** / **`LocationSelectorBottomSheet`** — check `widgets/` before building something new.
 
-## Shimmer loading placeholders (`shimmer.dart`)
+## Skeleton loading placeholders (`widgets/skeleton/`)
 
-Wrap the whole placeholder layout in ONE `Shimmer`; base surfaces are `ShimmerBox`, detail elements (text lines, icons) are `ShimmerBox.dark` layered on top:
+New loading UI uses the skeleton system. Build the placeholder from the **real layout** — the same paddings, gaps, surfaces and shared size constants as the content — with bones where data goes, so nothing moves when the content fades in.
+
+- **`Skeleton`** — put ONE at the root of each placeholder. Every skeleton shares one clock and bones sweep in screen space, so separate placeholders on a screen (tag row, list, "load more" footer) sweep as one band. Off under reduced motion.
+- Bones: **`SkeletonText(style:, widthFactor:/width:, lines:)`** takes exactly the line height of `style` (measured, text-scale aware) — use the real typography token. **`SkeletonBox`** (images, icons, blocks), **`SkeletonCircle`** (avatars, logos), **`SkeletonChip(style:, labelWidth:, padding:)`** (tags, filters). `tone: .strong` for bones drawn on top of another bone (e.g. a caption over a placeholder cover).
+- Share the real widget's surface/dimensions instead of copying them: e.g. `FacilityCardSurface` + `FacilityCard.logoSize`, `BusinessCard.width/height/radius`. Put `XSkeleton` next to `X`.
+- Wire it with **`AsyncHandler(skeletonBuilder: ...)`** — shown while idle/loading, and the result cross-fades in over it. Set `sliver: true` when the builders return slivers (it cross-fades via `SliverStack`). For "load more" footers, `loadingBuilder` with a few card skeletons under the list.
+- Content that isn't behind an `AsyncHandler` (e.g. a row filled from another request): **`SkeletonSwitcher(loading:, skeleton:, child:)`**.
+- Only the part that waits on data should be a skeleton; static parts of the screen (titles, filters, chips) render immediately.
+- Section/list failures: **`InlineAsyncError(failure:, onRetry:)`** rather than the full-screen default.
 
 ```dart
-Shimmer(
-  child: Stack(children: [
-    ShimmerBox(width: 300, height: 100, borderRadius: 12),
-    Positioned(left: 16, top: 16, child: ShimmerBox.dark(width: 80, height: 14)),
-  ]),
+AsyncHandler<HomeCubit, HomeState, HomeEntity>(
+  requestManagerGetter: (cubit) => cubit.homeManager,
+  skeletonBuilder: (_) => const Skeleton(child: _BusinessesRow(itemCount: 3, itemBuilder: ...BusinessCardSkeleton...)),
+  errorBuilder: (context, failure) => InlineAsyncError(failure: failure, onRetry: context.read<HomeCubit>().refresh),
+  successBuilder: (context, home) => _BusinessesRow(...BusinessCard...),
 )
 ```
 
-Match the real UI's dimensions; for custom-painted shapes wrap a `CustomPaint` with overlaid `ShimmerBox.dark`.
+Every loading placeholder in the app is built this way — see `FacilityCardSkeleton`, `CalendarTimelineSkeleton` (shared by the calendar and facility schedule), `SearchResultSkeleton` (also the search "load more" footer), `PromotionSkeleton`, `TicketSkeleton`. `ShimmerImage`'s own loading placeholder is a bone too, so images sweep in step with the skeletons around them.
+
+### Failed or missing images
+
+`ShimmerImage` never shows a broken-image icon. With no URL, or when the load fails, it draws its `fallback` in the exact same box and corners (so nothing shifts between loading, loaded and failed). Pick the variant that suits the slot and pass the activity line's colour as `accent` when it is known:
+
+- `ImageFallback.cover(accent:)` (the default) for covers, banners, branch photos and service thumbnails. It draws the brand navy with an accent glow and a faint Coflow mark, dark enough for white captions on top.
+- `ImageFallback.person(name, accent:, icon:)` for user, instructor and team photos. It shows two initials (one below 32px), or a person glyph when the name has none.
+- `ImageFallback.business(name, accent:)` for facility logos. It shows one initial, or the Coflow mark when the name has none.
+- `ImageFallback.icon(icon, accent:)` for icon-like images such as amenities.
+
+`errorBuilder` swaps in a bespoke widget, sized to the image box. Never pass ad-hoc `Icon`s as a failure state.
 
 ## Icons
 

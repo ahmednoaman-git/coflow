@@ -12,17 +12,11 @@ class FacilityCard extends StatelessWidget {
 
   final CollapsedFacilityEntity facility;
 
+  static const double logoSize = 56;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: ShapeDecoration(
-        color: context.colors.backgroundWhite,
-        shape: RoundedSuperellipseBorder(
-          borderRadius: BorderRadius.circular(context.spacing.s16),
-          side: BorderSide(color: context.colors.strokePrimary),
-        ),
-        shadows: context.shadows.sm,
-      ),
+    return FacilityCardSurface(
       child: TappableScale(
         borderRadius: BorderRadius.circular(context.spacing.s16),
         onTap: () {
@@ -67,16 +61,16 @@ class FacilityCard extends StatelessWidget {
   Widget _buildLogo(BuildContext context) {
     return ClipOval(
       child: SizedBox(
-        width: 56,
-        height: 56,
+        width: logoSize,
+        height: logoSize,
         child: ShimmerImage(
           imageUrl: facility.logoUrl,
-          width: 56,
-          height: 56,
+          width: logoSize,
+          height: logoSize,
           borderRadius: 100,
-          errorWidget: Icon(
-            Icons.business_rounded,
-            color: context.colors.textTertiary,
+          fallback: ImageFallback.business(
+            facility.name,
+            accent: facility.activityLine.getColors(context).$1,
           ),
         ),
       ),
@@ -213,5 +207,98 @@ extension on String {
   String capitalize() {
     if (isEmpty) return this;
     return '${this[0].toUpperCase()}${substring(1)}';
+  }
+}
+
+/// A facility card's surface — its fill, outline, corners and shadow — shared
+/// by [FacilityCard] and [FacilityCardSkeleton] so the two line up exactly.
+class FacilityCardSurface extends StatelessWidget {
+  const FacilityCardSurface({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: ShapeDecoration(
+        color: context.colors.backgroundWhite,
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(context.spacing.s16),
+          side: BorderSide(color: context.colors.strokePrimary),
+        ),
+        shadows: context.shadows.sm,
+      ),
+      child: child,
+    );
+  }
+}
+
+/// Placeholder for a [FacilityCard]: its surface and layout, with bones for
+/// the logo, name, description, feature icons, location and tags.
+///
+/// Wrap a group of these in one `Skeleton` so they sweep together.
+class FacilityCardSkeleton extends StatelessWidget {
+  const FacilityCardSkeleton({super.key});
+
+  static const List<double> _tagLabelWidths = [52, 68, 44];
+
+  @override
+  Widget build(BuildContext context) {
+    final typography = context.typography;
+    final spacing = context.spacing;
+
+    return FacilityCardSurface(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(spacing.s12),
+            child: Row(
+              spacing: spacing.s12,
+              children: [
+                const SkeletonCircle(size: FacilityCard.logoSize),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: .start,
+                    children: [
+                      SkeletonText(style: typography.medium14, widthFactor: 0.55),
+                      SkeletonText(style: typography.book12, widthFactor: 0.85),
+                      SizedBox(height: spacing.s4),
+                      Row(
+                        spacing: spacing.s8,
+                        children: [
+                          Row(
+                            spacing: spacing.s4,
+                            children: [
+                              for (var index = 0; index < 3; index++)
+                                const SkeletonBox(width: 16, height: 16, radius: 4),
+                            ],
+                          ),
+                          SkeletonText(style: typography.book12, width: 96),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Divider(height: 1, color: context.colors.strokePrimary),
+          Padding(
+            padding: EdgeInsets.all(spacing.s12),
+            child: Row(
+              spacing: TagChipSingleRowWithOverflow.chipSpacing,
+              children: [
+                for (final width in _tagLabelWidths)
+                  SkeletonChip(
+                    style: typography.book10,
+                    labelWidth: width,
+                    padding: TagChipSingleRowWithOverflow.chipPadding,
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

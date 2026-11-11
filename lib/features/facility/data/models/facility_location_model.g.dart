@@ -43,8 +43,10 @@ CountryModel _$CountryModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$CountryModelToJson(CountryModel instance) =>
-    <String, dynamic>{'id': instance.id, 'name': instance.name};
+Map<String, dynamic> _$CountryModelToJson(CountryModel instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+};
 
 AddressPhoneModel _$AddressPhoneModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('AddressPhoneModel', json, ($checkedConvert) {
@@ -55,8 +57,10 @@ AddressPhoneModel _$AddressPhoneModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$AddressPhoneModelToJson(AddressPhoneModel instance) =>
-    <String, dynamic>{'number': instance.number, 'type': instance.type};
+Map<String, dynamic> _$AddressPhoneModelToJson(AddressPhoneModel instance) => <String, dynamic>{
+  'number': instance.number,
+  'type': instance.type,
+};
 
 AddressModel _$AddressModelFromJson(Map<String, dynamic> json) =>
     $checkedCreate('AddressModel', json, ($checkedConvert) {
@@ -71,8 +75,7 @@ AddressModel _$AddressModelFromJson(Map<String, dynamic> json) =>
           (v) =>
               (v as List<dynamic>?)
                   ?.map(
-                    (e) =>
-                        AddressPhoneModel.fromJson(e as Map<String, dynamic>),
+                    (e) => AddressPhoneModel.fromJson(e as Map<String, dynamic>),
                   )
                   .toList() ??
               [],
@@ -81,15 +84,14 @@ AddressModel _$AddressModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$AddressModelToJson(AddressModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'address': instance.address,
-      'location': instance.location,
-      'longitude': instance.longitude,
-      'latitude': instance.latitude,
-      'phones': instance.phones,
-    };
+Map<String, dynamic> _$AddressModelToJson(AddressModel instance) => <String, dynamic>{
+  'id': instance.id,
+  'address': instance.address,
+  'location': instance.location,
+  'longitude': instance.longitude,
+  'latitude': instance.latitude,
+  'phones': instance.phones,
+};
 
 FacilityCoverageModel _$FacilityCoverageModelFromJson(
   Map<String, dynamic> json,
@@ -115,8 +117,7 @@ FacilityCoverageModel _$FacilityCoverageModelFromJson(
       ),
       country: $checkedConvert(
         'country',
-        (v) =>
-            v == null ? null : CountryModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : CountryModel.fromJson(v as Map<String, dynamic>),
       ),
     );
     return val;

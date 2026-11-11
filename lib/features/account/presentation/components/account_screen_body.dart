@@ -19,35 +19,35 @@ class AccountScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
+    return LogoRefreshIndicator(
       onRefresh: () => context.read<ProfileCubit>().refresh(),
-      color: context.colors.signatureBlue,
-      child: SingleChildScrollView(
+      child: CustomScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: EdgeInsets.fromLTRB(
-          context.spacing.s24,
-          context.spacing.s24,
-          context.spacing.s24,
-          context.bottomInset + context.spacing.s24,
-        ),
-        child: Column(
-          crossAxisAlignment: .start,
-          spacing: context.spacing.s24,
-          children: [
-            AsyncHandler<ProfileCubit, ProfileState, ProfileStatsEntity>(
-              requestManagerGetter: (cubit) => cubit.statisticsManager,
-              initialBuilder: (_) => const AccountStatsGridShimmer(),
-              loadingBuilder: (_) => const AccountStatsGridShimmer(),
-              successBuilder: (context, stats) => AccountStatsGrid(stats: stats),
-              onRetry: (cubit) => cubit.refreshStatistics(),
+        slivers: [
+          SliverPadding(
+            padding: EdgeInsets.all(context.spacing.s24),
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: .start,
+                spacing: context.spacing.s24,
+                children: [
+                  AsyncHandler<ProfileCubit, ProfileState, ProfileStatsEntity>(
+                    requestManagerGetter: (cubit) => cubit.statisticsManager,
+                    skeletonBuilder: (_) => const AccountStatsGridSkeleton(),
+                    successBuilder: (context, stats) => AccountStatsGrid(stats: stats),
+                    onRetry: (cubit) => cubit.refreshStatistics(),
+                  ),
+                  Text(
+                    context.l10n.account_management,
+                    style: context.typography.bold20.primary(context),
+                  ),
+                  const _ManagementSection(),
+                ],
+              ),
             ),
-            Text(
-              context.l10n.account_management,
-              style: context.typography.bold20.primary(context),
-            ),
-            const _ManagementSection(),
-          ],
-        ),
+          ),
+          const SliverBottomInset(),
+        ],
       ),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:coflow_users_v2/core/presentation/widgets/shimmer_image.dart';
+import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 
 import '../facility_data_provider.dart';
@@ -11,6 +11,10 @@ class FacilityHeaderLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     final facilityDataProvider = FacilityDataProvider.of(context);
     final logoRadius = FacilityHeader.logoImageRadius;
+    final logoFallback = ImageFallback.business(
+      facilityDataProvider.facility.name,
+      accent: facilityDataProvider.activityLineColor,
+    );
 
     return Stack(
       clipBehavior: Clip.none,
@@ -49,6 +53,7 @@ class FacilityHeaderLogo extends StatelessWidget {
                           width: logoRadius * 2,
                           height: logoRadius * 2,
                           borderRadius: 100,
+                          fallback: logoFallback,
                         ),
                       ),
                     );
@@ -62,6 +67,7 @@ class FacilityHeaderLogo extends StatelessWidget {
                     width: logoRadius * 2,
                     height: logoRadius * 2,
                     borderRadius: 100,
+                    fallback: logoFallback,
                   ),
                 ),
               ),

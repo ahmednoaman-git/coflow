@@ -47,9 +47,7 @@ FacilitySessionModel _$FacilitySessionModelFromJson(
       ladiesOnly: $checkedConvert('ladies_only', (v) => v as bool?),
       level: $checkedConvert(
         'level',
-        (v) => v == null
-            ? null
-            : FacilityServiceLevelModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : FacilityServiceLevelModel.fromJson(v as Map<String, dynamic>),
       ),
       instructors: $checkedConvert(
         'instructors',
@@ -65,9 +63,7 @@ FacilitySessionModel _$FacilitySessionModelFromJson(
       ),
       capacity: $checkedConvert(
         'capacity',
-        (v) => v == null
-            ? null
-            : FacilitySessionCapacityModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : FacilitySessionCapacityModel.fromJson(v as Map<String, dynamic>),
       ),
     );
     return val;

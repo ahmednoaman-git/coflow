@@ -40,6 +40,10 @@ import 'package:flutter/material.dart';
 /// background and a superellipse top radius of `spacing.s24`. Pass
 /// [backgroundColor] as `Colors.transparent` when the sheet paints its own
 /// container (the pattern used by the session and reservation detail sheets).
+///
+/// Snack bars raised from inside the sheet (`context.showErrorSnackBar`, ...)
+/// show over the sheet: the app-wide messenger would put them on the shell's
+/// `Scaffold`, which the sheet covers.
 Future<T?> showMainBottomSheet<T>({
   required BuildContext context,
   required WidgetBuilder builder,
@@ -66,6 +70,31 @@ Future<T?> showMainBottomSheet<T>({
             top: Radius.circular(context.spacing.s24),
           ),
         ),
-    builder: builder,
+    builder: (sheetContext) => _SheetSnackBarHost(child: builder(sheetContext)),
   );
+}
+
+/// Gives the sheet its own [ScaffoldMessenger] and a transparent [Scaffold]
+/// laid over it, sized by the sheet's content, so snack bars render inside the
+/// sheet's route. The overlay ignores pointers, leaving the sheet interactive.
+class _SheetSnackBarHost extends StatelessWidget {
+  const _SheetSnackBarHost({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaffoldMessenger(
+      child: Stack(
+        children: [
+          child,
+          const Positioned.fill(
+            child: IgnorePointer(
+              child: Scaffold(backgroundColor: Colors.transparent, body: SizedBox.shrink()),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

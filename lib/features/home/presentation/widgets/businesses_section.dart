@@ -8,15 +8,11 @@ import '../../domain/entities/entities.dart';
 import 'business_card.dart';
 
 /// Section displaying businesses in a horizontal scrolling list.
+///
+/// The header is always there; the row shows card skeletons while the home
+/// request loads, and the cards fade in over them.
 class BusinessesSection extends StatelessWidget {
-  const BusinessesSection({
-    super.key,
-    required this.profiles,
-    this.onBusinessTap,
-  });
-
-  /// List of business profiles to display.
-  final List<ProfileEntity> profiles;
+  const BusinessesSection({super.key, this.onBusinessTap});
 
   /// Callback when a business card is tapped.
   final void Function(ProfileEntity)? onBusinessTap;
@@ -42,16 +38,28 @@ class BusinessesSection extends StatelessWidget {
           ),
         ),
         SizedBox(height: context.spacing.s16),
-        // Horizontal list
-        SizedBox(
-          height: 240,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: context.spacing.s24),
-            itemCount: profiles.length,
-            separatorBuilder: (_, _) => SizedBox(width: context.spacing.s12),
+        AsyncHandler<HomeCubit, HomeState, HomeEntity>(
+          requestManagerGetter: (cubit) => cubit.homeManager,
+          skeletonBuilder: (_) => const Skeleton(
+            child: _BusinessesRow(
+              itemCount: 3,
+              scrollable: false,
+              itemBuilder: _skeletonCard,
+            ),
+          ),
+          errorBuilder: (context, failure) => SizedBox(
+            height: BusinessCard.height,
+            child: Center(
+              child: InlineAsyncError(
+                failure: failure,
+                onRetry: context.read<HomeCubit>().refresh,
+              ),
+            ),
+          ),
+          successBuilder: (context, home) => _BusinessesRow(
+            itemCount: home.profiles.length,
             itemBuilder: (context, index) {
-              final profile = profiles[index];
+              final profile = home.profiles[index];
               return BusinessCard(
                 profile: profile,
                 onTap: () => onBusinessTap?.call(profile),
@@ -60,6 +68,39 @@ class BusinessesSection extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  static Widget _skeletonCard(BuildContext context, int index) => const BusinessCardSkeleton();
+}
+
+/// The horizontal row the cards — or their skeletons — sit in, so both line
+/// up exactly.
+class _BusinessesRow extends StatelessWidget {
+  const _BusinessesRow({
+    required this.itemCount,
+    required this.itemBuilder,
+    this.scrollable = true,
+  });
+
+  final int itemCount;
+  final NullableIndexedWidgetBuilder itemBuilder;
+  final bool scrollable;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: BusinessCard.height,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        physics: scrollable ? null : const NeverScrollableScrollPhysics(),
+        // Room for the cards' shadows, which the list would otherwise clip.
+        clipBehavior: .none,
+        padding: EdgeInsets.symmetric(horizontal: context.spacing.s24),
+        itemCount: itemCount,
+        separatorBuilder: (_, _) => SizedBox(width: context.spacing.s12),
+        itemBuilder: itemBuilder,
+      ),
     );
   }
 }

@@ -134,6 +134,7 @@ class SessionReservationTicketModel {
     this.purchasedAt,
     this.validForDays,
     this.addOns,
+    this.purchaseName,
   });
 
   final String name;
@@ -142,6 +143,10 @@ class SessionReservationTicketModel {
   final DateTime? purchasedAt;
   final int? validForDays;
   final int? addOns;
+
+  /// The package or promotion the ticket came from; null for a ticket bought
+  /// on its own.
+  final String? purchaseName;
 
   factory SessionReservationTicketModel.fromJson(Map<String, dynamic> json) =>
       _$SessionReservationTicketModelFromJson(json);

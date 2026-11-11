@@ -8,7 +8,7 @@ import '../cubit/cubit.dart';
 import 'activity_line_filter_bar.dart';
 import 'saved_profile_card.dart';
 import 'saved_profiles_empty_state.dart';
-import 'saved_profiles_shimmer.dart';
+import 'saved_profiles_skeleton.dart';
 import 'swipe_to_unsave.dart';
 
 /// Body of the Profiles screen: the activity-line filter, then the saved cards.
@@ -21,44 +21,49 @@ class SavedProfilesScreenBody extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<SavedProfilesCubit>();
 
-        return RefreshIndicator(
+        return LogoRefreshIndicator(
           onRefresh: cubit.refresh,
-          color: context.colors.signatureBlue,
-          child: SingleChildScrollView(
+          child: CustomScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            padding: EdgeInsets.fromLTRB(
-              context.spacing.s16,
-              context.spacing.s24,
-              context.spacing.s16,
-              context.bottomInset + context.spacing.s24,
-            ),
-            child: Column(
-              spacing: context.spacing.s16,
-              children: [
-                ActivityLineFilterBar(
-                  selectedLine: state.selectedLine,
-                  onLineSelected: cubit.selectLine,
+            slivers: [
+              SliverPadding(
+                padding: EdgeInsets.fromLTRB(
+                  context.spacing.s16,
+                  context.spacing.s24,
+                  context.spacing.s16,
+                  context.spacing.s24,
                 ),
-                _MutationFeedback(
-                  child:
-                      AsyncHandler<
-                        SavedProfilesCubit,
-                        SavedProfilesState,
-                        List<SavedProfileEntity>
-                      >(
-                        requestManagerGetter: (cubit) => cubit.profilesManager,
-                        initialBuilder: (_) => const SavedProfilesShimmer(),
-                        loadingBuilder: (_) => const SavedProfilesShimmer(),
-                        onRetry: (cubit) => cubit.refresh(),
-                        // The filtered list comes off the state rather than the
-                        // request, which always holds everything the user saved.
-                        successBuilder: (context, _) => state.visibleProfiles.isEmpty
-                            ? SavedProfilesEmptyState(isFiltered: state.isFiltered)
-                            : _SavedProfilesList(profiles: state.visibleProfiles),
+                sliver: SliverToBoxAdapter(
+                  child: Column(
+                    spacing: context.spacing.s16,
+                    children: [
+                      ActivityLineFilterBar(
+                        selectedLine: state.selectedLine,
+                        onLineSelected: cubit.selectLine,
                       ),
+                      _MutationFeedback(
+                        child:
+                            AsyncHandler<
+                              SavedProfilesCubit,
+                              SavedProfilesState,
+                              List<SavedProfileEntity>
+                            >(
+                              requestManagerGetter: (cubit) => cubit.profilesManager,
+                              skeletonBuilder: (_) => const SavedProfilesSkeleton(),
+                              onRetry: (cubit) => cubit.refresh(),
+                              // The filtered list comes off the state rather than the
+                              // request, which always holds everything the user saved.
+                              successBuilder: (context, _) => state.visibleProfiles.isEmpty
+                                  ? SavedProfilesEmptyState(isFiltered: state.isFiltered)
+                                  : _SavedProfilesList(profiles: state.visibleProfiles),
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+              const SliverBottomInset(),
+            ],
           ),
         );
       },

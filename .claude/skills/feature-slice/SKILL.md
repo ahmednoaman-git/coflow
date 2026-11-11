@@ -180,7 +180,7 @@ Manager API: `execute([task])`, `refresh()`, `reset()`, and getters `isLoading/i
 AsyncHandler<FacilityDetailsCubit, FacilityDetailsState, List<FacilityTicketEntity>>(
   requestManagerGetter: (cubit) => cubit.ticketsManager,
   successBuilder: (context, tickets) => TicketsList(tickets: tickets),
-  loadingBuilder: (context) => const TicketsShimmer(),      // optional; see coflow-ui skill
+  skeletonBuilder: (context) => const TicketsSkeleton(),   // optional; fades the result in — see coflow-ui skill
   onRetry: (cubit) => cubit.ticketsManager.refresh(),       // optional retry button
   onError: (context, failure) => context.showErrorSnackBar(failure.message), // optional side effect
 )

@@ -20,6 +20,14 @@ class TagChipSingleRowWithOverflow extends StatelessWidget {
   static const _chipHorizontalPadding = 12.0;
   static const _chipVerticalPadding = 4.0;
 
+  /// Padding around a chip's label, and the gap between chips — for skeletons
+  /// that stand in for this row.
+  static const chipPadding = EdgeInsets.symmetric(
+    horizontal: _chipHorizontalPadding,
+    vertical: _chipVerticalPadding,
+  );
+  static const chipSpacing = _spacing;
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

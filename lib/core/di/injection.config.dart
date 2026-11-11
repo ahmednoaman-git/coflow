@@ -99,8 +99,6 @@ import '../../features/facility/data/datasources/facility_remote_data_source.dar
     as _i283;
 import '../../features/facility/data/datasources/facility_schedule_stub_data_source.dart'
     as _i1056;
-import '../../features/facility/data/datasources/facility_services_stub_data_source.dart'
-    as _i831;
 import '../../features/facility/data/datasources/facility_session_details_stub_data_source.dart'
     as _i84;
 import '../../features/facility/data/repositories/facility_repository_impl.dart'
@@ -257,9 +255,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1056.FacilityScheduleStubDataSource>(
       () => _i1056.FacilityScheduleStubDataSource(),
     );
-    gh.lazySingleton<_i831.FacilityServicesStubDataSource>(
-      () => _i831.FacilityServicesStubDataSource(),
-    );
     gh.lazySingleton<_i84.FacilitySessionDetailsStubDataSource>(
       () => _i84.FacilitySessionDetailsStubDataSource(),
     );
@@ -343,13 +338,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i191.GetFacilitiesUseCase>(
       () => _i191.GetFacilitiesUseCase(gh<_i196.ActivityLineRepository>()),
     );
-    gh.lazySingleton<_i181.FacilityRepository>(
-      () => _i85.FacilityRepositoryImpl(
-        gh<_i163.FacilityRemoteDataSource>(),
-        gh<_i163.FacilityServicesStubDataSource>(),
-        gh<_i163.FacilityCalendarRemoteDataSource>(),
-      ),
-    );
     gh.lazySingleton<_i146.LoginUseCase>(
       () => _i146.LoginUseCase(gh<_i625.AuthenticationRepository>()),
     );
@@ -382,6 +370,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i686.SearchRepository>(
       () => _i1017.SearchRepositoryImpl(gh<_i461.SearchRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i181.FacilityRepository>(
+      () => _i85.FacilityRepositoryImpl(
+        gh<_i163.FacilityRemoteDataSource>(),
+        gh<_i163.FacilityCalendarRemoteDataSource>(),
+      ),
     );
     gh.lazySingleton<_i466.ReservationRemoteDataSource>(
       () => _i466.ReservationRemoteDataSource(
@@ -560,6 +554,18 @@ extension GetItInjectableX on _i174.GetIt {
         ticketId,
       ),
     );
+    gh.factoryParam<
+      _i803.ActivityLineFacilitiesCubit,
+      _i351.ActivityLineEntity,
+      _i351.SelectedLocation?
+    >(
+      (activityLine, initialLocation) => _i803.ActivityLineFacilitiesCubit(
+        gh<_i601.GetFacilitiesUseCase>(),
+        gh<_i351.GetLocationsUseCase>(),
+        activityLine,
+        initialLocation,
+      ),
+    );
     gh.lazySingleton<_i176.ReservationRepository>(
       () => _i913.ReservationRepositoryImpl(
         gh<_i448.ReservationRemoteDataSource>(),
@@ -606,17 +612,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i551.WithdrawReservationUseCase>(
       () => _i551.WithdrawReservationUseCase(gh<_i176.ReservationRepository>()),
-    );
-    gh.factoryParam<
-      _i803.ActivityLineFacilitiesCubit,
-      _i351.ActivityLineEntity,
-      dynamic
-    >(
-      (activityLine, _) => _i803.ActivityLineFacilitiesCubit(
-        gh<_i601.GetFacilitiesUseCase>(),
-        gh<_i351.GetLocationsUseCase>(),
-        activityLine,
-      ),
     );
     gh.factory<_i9.HomeCubit>(
       () => _i9.HomeCubit(

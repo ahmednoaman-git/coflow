@@ -1,4 +1,5 @@
 import 'package:coflow_users_v2/core/core.dart';
+import 'package:coflow_users_v2/core/domain/entities/activity_line_entity.dart' as core;
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/entities.dart';
@@ -13,26 +14,36 @@ class BusinessCard extends StatelessWidget {
   /// Callback when card is tapped.
   final VoidCallback? onTap;
 
+  static const double width = 180;
+  static const double height = 240;
+  static const double radius = 24;
+  static const double logoSize = 32;
+
   @override
   Widget build(BuildContext context) {
+    final (accent, _) = core.ActivityLineEntity.fromId(profile.activityLine.id).getColors(context);
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 180,
-        height: 240,
+        width: width,
+        height: height,
         decoration: ShapeDecoration(
-          shape: RoundedSuperellipseBorder(
-            borderRadius: BorderRadius.circular(context.spacing.s16),
-          ),
+          // Same corners as the clip below, so the shadow follows the card.
+          shape: RoundedSuperellipseBorder(borderRadius: BorderRadius.circular(radius)),
           shadows: context.shadows.md,
         ),
         child: ClipRSuperellipse(
-          borderRadius: BorderRadius.circular(context.spacing.s24),
+          borderRadius: BorderRadius.circular(radius),
           child: Stack(
             fit: StackFit.expand,
             children: [
               // Cover image
-              ShimmerImage(imageUrl: profile.cover, fit: BoxFit.cover),
+              ShimmerImage(
+                imageUrl: profile.cover,
+                fit: BoxFit.cover,
+                fallback: ImageFallback.cover(accent: accent),
+              ),
               // Gradient overlay
               Container(
                 decoration: BoxDecoration(
@@ -56,8 +67,8 @@ class BusinessCard extends StatelessWidget {
                   children: [
                     // Logo
                     Container(
-                      width: 32,
-                      height: 32,
+                      width: logoSize,
+                      height: logoSize,
                       decoration: ShapeDecoration(
                         color: context.colors.backgroundWhite,
                         shape: RoundedSuperellipseBorder(
@@ -70,7 +81,10 @@ class BusinessCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(context.spacing.s8),
                         child: ShimmerImage(
                           imageUrl: profile.logo,
+                          width: logoSize,
+                          height: logoSize,
                           fit: BoxFit.cover,
+                          fallback: ImageFallback.business(profile.name, accent: accent),
                         ),
                       ),
                     ),
@@ -127,5 +141,53 @@ class BusinessCard extends StatelessWidget {
     if (profile.area != null) parts.add(profile.area!.name);
     if (profile.city != null) parts.add(profile.city!.name);
     return parts.join(', ');
+  }
+}
+
+/// Placeholder for a [BusinessCard] while the home request loads: the card's
+/// own size and corners, with bones where its logo, name and location sit.
+class BusinessCardSkeleton extends StatelessWidget {
+  const BusinessCardSkeleton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: BusinessCard.width,
+      height: BusinessCard.height,
+      child: Stack(
+        fit: .expand,
+        children: [
+          const SkeletonBox(radius: BusinessCard.radius),
+          Padding(
+            padding: EdgeInsets.all(context.spacing.s12),
+            child: Column(
+              mainAxisAlignment: .end,
+              children: [
+                SkeletonBox(
+                  width: BusinessCard.logoSize,
+                  height: BusinessCard.logoSize,
+                  radius: context.spacing.s8,
+                  tone: .strong,
+                ),
+                SizedBox(height: context.spacing.s8),
+                SkeletonText(
+                  style: context.typography.medium14,
+                  width: 96,
+                  alignment: .center,
+                  tone: .strong,
+                ),
+                SizedBox(height: context.spacing.s4),
+                SkeletonText(
+                  style: context.typography.book12,
+                  width: 120,
+                  alignment: .center,
+                  tone: .strong,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

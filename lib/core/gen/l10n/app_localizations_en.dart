@@ -632,6 +632,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilitySchedule_cancelReservation => 'Cancel Reservation';
 
   @override
+  String facilitySchedule_cancelReservationBefore(String deadline) {
+    return 'Cancel Reservation (Before $deadline)';
+  }
+
+  @override
   String facilitySchedule_contactFacility(String facility) {
     return 'Contact $facility';
   }
@@ -654,6 +659,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get facilitySchedule_ticketLabel => 'Ticket';
+
+  @override
+  String facilitySchedule_ticketFromLabel(String purchase) {
+    return 'Ticket (From $purchase)';
+  }
+
+  @override
+  String get facilitySchedule_confirmReservation => 'Confirm Reservation';
 
   @override
   String get facilitySchedule_ticketDue => 'DUE';

@@ -2,6 +2,8 @@ import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../facility_data_provider.dart';
+
 /// The service details image header. Renders a single image, or a
 /// swipeable [PageView] with a dot indicator when there is more than one.
 class ServiceImageHeader extends StatefulWidget {
@@ -26,6 +28,9 @@ class _ServiceImageHeaderState extends State<ServiceImageHeader> {
   @override
   Widget build(BuildContext context) {
     final imageUrls = widget.imageUrls.isEmpty ? const <String?>[null] : widget.imageUrls;
+    final fallback = ImageFallback.cover(
+      accent: FacilityDataProvider.maybeOf(context)?.activityLineColor,
+    );
 
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light,
@@ -36,7 +41,8 @@ class _ServiceImageHeaderState extends State<ServiceImageHeader> {
             controller: _pageController,
             onPageChanged: (page) => setState(() => _page = page),
             children: [
-              for (final url in imageUrls) ShimmerImage(imageUrl: url, fit: BoxFit.cover),
+              for (final url in imageUrls)
+                ShimmerImage(imageUrl: url, fit: BoxFit.cover, fallback: fallback),
             ],
           ),
           if (imageUrls.length > 1)

@@ -10,7 +10,7 @@ import 'search_business_tile.dart';
 import 'search_instructor_tile.dart';
 import 'search_message_view.dart';
 import 'search_results_list.dart';
-import 'search_results_shimmer.dart';
+import 'search_results_skeleton.dart';
 import 'search_service_tile.dart';
 
 /// The results area: the list belonging to the selected tab, or the idle
@@ -61,11 +61,13 @@ class _BusinessResults extends StatelessWidget {
     return AsyncHandler<SearchCubit, SearchState, PaginatedEntity<CollapsedFacilityEntity>>(
       requestManagerGetter: (cubit) => cubit.businessesManager,
       initialBuilder: (context) => const _IdleView(),
-      loadingBuilder: (context) => const SearchResultsShimmer(),
+      skeletonBuilder: (context) =>
+          const SearchResultsSkeleton(item: SearchResultSkeleton.business()),
       onRetry: (cubit) => cubit.search(),
       successBuilder: (context, page) => SearchResultsList(
         page: page,
         onLoadMore: context.read<SearchCubit>().loadMore,
+        loadingItem: const SearchResultSkeleton.business(),
         itemBuilder: (context, facility) => SearchBusinessTile(
           facility: facility,
           query: context.read<SearchCubit>().state.query,
@@ -83,11 +85,13 @@ class _InstructorResults extends StatelessWidget {
     return AsyncHandler<SearchCubit, SearchState, PaginatedEntity<SearchInstructorEntity>>(
       requestManagerGetter: (cubit) => cubit.instructorsManager,
       initialBuilder: (context) => const _IdleView(),
-      loadingBuilder: (context) => const SearchResultsShimmer(),
+      skeletonBuilder: (context) =>
+          const SearchResultsSkeleton(item: SearchResultSkeleton.instructor()),
       onRetry: (cubit) => cubit.search(),
       successBuilder: (context, page) => SearchResultsList(
         page: page,
         onLoadMore: context.read<SearchCubit>().loadMore,
+        loadingItem: const SearchResultSkeleton.instructor(),
         itemBuilder: (context, instructor) => SearchInstructorTile(
           instructor: instructor,
           query: context.read<SearchCubit>().state.query,
@@ -105,11 +109,13 @@ class _ServiceResults extends StatelessWidget {
     return AsyncHandler<SearchCubit, SearchState, PaginatedEntity<SearchServiceEntity>>(
       requestManagerGetter: (cubit) => cubit.servicesManager,
       initialBuilder: (context) => const _IdleView(),
-      loadingBuilder: (context) => const SearchResultsShimmer(),
+      skeletonBuilder: (context) =>
+          const SearchResultsSkeleton(item: SearchResultSkeleton.service()),
       onRetry: (cubit) => cubit.search(),
       successBuilder: (context, page) => SearchResultsList(
         page: page,
         onLoadMore: context.read<SearchCubit>().loadMore,
+        loadingItem: const SearchResultSkeleton.service(),
         itemBuilder: (context, result) => SearchServiceTile(
           result: result,
           query: context.read<SearchCubit>().state.query,

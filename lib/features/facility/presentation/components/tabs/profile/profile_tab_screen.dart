@@ -12,6 +12,7 @@ import 'components/languages_section.dart';
 import 'components/location_section.dart';
 import 'components/operating_hours_section.dart';
 import 'components/profile_header.dart';
+import 'components/profile_tab_skeleton.dart';
 import 'components/profile_team_section.dart';
 import '../../facility_data_provider.dart';
 
@@ -22,6 +23,7 @@ class ProfileTabScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AsyncHandler<FacilityDetailsCubit, FacilityDetailsState, FacilityProfileEntity>(
       requestManagerGetter: (cubit) => cubit.profileManager,
+      skeletonBuilder: (context) => const ProfileTabSkeleton(),
       successBuilder: (context, profile) {
         return Column(
           children: [

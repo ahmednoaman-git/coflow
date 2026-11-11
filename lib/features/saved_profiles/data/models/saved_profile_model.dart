@@ -56,8 +56,7 @@ class SavedProfileModel {
   /// `save` or `track`.
   final String? type;
 
-  /// The facility's bare record: none of its relations (`city`, `area`,
-  /// `activity_line`) are loaded, and neither is `likes_count`.
+  /// The facility's record, with `city`, `area` and `likes_count`.
   ///
   /// Null if the facility has been deleted since it was saved.
   final FacilityModel? facility;

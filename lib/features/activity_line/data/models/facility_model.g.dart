@@ -48,6 +48,7 @@ FacilityModel _$FacilityModelFromJson(
         'reviews_count',
         (v) => (v as num?)?.toInt(),
       ),
+      likesCount: $checkedConvert('likes_count', (v) => (v as num?)?.toInt()),
       promotionsCount: $checkedConvert(
         'promotions_count',
         (v) => (v as num?)?.toInt(),
@@ -77,6 +78,7 @@ FacilityModel _$FacilityModelFromJson(
     'flowsCount': 'flows_count',
     'coursesCount': 'courses_count',
     'reviewsCount': 'reviews_count',
+    'likesCount': 'likes_count',
     'promotionsCount': 'promotions_count',
     'slotsCount': 'slots_count',
     'activityLine': 'activity_line',
@@ -102,6 +104,7 @@ Map<String, dynamic> _$FacilityModelToJson(FacilityModel instance) => <String, d
   'flows_count': instance.flowsCount,
   'courses_count': instance.coursesCount,
   'reviews_count': instance.reviewsCount,
+  'likes_count': instance.likesCount,
   'promotions_count': instance.promotionsCount,
   'slots_count': instance.slotsCount,
   'activity_line': instance.activityLine,

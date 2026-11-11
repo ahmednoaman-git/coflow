@@ -13,7 +13,15 @@ class ActivityLineFacilitiesCubit extends Cubit<ActivityLineFacilitiesState> {
     this._getFacilities,
     GetLocationsUseCase getLocations,
     @factoryParam ActivityLineEntity activityLine,
-  ) : super(ActivityLineFacilitiesState(activityLine: activityLine)) {
+    // Filters the first page straight away; checked against this line's own
+    // locations once they load.
+    @factoryParam SelectedLocation? initialLocation,
+  ) : super(
+        ActivityLineFacilitiesState(
+          activityLine: activityLine,
+          selectedLocation: initialLocation ?? const SelectedLocation(),
+        ),
+      ) {
     facilitiesManager = PaginatedRequestManager(
       accessor: (
         getPartialState: (state) => state.facilitiesRequest,
@@ -47,9 +55,29 @@ class ActivityLineFacilitiesCubit extends Cubit<ActivityLineFacilitiesState> {
         setWholeState: (state, partial) => state.copyWith(locationsRequest: partial),
       ),
       emit: _emitIfOpen,
-      autoExecute: true,
-      defaultRequest: getLocations(),
+      defaultRequest: getLocations(activityLineId: activityLine.id),
     );
+    Future.microtask(_loadLocations);
+  }
+
+  Future<void> _loadLocations() async {
+    await locationsManager.execute();
+    if (isClosed) return;
+    final locations = state.locationsRequest.dataOrNull;
+    // On failure the opening selection simply stays.
+    if (locations == null) return;
+
+    switch (locations.match(state.selectedLocation)) {
+      // This line has nothing there: show all of it instead.
+      case null:
+        selectLocation(const SelectedLocation());
+      case final matched when matched != state.selectedLocation:
+        // Same place, names as this line spells them; the facilities already
+        // loaded for it stand.
+        emit(state.copyWith(selectedLocation: matched));
+      default:
+        break;
+    }
   }
 
   final GetFacilitiesUseCase _getFacilities;

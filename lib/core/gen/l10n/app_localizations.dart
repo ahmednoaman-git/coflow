@@ -1185,6 +1185,12 @@ abstract class AppLocalizations {
   /// **'Cancel Reservation'**
   String get facilitySchedule_cancelReservation;
 
+  /// Cancel button while the cancellation deadline has not passed, e.g. (Before Sun 1PM).
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Reservation (Before {deadline})'**
+  String facilitySchedule_cancelReservationBefore(String deadline);
+
   /// No description provided for @facilitySchedule_contactFacility.
   ///
   /// In en, this message translates to:
@@ -1226,6 +1232,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ticket'**
   String get facilitySchedule_ticketLabel;
+
+  /// Label over the ticket a reservation uses when it came from a package or promotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Ticket (From {purchase})'**
+  String facilitySchedule_ticketFromLabel(String purchase);
+
+  /// No description provided for @facilitySchedule_confirmReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Reservation'**
+  String get facilitySchedule_confirmReservation;
 
   /// No description provided for @facilitySchedule_ticketDue.
   ///

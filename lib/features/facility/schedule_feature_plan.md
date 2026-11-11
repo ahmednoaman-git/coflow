@@ -6,8 +6,24 @@ facility details screen, alongside Profile, Activities/Flows/Courses, and Pricin
 It captures what we know, what we decided, and what is still open, so the reasoning survives the
 gap between building the UI and the APIs arriving.
 
-**Status:** Schedule runs on the real `GET schedule/{facilityId}` endpoint. Calendar's timeline is
-still stub-backed, as are slot details + reservations.
+**Status (2026-09-25):** Schedule runs on `GET schedule/{facilityId}`. Calendar, slot details and
+reserve/cancel run on the real API through `FacilityCalendarRemoteDataSource`: `POST calendar`,
+`GET calendar/{id}`, `GET calendar/{id}/ticket` (the ticket a reservation would use, plus
+`setting.calendar_cancellation`), `GET reserve-slot/{id}`, `DELETE reservations/{id}`. Verified live
+on Flow Profile (191). Known API gaps: the ticket preview answers **500** when the customer holds no
+usable ticket (read as zero tickets), the cancellation window exists only in that preview, and there
+is no waitlist join/leave endpoint. Sections below that describe stubs are historical.
+
+**Update (2026-10-19):** the preview now answers `ticket: null, tickets_quantity: 0` when the
+customer has no ticket. Backend decided waitlists reuse the normal calls: `GET reserve-slot/{id}`
+on a full slot queues the customer, and `DELETE reservations/{id}` leaves (the server currently
+500s on the queued insert). `setting` is still `null` in both `calendar/{id}` and the preview.
+
+**Update (2026-10-24):** the app now routes Join Waitlist to `reserve-slot` and Leave Waitlist to
+`DELETE reservations/{id}`, and reads `setting` from `calendar/{id}`'s `extra_data` as well as the
+preview (both still `null`, so there is still no deadline). Join was not exercised on a device: a
+slot can't be filled on the test API (changing capacity leaves `remain` as it was, and the dashboard
+can't add customers: 403).
 
 Schedule and Calendar have since **diverged in data shape**, not just in capabilities:
 

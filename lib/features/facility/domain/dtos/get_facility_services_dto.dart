@@ -5,8 +5,8 @@ import '../enums/enums.dart';
 /// Request for a facility's service listing.
 ///
 /// Plain const class (not JSON-serialized) because it carries [AccountType],
-/// which the repository uses to decide whether to route Go activity listings
-/// through the stub data source (see [FacilityRepositoryImpl]).
+/// which decides the listing type: Go accounts list their activities under
+/// `type=go`.
 class GetFacilityServicesDto {
   const GetFacilityServicesDto({
     required this.facilityId,

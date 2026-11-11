@@ -1,4 +1,5 @@
 import 'package:coflow_users_v2/core/core.dart';
+import 'package:coflow_users_v2/core/network/interceptors/data_extractor_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
@@ -81,13 +82,16 @@ class FacilityCalendarRemoteDataSource {
     Map<String, dynamic>? facility,
     FacilitySessionEntity? fallback,
   }) async {
-    final preview = await _get(FacilityCalendarEndpoints.preview(calendarId));
+    final preview = await _preview(calendarId);
     final calendar = <String, dynamic>{
       ..._map(reservation['calendar']),
       ..._map(preview['calendar']),
     };
+    var setting = const <String, dynamic>{};
     try {
-      calendar.addAll(await _get(FacilityCalendarEndpoints.details(calendarId)));
+      final response = await _dio.get(FacilityCalendarEndpoints.details(calendarId));
+      calendar.addAll(_map(response.data));
+      setting = _map(_map(response.extra[DataExtractorInterceptor.extraDataKey])['setting']);
     } on DioException catch (error) {
       // The dated detail endpoint excludes historical slots, while previews
       // and account reservations retain their historical context.
@@ -132,6 +136,7 @@ class FacilityCalendarRemoteDataSource {
       service: service,
       facility: facilityData,
       reservation: reservationData,
+      setting: setting,
       fallback: fallback,
       currentUserId: currentUserId,
     );
@@ -175,13 +180,42 @@ class FacilityCalendarRemoteDataSource {
               throw const FormatException('This reservation cannot currently be cancelled');
             }
             await _dio.delete(FacilityCalendarEndpoints.reservation(entity.reservationId!));
+          // There are no waitlist routes: reserving a full slot queues the
+          // customer, and the queued row is cancelled like a reservation.
           case SessionReservationAction.joinWaitlist:
+            if (!entity.canJoinWaitlist ||
+                !entity.isFull ||
+                !entity.startsAt.isAfter(DateTime.now()) ||
+                entity.accessibleTickets < 1 ||
+                entity.viewerState.name != 'none') {
+              throw const FormatException('This waitlist cannot currently be joined');
+            }
+            await _dio.get(FacilityCalendarEndpoints.reserve(dto.sessionId));
           case SessionReservationAction.leaveWaitlist:
-            // No verified waitlist mutation contract in the collection.
-            throw const FormatException('Waitlist changes are not supported by this API');
+            if (!entity.canWithdrawAt(DateTime.now()) ||
+                entity.reservationId == null ||
+                entity.viewerState.name != 'waitlisted') {
+              throw const FormatException('This waitlist entry cannot currently be removed');
+            }
+            await _dio.delete(FacilityCalendarEndpoints.reservation(entity.reservationId!));
         }
         return _loadDetails(calendarId: dto.sessionId, fallback: dto.session);
       });
+
+  /// The ticket a reservation would use.
+  ///
+  /// When the customer holds no usable ticket the endpoint fails with a 500
+  /// ("Trying to get property 'ticket' of non-object") instead of answering
+  /// without one, so that failure is read as a count of zero — which offers
+  /// "Purchase Tickets" rather than failing the whole sheet.
+  Future<Map<String, dynamic>> _preview(int calendarId) async {
+    try {
+      return await _get(FacilityCalendarEndpoints.preview(calendarId));
+    } on DioException catch (error) {
+      if (error.response?.statusCode != 500) rethrow;
+      return const {'tickets_quantity': 0};
+    }
+  }
 
   Future<Map<String, dynamic>> _get(String endpoint) async => _map((await _dio.get(endpoint)).data);
   static Map<String, dynamic> _map(dynamic value) =>

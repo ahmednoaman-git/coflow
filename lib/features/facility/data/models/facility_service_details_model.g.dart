@@ -30,9 +30,7 @@ FacilityServiceDetailsModel _$FacilityServiceDetailsModelFromJson(
       ),
       level: $checkedConvert(
         'level',
-        (v) => v == null
-            ? null
-            : FacilityServiceLevelModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : FacilityServiceLevelModel.fromJson(v as Map<String, dynamic>),
       ),
       tickets: $checkedConvert(
         'tickets',

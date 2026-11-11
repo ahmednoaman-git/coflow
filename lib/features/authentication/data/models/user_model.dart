@@ -41,7 +41,7 @@ class UserModel {
   final String totalPromotions;
   @JsonKey(name: 'total_gifts', defaultValue: 0)
   final int totalGifts;
-  @JsonKey(name: 'total_purchases', defaultValue: 0)
+  @JsonKey(name: 'total_purchases', fromJson: _parseTotalPurchases, defaultValue: 0)
   final int totalPurchases;
   final String? token;
 
@@ -58,6 +58,11 @@ class UserModel {
   }
 
   static String _genderToJson(Gender gender) => gender.name;
+
+  /// The API now sends `total_purchases` as a per-currency list
+  /// (`[{total, currency}]`), not a number. Nothing consumes the entity's
+  /// single int, and per-currency amounts can't be summed, so a list yields 0.
+  static int _parseTotalPurchases(dynamic value) => value is num ? value.toInt() : 0;
 
   static String _parseTotalLikes(dynamic value) {
     if (value == null) return '0/0';

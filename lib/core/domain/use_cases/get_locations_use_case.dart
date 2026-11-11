@@ -9,6 +9,8 @@ class GetLocationsUseCase {
   const GetLocationsUseCase(this._repository);
   final LocationsRepository _repository;
 
-  /// Fetches all available locations (cities and areas).
-  AsyncTask<LocationsEntity> call() => _repository.getLocations();
+  /// Fetches all available locations (cities and areas). With [activityLineId]
+  /// the facility counts are limited to that activity line.
+  AsyncTask<LocationsEntity> call({int? activityLineId}) =>
+      _repository.getLocations(activityLineId: activityLineId);
 }

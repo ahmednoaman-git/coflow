@@ -73,46 +73,62 @@ class AccountStatsGrid extends StatelessWidget {
   }
 }
 
-/// Placeholder shown while the statistics request is in flight, laid out to the
-/// same rhythm as the real grid so nothing jumps when it lands.
-class AccountStatsGridShimmer extends StatelessWidget {
-  const AccountStatsGridShimmer({super.key});
-
-  static const double _cardHeight = 128;
+/// Placeholder for [AccountStatsGrid] while the statistics load: the same
+/// 2x2 cards — badge, count, label — on the cards' own surface and spacing.
+class AccountStatsGridSkeleton extends StatelessWidget {
+  const AccountStatsGridSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Shimmer(
+    final spacing = context.spacing;
+
+    return Skeleton(
       child: Column(
-        spacing: context.spacing.s16,
+        spacing: spacing.s16,
         children: [
           for (var row = 0; row < 2; row++)
             Row(
-              spacing: context.spacing.s16,
+              spacing: spacing.s16,
               children: [
                 for (var column = 0; column < 2; column++)
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        ShimmerBox(
-                          height: _cardHeight,
-                          borderRadius: context.spacing.s16,
-                        ),
-                        Positioned(
-                          left: context.spacing.s16,
-                          top: context.spacing.s16,
-                          child: ShimmerBox.dark(width: 64, height: 64, borderRadius: 32),
-                        ),
-                        Positioned(
-                          left: context.spacing.s16,
-                          bottom: context.spacing.s16,
-                          child: ShimmerBox.dark(width: 96, height: 18, borderRadius: 4),
-                        ),
-                      ],
-                    ),
-                  ),
+                  const Expanded(child: _StatCardSkeleton()),
               ],
             ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StatCardSkeleton extends StatelessWidget {
+  const _StatCardSkeleton();
+
+  @override
+  Widget build(BuildContext context) {
+    final spacing = context.spacing;
+    final typography = context.typography;
+
+    return Container(
+      padding: EdgeInsets.all(spacing.s16),
+      decoration: ShapeDecoration(
+        color: context.colors.backgroundWhite,
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(spacing.s16),
+          side: BorderSide(color: context.colors.strokePrimary),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: .start,
+        spacing: spacing.s16,
+        children: [
+          Row(
+            children: [
+              SkeletonCircle(size: AccountStatCard.badgeSize(context)),
+              const Spacer(),
+              SkeletonText(style: typography.book36, width: 28),
+            ],
+          ),
+          SkeletonText(style: typography.bold18, widthFactor: 0.6),
         ],
       ),
     );

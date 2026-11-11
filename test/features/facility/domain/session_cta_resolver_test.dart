@@ -42,24 +42,31 @@ SessionCtaEntity _resolve(
 void main() {
   group('SessionCtaEntity.resolve', () {
     test('an unverified waitlist action stays unavailable', () {
-      expect(_resolve(_session(booked: 10).copyWith(canJoinWaitlist: false)),
-          const SessionCtaEntity.unavailable());
+      expect(
+        _resolve(_session(booked: 10).copyWith(canJoinWaitlist: false)),
+        const SessionCtaEntity.unavailable(),
+      );
     });
 
     test('a recurring schedule only offers contact even with premium', () {
-      expect(_resolve(_session().copyWith(isRecurring: true)),
-          const SessionCtaEntity.contactFacility(facilityName: 'Flying Yoga'));
+      expect(
+        _resolve(_session().copyWith(isRecurring: true)),
+        const SessionCtaEntity.contactFacility(facilityName: 'Flying Yoga'),
+      );
     });
 
     test('a started session cannot offer a new reservation', () {
-      expect(_resolve(_session(), now: DateTime(2026, 6, 15, 18)),
-          const SessionCtaEntity.unavailable());
+      expect(
+        _resolve(_session(), now: DateTime(2026, 6, 15, 18)),
+        const SessionCtaEntity.unavailable(),
+      );
     });
 
     test('unknown cancellation policy cannot authorize withdrawal', () {
-      expect(_resolve(_session(viewerState: SessionViewerState.reserved)
-          .copyWith(canWithdraw: false)),
-          const SessionCtaEntity.cancelReservation(isEnabled: false));
+      expect(
+        _resolve(_session(viewerState: SessionViewerState.reserved).copyWith(canWithdraw: false)),
+        const SessionCtaEntity.cancelReservation(isEnabled: false),
+      );
     });
     test('a facility without an active premium can only be contacted', () {
       final cta = _resolve(_session(), isPremiumActive: false);

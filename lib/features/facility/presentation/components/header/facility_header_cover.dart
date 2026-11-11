@@ -16,6 +16,7 @@ class FacilityHeaderCover extends StatelessWidget {
       child: ShimmerImage(
         imageUrl: facilityDataProvider.facility.coverUrl,
         fit: BoxFit.cover,
+        fallback: ImageFallback.cover(accent: facilityDataProvider.activityLineColor),
       ),
     );
   }

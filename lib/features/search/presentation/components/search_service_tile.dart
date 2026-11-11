@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:coflow_users_v2/features/facility/domain/domain.dart';
 import 'package:flutter/material.dart';
-import 'package:solar_icons/solar_icons.dart';
 
 import '../../domain/domain.dart';
 import 'search_highlighted_text.dart';
@@ -39,6 +38,9 @@ class SearchServiceTile extends StatelessWidget {
               width: 56,
               height: 56,
               borderRadius: 12,
+              fallback: ImageFallback.cover(
+                accent: result.facility.activityLine.getColors(context).$1,
+              ),
             ),
             Expanded(
               child: Column(
@@ -96,11 +98,7 @@ class _FacilityCredit extends StatelessWidget {
           width: 20,
           height: 20,
           borderRadius: 100,
-          errorWidget: Icon(
-            SolarIconsOutline.buildings,
-            size: 12,
-            color: context.colors.textTertiary,
-          ),
+          fallback: ImageFallback.business(result.facility.name, accent: activityLineColor),
         ),
         Flexible(
           child: Text(

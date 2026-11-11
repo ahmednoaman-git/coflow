@@ -7,7 +7,7 @@ export 'search_highlighted_text.dart';
 export 'search_instructor_tile.dart';
 export 'search_message_view.dart';
 export 'search_results_list.dart';
-export 'search_results_shimmer.dart';
+export 'search_results_skeleton.dart';
 export 'search_results_view.dart';
 export 'search_screen_body.dart';
 export 'search_service_tile.dart';

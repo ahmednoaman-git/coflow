@@ -1,6 +1,7 @@
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../../domain/entities/entities.dart';
 import '../../../../../cubit/cubit.dart';
@@ -66,7 +67,12 @@ class SessionCtaButton extends StatelessWidget {
         cubit.joinWaitlist,
       ),
       SessionCancelReservationCta(:final isEnabled) => (
-        l10n.facilitySchedule_cancelReservation,
+        switch (session.cancellationDeadline) {
+          final deadline? => l10n.facilitySchedule_cancelReservationBefore(
+            _deadlineText(deadline, context.locale.toString()),
+          ),
+          null => l10n.facilitySchedule_cancelReservation,
+        },
         isEnabled,
         false,
         cubit.cancelReservation,
@@ -98,6 +104,10 @@ class SessionCtaButton extends StatelessWidget {
       ),
     );
   }
+
+  /// `Sun 1PM`, or `Sun 1:30PM` when the deadline is off the hour.
+  static String _deadlineText(DateTime deadline, String locale) =>
+      DateFormat(deadline.minute == 0 ? 'EEE ha' : 'EEE h:mma', locale).format(deadline);
 
   Future<void> _confirmReservation(BuildContext context, SessionDetailsCubit cubit) async {
     final confirmed = await ReservationConfirmDialog.show(

@@ -1,9 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:coflow_users_v2/core/core.dart';
-import 'package:coflow_users_v2/core/presentation/widgets/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+/// A network image with a skeleton bone while it loads, fading in once it
+/// arrives.
+///
+/// When there is no URL, or the image fails to load, it shows [fallback] — a
+/// designed placeholder picked to suit the image (a cover, a person's photo,
+/// a business logo, an icon) — in exactly the same box, clipped to the same
+/// corners. [errorBuilder] replaces that placeholder entirely for the rare
+/// slot that needs something bespoke.
 class ShimmerImage extends StatelessWidget {
   final String? imageUrl;
   final double? width;
@@ -12,9 +19,13 @@ class ShimmerImage extends StatelessWidget {
   final BoxFit fit;
   final Duration fadeInDuration;
   final bool shouldFadeIn;
-  final Duration shimmerDuration;
   final void Function(ImageProvider)? onImageLoaded;
-  final Widget? errorWidget;
+
+  /// What stands in for a missing or failed image. Defaults to a cover.
+  final ImageFallback fallback;
+
+  /// Overrides [fallback] with a custom widget. It is given the image's box.
+  final WidgetBuilder? errorBuilder;
 
   const ShimmerImage({
     super.key,
@@ -25,19 +36,21 @@ class ShimmerImage extends StatelessWidget {
     this.fit = BoxFit.cover,
     this.fadeInDuration = const Duration(milliseconds: 500),
     this.shouldFadeIn = true,
-    this.shimmerDuration = const Duration(milliseconds: 1000),
     this.onImageLoaded,
-    this.errorWidget,
+    this.fallback = const ImageFallback.cover(),
+    this.errorBuilder,
   });
 
   @override
   Widget build(BuildContext context) {
+    final url = imageUrl?.trim();
+
     return ClipRSuperellipse(
       borderRadius: BorderRadius.circular(borderRadius),
-      child: imageUrl == null
-          ? _buildErrorWidget(context)
+      child: url == null || url.isEmpty
+          ? _buildFallback(context)
           : CachedNetworkImage(
-              imageUrl: imageUrl!,
+              imageUrl: url,
               width: width,
               height: height,
               fit: fit,
@@ -46,34 +59,24 @@ class ShimmerImage extends StatelessWidget {
                 onImageLoaded?.call(imageProvider);
                 return _buildImageWithFadeIn(imageProvider);
               },
-              errorWidget: (context, url, error) => _buildErrorWidget(context),
+              errorWidget: (context, url, error) => _buildFallback(context),
             ),
     );
   }
 
-  Widget _buildErrorWidget(BuildContext context) {
-    return errorWidget ??
-        Icon(
-          Icons.no_photography_rounded,
-          size: 24,
-          color: context.colors.backgroundGrey,
-        );
+  /// The placeholder for a missing or failed image, in the image's own box.
+  Widget _buildFallback(BuildContext context) {
+    if (errorBuilder case final builder?) {
+      return SizedBox(width: width, height: height, child: builder(context));
+    }
+    return ImageFallbackView(fallback: fallback, width: width, height: height);
   }
 
-  Widget _buildShimmerPlaceholder(BuildContext context) {
-    return Shimmer(
-      child: Container(
-        width: width,
-        height: height,
-        decoration: ShapeDecoration(
-          color: context.colors.backgroundTwo,
-          shape: RoundedSuperellipseBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
-          ),
-        ),
-      ),
-    );
-  }
+  /// A bone the size and shape of the image, sweeping in step with any
+  /// skeleton around it.
+  Widget _buildShimmerPlaceholder(BuildContext context) => Skeleton(
+    child: SkeletonBox(width: width, height: height, radius: borderRadius),
+  );
 
   Widget _buildImageWithFadeIn(ImageProvider imageProvider) {
     return Animate(

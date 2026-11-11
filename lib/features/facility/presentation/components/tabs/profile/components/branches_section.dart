@@ -2,6 +2,7 @@ import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../facility/domain/entities/entities.dart';
+import '../../../facility_data_provider.dart';
 import '../../../page_section.dart';
 
 /// Branches section for facility profile.
@@ -67,6 +68,9 @@ class _BranchCard extends StatelessWidget {
               child: ShimmerImage(
                 imageUrl: branch.coverUrl,
                 borderRadius: context.spacing.s16,
+                fallback: ImageFallback.cover(
+                  accent: FacilityDataProvider.maybeOf(context)?.activityLineColor,
+                ),
               ),
             ),
             Positioned.fill(

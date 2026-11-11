@@ -8,8 +8,7 @@ part of 'toggle_facility_tracking_dto.dart';
 
 ToggleFacilityTrackingDto _$ToggleFacilityTrackingDtoFromJson(
   Map<String, dynamic> json,
-) =>
-    ToggleFacilityTrackingDto(facilityId: (json['facility_id'] as num).toInt());
+) => ToggleFacilityTrackingDto(facilityId: (json['facility_id'] as num).toInt());
 
 Map<String, dynamic> _$ToggleFacilityTrackingDtoToJson(
   ToggleFacilityTrackingDto instance,

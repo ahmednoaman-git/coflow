@@ -72,7 +72,7 @@ Never hardcode user-facing strings. Add keys to `lib/core/l10n/translations/app_
 
 ### Theming & UI
 
-Never hardcode colors, text styles, spacing, or shadows — always use the `ThemeExtension`-backed context getters: `context.colors.*`, `context.typography.*` (naming: `weightSize`, e.g. `medium16`), `context.spacing.*` (4px grid), `context.shadows.*`. Feedback via `context.showSuccessSnackBar/showErrorSnackBar/showInfoSnackBar/showWarningSnackBar`. Core reusable widgets live in `lib/core/presentation/widgets/` (`MainButton`, `MainTextField`, `TappableScale`, `CircularButton`, `Shimmer`/`ShimmerBox`, ...). The full token catalog and widget guidance are in the `coflow-ui` skill — consult it before writing any UI.
+Never hardcode colors, text styles, spacing, or shadows — always use the `ThemeExtension`-backed context getters: `context.colors.*`, `context.typography.*` (naming: `weightSize`, e.g. `medium16`), `context.spacing.*` (4px grid), `context.shadows.*`. Feedback via `context.showSuccessSnackBar/showErrorSnackBar/showInfoSnackBar/showWarningSnackBar`. Core reusable widgets live in `lib/core/presentation/widgets/` (`MainButton`, `MainTextField`, `TappableScale`, `CircularButton`, the `Skeleton` loading system, ...). The full token catalog and widget guidance are in the `coflow-ui` skill — consult it before writing any UI.
 
 Key UI rules:
 - All rounded rectangles use `RoundedSuperellipseBorder` (built into the Flutter SDK) with `ShapeDecoration` — not `RoundedRectangleBorder` or `BoxDecoration` + `BorderRadius`.

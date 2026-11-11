@@ -15,16 +15,18 @@ class CoflowNavIconDestination extends CoflowNavDestination {
   final IconData icon;
 }
 
-/// A destination represented by the user's avatar, falling back to [fallback]
-/// while the image is missing or still loading.
+/// A destination represented by the user's avatar. A missing or failed photo
+/// shows the initials of [name], or [fallback] when there are none.
 class CoflowNavAvatarDestination extends CoflowNavDestination {
   const CoflowNavAvatarDestination({
     required super.label,
     required this.imageUrl,
     required this.fallback,
+    this.name,
   });
 
   final String? imageUrl;
+  final String? name;
   final IconData fallback;
 }
 

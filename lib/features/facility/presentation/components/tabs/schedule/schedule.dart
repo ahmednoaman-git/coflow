@@ -3,7 +3,6 @@ library;
 
 export 'components/schedule_day_summary.dart';
 export 'components/schedule_empty_state.dart';
-export 'components/schedule_shimmer.dart';
 export 'components/session_capacity_bar.dart';
 export 'components/session_card.dart';
 export 'components/session_details/reservation_confirm_dialog.dart';

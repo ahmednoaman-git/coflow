@@ -283,6 +283,13 @@
   "facilitySchedule_joinWaitlist": "Join Waitlist",
   "facilitySchedule_leaveWaitlist": "Leave Waitlist",
   "facilitySchedule_cancelReservation": "Cancel Reservation",
+  "facilitySchedule_cancelReservationBefore": "Cancel Reservation (Before {deadline})",
+  "@facilitySchedule_cancelReservationBefore": {
+    "description": "Cancel button while the cancellation deadline has not passed, e.g. (Before Sun 1PM).",
+    "placeholders": {
+      "deadline": {"type": "String"}
+    }
+  },
   "facilitySchedule_contactFacility": "Contact {facility}",
   "@facilitySchedule_contactFacility": {
     "placeholders": {
@@ -295,6 +302,14 @@
   "facilitySchedule_dateLabel": "Date",
   "facilitySchedule_timeLabel": "Time",
   "facilitySchedule_ticketLabel": "Ticket",
+  "facilitySchedule_ticketFromLabel": "Ticket (From {purchase})",
+  "@facilitySchedule_ticketFromLabel": {
+    "description": "Label over the ticket a reservation uses when it came from a package or promotion.",
+    "placeholders": {
+      "purchase": {"type": "String"}
+    }
+  },
+  "facilitySchedule_confirmReservation": "Confirm Reservation",
   "facilitySchedule_ticketDue": "DUE",
   "facilitySchedule_ticketValidFor": "Valid for: {count} Day(s)",
   "@facilitySchedule_ticketValidFor": {

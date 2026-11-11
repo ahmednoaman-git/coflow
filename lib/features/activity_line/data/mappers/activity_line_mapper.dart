@@ -27,7 +27,7 @@ abstract final class ActivityLineMapper {
       statusMessage: model.statusMsg,
       logoUrl: model.logo,
       coverUrl: model.cover,
-      likeCount: model.reviewsCount,
+      likeCount: model.likesCount,
       activityLine: ActivityLineEntity.fromId(model.activityLine?.id ?? model.activityLineId),
       tags: model.tags?.map(toTagEntity).toList() ?? [],
       accountType: AccountType.fromString(model.facilityType ?? ''),

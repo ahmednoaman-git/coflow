@@ -81,8 +81,8 @@ void main() {
 
       h.succeed(1, [3], next: 5);
       await append;
-    expect(firstView.data?.items, [1, 2, 3]);
-    expect(firstView.data?.next, 5);
+      expect(firstView.data?.items, [1, 2, 3]);
+      expect(firstView.data?.next, 5);
       expect(appendView.isSuccess, isTrue);
 
       final last = h.manager.loadMore();

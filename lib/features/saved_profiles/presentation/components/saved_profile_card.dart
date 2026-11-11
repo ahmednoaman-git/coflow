@@ -25,7 +25,7 @@ class SavedProfileCard extends StatelessWidget {
 
   final VoidCallback onTrackToggled;
 
-  static const double _logoSize = 64;
+  static const double logoSize = 64;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class SavedProfileCard extends StatelessWidget {
             crossAxisAlignment: .start,
             spacing: context.spacing.s12,
             children: [
-              _Logo(name: facility.name, logoUrl: facility.logoUrl),
+              _Logo(name: facility.name, logoUrl: facility.logoUrl, accent: accent),
               Expanded(
                 child: Column(
                   crossAxisAlignment: .start,
@@ -123,30 +123,23 @@ class SavedProfileCard extends StatelessWidget {
 }
 
 class _Logo extends StatelessWidget {
-  const _Logo({required this.name, required this.logoUrl});
+  const _Logo({required this.name, required this.logoUrl, required this.accent});
 
   final String name;
   final String? logoUrl;
+  final Color accent;
 
   @override
   Widget build(BuildContext context) {
     return ClipOval(
       child: SizedBox.square(
-        dimension: SavedProfileCard._logoSize,
+        dimension: SavedProfileCard.logoSize,
         child: ShimmerImage(
           imageUrl: logoUrl,
-          width: SavedProfileCard._logoSize,
-          height: SavedProfileCard._logoSize,
-          borderRadius: SavedProfileCard._logoSize / 2,
-          errorWidget: ColoredBox(
-            color: context.colors.backgroundGrey,
-            child: Center(
-              child: Text(
-                name.characters.first.toUpperCase(),
-                style: context.typography.bold18.tertiary(context),
-              ),
-            ),
-          ),
+          width: SavedProfileCard.logoSize,
+          height: SavedProfileCard.logoSize,
+          borderRadius: SavedProfileCard.logoSize / 2,
+          fallback: ImageFallback.business(name, accent: accent),
         ),
       ),
     );

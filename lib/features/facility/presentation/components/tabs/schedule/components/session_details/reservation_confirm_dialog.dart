@@ -2,6 +2,7 @@ import 'package:coflow_users_v2/core/core.dart';
 import 'package:coflow_users_v2/features/purchase/presentation/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 import '../../../../../../domain/entities/entities.dart';
 import '../../../../facility_data_provider.dart';
@@ -75,20 +76,20 @@ class ReservationConfirmDialog extends StatelessWidget {
             ),
             _ReservationTicketCard(session: session, ticket: ticket),
             if (session.cancellationWindowHours != null) ...[
-            Text(
-              l10n.facilitySchedule_cancellationPolicy,
-              style: context.typography.bold16.primary(context),
-            ),
-            Text(
-              l10n.facilitySchedule_cancellationPolicyBody(
-                facility.name,
-                session.cancellationWindowHours ?? 0,
+              Text(
+                l10n.facilitySchedule_cancellationPolicy,
+                style: context.typography.bold16.primary(context),
               ),
-              style: context.typography.book14.secondary(context),
-            ),
+              Text(
+                l10n.facilitySchedule_cancellationPolicyBody(
+                  facility.name,
+                  session.cancellationWindowHours ?? 0,
+                ),
+                style: context.typography.book14.secondary(context),
+              ),
             ],
             MainButton(
-              text: l10n.facilitySchedule_reserveNowCta(session.accessibleTickets),
+              text: l10n.facilitySchedule_confirmReservation,
               backgroundColor: accent,
               textColor: accent.prefersDarkForeground
                   ? context.colors.textPrimary
@@ -145,7 +146,10 @@ class _ReservationTicketCard extends StatelessWidget {
               ),
               if (ticket != null) ...[
                 Text(
-                  l10n.facilitySchedule_ticketLabel,
+                  switch (ticket!.purchaseName) {
+                    final purchase? => l10n.facilitySchedule_ticketFromLabel(purchase),
+                    null => l10n.facilitySchedule_ticketLabel,
+                  },
                   style: context.typography.book13.tertiary(context),
                 ),
                 _TicketRow(ticket: ticket!),
@@ -204,9 +208,15 @@ class _TicketRow extends StatelessWidget {
       child: Row(
         spacing: context.spacing.s12,
         children: [
-          Text(
-            '${ticket.quantity}x',
-            style: context.typography.bold16.warning(context),
+          Column(
+            spacing: context.spacing.s4,
+            children: [
+              Text(
+                '${ticket.quantity}x',
+                style: context.typography.bold16.warning(context),
+              ),
+              Icon(SolarIconsOutline.ticket, size: 24, color: context.colors.earthSunnyGoldPrimary),
+            ],
           ),
           Expanded(
             child: Column(
@@ -225,6 +235,21 @@ class _TicketRow extends StatelessWidget {
                     if (ticket.isDue) const _DuePill(),
                   ],
                 ),
+                if (ticket.purchasedAt case final purchasedAt?)
+                  Row(
+                    spacing: context.spacing.s4,
+                    children: [
+                      Icon(
+                        SolarIconsOutline.calendar,
+                        size: 16,
+                        color: context.colors.textPrimary,
+                      ),
+                      Text(
+                        DateFormat('dd/MM/yyyy').format(purchasedAt.toLocal()),
+                        style: context.typography.medium13.primary(context),
+                      ),
+                    ],
+                  ),
                 Row(
                   spacing: context.spacing.s8,
                   children: [

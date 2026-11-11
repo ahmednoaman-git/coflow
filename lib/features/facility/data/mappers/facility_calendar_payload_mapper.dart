@@ -10,16 +10,19 @@ abstract final class FacilityCalendarPayloadMapper {
     Map<String, dynamic> service = const {},
     Map<String, dynamic> facility = const {},
     Map<String, dynamic> reservation = const {},
+    Map<String, dynamic> setting = const {},
     int? currentUserId,
     FacilitySessionEntity? fallback,
     bool isRecurring = false,
   }) {
     final serviceData = {..._map(calendar['service']), ...service};
-    final settings = _map(preview['setting']);
+    // `setting` arrives in `calendar/{id}`'s extra_data and in the preview.
+    final settings = {...setting, ..._map(preview['setting'])};
     final startsAt = _time(calendar, 'from', fallback?.startsAt);
     var endsAt = _time(calendar, 'to', fallback?.endsAt);
     if (!endsAt.isAfter(startsAt)) endsAt = endsAt.add(const Duration(days: 1));
-    final customers = _rows(calendar['reserved']);
+    final reserved = _rows(calendar['reserved']);
+    final customers = reserved.isNotEmpty ? reserved : _rows(calendar['customers']);
     final waiting = _rows(calendar['waitlists'] ?? calendar['waiting']);
     final userId = currentUserId ?? _int(reservation['user_id']);
     final ownReservation = reservation.isNotEmpty
@@ -50,11 +53,9 @@ abstract final class FacilityCalendarPayloadMapper {
         _int(calendar['reserved_count']) ??
         (remaining == null ? customers.length : (total - remaining).clamp(0, total));
     // Customer names require an affirmative privacy setting, even if included
-    // in the response. The backend does not currently expose it consistently.
+    // in the response: `calendar_show_reservations: "visible"`.
     final visible =
-        _bool(settings['calendar_customers']) ||
-        settings['calendar_customers'] == 'visible' ||
-        _bool(calendar['customers_visible']);
+        settings['calendar_show_reservations'] == 'visible' || _bool(calendar['customers_visible']);
     final cutoff = policyKnown ? startsAt.subtract(Duration(hours: cancellationHours)) : null;
     final purchaseTicket = reservation.isNotEmpty
         ? _map(reservation['purchase_ticket'])
@@ -134,15 +135,22 @@ abstract final class FacilityCalendarPayloadMapper {
               purchasedAt: DateTime.tryParse(purchase['created_at']?.toString() ?? ''),
               validForDays: _int(ticket['validity_days']),
               addOns: _rows(purchase['addons']).length,
+              purchaseName: _bundleName(purchase),
             ),
       reservationId: reservationId,
       isRecurring: isRecurring,
       canReserve: !isRecurring && validStatus && quantity != null,
-      // These routes are not documented as waitlist actions. Do not claim an
-      // action until the server explicitly advertises the capability.
-      canJoinWaitlist: false,
+      // There is no dedicated waitlist route: reserving a full slot queues
+      // the customer (backend decision, 2026-10-05).
+      canJoinWaitlist: !isRecurring,
+      // The cancellation window only arrives with the calendar setting, which
+      // the server does not always send. Cancelling then stays available
+      // without a deadline and the server enforces the limit (product
+      // decision, 2026-09-25). Leaving the waitlist follows the same rule.
       canWithdraw:
-          !isRecurring && policyKnown && reservationId != null && viewerState == 'reserved',
+          !isRecurring &&
+          reservationId != null &&
+          (viewerState == 'reserved' || viewerState == 'waitlisted'),
     );
   }
 
@@ -186,14 +194,19 @@ abstract final class FacilityCalendarPayloadMapper {
     return fallback ?? (throw const FormatException('Missing calendar date or time'));
   }
 
+  /// Rows are either reservations (`user_id` + nested `user`) or, as
+  /// `calendar/{id}` sends its `customers`/`waitlists`, the bare user records.
   static List<SessionAttendeeModel> _attendees(List<Map<String, dynamic>> rows, int? userId) => [
     for (final (index, row) in rows.indexed)
       SessionAttendeeModel(
         position: index + 1,
-        name: _map(row['user'])['name']?.toString() ?? '',
-        isCurrentUser: userId != null && _int(row['user_id']) == userId,
+        name: (_map(row['user'])['name'] ?? row['name'])?.toString() ?? '',
+        isCurrentUser: userId != null && _attendeeUserId(row) == userId,
       ),
   ];
+
+  static int? _attendeeUserId(Map<String, dynamic> row) =>
+      _int(row['user_id']) ?? (row.containsKey('user') ? null : _int(row['id']));
 
   static SessionLocationModel? _location(
     Map<String, dynamic> calendar,
@@ -206,6 +219,14 @@ abstract final class FacilityCalendarPayloadMapper {
     final url = location['location']?.toString() ?? location['link']?.toString();
     if (address == null || address.trim().isEmpty) return null;
     return SessionLocationModel(address: address, mapUrl: url, isFacilityLocation: useFacility);
+  }
+
+  /// The purchase's name when it bundles tickets (a package or promotion),
+  /// for "Ticket (From EGP Package)".
+  static String? _bundleName(Map<String, dynamic> purchase) {
+    final name = purchase['name']?.toString().trim();
+    if (name == null || name.isEmpty || purchase['type'] == 'ticket') return null;
+    return name;
   }
 
   static Map<String, dynamic> _map(dynamic value) =>

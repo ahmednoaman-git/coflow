@@ -3,7 +3,7 @@ import 'package:coflow_users_v2/features/facility/domain/entities/entities.dart'
 import 'package:coflow_users_v2/features/facility/presentation/cubit/cubit.dart';
 import 'package:flutter/material.dart';
 
-import 'promotion_shimmer.dart';
+import 'promotion_skeleton.dart';
 import 'promotion_tile.dart';
 
 class FacilityPromotions extends StatelessWidget {
@@ -13,7 +13,7 @@ class FacilityPromotions extends StatelessWidget {
   Widget build(BuildContext context) {
     return AsyncHandler<FacilityDetailsCubit, FacilityDetailsState, List<FacilityPromotionEntity>>(
       requestManagerGetter: (cubit) => cubit.promotionsManager,
-      loadingBuilder: (context) => const PromotionShimmerList(),
+      skeletonBuilder: (context) => const PromotionSkeletonList(),
       successBuilder: (context, promotions) {
         if (promotions.isEmpty) {
           return Padding(
