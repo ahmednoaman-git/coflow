@@ -1,5 +1,6 @@
 /// Account data models.
 library;
 
-export 'profile_model.dart';
 export 'account_statistics_model.dart';
+export 'nationality_model.dart';
+export 'profile_model.dart';

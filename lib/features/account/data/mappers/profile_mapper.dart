@@ -15,4 +15,7 @@ abstract final class ProfileMapper {
     purchases: model.purchases,
     gifts: model.gifts,
   );
+
+  static NationalityEntity nationalityToEntity(NationalityModel model) =>
+      NationalityEntity(id: model.id, name: model.name.trim());
 }

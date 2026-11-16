@@ -483,11 +483,11 @@ abstract class AppLocalizations {
   /// **'Welcome,'**
   String get welcome;
 
-  /// No description provided for @businesses.
+  /// No description provided for @profiles.
   ///
   /// In en, this message translates to:
-  /// **'Businesses'**
-  String get businesses;
+  /// **'Profiles'**
+  String get profiles;
 
   /// No description provided for @instructors.
   ///
@@ -1688,6 +1688,342 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Gifts'**
   String get account_gifts;
+
+  /// No description provided for @myPurchases_current.
+  ///
+  /// In en, this message translates to:
+  /// **'Current'**
+  String get myPurchases_current;
+
+  /// No description provided for @myPurchases_history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get myPurchases_history;
+
+  /// No description provided for @myPurchases_statusDue.
+  ///
+  /// In en, this message translates to:
+  /// **'DUE'**
+  String get myPurchases_statusDue;
+
+  /// No description provided for @myPurchases_statusPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'PAID'**
+  String get myPurchases_statusPaid;
+
+  /// No description provided for @myPurchases_statusExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'EXPIRED'**
+  String get myPurchases_statusExpired;
+
+  /// No description provided for @myPurchases_statusRefunded.
+  ///
+  /// In en, this message translates to:
+  /// **'REFUNDED'**
+  String get myPurchases_statusRefunded;
+
+  /// No description provided for @myPurchases_statusGift.
+  ///
+  /// In en, this message translates to:
+  /// **'GIFT'**
+  String get myPurchases_statusGift;
+
+  /// No description provided for @myPurchases_refundFull.
+  ///
+  /// In en, this message translates to:
+  /// **'FULL'**
+  String get myPurchases_refundFull;
+
+  /// No description provided for @myPurchases_refundPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'PARTIAL'**
+  String get myPurchases_refundPartial;
+
+  /// No description provided for @myPurchases_addOnsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Add-Ons'**
+  String myPurchases_addOnsCount(int count);
+
+  /// No description provided for @myPurchases_validFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Valid for: {count} Day(s)'**
+  String myPurchases_validFor(int count);
+
+  /// No description provided for @myPurchases_validity.
+  ///
+  /// In en, this message translates to:
+  /// **'Validity'**
+  String get myPurchases_validity;
+
+  /// No description provided for @myPurchases_access.
+  ///
+  /// In en, this message translates to:
+  /// **'Access'**
+  String get myPurchases_access;
+
+  /// No description provided for @myPurchases_addOns.
+  ///
+  /// In en, this message translates to:
+  /// **'Add-Ons'**
+  String get myPurchases_addOns;
+
+  /// No description provided for @myPurchases_promotionInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotion Information'**
+  String get myPurchases_promotionInformation;
+
+  /// No description provided for @myPurchases_fromPromotion.
+  ///
+  /// In en, this message translates to:
+  /// **'From Promotion'**
+  String get myPurchases_fromPromotion;
+
+  /// No description provided for @myPurchases_appliedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'(Applied In)'**
+  String get myPurchases_appliedIn;
+
+  /// No description provided for @myPurchases_refundAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Refund Amount'**
+  String get myPurchases_refundAmount;
+
+  /// No description provided for @myPurchases_expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get myPurchases_expired;
+
+  /// No description provided for @myPurchases_refunded.
+  ///
+  /// In en, this message translates to:
+  /// **'Refunded'**
+  String get myPurchases_refunded;
+
+  /// No description provided for @myPurchases_gift.
+  ///
+  /// In en, this message translates to:
+  /// **'Gift'**
+  String get myPurchases_gift;
+
+  /// No description provided for @myPurchases_appliesOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Applies on'**
+  String get myPurchases_appliesOn;
+
+  /// No description provided for @myPurchases_applied.
+  ///
+  /// In en, this message translates to:
+  /// **'Applied: {date}'**
+  String myPurchases_applied(String date);
+
+  /// No description provided for @myPurchases_cancelPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Purchase'**
+  String get myPurchases_cancelPurchase;
+
+  /// No description provided for @myPurchases_cancelConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel this purchase?'**
+  String get myPurchases_cancelConfirmTitle;
+
+  /// No description provided for @myPurchases_cancelConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} will be cancelled and you won\'t be able to reserve with it. This can\'t be undone.'**
+  String myPurchases_cancelConfirmBody(String name);
+
+  /// No description provided for @myPurchases_keepPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep It'**
+  String get myPurchases_keepPurchase;
+
+  /// No description provided for @myPurchases_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase cancelled.'**
+  String get myPurchases_cancelled;
+
+  /// No description provided for @myPurchases_emptyCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'No current purchases'**
+  String get myPurchases_emptyCurrent;
+
+  /// No description provided for @myPurchases_emptyHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No past purchases yet'**
+  String get myPurchases_emptyHistory;
+
+  /// No description provided for @myPurchases_emptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tickets and promotions you buy will show up here.'**
+  String get myPurchases_emptyHint;
+
+  /// No description provided for @myGifts_emptyCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'No gifts right now'**
+  String get myGifts_emptyCurrent;
+
+  /// No description provided for @myGifts_emptyHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No past gifts yet'**
+  String get myGifts_emptyHistory;
+
+  /// No description provided for @myGifts_emptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Coupons and tickets gifted to you will show up here.'**
+  String get myGifts_emptyHint;
+
+  /// No description provided for @accountInfo_personalDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal details'**
+  String get accountInfo_personalDetails;
+
+  /// No description provided for @accountInfo_security.
+  ///
+  /// In en, this message translates to:
+  /// **'Security'**
+  String get accountInfo_security;
+
+  /// No description provided for @accountInfo_notSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get accountInfo_notSet;
+
+  /// No description provided for @accountInfo_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit information'**
+  String get accountInfo_edit;
+
+  /// No description provided for @accountInfo_editTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Information'**
+  String get accountInfo_editTitle;
+
+  /// No description provided for @accountInfo_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get accountInfo_save;
+
+  /// No description provided for @accountInfo_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Your information was updated'**
+  String get accountInfo_saved;
+
+  /// No description provided for @accountInfo_changePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Change photo'**
+  String get accountInfo_changePhoto;
+
+  /// No description provided for @accountInfo_photoUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile photo updated'**
+  String get accountInfo_photoUpdated;
+
+  /// No description provided for @accountInfo_changePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change password'**
+  String get accountInfo_changePassword;
+
+  /// No description provided for @accountInfo_changePasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a new password for your account.'**
+  String get accountInfo_changePasswordSubtitle;
+
+  /// No description provided for @accountInfo_newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get accountInfo_newPassword;
+
+  /// No description provided for @accountInfo_newPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a new password'**
+  String get accountInfo_newPasswordHint;
+
+  /// No description provided for @accountInfo_confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get accountInfo_confirmPassword;
+
+  /// No description provided for @accountInfo_confirmPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter the new password'**
+  String get accountInfo_confirmPasswordHint;
+
+  /// No description provided for @accountInfo_passwordTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Use at least {count} characters'**
+  String accountInfo_passwordTooShort(int count);
+
+  /// No description provided for @accountInfo_passwordsDontMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords don\'t match'**
+  String get accountInfo_passwordsDontMatch;
+
+  /// No description provided for @accountInfo_passwordChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password was changed'**
+  String get accountInfo_passwordChanged;
+
+  /// No description provided for @accountInfo_fieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get accountInfo_fieldRequired;
+
+  /// No description provided for @accountInfo_invalidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid email address'**
+  String get accountInfo_invalidEmail;
+
+  /// No description provided for @accountInfo_searchNationality.
+  ///
+  /// In en, this message translates to:
+  /// **'Search nationality...'**
+  String get accountInfo_searchNationality;
+
+  /// No description provided for @accountInfo_noNationalitiesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No nationalities found'**
+  String get accountInfo_noNationalitiesFound;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

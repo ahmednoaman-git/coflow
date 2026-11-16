@@ -13,7 +13,8 @@ import 'logout_confirm_dialog.dart';
 /// Body of the Account screen: the four counters, then the management group.
 ///
 /// Reads the [ProfileCubit] provided above the tab bar rather than creating its
-/// own. Account counters refresh when the user selects this tab.
+/// own. Account counters refresh when the user selects this tab — in the
+/// background once loaded, so the skeleton only shows on the first load.
 class AccountScreenBody extends StatelessWidget {
   const AccountScreenBody({super.key});
 
@@ -36,6 +37,10 @@ class AccountScreenBody extends StatelessWidget {
                     skeletonBuilder: (_) => const AccountStatsGridSkeleton(),
                     successBuilder: (context, stats) => AccountStatsGrid(stats: stats),
                     onRetry: (cubit) => cubit.refreshStatistics(),
+                    // Refreshes run in the background (see ProfileCubit): a
+                    // failed one keeps the counters on screen and says why here.
+                    onBackgroundError: (context, failure) =>
+                        context.showErrorSnackBar(failure.message),
                   ),
                   Text(
                     context.l10n.account_management,
@@ -69,8 +74,7 @@ class _ManagementSection extends StatelessWidget {
           AccountManagementAction(
             icon: SolarIconsOutline.userCircle,
             label: l10n.account_information,
-            // TODO: Navigate to account information
-            onTap: null,
+            onTap: () => context.router.push(const AccountInformationRoute()),
           ),
           AccountManagementAction(
             icon: SolarIconsOutline.tuning,

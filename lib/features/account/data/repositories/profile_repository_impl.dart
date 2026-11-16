@@ -1,6 +1,7 @@
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../domain/dtos/dtos.dart';
 import '../../domain/entities/entities.dart';
 import '../../domain/repositories/repositories.dart';
 import '../datasources/datasources.dart';
@@ -28,4 +29,26 @@ class ProfileRepositoryImpl implements ProfileRepository {
           .map((_) => ProfileMapper.toEntity(model));
     });
   }
+
+  // The write endpoints' responses aren't documented, so each write re-reads
+  // the profile: the screen then shows exactly what the server stored (e.g. the
+  // new photo's URL), and the cached user is refreshed with it.
+  @override
+  AsyncTask<ProfileEntity> updateProfile(UpdateProfileDto dto) =>
+      _remote.updateProfile(dto).flatMap((_) => getProfile());
+
+  @override
+  AsyncTask<ProfileEntity> changeProfileImage(ChangeProfileImageDto dto) =>
+      _remote.changeProfileImage(dto).flatMap((_) => getProfile());
+
+  @override
+  AsyncTask<void> changePassword(ChangePasswordDto dto) => _remote.changePassword(dto);
+
+  @override
+  AsyncTask<List<NationalityEntity>> getNationalities() => _remote.getNationalities().map(
+    (models) => [
+      for (final model in models)
+        if (model.name.trim().isNotEmpty) ProfileMapper.nationalityToEntity(model),
+    ],
+  );
 }

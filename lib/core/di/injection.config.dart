@@ -20,12 +20,23 @@ import '../../features/account/data/datasources/profile_remote_data_source.dart'
     as _i757;
 import '../../features/account/data/repositories/profile_repository_impl.dart'
     as _i761;
+import '../../features/account/domain/domain.dart' as _i808;
 import '../../features/account/domain/repositories/repositories.dart' as _i320;
+import '../../features/account/domain/use_cases/change_password_use_case.dart'
+    as _i951;
+import '../../features/account/domain/use_cases/change_profile_image_use_case.dart'
+    as _i243;
 import '../../features/account/domain/use_cases/get_account_statistics_use_case.dart'
     as _i505;
+import '../../features/account/domain/use_cases/get_nationalities_use_case.dart'
+    as _i889;
 import '../../features/account/domain/use_cases/get_profile_use_case.dart'
     as _i113;
+import '../../features/account/domain/use_cases/update_profile_use_case.dart'
+    as _i651;
 import '../../features/account/domain/use_cases/use_cases.dart' as _i877;
+import '../../features/account/presentation/cubit/account_info_cubit.dart'
+    as _i679;
 import '../../features/account/presentation/cubit/profile_cubit.dart' as _i575;
 import '../../features/activity_line/data/datasources/activity_line_remote_datasource.dart'
     as _i198;
@@ -105,6 +116,9 @@ import '../../features/facility/data/repositories/facility_repository_impl.dart'
     as _i85;
 import '../../features/facility/domain/entities/entities.dart' as _i264;
 import '../../features/facility/domain/enums/enums.dart' as _i22;
+import '../../features/facility/domain/events/events.dart' as _i463;
+import '../../features/facility/domain/events/facility_save_events.dart'
+    as _i735;
 import '../../features/facility/domain/repositories/repositories.dart' as _i181;
 import '../../features/facility/domain/use_cases/get_facility_faqs_use_case.dart'
     as _i1043;
@@ -159,6 +173,24 @@ import '../../features/home/data/repositories/home_repository_impl.dart'
 import '../../features/home/domain/repositories/home_repository.dart' as _i0;
 import '../../features/home/domain/use_cases/get_home_use_case.dart' as _i261;
 import '../../features/home/presentation/cubit/home_cubit.dart' as _i9;
+import '../../features/my_purchases/data/datasources/datasources.dart' as _i953;
+import '../../features/my_purchases/data/datasources/user_purchases_remote_data_source.dart'
+    as _i754;
+import '../../features/my_purchases/data/repositories/user_purchases_repository_impl.dart'
+    as _i694;
+import '../../features/my_purchases/domain/domain.dart' as _i721;
+import '../../features/my_purchases/domain/repositories/repositories.dart'
+    as _i399;
+import '../../features/my_purchases/domain/use_cases/cancel_user_purchase_use_case.dart'
+    as _i963;
+import '../../features/my_purchases/domain/use_cases/get_user_purchase_use_case.dart'
+    as _i771;
+import '../../features/my_purchases/domain/use_cases/get_user_purchases_use_case.dart'
+    as _i10;
+import '../../features/my_purchases/presentation/cubit/user_purchase_details_cubit.dart'
+    as _i157;
+import '../../features/my_purchases/presentation/cubit/user_purchases_cubit.dart'
+    as _i282;
 import '../../features/purchase/data/datasources/datasources.dart' as _i857;
 import '../../features/purchase/data/datasources/purchase_remote_data_source.dart'
     as _i377;
@@ -258,6 +290,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i84.FacilitySessionDetailsStubDataSource>(
       () => _i84.FacilitySessionDetailsStubDataSource(),
     );
+    gh.lazySingleton<_i735.FacilitySaveEvents>(
+      () => _i735.FacilitySaveEvents(),
+      dispose: (i) => i.dispose(),
+    );
     gh.lazySingleton<_i128.LocalizationManager>(
       () => _i128.LocalizationManager(gh<_i460.SharedPreferences>()),
     );
@@ -295,6 +331,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i278.HomeRemoteDataSource>(
       () => _i278.HomeRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i754.UserPurchasesRemoteDataSource>(
+      () => _i754.UserPurchasesRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i377.PurchaseRemoteDataSource>(
       () => _i377.PurchaseRemoteDataSource(gh<_i351.DioClient>()),
     );
@@ -325,6 +364,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i275.FacilityCalendarRemoteDataSource(
         gh<_i351.DioClient>(),
         gh<_i351.AuthStateManager>(),
+      ),
+    );
+    gh.lazySingleton<_i399.UserPurchasesRepository>(
+      () => _i694.UserPurchasesRepositoryImpl(
+        gh<_i953.UserPurchasesRemoteDataSource>(),
       ),
     );
     gh.lazySingleton<_i196.ActivityLineRepository>(
@@ -383,6 +427,16 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i163.FacilityCalendarRemoteDataSource>(),
       ),
     );
+    gh.lazySingleton<_i963.CancelUserPurchaseUseCase>(
+      () =>
+          _i963.CancelUserPurchaseUseCase(gh<_i399.UserPurchasesRepository>()),
+    );
+    gh.lazySingleton<_i771.GetUserPurchaseUseCase>(
+      () => _i771.GetUserPurchaseUseCase(gh<_i399.UserPurchasesRepository>()),
+    );
+    gh.lazySingleton<_i10.GetUserPurchasesUseCase>(
+      () => _i10.GetUserPurchasesUseCase(gh<_i399.UserPurchasesRepository>()),
+    );
     gh.factory<_i1040.RegisterCubit>(
       () => _i1040.RegisterCubit(
         gh<_i22.RegisterUseCase>(),
@@ -402,11 +456,23 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1017.LoginCubit>(
       () => _i1017.LoginCubit(gh<_i22.LoginUseCase>()),
     );
+    gh.lazySingleton<_i951.ChangePasswordUseCase>(
+      () => _i951.ChangePasswordUseCase(gh<_i320.ProfileRepository>()),
+    );
+    gh.lazySingleton<_i243.ChangeProfileImageUseCase>(
+      () => _i243.ChangeProfileImageUseCase(gh<_i320.ProfileRepository>()),
+    );
     gh.lazySingleton<_i505.GetAccountStatisticsUseCase>(
       () => _i505.GetAccountStatisticsUseCase(gh<_i320.ProfileRepository>()),
     );
+    gh.lazySingleton<_i889.GetNationalitiesUseCase>(
+      () => _i889.GetNationalitiesUseCase(gh<_i320.ProfileRepository>()),
+    );
     gh.lazySingleton<_i113.GetProfileUseCase>(
       () => _i113.GetProfileUseCase(gh<_i320.ProfileRepository>()),
+    );
+    gh.lazySingleton<_i651.UpdateProfileUseCase>(
+      () => _i651.UpdateProfileUseCase(gh<_i320.ProfileRepository>()),
     );
     gh.lazySingleton<_i222.LocationsRepository>(
       () =>
@@ -486,13 +552,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i877.GetAccountStatisticsUseCase>(),
       ),
     );
-    gh.factory<_i529.SavedProfilesCubit>(
-      () => _i529.SavedProfilesCubit(
-        gh<_i551.GetSavedProfilesUseCase>(),
-        gh<_i312.ToggleFacilitySaveUseCase>(),
-        gh<_i312.ToggleFacilityTrackingUseCase>(),
-      ),
-    );
     gh.lazySingleton<_i291.GetPurchaseCouponsUseCase>(
       () => _i291.GetPurchaseCouponsUseCase(gh<_i463.CouponRepository>()),
     );
@@ -529,6 +588,17 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i686.SearchBusinessesUseCase>(),
         gh<_i686.SearchInstructorsUseCase>(),
         gh<_i686.SearchServicesUseCase>(),
+      ),
+    );
+    gh.factoryParam<
+      _i157.UserPurchaseDetailsCubit,
+      _i721.UserPurchaseEntity,
+      dynamic
+    >(
+      (purchase, _) => _i157.UserPurchaseDetailsCubit(
+        gh<_i721.GetUserPurchaseUseCase>(),
+        gh<_i721.CancelUserPurchaseUseCase>(),
+        purchase,
       ),
     );
     gh.factoryParam<_i425.PromotionDetailsCubit, int, dynamic>(
@@ -583,24 +653,52 @@ extension GetItInjectableX on _i174.GetIt {
         args,
       ),
     );
-    gh.factoryParam<_i890.FacilityFaqCubit, int, dynamic>(
-      (facilityId, _) => _i890.FacilityFaqCubit(
-        gh<_i312.GetFacilityFaqsUseCase>(),
-        facilityId,
+    gh.factory<_i679.AccountInfoCubit>(
+      () => _i679.AccountInfoCubit(
+        gh<_i808.UpdateProfileUseCase>(),
+        gh<_i808.ChangeProfileImageUseCase>(),
+        gh<_i808.ChangePasswordUseCase>(),
+        gh<_i808.GetNationalitiesUseCase>(),
+      ),
+    );
+    gh.factoryParam<
+      _i282.UserPurchasesCubit,
+      _i721.UserPurchaseCategory,
+      dynamic
+    >(
+      (category, _) => _i282.UserPurchasesCubit(
+        gh<_i721.GetUserPurchasesUseCase>(),
+        category,
       ),
     );
     gh.factoryParam<
       _i453.FacilityDetailsCubit,
       _i721.CollapsedFacilityEntity,
-      dynamic
+      bool?
     >(
-      (facility, _) => _i453.FacilityDetailsCubit(
+      (facility, isPreview) => _i453.FacilityDetailsCubit(
         gh<_i312.GetFacilityProfileUseCase>(),
         gh<_i312.GetFacilityTicketsUseCase>(),
         gh<_i312.GetFacilityPromotionsUseCase>(),
         gh<_i312.GetFacilityServicesUseCase>(),
         gh<_i312.ToggleFacilitySaveUseCase>(),
+        gh<_i463.FacilitySaveEvents>(),
         facility,
+        isPreview,
+      ),
+    );
+    gh.factory<_i529.SavedProfilesCubit>(
+      () => _i529.SavedProfilesCubit(
+        gh<_i551.GetSavedProfilesUseCase>(),
+        gh<_i312.ToggleFacilitySaveUseCase>(),
+        gh<_i312.ToggleFacilityTrackingUseCase>(),
+        gh<_i463.FacilitySaveEvents>(),
+      ),
+    );
+    gh.factoryParam<_i890.FacilityFaqCubit, int, dynamic>(
+      (facilityId, _) => _i890.FacilityFaqCubit(
+        gh<_i312.GetFacilityFaqsUseCase>(),
+        facilityId,
       ),
     );
     gh.lazySingleton<_i243.GetReservationDetailsUseCase>(

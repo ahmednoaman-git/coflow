@@ -207,7 +207,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcome => 'Welcome,';
 
   @override
-  String get businesses => 'Businesses';
+  String get profiles => 'Profiles';
 
   @override
   String get instructors => 'Instructors';
@@ -914,4 +914,182 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get account_gifts => 'Gifts';
+
+  @override
+  String get myPurchases_current => 'Current';
+
+  @override
+  String get myPurchases_history => 'History';
+
+  @override
+  String get myPurchases_statusDue => 'DUE';
+
+  @override
+  String get myPurchases_statusPaid => 'PAID';
+
+  @override
+  String get myPurchases_statusExpired => 'EXPIRED';
+
+  @override
+  String get myPurchases_statusRefunded => 'REFUNDED';
+
+  @override
+  String get myPurchases_statusGift => 'GIFT';
+
+  @override
+  String get myPurchases_refundFull => 'FULL';
+
+  @override
+  String get myPurchases_refundPartial => 'PARTIAL';
+
+  @override
+  String myPurchases_addOnsCount(int count) {
+    return '$count Add-Ons';
+  }
+
+  @override
+  String myPurchases_validFor(int count) {
+    return 'Valid for: $count Day(s)';
+  }
+
+  @override
+  String get myPurchases_validity => 'Validity';
+
+  @override
+  String get myPurchases_access => 'Access';
+
+  @override
+  String get myPurchases_addOns => 'Add-Ons';
+
+  @override
+  String get myPurchases_promotionInformation => 'Promotion Information';
+
+  @override
+  String get myPurchases_fromPromotion => 'From Promotion';
+
+  @override
+  String get myPurchases_appliedIn => '(Applied In)';
+
+  @override
+  String get myPurchases_refundAmount => 'Refund Amount';
+
+  @override
+  String get myPurchases_expired => 'Expired';
+
+  @override
+  String get myPurchases_refunded => 'Refunded';
+
+  @override
+  String get myPurchases_gift => 'Gift';
+
+  @override
+  String get myPurchases_appliesOn => 'Applies on';
+
+  @override
+  String myPurchases_applied(String date) {
+    return 'Applied: $date';
+  }
+
+  @override
+  String get myPurchases_cancelPurchase => 'Cancel Purchase';
+
+  @override
+  String get myPurchases_cancelConfirmTitle => 'Cancel this purchase?';
+
+  @override
+  String myPurchases_cancelConfirmBody(String name) {
+    return '$name will be cancelled and you won\'t be able to reserve with it. This can\'t be undone.';
+  }
+
+  @override
+  String get myPurchases_keepPurchase => 'Keep It';
+
+  @override
+  String get myPurchases_cancelled => 'Purchase cancelled.';
+
+  @override
+  String get myPurchases_emptyCurrent => 'No current purchases';
+
+  @override
+  String get myPurchases_emptyHistory => 'No past purchases yet';
+
+  @override
+  String get myPurchases_emptyHint => 'Tickets and promotions you buy will show up here.';
+
+  @override
+  String get myGifts_emptyCurrent => 'No gifts right now';
+
+  @override
+  String get myGifts_emptyHistory => 'No past gifts yet';
+
+  @override
+  String get myGifts_emptyHint => 'Coupons and tickets gifted to you will show up here.';
+
+  @override
+  String get accountInfo_personalDetails => 'Personal details';
+
+  @override
+  String get accountInfo_security => 'Security';
+
+  @override
+  String get accountInfo_notSet => 'Not set';
+
+  @override
+  String get accountInfo_edit => 'Edit information';
+
+  @override
+  String get accountInfo_editTitle => 'Edit Information';
+
+  @override
+  String get accountInfo_save => 'Save changes';
+
+  @override
+  String get accountInfo_saved => 'Your information was updated';
+
+  @override
+  String get accountInfo_changePhoto => 'Change photo';
+
+  @override
+  String get accountInfo_photoUpdated => 'Profile photo updated';
+
+  @override
+  String get accountInfo_changePassword => 'Change password';
+
+  @override
+  String get accountInfo_changePasswordSubtitle => 'Choose a new password for your account.';
+
+  @override
+  String get accountInfo_newPassword => 'New password';
+
+  @override
+  String get accountInfo_newPasswordHint => 'Enter a new password';
+
+  @override
+  String get accountInfo_confirmPassword => 'Confirm password';
+
+  @override
+  String get accountInfo_confirmPasswordHint => 'Re-enter the new password';
+
+  @override
+  String accountInfo_passwordTooShort(int count) {
+    return 'Use at least $count characters';
+  }
+
+  @override
+  String get accountInfo_passwordsDontMatch => 'Passwords don\'t match';
+
+  @override
+  String get accountInfo_passwordChanged => 'Your password was changed';
+
+  @override
+  String get accountInfo_fieldRequired => 'This field is required';
+
+  @override
+  String get accountInfo_invalidEmail => 'Enter a valid email address';
+
+  @override
+  String get accountInfo_searchNationality => 'Search nationality...';
+
+  @override
+  String get accountInfo_noNationalitiesFound => 'No nationalities found';
 }

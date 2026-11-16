@@ -25,6 +25,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit: _emitIfOpen,
       autoExecute: true,
       defaultRequest: _getProfile(),
+      refreshInBackground: true,
     );
 
     statisticsManager = .new(
@@ -36,6 +37,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit: _emitIfOpen,
       autoExecute: true,
       defaultRequest: _getAccountStatistics(),
+      refreshInBackground: true,
     );
 
     logoutManager = .new(
@@ -61,24 +63,31 @@ class ProfileCubit extends Cubit<ProfileState> {
   /// Callers that need a user before then fall back to the one cached at login.
   UserEntity? get user => profileManager.data?.user;
 
-  /// Re-fetches the profile, e.g. after a pull-to-refresh or a purchase that
-  /// changes one of the counters.
+  /// Re-fetches the profile and the counters, e.g. after a pull-to-refresh or
+  /// a purchase that changes one of them.
+  ///
+  /// Both refresh in the background: once loaded, what is on screen stays
+  /// there until the new data swaps in, and a failure keeps it (the Account
+  /// screen reports it).
   Future<void> refresh() async {
-    await Future.wait([
-      if (!profileManager.isLoading) profileManager.execute(),
-      refreshStatistics(),
-    ]);
+    if (isClosed) return;
+    await Future.wait([profileManager.refresh(), statisticsManager.refresh()]);
   }
 
-  /// Refresh on entering Account and returning from its nested screens.
+  /// Refresh on entering Account and returning from its nested screens. Joins
+  /// a refresh already running rather than sending another.
   Future<void> refreshStatistics() async {
-    if (isClosed || statisticsManager.isLoading) return;
-    await statisticsManager.execute();
+    if (isClosed) return;
+    await statisticsManager.refresh();
   }
 
   void _emitIfOpen(ProfileState nextState) {
     if (!isClosed) emit(nextState);
   }
+
+  /// Shows a profile the server just saved (Account Information hands it
+  /// over after an edit), without fetching it again.
+  void replaceProfile(ProfileEntity profile) => profileManager.update((_) => profile);
 
   Future<void> logout() => logoutManager.execute(_logout());
 }
