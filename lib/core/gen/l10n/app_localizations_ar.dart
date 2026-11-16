@@ -1122,4 +1122,68 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get legal_empty => 'هذا المستند غير متاح بعد';
+
+  @override
+  String support_requestTitle(int id) {
+    return 'طلب رقم $id';
+  }
+
+  @override
+  String get support_statusNew => 'جديد';
+
+  @override
+  String get support_statusPending => 'قيد المراجعة';
+
+  @override
+  String get support_statusResolved => 'تم الحل';
+
+  @override
+  String get support_issue => 'المشكلة';
+
+  @override
+  String get support_image => 'الصورة';
+
+  @override
+  String get support_adminNote => 'ملاحظة الإدارة';
+
+  @override
+  String get support_noReplyYet => 'لا يوجد رد بعد. سنتواصل معك قريبًا.';
+
+  @override
+  String get support_empty => 'لا توجد طلبات دعم بعد';
+
+  @override
+  String get support_emptyHint => 'إذا لاحظت أي خطأ، أخبرنا وسنتابعه.';
+
+  @override
+  String get support_newRequest => 'طلب دعم';
+
+  @override
+  String get support_createTitle => 'هل هناك شيء غير صحيح؟';
+
+  @override
+  String get support_createSubtitle => 'أخبرنا وسنتابعه على الفور!';
+
+  @override
+  String get support_issueHint => 'وصف المشكلة';
+
+  @override
+  String get support_issueRequired => 'صف المشكلة';
+
+  @override
+  String support_issueTooShort(int count) {
+    return 'أضف مزيدًا من التفاصيل (على الأقل $count أحرف)';
+  }
+
+  @override
+  String get support_uploadImage => 'رفع صورة';
+
+  @override
+  String get support_optional => 'اختياري';
+
+  @override
+  String get support_submit => 'إرسال الطلب';
+
+  @override
+  String get support_created => 'تم إرسال طلبك';
 }

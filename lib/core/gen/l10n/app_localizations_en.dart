@@ -1104,4 +1104,69 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get legal_empty => 'This document isn\'t available yet';
+
+  @override
+  String support_requestTitle(int id) {
+    return 'Request #$id';
+  }
+
+  @override
+  String get support_statusNew => 'New';
+
+  @override
+  String get support_statusPending => 'Pending';
+
+  @override
+  String get support_statusResolved => 'Resolved';
+
+  @override
+  String get support_issue => 'Issue';
+
+  @override
+  String get support_image => 'Image';
+
+  @override
+  String get support_adminNote => 'Admin Note';
+
+  @override
+  String get support_noReplyYet => 'No reply yet. We\'ll get back to you soon.';
+
+  @override
+  String get support_empty => 'No support requests yet';
+
+  @override
+  String get support_emptyHint =>
+      'If something doesn\'t look right, let us know and we\'ll look into it.';
+
+  @override
+  String get support_newRequest => 'Support Request';
+
+  @override
+  String get support_createTitle => 'Something doesn\'t look right?';
+
+  @override
+  String get support_createSubtitle => 'Let us know & we\'ll look into it right away!';
+
+  @override
+  String get support_issueHint => 'Issue Description';
+
+  @override
+  String get support_issueRequired => 'Describe the issue';
+
+  @override
+  String support_issueTooShort(int count) {
+    return 'Add a little more detail (at least $count characters)';
+  }
+
+  @override
+  String get support_uploadImage => 'Upload Image';
+
+  @override
+  String get support_optional => 'Optional';
+
+  @override
+  String get support_submit => 'Submit Request';
+
+  @override
+  String get support_created => 'Your request was sent';
 }

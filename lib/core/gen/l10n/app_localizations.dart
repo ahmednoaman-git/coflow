@@ -2048,6 +2048,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This document isn\'t available yet'**
   String get legal_empty;
+
+  /// No description provided for @support_requestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Request #{id}'**
+  String support_requestTitle(int id);
+
+  /// No description provided for @support_statusNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get support_statusNew;
+
+  /// No description provided for @support_statusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get support_statusPending;
+
+  /// No description provided for @support_statusResolved.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved'**
+  String get support_statusResolved;
+
+  /// No description provided for @support_issue.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue'**
+  String get support_issue;
+
+  /// No description provided for @support_image.
+  ///
+  /// In en, this message translates to:
+  /// **'Image'**
+  String get support_image;
+
+  /// No description provided for @support_adminNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin Note'**
+  String get support_adminNote;
+
+  /// No description provided for @support_noReplyYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No reply yet. We\'ll get back to you soon.'**
+  String get support_noReplyYet;
+
+  /// No description provided for @support_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No support requests yet'**
+  String get support_empty;
+
+  /// No description provided for @support_emptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'If something doesn\'t look right, let us know and we\'ll look into it.'**
+  String get support_emptyHint;
+
+  /// No description provided for @support_newRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Support Request'**
+  String get support_newRequest;
+
+  /// No description provided for @support_createTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Something doesn\'t look right?'**
+  String get support_createTitle;
+
+  /// No description provided for @support_createSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Let us know & we\'ll look into it right away!'**
+  String get support_createSubtitle;
+
+  /// No description provided for @support_issueHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Description'**
+  String get support_issueHint;
+
+  /// No description provided for @support_issueRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe the issue'**
+  String get support_issueRequired;
+
+  /// No description provided for @support_issueTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a little more detail (at least {count} characters)'**
+  String support_issueTooShort(int count);
+
+  /// No description provided for @support_uploadImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Image'**
+  String get support_uploadImage;
+
+  /// No description provided for @support_optional.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get support_optional;
+
+  /// No description provided for @support_submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Request'**
+  String get support_submit;
+
+  /// No description provided for @support_created.
+  ///
+  /// In en, this message translates to:
+  /// **'Your request was sent'**
+  String get support_created;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

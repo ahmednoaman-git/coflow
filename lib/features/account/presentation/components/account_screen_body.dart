@@ -86,8 +86,7 @@ class _ManagementSection extends StatelessWidget {
           AccountManagementAction(
             icon: SolarIconsOutline.userSpeak,
             label: l10n.account_supportRequests,
-            // TODO: Navigate to support requests
-            onTap: null,
+            onTap: () => context.router.push(const SupportRequestsRoute()),
           ),
           AccountManagementAction(
             icon: SolarIconsOutline.questionCircle,

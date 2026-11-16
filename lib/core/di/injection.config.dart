@@ -256,6 +256,19 @@ import '../../features/search/domain/use_cases/search_services_use_case.dart'
     as _i397;
 import '../../features/search/presentation/cubit/search_cubit.dart' as _i341;
 import '../../features/splash/presentation/state/splash_cubit.dart' as _i315;
+import '../../features/support/data/datasources/datasources.dart' as _i598;
+import '../../features/support/data/datasources/support_remote_data_source.dart'
+    as _i464;
+import '../../features/support/data/repositories/support_repository_impl.dart'
+    as _i387;
+import '../../features/support/domain/repositories/repositories.dart' as _i678;
+import '../../features/support/domain/use_cases/create_support_request_use_case.dart'
+    as _i802;
+import '../../features/support/domain/use_cases/get_support_requests_use_case.dart'
+    as _i471;
+import '../../features/support/domain/use_cases/use_cases.dart' as _i866;
+import '../../features/support/presentation/cubit/support_requests_cubit.dart'
+    as _i41;
 import '../caching/cache_client.dart' as _i1035;
 import '../core.dart' as _i351;
 import '../data/auth/auth_state_manager.dart' as _i224;
@@ -360,6 +373,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i280.SearchRemoteDataSource>(
       () => _i280.SearchRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i464.SupportRemoteDataSource>(
+      () => _i464.SupportRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i179.SavedProfilesRepository>(
       () => _i347.SavedProfilesRepositoryImpl(
         gh<_i1021.SavedProfilesRemoteDataSource>(),
@@ -396,8 +412,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i657.GetSavedProfilesUseCase>(
       () => _i657.GetSavedProfilesUseCase(gh<_i179.SavedProfilesRepository>()),
     );
+    gh.lazySingleton<_i678.SupportRepository>(
+      () => _i387.SupportRepositoryImpl(gh<_i598.SupportRemoteDataSource>()),
+    );
     gh.lazySingleton<_i191.GetFacilitiesUseCase>(
       () => _i191.GetFacilitiesUseCase(gh<_i196.ActivityLineRepository>()),
+    );
+    gh.lazySingleton<_i802.CreateSupportRequestUseCase>(
+      () => _i802.CreateSupportRequestUseCase(gh<_i678.SupportRepository>()),
+    );
+    gh.lazySingleton<_i471.GetSupportRequestsUseCase>(
+      () => _i471.GetSupportRequestsUseCase(gh<_i678.SupportRepository>()),
     );
     gh.lazySingleton<_i146.LoginUseCase>(
       () => _i146.LoginUseCase(gh<_i625.AuthenticationRepository>()),
@@ -552,6 +577,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i365.UpdateSessionReservationUseCase>(
       () =>
           _i365.UpdateSessionReservationUseCase(gh<_i181.FacilityRepository>()),
+    );
+    gh.factory<_i41.SupportRequestsCubit>(
+      () => _i41.SupportRequestsCubit(
+        gh<_i866.GetSupportRequestsUseCase>(),
+        gh<_i866.CreateSupportRequestUseCase>(),
+      ),
     );
     gh.lazySingleton<_i99.GetAppFaqsUseCase>(
       () => _i99.GetAppFaqsUseCase(gh<_i741.AppInfoRepository>()),
