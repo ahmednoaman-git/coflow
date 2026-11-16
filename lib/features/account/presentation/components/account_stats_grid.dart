@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
+import 'package:coflow_users_v2/features/my_purchases/domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +27,7 @@ class AccountStatsGrid extends StatelessWidget {
       ),
       AccountStatCard(
         icon: Assets.svgs.bookmark,
-        label: context.l10n.businesses,
+        label: context.l10n.profiles,
         count: stats.businesses,
         accent: context.colors.skyBluePrimary,
         accentContainer: context.colors.skyBlueSecondary,
@@ -38,6 +39,10 @@ class AccountStatsGrid extends StatelessWidget {
         count: stats.purchases,
         accent: context.colors.earthSunnyGoldPrimary,
         accentContainer: context.colors.earthSunnyGoldSecondary,
+        onTap: () => _openAndRefresh(
+          context,
+          UserPurchasesRoute(category: UserPurchaseCategory.purchases),
+        ),
       ),
       AccountStatCard(
         icon: Assets.svgs.discount,
@@ -45,6 +50,10 @@ class AccountStatsGrid extends StatelessWidget {
         count: stats.gifts,
         accent: context.colors.seaCaribbeanPrimary,
         accentContainer: context.colors.seaCaribbeanSecondary,
+        onTap: () => _openAndRefresh(
+          context,
+          UserPurchasesRoute(category: UserPurchaseCategory.gifts),
+        ),
       ),
     ];
 
