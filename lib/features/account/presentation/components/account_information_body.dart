@@ -11,6 +11,7 @@ import '../cubit/cubit.dart';
 import 'account_info_card.dart';
 import 'account_management_list.dart';
 import 'change_password_sheet.dart';
+import 'delete_account_dialog.dart';
 import 'nationality_picker_sheet.dart';
 import 'profile_photo_header.dart';
 
@@ -107,19 +108,41 @@ class _Content extends StatelessWidget {
         ),
         _Section(
           title: l10n.accountInfo_security,
-          child: AccountManagementList(
-            actions: [
-              AccountManagementAction(
-                icon: SolarIconsOutline.lockPassword,
-                label: l10n.accountInfo_changePassword,
-                onTap: () => ChangePasswordSheet.show(context),
-              ),
-            ],
+          child: AsyncHandler<AccountInfoCubit, AccountInfoState, void>.loadingDependent(
+            requestManagerGetter: (cubit) => cubit.deleteManager,
+            // The session is already cleared; leave the signed-in app.
+            onSuccess: (context, _) {
+              context.showInfoSnackBar(l10n.deleteAccount_done);
+              context.router.root.replaceAll([const LoginRoute()]);
+            },
+            onError: (context, failure) => context.showErrorSnackBar(failure.message),
+            builder: (context, isDeleting) => AccountManagementList(
+              actions: [
+                AccountManagementAction(
+                  icon: SolarIconsOutline.lockPassword,
+                  label: l10n.accountInfo_changePassword,
+                  onTap: () => ChangePasswordSheet.show(context),
+                ),
+                AccountManagementAction(
+                  icon: SolarIconsOutline.trashBinMinimalistic,
+                  label: l10n.deleteAccount_action,
+                  isDestructive: true,
+                  onTap: isDeleting ? null : () => _confirmDelete(context),
+                ),
+              ],
+            ),
           ),
         ),
       ],
     );
   }
+}
+
+/// Asks first; the request only goes out once the customer confirmed.
+Future<void> _confirmDelete(BuildContext context) async {
+  final cubit = context.read<AccountInfoCubit>();
+  final confirmed = await DeleteAccountDialog.show(context);
+  if (confirmed ?? false) await cubit.deleteAccount();
 }
 
 class _Section extends StatelessWidget {

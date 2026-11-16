@@ -2228,6 +2228,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Updates about your bookings and the places you follow will show up here.'**
   String get notifications_emptyHint;
+
+  /// No description provided for @deleteAccount_action.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete account'**
+  String get deleteAccount_action;
+
+  /// No description provided for @deleteAccount_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your account?'**
+  String get deleteAccount_title;
+
+  /// No description provided for @deleteAccount_body.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes your Coflow account. Your profile, saved places, bookings, purchases and gifts will be gone, and this can\'t be undone.'**
+  String get deleteAccount_body;
+
+  /// No description provided for @deleteAccount_understand.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this can\'t be undone'**
+  String get deleteAccount_understand;
+
+  /// No description provided for @deleteAccount_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteAccount_confirm;
+
+  /// No description provided for @deleteAccount_done.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account was deleted'**
+  String get deleteAccount_done;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -22,6 +22,10 @@ abstract interface class ProfileRepository {
   /// Sets a new password for the signed-in user.
   AsyncTask<void> changePassword(ChangePasswordDto dto);
 
+  /// Permanently deletes the signed-in account, then signs out on this device.
+  /// Nothing is cleared locally unless the server confirmed the deletion.
+  AsyncTask<void> deleteAccount();
+
   /// The nationalities the backend accepts for `POST profile`.
   AsyncTask<List<NationalityEntity>> getNationalities();
 }

@@ -1219,4 +1219,23 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get notifications_emptyHint =>
       'ستظهر هنا التحديثات الخاصة بحجوزاتك والأماكن التي تتابعها.';
+
+  @override
+  String get deleteAccount_action => 'حذف الحساب';
+
+  @override
+  String get deleteAccount_title => 'حذف حسابك؟';
+
+  @override
+  String get deleteAccount_body =>
+      'سيؤدي هذا إلى حذف حسابك على Coflow نهائيًا. ستفقد ملفك الشخصي والأماكن المحفوظة والحجوزات والمشتريات والهدايا، ولا يمكن التراجع عن ذلك.';
+
+  @override
+  String get deleteAccount_understand => 'أفهم أنه لا يمكن التراجع عن ذلك';
+
+  @override
+  String get deleteAccount_confirm => 'حذف';
+
+  @override
+  String get deleteAccount_done => 'تم حذف حسابك';
 }

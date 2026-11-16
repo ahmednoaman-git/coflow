@@ -1203,4 +1203,23 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get notifications_emptyHint =>
       'Updates about your bookings and the places you follow will show up here.';
+
+  @override
+  String get deleteAccount_action => 'Delete account';
+
+  @override
+  String get deleteAccount_title => 'Delete your account?';
+
+  @override
+  String get deleteAccount_body =>
+      'This permanently deletes your Coflow account. Your profile, saved places, bookings, purchases and gifts will be gone, and this can\'t be undone.';
+
+  @override
+  String get deleteAccount_understand => 'I understand that this can\'t be undone';
+
+  @override
+  String get deleteAccount_confirm => 'Delete';
+
+  @override
+  String get deleteAccount_done => 'Your account was deleted';
 }

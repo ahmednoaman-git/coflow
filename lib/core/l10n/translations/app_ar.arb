@@ -413,5 +413,11 @@
   "preferences_pickAtLeastOne": "اختر نشاطًا واحدًا على الأقل للحفظ.",
   "notifications_title": "الإشعارات",
   "notifications_empty": "لا توجد إشعارات بعد",
-  "notifications_emptyHint": "ستظهر هنا التحديثات الخاصة بحجوزاتك والأماكن التي تتابعها."
+  "notifications_emptyHint": "ستظهر هنا التحديثات الخاصة بحجوزاتك والأماكن التي تتابعها.",
+  "deleteAccount_action": "حذف الحساب",
+  "deleteAccount_title": "حذف حسابك؟",
+  "deleteAccount_body": "سيؤدي هذا إلى حذف حسابك على Coflow نهائيًا. ستفقد ملفك الشخصي والأماكن المحفوظة والحجوزات والمشتريات والهدايا، ولا يمكن التراجع عن ذلك.",
+  "deleteAccount_understand": "أفهم أنه لا يمكن التراجع عن ذلك",
+  "deleteAccount_confirm": "حذف",
+  "deleteAccount_done": "تم حذف حسابك"
 }

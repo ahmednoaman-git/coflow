@@ -8,11 +8,15 @@ class AccountManagementAction {
     required this.icon,
     required this.label,
     required this.onTap,
+    this.isDestructive = false,
   });
 
   final IconData icon;
   final String label;
   final VoidCallback? onTap;
+
+  /// Draws the row in the error colour, for actions that can't be undone.
+  final bool isDestructive;
 }
 
 /// The grouped settings card under the Account screen's counters.
@@ -63,6 +67,10 @@ class _ActionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = action.isDestructive
+        ? context.colors.energyCherryPrimary
+        : context.colors.textPrimary;
+
     return TappableScale(
       onTap: action.onTap,
       scaleEnd: 0.98,
@@ -75,11 +83,11 @@ class _ActionRow extends StatelessWidget {
         child: Row(
           spacing: context.spacing.s12,
           children: [
-            Icon(action.icon, size: 24, color: context.colors.textPrimary),
+            Icon(action.icon, size: 24, color: color),
             Expanded(
               child: Text(
                 action.label,
-                style: context.typography.medium16.primary(context),
+                style: context.typography.medium16.withColor(color),
                 maxLines: 1,
                 overflow: .ellipsis,
               ),
@@ -88,7 +96,7 @@ class _ActionRow extends StatelessWidget {
               // Points toward the direction of travel, so it flips in Arabic.
               context.isRTL ? SolarIconsOutline.altArrowLeft : SolarIconsOutline.altArrowRight,
               size: 20,
-              color: context.colors.textPrimary,
+              color: color,
             ),
           ],
         ),

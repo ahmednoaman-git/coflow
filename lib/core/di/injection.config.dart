@@ -26,6 +26,8 @@ import '../../features/account/domain/use_cases/change_password_use_case.dart'
     as _i951;
 import '../../features/account/domain/use_cases/change_profile_image_use_case.dart'
     as _i243;
+import '../../features/account/domain/use_cases/delete_account_use_case.dart'
+    as _i371;
 import '../../features/account/domain/use_cases/get_account_statistics_use_case.dart'
     as _i505;
 import '../../features/account/domain/use_cases/get_nationalities_use_case.dart'
@@ -564,6 +566,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i243.ChangeProfileImageUseCase>(
       () => _i243.ChangeProfileImageUseCase(gh<_i320.ProfileRepository>()),
     );
+    gh.lazySingleton<_i371.DeleteAccountUseCase>(
+      () => _i371.DeleteAccountUseCase(gh<_i320.ProfileRepository>()),
+    );
     gh.lazySingleton<_i505.GetAccountStatisticsUseCase>(
       () => _i505.GetAccountStatisticsUseCase(gh<_i320.ProfileRepository>()),
     );
@@ -664,6 +669,15 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i877.GetProfileUseCase>(),
         gh<_i106.LogoutUseCase>(),
         gh<_i877.GetAccountStatisticsUseCase>(),
+      ),
+    );
+    gh.factory<_i679.AccountInfoCubit>(
+      () => _i679.AccountInfoCubit(
+        gh<_i808.UpdateProfileUseCase>(),
+        gh<_i808.ChangeProfileImageUseCase>(),
+        gh<_i808.ChangePasswordUseCase>(),
+        gh<_i808.GetNationalitiesUseCase>(),
+        gh<_i808.DeleteAccountUseCase>(),
       ),
     );
     gh.lazySingleton<_i139.GetActivityPreferencesUseCase>(
@@ -780,14 +794,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i692.GetPurchaseQuoteUseCase>(),
         gh<_i692.SubmitPurchaseUseCase>(),
         args,
-      ),
-    );
-    gh.factory<_i679.AccountInfoCubit>(
-      () => _i679.AccountInfoCubit(
-        gh<_i808.UpdateProfileUseCase>(),
-        gh<_i808.ChangeProfileImageUseCase>(),
-        gh<_i808.ChangePasswordUseCase>(),
-        gh<_i808.GetNationalitiesUseCase>(),
       ),
     );
     gh.factoryParam<
