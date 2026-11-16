@@ -1110,4 +1110,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get accountInfo_noNationalitiesFound => 'لا توجد جنسيات مطابقة';
+
+  @override
+  String get appFaq_subtitle => 'إجابات على أكثر الأسئلة التي يطرحها علينا العملاء.';
+
+  @override
+  String get appFaq_empty => 'لا توجد أسئلة بعد';
+
+  @override
+  String get appFaq_emptyHint => 'لم تجد ما تبحث عنه؟ أرسل لنا طلب دعم.';
+
+  @override
+  String get legal_empty => 'هذا المستند غير متاح بعد';
 }

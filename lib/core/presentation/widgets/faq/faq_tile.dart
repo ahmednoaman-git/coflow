@@ -2,8 +2,6 @@ import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:solar_icons/solar_icons.dart';
 
-import '../../../domain/entities/entities.dart';
-
 /// One question in the FAQ list, collapsed to its question until tapped.
 ///
 /// The chevron rotates and the answer grows in place, so the list keeps its
@@ -11,13 +9,15 @@ import '../../../domain/entities/entities.dart';
 class FaqTile extends StatelessWidget {
   const FaqTile({
     super.key,
-    required this.faq,
+    required this.question,
+    required this.answer,
     required this.isExpanded,
     required this.accentColor,
     required this.onTap,
   });
 
-  final FacilityFaqEntity faq;
+  final String question;
+  final String answer;
   final bool isExpanded;
   final Color accentColor;
   final VoidCallback onTap;
@@ -53,7 +53,7 @@ class FaqTile extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    faq.question,
+                    question,
                     style: context.typography.medium14.primary(context),
                   ),
                 ),
@@ -82,7 +82,7 @@ class FaqTile extends StatelessWidget {
                         children: [
                           Divider(height: 1, thickness: 1, color: context.colors.strokePrimary),
                           Text(
-                            faq.answer,
+                            answer,
                             style: context.typography.book13
                                 .secondary(context)
                                 .copyWith(height: 1.5),

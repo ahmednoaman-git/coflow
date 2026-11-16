@@ -379,5 +379,9 @@
   "accountInfo_fieldRequired": "هذا الحقل مطلوب",
   "accountInfo_invalidEmail": "أدخل بريدًا إلكترونيًا صحيحًا",
   "accountInfo_searchNationality": "ابحث عن الجنسية...",
-  "accountInfo_noNationalitiesFound": "لا توجد جنسيات مطابقة"
+  "accountInfo_noNationalitiesFound": "لا توجد جنسيات مطابقة",
+  "appFaq_subtitle": "إجابات على أكثر الأسئلة التي يطرحها علينا العملاء.",
+  "appFaq_empty": "لا توجد أسئلة بعد",
+  "appFaq_emptyHint": "لم تجد ما تبحث عنه؟ أرسل لنا طلب دعم.",
+  "legal_empty": "هذا المستند غير متاح بعد"
 }

@@ -2024,6 +2024,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No nationalities found'**
   String get accountInfo_noNationalitiesFound;
+
+  /// No description provided for @appFaq_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Answers to the questions customers ask us most.'**
+  String get appFaq_subtitle;
+
+  /// No description provided for @appFaq_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No questions yet'**
+  String get appFaq_empty;
+
+  /// No description provided for @appFaq_emptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t find what you need? Send us a support request.'**
+  String get appFaq_emptyHint;
+
+  /// No description provided for @legal_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'This document isn\'t available yet'**
+  String get legal_empty;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

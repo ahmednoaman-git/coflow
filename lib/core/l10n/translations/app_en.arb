@@ -493,5 +493,9 @@
   "accountInfo_fieldRequired": "This field is required",
   "accountInfo_invalidEmail": "Enter a valid email address",
   "accountInfo_searchNationality": "Search nationality...",
-  "accountInfo_noNationalitiesFound": "No nationalities found"
+  "accountInfo_noNationalitiesFound": "No nationalities found",
+  "appFaq_subtitle": "Answers to the questions customers ask us most.",
+  "appFaq_empty": "No questions yet",
+  "appFaq_emptyHint": "Can't find what you need? Send us a support request.",
+  "legal_empty": "This document isn't available yet"
 }

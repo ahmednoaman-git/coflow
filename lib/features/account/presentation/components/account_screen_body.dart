@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
+import 'package:coflow_users_v2/features/app_info/presentation/legal_document_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solar_icons/solar_icons.dart';
@@ -91,20 +92,18 @@ class _ManagementSection extends StatelessWidget {
           AccountManagementAction(
             icon: SolarIconsOutline.questionCircle,
             label: l10n.account_faqs,
-            // TODO: Navigate to FAQs
-            onTap: null,
+            onTap: () => context.router.push(const AppFaqRoute()),
           ),
           AccountManagementAction(
             icon: SolarIconsOutline.infoCircle,
             label: l10n.account_termsAndConditions,
-            // TODO: Navigate to terms & conditions
-            onTap: null,
+            onTap: () => context.router.push(LegalDocumentRoute(document: LegalDocument.terms)),
           ),
           AccountManagementAction(
             icon: SolarIconsOutline.documentText,
             label: l10n.account_privacyPolicy,
-            // TODO: Navigate to privacy policy
-            onTap: null,
+            onTap: () =>
+                context.router.push(LegalDocumentRoute(document: LegalDocument.privacyPolicy)),
           ),
           AccountManagementAction(
             icon: SolarIconsOutline.power,

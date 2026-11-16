@@ -5,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../domain/entities/entities.dart';
 import '../../cubit/cubit.dart';
 import 'faq_empty_state.dart';
-import 'faq_skeleton.dart';
-import 'faq_tile.dart';
 
 /// Body of the FAQ screen: a short lead-in, then the questions.
 class FaqScreenBody extends StatelessWidget {
@@ -57,7 +55,8 @@ class FaqScreenBody extends StatelessWidget {
                             children: [
                               for (final faq in faqs)
                                 FaqTile(
-                                  faq: faq,
+                                  question: faq.question,
+                                  answer: faq.answer,
                                   isExpanded: state.expandedIds.contains(faq.id),
                                   accentColor: accentColor,
                                   onTap: () => cubit.toggleExpanded(faq.id),

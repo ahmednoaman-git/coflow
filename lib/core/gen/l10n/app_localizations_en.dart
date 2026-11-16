@@ -1092,4 +1092,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountInfo_noNationalitiesFound => 'No nationalities found';
+
+  @override
+  String get appFaq_subtitle => 'Answers to the questions customers ask us most.';
+
+  @override
+  String get appFaq_empty => 'No questions yet';
+
+  @override
+  String get appFaq_emptyHint => 'Can\'t find what you need? Send us a support request.';
+
+  @override
+  String get legal_empty => 'This document isn\'t available yet';
 }

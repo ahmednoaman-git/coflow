@@ -55,6 +55,20 @@ import '../../features/activity_line/domain/use_cases/get_facilities_use_case.da
 import '../../features/activity_line/domain/use_cases/use_cases.dart' as _i601;
 import '../../features/activity_line/presentation/cubit/activity_line_facilities_cubit.dart'
     as _i803;
+import '../../features/app_info/data/datasources/app_info_remote_data_source.dart'
+    as _i685;
+import '../../features/app_info/data/datasources/datasources.dart' as _i157;
+import '../../features/app_info/data/repositories/app_info_repository_impl.dart'
+    as _i243;
+import '../../features/app_info/domain/repositories/repositories.dart' as _i741;
+import '../../features/app_info/domain/use_cases/get_app_faqs_use_case.dart'
+    as _i99;
+import '../../features/app_info/domain/use_cases/get_app_info_use_case.dart'
+    as _i596;
+import '../../features/app_info/domain/use_cases/use_cases.dart' as _i680;
+import '../../features/app_info/presentation/cubit/app_faq_cubit.dart' as _i66;
+import '../../features/app_info/presentation/cubit/app_info_cubit.dart'
+    as _i884;
 import '../../features/authentication/data/datasources/auth_remote_datasource.dart'
     as _i14;
 import '../../features/authentication/data/datasources/datasources.dart'
@@ -322,6 +336,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i198.ActivityLineRemoteDataSource>(
       () => _i198.ActivityLineRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i685.AppInfoRemoteDataSource>(
+      () => _i685.AppInfoRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i14.AuthRemoteDataSource>(
       () => _i14.AuthRemoteDataSource(gh<_i351.DioClient>()),
     );
@@ -426,6 +443,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i351.DioClient>(),
         gh<_i163.FacilityCalendarRemoteDataSource>(),
       ),
+    );
+    gh.lazySingleton<_i741.AppInfoRepository>(
+      () => _i243.AppInfoRepositoryImpl(gh<_i157.AppInfoRemoteDataSource>()),
     );
     gh.lazySingleton<_i963.CancelUserPurchaseUseCase>(
       () =>
@@ -533,6 +553,12 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i365.UpdateSessionReservationUseCase(gh<_i181.FacilityRepository>()),
     );
+    gh.lazySingleton<_i99.GetAppFaqsUseCase>(
+      () => _i99.GetAppFaqsUseCase(gh<_i741.AppInfoRepository>()),
+    );
+    gh.lazySingleton<_i596.GetAppInfoUseCase>(
+      () => _i596.GetAppInfoUseCase(gh<_i741.AppInfoRepository>()),
+    );
     gh.factoryParam<
       _i322.FacilityScheduleCubit,
       int,
@@ -589,6 +615,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i686.SearchInstructorsUseCase>(),
         gh<_i686.SearchServicesUseCase>(),
       ),
+    );
+    gh.factory<_i884.AppInfoCubit>(
+      () => _i884.AppInfoCubit(gh<_i680.GetAppInfoUseCase>()),
     );
     gh.factoryParam<
       _i157.UserPurchaseDetailsCubit,
@@ -686,6 +715,9 @@ extension GetItInjectableX on _i174.GetIt {
         facility,
         isPreview,
       ),
+    );
+    gh.factory<_i66.AppFaqCubit>(
+      () => _i66.AppFaqCubit(gh<_i680.GetAppFaqsUseCase>()),
     );
     gh.factory<_i529.SavedProfilesCubit>(
       () => _i529.SavedProfilesCubit(
