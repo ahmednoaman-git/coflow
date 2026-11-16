@@ -26,6 +26,8 @@ import '../../features/account/domain/use_cases/change_password_use_case.dart'
     as _i951;
 import '../../features/account/domain/use_cases/change_profile_image_use_case.dart'
     as _i243;
+import '../../features/account/domain/use_cases/delete_account_use_case.dart'
+    as _i371;
 import '../../features/account/domain/use_cases/get_account_statistics_use_case.dart'
     as _i505;
 import '../../features/account/domain/use_cases/get_nationalities_use_case.dart'
@@ -55,6 +57,36 @@ import '../../features/activity_line/domain/use_cases/get_facilities_use_case.da
 import '../../features/activity_line/domain/use_cases/use_cases.dart' as _i601;
 import '../../features/activity_line/presentation/cubit/activity_line_facilities_cubit.dart'
     as _i803;
+import '../../features/activity_preferences/data/datasources/activity_preferences_remote_data_source.dart'
+    as _i649;
+import '../../features/activity_preferences/data/datasources/datasources.dart'
+    as _i96;
+import '../../features/activity_preferences/data/repositories/activity_preferences_repository_impl.dart'
+    as _i281;
+import '../../features/activity_preferences/domain/repositories/repositories.dart'
+    as _i320;
+import '../../features/activity_preferences/domain/use_cases/get_activity_preferences_use_case.dart'
+    as _i139;
+import '../../features/activity_preferences/domain/use_cases/save_activity_preferences_use_case.dart'
+    as _i771;
+import '../../features/activity_preferences/domain/use_cases/use_cases.dart'
+    as _i227;
+import '../../features/activity_preferences/presentation/cubit/activity_preferences_cubit.dart'
+    as _i341;
+import '../../features/app_info/data/datasources/app_info_remote_data_source.dart'
+    as _i685;
+import '../../features/app_info/data/datasources/datasources.dart' as _i157;
+import '../../features/app_info/data/repositories/app_info_repository_impl.dart'
+    as _i243;
+import '../../features/app_info/domain/repositories/repositories.dart' as _i741;
+import '../../features/app_info/domain/use_cases/get_app_faqs_use_case.dart'
+    as _i99;
+import '../../features/app_info/domain/use_cases/get_app_info_use_case.dart'
+    as _i596;
+import '../../features/app_info/domain/use_cases/use_cases.dart' as _i680;
+import '../../features/app_info/presentation/cubit/app_faq_cubit.dart' as _i66;
+import '../../features/app_info/presentation/cubit/app_info_cubit.dart'
+    as _i884;
 import '../../features/authentication/data/datasources/auth_remote_datasource.dart'
     as _i14;
 import '../../features/authentication/data/datasources/datasources.dart'
@@ -191,6 +223,25 @@ import '../../features/my_purchases/presentation/cubit/user_purchase_details_cub
     as _i157;
 import '../../features/my_purchases/presentation/cubit/user_purchases_cubit.dart'
     as _i282;
+import '../../features/notifications/data/datasources/datasources.dart'
+    as _i179;
+import '../../features/notifications/data/datasources/notifications_local_data_source.dart'
+    as _i1034;
+import '../../features/notifications/data/datasources/notifications_remote_data_source.dart'
+    as _i951;
+import '../../features/notifications/data/repositories/notifications_repository_impl.dart'
+    as _i201;
+import '../../features/notifications/domain/repositories/repositories.dart'
+    as _i54;
+import '../../features/notifications/domain/use_cases/get_notifications_use_case.dart'
+    as _i139;
+import '../../features/notifications/domain/use_cases/has_unseen_notifications_use_case.dart'
+    as _i752;
+import '../../features/notifications/domain/use_cases/mark_notifications_seen_use_case.dart'
+    as _i603;
+import '../../features/notifications/domain/use_cases/use_cases.dart' as _i838;
+import '../../features/notifications/presentation/cubit/notifications_cubit.dart'
+    as _i405;
 import '../../features/purchase/data/datasources/datasources.dart' as _i857;
 import '../../features/purchase/data/datasources/purchase_remote_data_source.dart'
     as _i377;
@@ -242,6 +293,19 @@ import '../../features/search/domain/use_cases/search_services_use_case.dart'
     as _i397;
 import '../../features/search/presentation/cubit/search_cubit.dart' as _i341;
 import '../../features/splash/presentation/state/splash_cubit.dart' as _i315;
+import '../../features/support/data/datasources/datasources.dart' as _i598;
+import '../../features/support/data/datasources/support_remote_data_source.dart'
+    as _i464;
+import '../../features/support/data/repositories/support_repository_impl.dart'
+    as _i387;
+import '../../features/support/domain/repositories/repositories.dart' as _i678;
+import '../../features/support/domain/use_cases/create_support_request_use_case.dart'
+    as _i802;
+import '../../features/support/domain/use_cases/get_support_requests_use_case.dart'
+    as _i471;
+import '../../features/support/domain/use_cases/use_cases.dart' as _i866;
+import '../../features/support/presentation/cubit/support_requests_cubit.dart'
+    as _i41;
 import '../caching/cache_client.dart' as _i1035;
 import '../core.dart' as _i351;
 import '../data/auth/auth_state_manager.dart' as _i224;
@@ -322,6 +386,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i198.ActivityLineRemoteDataSource>(
       () => _i198.ActivityLineRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i649.ActivityPreferencesRemoteDataSource>(
+      () => _i649.ActivityPreferencesRemoteDataSource(gh<_i351.DioClient>()),
+    );
+    gh.lazySingleton<_i685.AppInfoRemoteDataSource>(
+      () => _i685.AppInfoRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i14.AuthRemoteDataSource>(
       () => _i14.AuthRemoteDataSource(gh<_i351.DioClient>()),
     );
@@ -334,6 +404,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i754.UserPurchasesRemoteDataSource>(
       () => _i754.UserPurchasesRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i951.NotificationsRemoteDataSource>(
+      () => _i951.NotificationsRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i377.PurchaseRemoteDataSource>(
       () => _i377.PurchaseRemoteDataSource(gh<_i351.DioClient>()),
     );
@@ -342,6 +415,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i280.SearchRemoteDataSource>(
       () => _i280.SearchRemoteDataSource(gh<_i351.DioClient>()),
+    );
+    gh.lazySingleton<_i464.SupportRemoteDataSource>(
+      () => _i464.SupportRemoteDataSource(gh<_i351.DioClient>()),
     );
     gh.lazySingleton<_i179.SavedProfilesRepository>(
       () => _i347.SavedProfilesRepositoryImpl(
@@ -379,8 +455,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i657.GetSavedProfilesUseCase>(
       () => _i657.GetSavedProfilesUseCase(gh<_i179.SavedProfilesRepository>()),
     );
+    gh.lazySingleton<_i678.SupportRepository>(
+      () => _i387.SupportRepositoryImpl(gh<_i598.SupportRemoteDataSource>()),
+    );
     gh.lazySingleton<_i191.GetFacilitiesUseCase>(
       () => _i191.GetFacilitiesUseCase(gh<_i196.ActivityLineRepository>()),
+    );
+    gh.lazySingleton<_i802.CreateSupportRequestUseCase>(
+      () => _i802.CreateSupportRequestUseCase(gh<_i678.SupportRepository>()),
+    );
+    gh.lazySingleton<_i471.GetSupportRequestsUseCase>(
+      () => _i471.GetSupportRequestsUseCase(gh<_i678.SupportRepository>()),
     );
     gh.lazySingleton<_i146.LoginUseCase>(
       () => _i146.LoginUseCase(gh<_i625.AuthenticationRepository>()),
@@ -409,6 +494,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i692.PurchaseRepository>(
       () => _i254.PurchaseRepositoryImpl(gh<_i857.PurchaseRemoteDataSource>()),
     );
+    gh.lazySingleton<_i320.ActivityPreferencesRepository>(
+      () => _i281.ActivityPreferencesRepositoryImpl(
+        gh<_i96.ActivityPreferencesRemoteDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i1034.NotificationsLocalDataSource>(
+      () => _i1034.NotificationsLocalDataSource(
+        gh<_i351.CacheClient>(),
+        gh<_i351.AuthStateManager>(),
+      ),
+    );
     gh.lazySingleton<_i463.CouponRepository>(
       () => _i298.CouponRepositoryImpl(gh<_i857.PurchaseRemoteDataSource>()),
     );
@@ -421,11 +517,19 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i163.FacilityCalendarRemoteDataSource>(),
       ),
     );
+    gh.lazySingleton<_i771.SaveActivityPreferencesUseCase>(
+      () => _i771.SaveActivityPreferencesUseCase(
+        gh<_i320.ActivityPreferencesRepository>(),
+      ),
+    );
     gh.lazySingleton<_i466.ReservationRemoteDataSource>(
       () => _i466.ReservationRemoteDataSource(
         gh<_i351.DioClient>(),
         gh<_i163.FacilityCalendarRemoteDataSource>(),
       ),
+    );
+    gh.lazySingleton<_i741.AppInfoRepository>(
+      () => _i243.AppInfoRepositoryImpl(gh<_i157.AppInfoRemoteDataSource>()),
     );
     gh.lazySingleton<_i963.CancelUserPurchaseUseCase>(
       () =>
@@ -461,6 +565,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i243.ChangeProfileImageUseCase>(
       () => _i243.ChangeProfileImageUseCase(gh<_i320.ProfileRepository>()),
+    );
+    gh.lazySingleton<_i371.DeleteAccountUseCase>(
+      () => _i371.DeleteAccountUseCase(gh<_i320.ProfileRepository>()),
     );
     gh.lazySingleton<_i505.GetAccountStatisticsUseCase>(
       () => _i505.GetAccountStatisticsUseCase(gh<_i320.ProfileRepository>()),
@@ -533,6 +640,18 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i365.UpdateSessionReservationUseCase(gh<_i181.FacilityRepository>()),
     );
+    gh.factory<_i41.SupportRequestsCubit>(
+      () => _i41.SupportRequestsCubit(
+        gh<_i866.GetSupportRequestsUseCase>(),
+        gh<_i866.CreateSupportRequestUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i99.GetAppFaqsUseCase>(
+      () => _i99.GetAppFaqsUseCase(gh<_i741.AppInfoRepository>()),
+    );
+    gh.lazySingleton<_i596.GetAppInfoUseCase>(
+      () => _i596.GetAppInfoUseCase(gh<_i741.AppInfoRepository>()),
+    );
     gh.factoryParam<
       _i322.FacilityScheduleCubit,
       int,
@@ -550,6 +669,27 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i877.GetProfileUseCase>(),
         gh<_i106.LogoutUseCase>(),
         gh<_i877.GetAccountStatisticsUseCase>(),
+      ),
+    );
+    gh.factory<_i679.AccountInfoCubit>(
+      () => _i679.AccountInfoCubit(
+        gh<_i808.UpdateProfileUseCase>(),
+        gh<_i808.ChangeProfileImageUseCase>(),
+        gh<_i808.ChangePasswordUseCase>(),
+        gh<_i808.GetNationalitiesUseCase>(),
+        gh<_i808.DeleteAccountUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i139.GetActivityPreferencesUseCase>(
+      () => _i139.GetActivityPreferencesUseCase(
+        gh<_i320.ActivityPreferencesRepository>(),
+        gh<_i877.GetProfileUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i54.NotificationsRepository>(
+      () => _i201.NotificationsRepositoryImpl(
+        gh<_i179.NotificationsRemoteDataSource>(),
+        gh<_i179.NotificationsLocalDataSource>(),
       ),
     );
     gh.lazySingleton<_i291.GetPurchaseCouponsUseCase>(
@@ -589,6 +729,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i686.SearchInstructorsUseCase>(),
         gh<_i686.SearchServicesUseCase>(),
       ),
+    );
+    gh.factory<_i884.AppInfoCubit>(
+      () => _i884.AppInfoCubit(gh<_i680.GetAppInfoUseCase>()),
     );
     gh.factoryParam<
       _i157.UserPurchaseDetailsCubit,
@@ -653,14 +796,6 @@ extension GetItInjectableX on _i174.GetIt {
         args,
       ),
     );
-    gh.factory<_i679.AccountInfoCubit>(
-      () => _i679.AccountInfoCubit(
-        gh<_i808.UpdateProfileUseCase>(),
-        gh<_i808.ChangeProfileImageUseCase>(),
-        gh<_i808.ChangePasswordUseCase>(),
-        gh<_i808.GetNationalitiesUseCase>(),
-      ),
-    );
     gh.factoryParam<
       _i282.UserPurchasesCubit,
       _i721.UserPurchaseCategory,
@@ -687,6 +822,9 @@ extension GetItInjectableX on _i174.GetIt {
         isPreview,
       ),
     );
+    gh.factory<_i66.AppFaqCubit>(
+      () => _i66.AppFaqCubit(gh<_i680.GetAppFaqsUseCase>()),
+    );
     gh.factory<_i529.SavedProfilesCubit>(
       () => _i529.SavedProfilesCubit(
         gh<_i551.GetSavedProfilesUseCase>(),
@@ -711,6 +849,25 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i551.WithdrawReservationUseCase>(
       () => _i551.WithdrawReservationUseCase(gh<_i176.ReservationRepository>()),
     );
+    gh.factory<_i341.ActivityPreferencesCubit>(
+      () => _i341.ActivityPreferencesCubit(
+        gh<_i227.GetActivityPreferencesUseCase>(),
+        gh<_i227.SaveActivityPreferencesUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i139.GetNotificationsUseCase>(
+      () => _i139.GetNotificationsUseCase(gh<_i54.NotificationsRepository>()),
+    );
+    gh.lazySingleton<_i752.HasUnseenNotificationsUseCase>(
+      () => _i752.HasUnseenNotificationsUseCase(
+        gh<_i54.NotificationsRepository>(),
+      ),
+    );
+    gh.lazySingleton<_i603.MarkNotificationsSeenUseCase>(
+      () => _i603.MarkNotificationsSeenUseCase(
+        gh<_i54.NotificationsRepository>(),
+      ),
+    );
     gh.factory<_i9.HomeCubit>(
       () => _i9.HomeCubit(
         gh<_i261.GetHomeUseCase>(),
@@ -719,6 +876,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i131.CalendarCubit>(
       () => _i131.CalendarCubit(gh<_i631.GetReservationsUseCase>()),
+    );
+    gh.factory<_i405.NotificationsCubit>(
+      () => _i405.NotificationsCubit(
+        gh<_i838.GetNotificationsUseCase>(),
+        gh<_i838.MarkNotificationsSeenUseCase>(),
+      ),
     );
     gh.factoryParam<
       _i396.ReservationDetailsCubit,
@@ -729,6 +892,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i631.GetReservationDetailsUseCase>(),
         gh<_i631.WithdrawReservationUseCase>(),
         reservation,
+      ),
+    );
+    gh.factory<_i405.NotificationsBadgeCubit>(
+      () => _i405.NotificationsBadgeCubit(
+        gh<_i838.HasUnseenNotificationsUseCase>(),
       ),
     );
     return this;

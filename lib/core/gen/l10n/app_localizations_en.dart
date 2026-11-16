@@ -1092,4 +1092,134 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountInfo_noNationalitiesFound => 'No nationalities found';
+
+  @override
+  String get appFaq_subtitle => 'Answers to the questions customers ask us most.';
+
+  @override
+  String get appFaq_empty => 'No questions yet';
+
+  @override
+  String get appFaq_emptyHint => 'Can\'t find what you need? Send us a support request.';
+
+  @override
+  String get legal_empty => 'This document isn\'t available yet';
+
+  @override
+  String support_requestTitle(int id) {
+    return 'Request #$id';
+  }
+
+  @override
+  String get support_statusNew => 'New';
+
+  @override
+  String get support_statusPending => 'Pending';
+
+  @override
+  String get support_statusResolved => 'Resolved';
+
+  @override
+  String get support_issue => 'Issue';
+
+  @override
+  String get support_image => 'Image';
+
+  @override
+  String get support_adminNote => 'Admin Note';
+
+  @override
+  String get support_noReplyYet => 'No reply yet. We\'ll get back to you soon.';
+
+  @override
+  String get support_empty => 'No support requests yet';
+
+  @override
+  String get support_emptyHint =>
+      'If something doesn\'t look right, let us know and we\'ll look into it.';
+
+  @override
+  String get support_newRequest => 'Support Request';
+
+  @override
+  String get support_createTitle => 'Something doesn\'t look right?';
+
+  @override
+  String get support_createSubtitle => 'Let us know & we\'ll look into it right away!';
+
+  @override
+  String get support_issueHint => 'Issue Description';
+
+  @override
+  String get support_issueRequired => 'Describe the issue';
+
+  @override
+  String support_issueTooShort(int count) {
+    return 'Add a little more detail (at least $count characters)';
+  }
+
+  @override
+  String get support_uploadImage => 'Upload Image';
+
+  @override
+  String get support_optional => 'Optional';
+
+  @override
+  String get support_submit => 'Submit Request';
+
+  @override
+  String get support_created => 'Your request was sent';
+
+  @override
+  String get preferences_title => 'Preferences';
+
+  @override
+  String get preferences_subtitle =>
+      'Pick the activities you\'re into, and we\'ll use them to tailor what you see.';
+
+  @override
+  String preferences_pickedCount(int count) {
+    return '$count picked';
+  }
+
+  @override
+  String get preferences_empty => 'No activities to pick from yet';
+
+  @override
+  String get preferences_save => 'Save';
+
+  @override
+  String get preferences_saved => 'Your preferences were saved';
+
+  @override
+  String get preferences_pickAtLeastOne => 'Pick at least one activity to save.';
+
+  @override
+  String get notifications_title => 'Notifications';
+
+  @override
+  String get notifications_empty => 'No notifications yet';
+
+  @override
+  String get notifications_emptyHint =>
+      'Updates about your bookings and the places you follow will show up here.';
+
+  @override
+  String get deleteAccount_action => 'Delete account';
+
+  @override
+  String get deleteAccount_title => 'Delete your account?';
+
+  @override
+  String get deleteAccount_body =>
+      'This permanently deletes your Coflow account. Your profile, saved places, bookings, purchases and gifts will be gone, and this can\'t be undone.';
+
+  @override
+  String get deleteAccount_understand => 'I understand that this can\'t be undone';
+
+  @override
+  String get deleteAccount_confirm => 'Delete';
+
+  @override
+  String get deleteAccount_done => 'Your account was deleted';
 }

@@ -13,6 +13,9 @@ abstract final class ProfileEndpoints {
   static const String changePassword = 'change-password';
   static const String accountStatistics = 'account-statistics';
   static const String nationalities = 'nationalities';
+
+  /// DELETE: permanently deletes the signed-in account.
+  static const String deleteAccount = 'delete-account';
 }
 
 /// Remote data source for the signed-in user's profile.
@@ -60,6 +63,12 @@ class ProfileRemoteDataSource {
   AsyncTask<void> changePassword(ChangePasswordDto dto) {
     return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
       await _dio.post(ProfileEndpoints.changePassword, data: dto.toJson());
+    });
+  }
+
+  AsyncTask<void> deleteAccount() {
+    return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
+      await _dio.delete(ProfileEndpoints.deleteAccount);
     });
   }
 

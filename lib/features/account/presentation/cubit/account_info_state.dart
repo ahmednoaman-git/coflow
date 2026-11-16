@@ -13,5 +13,6 @@ abstract class AccountInfoState with _$AccountInfoState {
     @Default(AsyncState.idle()) AsyncState<ProfileEntity> imageRequest,
     @Default(AsyncState.idle()) AsyncState<void> passwordRequest,
     @Default(AsyncState.idle()) AsyncState<List<NationalityEntity>> nationalitiesRequest,
+    @Default(AsyncState.idle()) AsyncState<void> deleteRequest,
   }) = _AccountInfoState;
 }

@@ -14,7 +14,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProfileEntity {
 
- UserEntity get user;
+ UserEntity get user;/// Ids of the activity tags the user picked under Activity Preferences.
+ List<int> get preferredTagIds;
 /// Create a copy of ProfileEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +26,16 @@ $ProfileEntityCopyWith<ProfileEntity> get copyWith => _$ProfileEntityCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileEntity&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfileEntity&&(identical(other.user, user) || other.user == user)&&const DeepCollectionEquality().equals(other.preferredTagIds, preferredTagIds));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,user);
+int get hashCode => Object.hash(runtimeType,user,const DeepCollectionEquality().hash(preferredTagIds));
 
 @override
 String toString() {
-  return 'ProfileEntity(user: $user)';
+  return 'ProfileEntity(user: $user, preferredTagIds: $preferredTagIds)';
 }
 
 
@@ -45,7 +46,7 @@ abstract mixin class $ProfileEntityCopyWith<$Res>  {
   factory $ProfileEntityCopyWith(ProfileEntity value, $Res Function(ProfileEntity) _then) = _$ProfileEntityCopyWithImpl;
 @useResult
 $Res call({
- UserEntity user
+ UserEntity user, List<int> preferredTagIds
 });
 
 
@@ -62,10 +63,11 @@ class _$ProfileEntityCopyWithImpl<$Res>
 
 /// Create a copy of ProfileEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? user = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? user = null,Object? preferredTagIds = null,}) {
   return _then(_self.copyWith(
 user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as UserEntity,
+as UserEntity,preferredTagIds: null == preferredTagIds ? _self.preferredTagIds : preferredTagIds // ignore: cast_nullable_to_non_nullable
+as List<int>,
   ));
 }
 /// Create a copy of ProfileEntity
@@ -159,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( UserEntity user)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( UserEntity user,  List<int> preferredTagIds)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProfileEntity() when $default != null:
-return $default(_that.user);case _:
+return $default(_that.user,_that.preferredTagIds);case _:
   return orElse();
 
 }
@@ -180,10 +182,10 @@ return $default(_that.user);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( UserEntity user)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( UserEntity user,  List<int> preferredTagIds)  $default,) {final _that = this;
 switch (_that) {
 case _ProfileEntity():
-return $default(_that.user);case _:
+return $default(_that.user,_that.preferredTagIds);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +202,10 @@ return $default(_that.user);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( UserEntity user)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( UserEntity user,  List<int> preferredTagIds)?  $default,) {final _that = this;
 switch (_that) {
 case _ProfileEntity() when $default != null:
-return $default(_that.user);case _:
+return $default(_that.user,_that.preferredTagIds);case _:
   return null;
 
 }
@@ -215,10 +217,19 @@ return $default(_that.user);case _:
 
 
 class _ProfileEntity implements ProfileEntity {
-  const _ProfileEntity({required this.user});
+  const _ProfileEntity({required this.user, final  List<int> preferredTagIds = const <int>[]}): _preferredTagIds = preferredTagIds;
   
 
 @override final  UserEntity user;
+/// Ids of the activity tags the user picked under Activity Preferences.
+ final  List<int> _preferredTagIds;
+/// Ids of the activity tags the user picked under Activity Preferences.
+@override@JsonKey() List<int> get preferredTagIds {
+  if (_preferredTagIds is EqualUnmodifiableListView) return _preferredTagIds;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_preferredTagIds);
+}
+
 
 /// Create a copy of ProfileEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -230,16 +241,16 @@ _$ProfileEntityCopyWith<_ProfileEntity> get copyWith => __$ProfileEntityCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileEntity&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfileEntity&&(identical(other.user, user) || other.user == user)&&const DeepCollectionEquality().equals(other._preferredTagIds, _preferredTagIds));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,user);
+int get hashCode => Object.hash(runtimeType,user,const DeepCollectionEquality().hash(_preferredTagIds));
 
 @override
 String toString() {
-  return 'ProfileEntity(user: $user)';
+  return 'ProfileEntity(user: $user, preferredTagIds: $preferredTagIds)';
 }
 
 
@@ -250,7 +261,7 @@ abstract mixin class _$ProfileEntityCopyWith<$Res> implements $ProfileEntityCopy
   factory _$ProfileEntityCopyWith(_ProfileEntity value, $Res Function(_ProfileEntity) _then) = __$ProfileEntityCopyWithImpl;
 @override @useResult
 $Res call({
- UserEntity user
+ UserEntity user, List<int> preferredTagIds
 });
 
 
@@ -267,10 +278,11 @@ class __$ProfileEntityCopyWithImpl<$Res>
 
 /// Create a copy of ProfileEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? user = null,Object? preferredTagIds = null,}) {
   return _then(_ProfileEntity(
 user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as UserEntity,
+as UserEntity,preferredTagIds: null == preferredTagIds ? _self._preferredTagIds : preferredTagIds // ignore: cast_nullable_to_non_nullable
+as List<int>,
   ));
 }
 

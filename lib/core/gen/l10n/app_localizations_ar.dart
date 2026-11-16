@@ -1110,4 +1110,132 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get accountInfo_noNationalitiesFound => 'لا توجد جنسيات مطابقة';
+
+  @override
+  String get appFaq_subtitle => 'إجابات على أكثر الأسئلة التي يطرحها علينا العملاء.';
+
+  @override
+  String get appFaq_empty => 'لا توجد أسئلة بعد';
+
+  @override
+  String get appFaq_emptyHint => 'لم تجد ما تبحث عنه؟ أرسل لنا طلب دعم.';
+
+  @override
+  String get legal_empty => 'هذا المستند غير متاح بعد';
+
+  @override
+  String support_requestTitle(int id) {
+    return 'طلب رقم $id';
+  }
+
+  @override
+  String get support_statusNew => 'جديد';
+
+  @override
+  String get support_statusPending => 'قيد المراجعة';
+
+  @override
+  String get support_statusResolved => 'تم الحل';
+
+  @override
+  String get support_issue => 'المشكلة';
+
+  @override
+  String get support_image => 'الصورة';
+
+  @override
+  String get support_adminNote => 'ملاحظة الإدارة';
+
+  @override
+  String get support_noReplyYet => 'لا يوجد رد بعد. سنتواصل معك قريبًا.';
+
+  @override
+  String get support_empty => 'لا توجد طلبات دعم بعد';
+
+  @override
+  String get support_emptyHint => 'إذا لاحظت أي خطأ، أخبرنا وسنتابعه.';
+
+  @override
+  String get support_newRequest => 'طلب دعم';
+
+  @override
+  String get support_createTitle => 'هل هناك شيء غير صحيح؟';
+
+  @override
+  String get support_createSubtitle => 'أخبرنا وسنتابعه على الفور!';
+
+  @override
+  String get support_issueHint => 'وصف المشكلة';
+
+  @override
+  String get support_issueRequired => 'صف المشكلة';
+
+  @override
+  String support_issueTooShort(int count) {
+    return 'أضف مزيدًا من التفاصيل (على الأقل $count أحرف)';
+  }
+
+  @override
+  String get support_uploadImage => 'رفع صورة';
+
+  @override
+  String get support_optional => 'اختياري';
+
+  @override
+  String get support_submit => 'إرسال الطلب';
+
+  @override
+  String get support_created => 'تم إرسال طلبك';
+
+  @override
+  String get preferences_title => 'التفضيلات';
+
+  @override
+  String get preferences_subtitle => 'اختر الأنشطة التي تهمك لنخصص لك ما تراه.';
+
+  @override
+  String preferences_pickedCount(int count) {
+    return '$count مختارة';
+  }
+
+  @override
+  String get preferences_empty => 'لا توجد أنشطة للاختيار بعد';
+
+  @override
+  String get preferences_save => 'حفظ';
+
+  @override
+  String get preferences_saved => 'تم حفظ تفضيلاتك';
+
+  @override
+  String get preferences_pickAtLeastOne => 'اختر نشاطًا واحدًا على الأقل للحفظ.';
+
+  @override
+  String get notifications_title => 'الإشعارات';
+
+  @override
+  String get notifications_empty => 'لا توجد إشعارات بعد';
+
+  @override
+  String get notifications_emptyHint =>
+      'ستظهر هنا التحديثات الخاصة بحجوزاتك والأماكن التي تتابعها.';
+
+  @override
+  String get deleteAccount_action => 'حذف الحساب';
+
+  @override
+  String get deleteAccount_title => 'حذف حسابك؟';
+
+  @override
+  String get deleteAccount_body =>
+      'سيؤدي هذا إلى حذف حسابك على Coflow نهائيًا. ستفقد ملفك الشخصي والأماكن المحفوظة والحجوزات والمشتريات والهدايا، ولا يمكن التراجع عن ذلك.';
+
+  @override
+  String get deleteAccount_understand => 'أفهم أنه لا يمكن التراجع عن ذلك';
+
+  @override
+  String get deleteAccount_confirm => 'حذف';
+
+  @override
+  String get deleteAccount_done => 'تم حذف حسابك';
 }

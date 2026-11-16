@@ -93,11 +93,8 @@ void main() {
       await tester.pumpWidget(
         _TestApp(
           child: const FaqTile(
-            faq: FacilityFaqEntity(
-              id: 1,
-              question: 'Is it safe to wake in the Nile?',
-              answer: 'Yes, it is very safe.',
-            ),
+            question: 'Is it safe to wake in the Nile?',
+            answer: 'Yes, it is very safe.',
             isExpanded: false,
             accentColor: Color(0xFF2FDAC2),
             onTap: _noop,
@@ -113,11 +110,8 @@ void main() {
       await tester.pumpWidget(
         _TestApp(
           child: const FaqTile(
-            faq: FacilityFaqEntity(
-              id: 1,
-              question: 'Is it safe to wake in the Nile?',
-              answer: 'Yes, it is very safe.',
-            ),
+            question: 'Is it safe to wake in the Nile?',
+            answer: 'Yes, it is very safe.',
             isExpanded: true,
             accentColor: Color(0xFF2FDAC2),
             onTap: _noop,

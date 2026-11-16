@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AccountInfoState {
 
- AsyncState<ProfileEntity> get updateRequest; AsyncState<ProfileEntity> get imageRequest; AsyncState<void> get passwordRequest; AsyncState<List<NationalityEntity>> get nationalitiesRequest;
+ AsyncState<ProfileEntity> get updateRequest; AsyncState<ProfileEntity> get imageRequest; AsyncState<void> get passwordRequest; AsyncState<List<NationalityEntity>> get nationalitiesRequest; AsyncState<void> get deleteRequest;
 /// Create a copy of AccountInfoState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $AccountInfoStateCopyWith<AccountInfoState> get copyWith => _$AccountInfoStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountInfoState&&(identical(other.updateRequest, updateRequest) || other.updateRequest == updateRequest)&&(identical(other.imageRequest, imageRequest) || other.imageRequest == imageRequest)&&(identical(other.passwordRequest, passwordRequest) || other.passwordRequest == passwordRequest)&&(identical(other.nationalitiesRequest, nationalitiesRequest) || other.nationalitiesRequest == nationalitiesRequest));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AccountInfoState&&(identical(other.updateRequest, updateRequest) || other.updateRequest == updateRequest)&&(identical(other.imageRequest, imageRequest) || other.imageRequest == imageRequest)&&(identical(other.passwordRequest, passwordRequest) || other.passwordRequest == passwordRequest)&&(identical(other.nationalitiesRequest, nationalitiesRequest) || other.nationalitiesRequest == nationalitiesRequest)&&(identical(other.deleteRequest, deleteRequest) || other.deleteRequest == deleteRequest));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,updateRequest,imageRequest,passwordRequest,nationalitiesRequest);
+int get hashCode => Object.hash(runtimeType,updateRequest,imageRequest,passwordRequest,nationalitiesRequest,deleteRequest);
 
 @override
 String toString() {
-  return 'AccountInfoState(updateRequest: $updateRequest, imageRequest: $imageRequest, passwordRequest: $passwordRequest, nationalitiesRequest: $nationalitiesRequest)';
+  return 'AccountInfoState(updateRequest: $updateRequest, imageRequest: $imageRequest, passwordRequest: $passwordRequest, nationalitiesRequest: $nationalitiesRequest, deleteRequest: $deleteRequest)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $AccountInfoStateCopyWith<$Res>  {
   factory $AccountInfoStateCopyWith(AccountInfoState value, $Res Function(AccountInfoState) _then) = _$AccountInfoStateCopyWithImpl;
 @useResult
 $Res call({
- AsyncState<ProfileEntity> updateRequest, AsyncState<ProfileEntity> imageRequest, AsyncState<void> passwordRequest, AsyncState<List<NationalityEntity>> nationalitiesRequest
+ AsyncState<ProfileEntity> updateRequest, AsyncState<ProfileEntity> imageRequest, AsyncState<void> passwordRequest, AsyncState<List<NationalityEntity>> nationalitiesRequest, AsyncState<void> deleteRequest
 });
 
 
-$AsyncStateCopyWith<ProfileEntity, $Res> get updateRequest;$AsyncStateCopyWith<ProfileEntity, $Res> get imageRequest;$AsyncStateCopyWith<void, $Res> get passwordRequest;$AsyncStateCopyWith<List<NationalityEntity>, $Res> get nationalitiesRequest;
+$AsyncStateCopyWith<ProfileEntity, $Res> get updateRequest;$AsyncStateCopyWith<ProfileEntity, $Res> get imageRequest;$AsyncStateCopyWith<void, $Res> get passwordRequest;$AsyncStateCopyWith<List<NationalityEntity>, $Res> get nationalitiesRequest;$AsyncStateCopyWith<void, $Res> get deleteRequest;
 
 }
 /// @nodoc
@@ -62,13 +62,14 @@ class _$AccountInfoStateCopyWithImpl<$Res>
 
 /// Create a copy of AccountInfoState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? updateRequest = null,Object? imageRequest = null,Object? passwordRequest = null,Object? nationalitiesRequest = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? updateRequest = null,Object? imageRequest = null,Object? passwordRequest = null,Object? nationalitiesRequest = null,Object? deleteRequest = null,}) {
   return _then(_self.copyWith(
 updateRequest: null == updateRequest ? _self.updateRequest : updateRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<ProfileEntity>,imageRequest: null == imageRequest ? _self.imageRequest : imageRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<ProfileEntity>,passwordRequest: null == passwordRequest ? _self.passwordRequest : passwordRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<void>,nationalitiesRequest: null == nationalitiesRequest ? _self.nationalitiesRequest : nationalitiesRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<List<NationalityEntity>>,
+as AsyncState<List<NationalityEntity>>,deleteRequest: null == deleteRequest ? _self.deleteRequest : deleteRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<void>,
   ));
 }
 /// Create a copy of AccountInfoState
@@ -106,6 +107,15 @@ $AsyncStateCopyWith<List<NationalityEntity>, $Res> get nationalitiesRequest {
   
   return $AsyncStateCopyWith<List<NationalityEntity>, $Res>(_self.nationalitiesRequest, (value) {
     return _then(_self.copyWith(nationalitiesRequest: value));
+  });
+}/// Create a copy of AccountInfoState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AsyncStateCopyWith<void, $Res> get deleteRequest {
+  
+  return $AsyncStateCopyWith<void, $Res>(_self.deleteRequest, (value) {
+    return _then(_self.copyWith(deleteRequest: value));
   });
 }
 }
@@ -189,10 +199,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AsyncState<ProfileEntity> updateRequest,  AsyncState<ProfileEntity> imageRequest,  AsyncState<void> passwordRequest,  AsyncState<List<NationalityEntity>> nationalitiesRequest)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AsyncState<ProfileEntity> updateRequest,  AsyncState<ProfileEntity> imageRequest,  AsyncState<void> passwordRequest,  AsyncState<List<NationalityEntity>> nationalitiesRequest,  AsyncState<void> deleteRequest)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AccountInfoState() when $default != null:
-return $default(_that.updateRequest,_that.imageRequest,_that.passwordRequest,_that.nationalitiesRequest);case _:
+return $default(_that.updateRequest,_that.imageRequest,_that.passwordRequest,_that.nationalitiesRequest,_that.deleteRequest);case _:
   return orElse();
 
 }
@@ -210,10 +220,10 @@ return $default(_that.updateRequest,_that.imageRequest,_that.passwordRequest,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AsyncState<ProfileEntity> updateRequest,  AsyncState<ProfileEntity> imageRequest,  AsyncState<void> passwordRequest,  AsyncState<List<NationalityEntity>> nationalitiesRequest)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AsyncState<ProfileEntity> updateRequest,  AsyncState<ProfileEntity> imageRequest,  AsyncState<void> passwordRequest,  AsyncState<List<NationalityEntity>> nationalitiesRequest,  AsyncState<void> deleteRequest)  $default,) {final _that = this;
 switch (_that) {
 case _AccountInfoState():
-return $default(_that.updateRequest,_that.imageRequest,_that.passwordRequest,_that.nationalitiesRequest);case _:
+return $default(_that.updateRequest,_that.imageRequest,_that.passwordRequest,_that.nationalitiesRequest,_that.deleteRequest);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -230,10 +240,10 @@ return $default(_that.updateRequest,_that.imageRequest,_that.passwordRequest,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AsyncState<ProfileEntity> updateRequest,  AsyncState<ProfileEntity> imageRequest,  AsyncState<void> passwordRequest,  AsyncState<List<NationalityEntity>> nationalitiesRequest)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AsyncState<ProfileEntity> updateRequest,  AsyncState<ProfileEntity> imageRequest,  AsyncState<void> passwordRequest,  AsyncState<List<NationalityEntity>> nationalitiesRequest,  AsyncState<void> deleteRequest)?  $default,) {final _that = this;
 switch (_that) {
 case _AccountInfoState() when $default != null:
-return $default(_that.updateRequest,_that.imageRequest,_that.passwordRequest,_that.nationalitiesRequest);case _:
+return $default(_that.updateRequest,_that.imageRequest,_that.passwordRequest,_that.nationalitiesRequest,_that.deleteRequest);case _:
   return null;
 
 }
@@ -245,13 +255,14 @@ return $default(_that.updateRequest,_that.imageRequest,_that.passwordRequest,_th
 
 
 class _AccountInfoState implements AccountInfoState {
-  const _AccountInfoState({this.updateRequest = const AsyncState.idle(), this.imageRequest = const AsyncState.idle(), this.passwordRequest = const AsyncState.idle(), this.nationalitiesRequest = const AsyncState.idle()});
+  const _AccountInfoState({this.updateRequest = const AsyncState.idle(), this.imageRequest = const AsyncState.idle(), this.passwordRequest = const AsyncState.idle(), this.nationalitiesRequest = const AsyncState.idle(), this.deleteRequest = const AsyncState.idle()});
   
 
 @override@JsonKey() final  AsyncState<ProfileEntity> updateRequest;
 @override@JsonKey() final  AsyncState<ProfileEntity> imageRequest;
 @override@JsonKey() final  AsyncState<void> passwordRequest;
 @override@JsonKey() final  AsyncState<List<NationalityEntity>> nationalitiesRequest;
+@override@JsonKey() final  AsyncState<void> deleteRequest;
 
 /// Create a copy of AccountInfoState
 /// with the given fields replaced by the non-null parameter values.
@@ -263,16 +274,16 @@ _$AccountInfoStateCopyWith<_AccountInfoState> get copyWith => __$AccountInfoStat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccountInfoState&&(identical(other.updateRequest, updateRequest) || other.updateRequest == updateRequest)&&(identical(other.imageRequest, imageRequest) || other.imageRequest == imageRequest)&&(identical(other.passwordRequest, passwordRequest) || other.passwordRequest == passwordRequest)&&(identical(other.nationalitiesRequest, nationalitiesRequest) || other.nationalitiesRequest == nationalitiesRequest));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AccountInfoState&&(identical(other.updateRequest, updateRequest) || other.updateRequest == updateRequest)&&(identical(other.imageRequest, imageRequest) || other.imageRequest == imageRequest)&&(identical(other.passwordRequest, passwordRequest) || other.passwordRequest == passwordRequest)&&(identical(other.nationalitiesRequest, nationalitiesRequest) || other.nationalitiesRequest == nationalitiesRequest)&&(identical(other.deleteRequest, deleteRequest) || other.deleteRequest == deleteRequest));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,updateRequest,imageRequest,passwordRequest,nationalitiesRequest);
+int get hashCode => Object.hash(runtimeType,updateRequest,imageRequest,passwordRequest,nationalitiesRequest,deleteRequest);
 
 @override
 String toString() {
-  return 'AccountInfoState(updateRequest: $updateRequest, imageRequest: $imageRequest, passwordRequest: $passwordRequest, nationalitiesRequest: $nationalitiesRequest)';
+  return 'AccountInfoState(updateRequest: $updateRequest, imageRequest: $imageRequest, passwordRequest: $passwordRequest, nationalitiesRequest: $nationalitiesRequest, deleteRequest: $deleteRequest)';
 }
 
 
@@ -283,11 +294,11 @@ abstract mixin class _$AccountInfoStateCopyWith<$Res> implements $AccountInfoSta
   factory _$AccountInfoStateCopyWith(_AccountInfoState value, $Res Function(_AccountInfoState) _then) = __$AccountInfoStateCopyWithImpl;
 @override @useResult
 $Res call({
- AsyncState<ProfileEntity> updateRequest, AsyncState<ProfileEntity> imageRequest, AsyncState<void> passwordRequest, AsyncState<List<NationalityEntity>> nationalitiesRequest
+ AsyncState<ProfileEntity> updateRequest, AsyncState<ProfileEntity> imageRequest, AsyncState<void> passwordRequest, AsyncState<List<NationalityEntity>> nationalitiesRequest, AsyncState<void> deleteRequest
 });
 
 
-@override $AsyncStateCopyWith<ProfileEntity, $Res> get updateRequest;@override $AsyncStateCopyWith<ProfileEntity, $Res> get imageRequest;@override $AsyncStateCopyWith<void, $Res> get passwordRequest;@override $AsyncStateCopyWith<List<NationalityEntity>, $Res> get nationalitiesRequest;
+@override $AsyncStateCopyWith<ProfileEntity, $Res> get updateRequest;@override $AsyncStateCopyWith<ProfileEntity, $Res> get imageRequest;@override $AsyncStateCopyWith<void, $Res> get passwordRequest;@override $AsyncStateCopyWith<List<NationalityEntity>, $Res> get nationalitiesRequest;@override $AsyncStateCopyWith<void, $Res> get deleteRequest;
 
 }
 /// @nodoc
@@ -300,13 +311,14 @@ class __$AccountInfoStateCopyWithImpl<$Res>
 
 /// Create a copy of AccountInfoState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? updateRequest = null,Object? imageRequest = null,Object? passwordRequest = null,Object? nationalitiesRequest = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? updateRequest = null,Object? imageRequest = null,Object? passwordRequest = null,Object? nationalitiesRequest = null,Object? deleteRequest = null,}) {
   return _then(_AccountInfoState(
 updateRequest: null == updateRequest ? _self.updateRequest : updateRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<ProfileEntity>,imageRequest: null == imageRequest ? _self.imageRequest : imageRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<ProfileEntity>,passwordRequest: null == passwordRequest ? _self.passwordRequest : passwordRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<void>,nationalitiesRequest: null == nationalitiesRequest ? _self.nationalitiesRequest : nationalitiesRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<List<NationalityEntity>>,
+as AsyncState<List<NationalityEntity>>,deleteRequest: null == deleteRequest ? _self.deleteRequest : deleteRequest // ignore: cast_nullable_to_non_nullable
+as AsyncState<void>,
   ));
 }
 
@@ -345,6 +357,15 @@ $AsyncStateCopyWith<List<NationalityEntity>, $Res> get nationalitiesRequest {
   
   return $AsyncStateCopyWith<List<NationalityEntity>, $Res>(_self.nationalitiesRequest, (value) {
     return _then(_self.copyWith(nationalitiesRequest: value));
+  });
+}/// Create a copy of AccountInfoState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AsyncStateCopyWith<void, $Res> get deleteRequest {
+  
+  return $AsyncStateCopyWith<void, $Res>(_self.deleteRequest, (value) {
+    return _then(_self.copyWith(deleteRequest: value));
   });
 }
 }

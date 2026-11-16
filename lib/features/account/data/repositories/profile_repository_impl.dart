@@ -51,4 +51,8 @@ class ProfileRepositoryImpl implements ProfileRepository {
         if (model.name.trim().isNotEmpty) ProfileMapper.nationalityToEntity(model),
     ],
   );
+
+  @override
+  AsyncTask<void> deleteAccount() =>
+      _remote.deleteAccount().flatMap((_) => _authStateManager.clearAuth());
 }

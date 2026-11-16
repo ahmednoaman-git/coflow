@@ -19,7 +19,17 @@ class AccountInfoCubit extends Cubit<AccountInfoState> {
     this._changeImage,
     this._changePassword,
     this._getNationalities,
+    this._deleteAccount,
   ) : super(const AccountInfoState()) {
+    deleteManager = .new(
+      accessor: (
+        getPartialState: (state) => state.deleteRequest,
+        getWholeState: () => state,
+        setWholeState: (state, partial) => state.copyWith(deleteRequest: partial),
+      ),
+      emit: _emitIfOpen,
+    );
+
     updateManager = .new(
       accessor: (
         getPartialState: (state) => state.updateRequest,
@@ -62,6 +72,15 @@ class AccountInfoCubit extends Cubit<AccountInfoState> {
   final ChangeProfileImageUseCase _changeImage;
   final ChangePasswordUseCase _changePassword;
   final GetNationalitiesUseCase _getNationalities;
+  final DeleteAccountUseCase _deleteAccount;
+
+  /// Deleting the account; on success the session is already cleared.
+  late final AsyncRequestManager<AccountInfoState, void> deleteManager;
+
+  Future<void> deleteAccount() {
+    if (deleteManager.isLoading) return Future.value();
+    return deleteManager.execute(_deleteAccount());
+  }
 
   late final AsyncRequestManager<AccountInfoState, ProfileEntity> updateManager;
   late final AsyncRequestManager<AccountInfoState, ProfileEntity> imageManager;

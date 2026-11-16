@@ -6,7 +6,10 @@ import '../models/models.dart';
 /// Maps identity and the authoritative Account counters independently.
 abstract final class ProfileMapper {
   static ProfileEntity toEntity(ProfileModel model) {
-    return ProfileEntity(user: AuthMapper.toUserEntity(model.user));
+    return ProfileEntity(
+      user: AuthMapper.toUserEntity(model.user),
+      preferredTagIds: model.tagIds,
+    );
   }
 
   static ProfileStatsEntity statsToEntity(AccountStatisticsModel model) => ProfileStatsEntity(

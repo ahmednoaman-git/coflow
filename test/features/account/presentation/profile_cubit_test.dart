@@ -53,6 +53,9 @@ class _ProfileRepository implements ProfileRepository {
 
   @override
   AsyncTask<List<NationalityEntity>> getNationalities() => TaskEither.right(const []);
+
+  @override
+  AsyncTask<void> deleteAccount() => TaskEither.right(null);
 }
 
 class _AuthenticationRepository implements AuthenticationRepository {
