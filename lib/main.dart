@@ -80,15 +80,17 @@ class MainApp extends StatelessWidget {
             // Routing
             routerDelegate: appRouter.delegate(),
             routeInformationParser: appRouter.defaultRouteParser(),
-            builder: (context, child) => PieCanvas(
-              theme: PieTheme(
-                regularPressShowsMenu: true,
-                longPressShowsMenu: false,
-                brightness: Theme.of(context).brightness,
-                pointerSize: 0,
-                overlayColor: Colors.black.withValues(alpha: 0.3),
+            builder: (context, child) => SnackbarHost(
+              child: PieCanvas(
+                theme: PieTheme(
+                  regularPressShowsMenu: true,
+                  longPressShowsMenu: false,
+                  brightness: Theme.of(context).brightness,
+                  pointerSize: 0,
+                  overlayColor: Colors.black.withValues(alpha: 0.3),
+                ),
+                child: child ?? const SizedBox.shrink(),
               ),
-              child: child ?? const SizedBox.shrink(),
             ),
           );
         },
