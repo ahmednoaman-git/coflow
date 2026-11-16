@@ -1,3 +1,4 @@
+import 'package:coflow_users_v2/core/core.dart';
 import 'package:coflow_users_v2/features/activity_line/domain/entities/entities.dart';
 
 import '../../domain/entities/entities.dart';
@@ -83,6 +84,20 @@ abstract final class FacilityProfileMapper {
         final value? => PaymentType.fromString(value),
         null => null,
       },
+      accountType: switch (model.facilityType) {
+        final value? => AccountType.fromString(value),
+        null => null,
+      },
+      subscriptionStatus: switch (model.subscription) {
+        final value? => SubscriptionStatus.fromString(value),
+        null => null,
+      },
+      status: switch (model.status) {
+        final value? => FacilityStatus.fromString(value),
+        null => null,
+      },
+      statusMessage: model.statusMsg,
+      views: model.views,
       mainBranch: (model.main != null && model.main!.name.trim().isNotEmpty)
           ? MainBranchEntity(
               id: model.main!.id,

@@ -160,7 +160,9 @@ void main() {
 
   test('calendar_show_reservations decides whether customer names show', () {
     FacilitySessionDetailsModel withSetting(String value) => FacilityCalendarPayloadMapper.details(
-      calendar: _calendar, setting: {'calendar_show_reservations': value});
+      calendar: _calendar,
+      setting: {'calendar_show_reservations': value},
+    );
     expect(withSetting('visible').customers.map((c) => c.name), ['Viewer', 'Other']);
     expect(withSetting('hidden').customers, isEmpty);
   });

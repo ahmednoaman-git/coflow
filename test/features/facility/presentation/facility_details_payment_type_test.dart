@@ -60,7 +60,9 @@ Future<FacilityDetailsCubit> _openWith(PaymentType? profilePaymentType) async {
     GetFacilityPromotionsUseCase(repository),
     GetFacilityServicesUseCase(repository),
     ToggleFacilitySaveUseCase(repository),
+    FacilitySaveEvents(),
     _staleCard,
+    null,
   );
   await Future<void>.delayed(Duration.zero); // let the profile load
   return cubit;

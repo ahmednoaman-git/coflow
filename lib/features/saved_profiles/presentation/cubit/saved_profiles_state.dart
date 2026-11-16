@@ -7,15 +7,13 @@ part 'saved_profiles_state.freezed.dart';
 
 /// State for [SavedProfilesCubit].
 ///
-/// The saved list lives inside [profilesRequest] rather than beside it, so the
-/// optimistic edits made by tracking and unsaving cannot drift out of step with
-/// what the last fetch returned.
+/// The saved list lives inside [profilesRequest] rather than beside it: tracking
+/// and unsaving are optimistic edits on that request (see [SavedProfilesCubit]),
+/// and their failures are reported beside the list it holds.
 @freezed
 abstract class SavedProfilesState with _$SavedProfilesState {
   const factory SavedProfilesState({
     @Default(AsyncState.idle()) AsyncState<List<SavedProfileEntity>> profilesRequest,
-    @Default(AsyncState.idle()) AsyncState<void> unsaveRequest,
-    @Default(AsyncState.idle()) AsyncState<void> trackingRequest,
 
     /// The activity line being filtered on, or null for "All" — the default.
     ActivityLineEntity? selectedLine,

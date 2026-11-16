@@ -15,6 +15,7 @@ class ProfileHeader extends StatelessWidget {
     final facilityDataProvider = FacilityDataProvider.of(context);
 
     return Column(
+      crossAxisAlignment: .start,
       spacing: context.spacing.s8,
       children: [
         Row(

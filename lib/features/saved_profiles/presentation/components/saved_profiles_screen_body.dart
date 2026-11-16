@@ -41,22 +41,24 @@ class SavedProfilesScreenBody extends StatelessWidget {
                         selectedLine: state.selectedLine,
                         onLineSelected: cubit.selectLine,
                       ),
-                      _MutationFeedback(
-                        child:
-                            AsyncHandler<
-                              SavedProfilesCubit,
-                              SavedProfilesState,
-                              List<SavedProfileEntity>
-                            >(
-                              requestManagerGetter: (cubit) => cubit.profilesManager,
-                              skeletonBuilder: (_) => const SavedProfilesSkeleton(),
-                              onRetry: (cubit) => cubit.refresh(),
-                              // The filtered list comes off the state rather than the
-                              // request, which always holds everything the user saved.
-                              successBuilder: (context, _) => state.visibleProfiles.isEmpty
-                                  ? SavedProfilesEmptyState(isFiltered: state.isFiltered)
-                                  : _SavedProfilesList(profiles: state.visibleProfiles),
-                            ),
+                      AsyncHandler<
+                        SavedProfilesCubit,
+                        SavedProfilesState,
+                        List<SavedProfileEntity>
+                      >(
+                        requestManagerGetter: (cubit) => cubit.profilesManager,
+                        skeletonBuilder: (_) => const SavedProfilesSkeleton(),
+                        onRetry: (cubit) => cubit.refresh(),
+                        // A failed refresh, unsave or bell keeps the list on
+                        // screen (the card or bell put back), so this is the
+                        // only thing that says why it didn't take.
+                        onBackgroundError: (context, failure) =>
+                            context.showErrorSnackBar(failure.message),
+                        // The filtered list comes off the state rather than the
+                        // request, which always holds everything the user saved.
+                        successBuilder: (context, _) => state.visibleProfiles.isEmpty
+                            ? SavedProfilesEmptyState(isFiltered: state.isFiltered)
+                            : _SavedProfilesList(profiles: state.visibleProfiles),
                       ),
                     ],
                   ),
@@ -67,31 +69,6 @@ class SavedProfilesScreenBody extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-/// Surfaces the outcome of the two per-card verbs.
-///
-/// Both put the card back the way it was on failure, so the snackbar is the
-/// only thing that says why the swipe or the toggle did not take.
-class _MutationFeedback extends StatelessWidget {
-  const _MutationFeedback({required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return AsyncHandler<SavedProfilesCubit, SavedProfilesState, void>.loadingDependent(
-      requestManagerGetter: (cubit) => cubit.unsaveManager,
-      onSuccess: (context, _) => context.showInfoSnackBar(context.l10n.savedProfiles_unsaved),
-      onError: (context, failure) => context.showErrorSnackBar(failure.message),
-      builder: (context, _) =>
-          AsyncHandler<SavedProfilesCubit, SavedProfilesState, void>.loadingDependent(
-            requestManagerGetter: (cubit) => cubit.trackingManager,
-            onError: (context, failure) => context.showErrorSnackBar(failure.message),
-            builder: (context, _) => child,
-          ),
     );
   }
 }
@@ -110,9 +87,15 @@ class _SavedProfilesList extends StatelessWidget {
       children: [
         for (final profile in profiles)
           SwipeToUnsave(
-            dismissKey: ValueKey(profile.id),
-            onUnsave: () => cubit.unsave(profile),
-            onUnsaved: () => cubit.removeUnsaved(profile),
+            key: cubit.dismissKeyOf(profile),
+            dismissKey: cubit.dismissKeyOf(profile),
+            onUnsave: () async => cubit.unsave(profile),
+            onUnsaved: () {
+              // Said at once: the card is already gone, and comes back with an
+              // error if the server refuses.
+              context.showInfoSnackBar(context.l10n.savedProfiles_unsaved);
+              cubit.removeUnsaved(profile);
+            },
             child: SavedProfileCard(
               profile: profile,
               onTap: () => _openFacility(context, profile),
@@ -128,6 +111,6 @@ class _SavedProfilesList extends StatelessWidget {
   Future<void> _openFacility(BuildContext context, SavedProfileEntity profile) async {
     final cubit = context.read<SavedProfilesCubit>();
     await context.router.push<void>(FacilityDetailsRoute(facility: profile.facility));
-    await cubit.resync();
+    await cubit.refresh();
   }
 }

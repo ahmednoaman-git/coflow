@@ -21,9 +21,12 @@ class AmenitiesSection extends StatelessWidget {
     return PageSection(
       title: context.l10n.facilityDetails_amenitiesSectionTitle,
       svgIconPath: Assets.svgs.amenities.path,
+      // Scrolls out to the screen edges; the margin only insets the ends.
+      fullBleed: true,
       children: [
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: PageSection.sidePadding(context)),
           child: Row(
             spacing: context.spacing.s16,
             children: [

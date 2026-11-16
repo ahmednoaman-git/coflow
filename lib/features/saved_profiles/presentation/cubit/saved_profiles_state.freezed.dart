@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SavedProfilesState {
 
- AsyncState<List<SavedProfileEntity>> get profilesRequest; AsyncState<void> get unsaveRequest; AsyncState<void> get trackingRequest;/// The activity line being filtered on, or null for "All" — the default.
+ AsyncState<List<SavedProfileEntity>> get profilesRequest;/// The activity line being filtered on, or null for "All" — the default.
  ActivityLineEntity? get selectedLine;
 /// Create a copy of SavedProfilesState
 /// with the given fields replaced by the non-null parameter values.
@@ -26,16 +26,16 @@ $SavedProfilesStateCopyWith<SavedProfilesState> get copyWith => _$SavedProfilesS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SavedProfilesState&&(identical(other.profilesRequest, profilesRequest) || other.profilesRequest == profilesRequest)&&(identical(other.unsaveRequest, unsaveRequest) || other.unsaveRequest == unsaveRequest)&&(identical(other.trackingRequest, trackingRequest) || other.trackingRequest == trackingRequest)&&(identical(other.selectedLine, selectedLine) || other.selectedLine == selectedLine));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SavedProfilesState&&(identical(other.profilesRequest, profilesRequest) || other.profilesRequest == profilesRequest)&&(identical(other.selectedLine, selectedLine) || other.selectedLine == selectedLine));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,profilesRequest,unsaveRequest,trackingRequest,selectedLine);
+int get hashCode => Object.hash(runtimeType,profilesRequest,selectedLine);
 
 @override
 String toString() {
-  return 'SavedProfilesState(profilesRequest: $profilesRequest, unsaveRequest: $unsaveRequest, trackingRequest: $trackingRequest, selectedLine: $selectedLine)';
+  return 'SavedProfilesState(profilesRequest: $profilesRequest, selectedLine: $selectedLine)';
 }
 
 
@@ -46,11 +46,11 @@ abstract mixin class $SavedProfilesStateCopyWith<$Res>  {
   factory $SavedProfilesStateCopyWith(SavedProfilesState value, $Res Function(SavedProfilesState) _then) = _$SavedProfilesStateCopyWithImpl;
 @useResult
 $Res call({
- AsyncState<List<SavedProfileEntity>> profilesRequest, AsyncState<void> unsaveRequest, AsyncState<void> trackingRequest, ActivityLineEntity? selectedLine
+ AsyncState<List<SavedProfileEntity>> profilesRequest, ActivityLineEntity? selectedLine
 });
 
 
-$AsyncStateCopyWith<List<SavedProfileEntity>, $Res> get profilesRequest;$AsyncStateCopyWith<void, $Res> get unsaveRequest;$AsyncStateCopyWith<void, $Res> get trackingRequest;$ActivityLineEntityCopyWith<$Res>? get selectedLine;
+$AsyncStateCopyWith<List<SavedProfileEntity>, $Res> get profilesRequest;$ActivityLineEntityCopyWith<$Res>? get selectedLine;
 
 }
 /// @nodoc
@@ -63,12 +63,10 @@ class _$SavedProfilesStateCopyWithImpl<$Res>
 
 /// Create a copy of SavedProfilesState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? profilesRequest = null,Object? unsaveRequest = null,Object? trackingRequest = null,Object? selectedLine = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? profilesRequest = null,Object? selectedLine = freezed,}) {
   return _then(_self.copyWith(
 profilesRequest: null == profilesRequest ? _self.profilesRequest : profilesRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<List<SavedProfileEntity>>,unsaveRequest: null == unsaveRequest ? _self.unsaveRequest : unsaveRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<void>,trackingRequest: null == trackingRequest ? _self.trackingRequest : trackingRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<void>,selectedLine: freezed == selectedLine ? _self.selectedLine : selectedLine // ignore: cast_nullable_to_non_nullable
+as AsyncState<List<SavedProfileEntity>>,selectedLine: freezed == selectedLine ? _self.selectedLine : selectedLine // ignore: cast_nullable_to_non_nullable
 as ActivityLineEntity?,
   ));
 }
@@ -80,24 +78,6 @@ $AsyncStateCopyWith<List<SavedProfileEntity>, $Res> get profilesRequest {
   
   return $AsyncStateCopyWith<List<SavedProfileEntity>, $Res>(_self.profilesRequest, (value) {
     return _then(_self.copyWith(profilesRequest: value));
-  });
-}/// Create a copy of SavedProfilesState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$AsyncStateCopyWith<void, $Res> get unsaveRequest {
-  
-  return $AsyncStateCopyWith<void, $Res>(_self.unsaveRequest, (value) {
-    return _then(_self.copyWith(unsaveRequest: value));
-  });
-}/// Create a copy of SavedProfilesState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$AsyncStateCopyWith<void, $Res> get trackingRequest {
-  
-  return $AsyncStateCopyWith<void, $Res>(_self.trackingRequest, (value) {
-    return _then(_self.copyWith(trackingRequest: value));
   });
 }/// Create a copy of SavedProfilesState
 /// with the given fields replaced by the non-null parameter values.
@@ -193,10 +173,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AsyncState<List<SavedProfileEntity>> profilesRequest,  AsyncState<void> unsaveRequest,  AsyncState<void> trackingRequest,  ActivityLineEntity? selectedLine)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AsyncState<List<SavedProfileEntity>> profilesRequest,  ActivityLineEntity? selectedLine)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SavedProfilesState() when $default != null:
-return $default(_that.profilesRequest,_that.unsaveRequest,_that.trackingRequest,_that.selectedLine);case _:
+return $default(_that.profilesRequest,_that.selectedLine);case _:
   return orElse();
 
 }
@@ -214,10 +194,10 @@ return $default(_that.profilesRequest,_that.unsaveRequest,_that.trackingRequest,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AsyncState<List<SavedProfileEntity>> profilesRequest,  AsyncState<void> unsaveRequest,  AsyncState<void> trackingRequest,  ActivityLineEntity? selectedLine)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AsyncState<List<SavedProfileEntity>> profilesRequest,  ActivityLineEntity? selectedLine)  $default,) {final _that = this;
 switch (_that) {
 case _SavedProfilesState():
-return $default(_that.profilesRequest,_that.unsaveRequest,_that.trackingRequest,_that.selectedLine);case _:
+return $default(_that.profilesRequest,_that.selectedLine);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -234,10 +214,10 @@ return $default(_that.profilesRequest,_that.unsaveRequest,_that.trackingRequest,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AsyncState<List<SavedProfileEntity>> profilesRequest,  AsyncState<void> unsaveRequest,  AsyncState<void> trackingRequest,  ActivityLineEntity? selectedLine)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AsyncState<List<SavedProfileEntity>> profilesRequest,  ActivityLineEntity? selectedLine)?  $default,) {final _that = this;
 switch (_that) {
 case _SavedProfilesState() when $default != null:
-return $default(_that.profilesRequest,_that.unsaveRequest,_that.trackingRequest,_that.selectedLine);case _:
+return $default(_that.profilesRequest,_that.selectedLine);case _:
   return null;
 
 }
@@ -249,12 +229,10 @@ return $default(_that.profilesRequest,_that.unsaveRequest,_that.trackingRequest,
 
 
 class _SavedProfilesState extends SavedProfilesState {
-  const _SavedProfilesState({this.profilesRequest = const AsyncState.idle(), this.unsaveRequest = const AsyncState.idle(), this.trackingRequest = const AsyncState.idle(), this.selectedLine}): super._();
+  const _SavedProfilesState({this.profilesRequest = const AsyncState.idle(), this.selectedLine}): super._();
   
 
 @override@JsonKey() final  AsyncState<List<SavedProfileEntity>> profilesRequest;
-@override@JsonKey() final  AsyncState<void> unsaveRequest;
-@override@JsonKey() final  AsyncState<void> trackingRequest;
 /// The activity line being filtered on, or null for "All" — the default.
 @override final  ActivityLineEntity? selectedLine;
 
@@ -268,16 +246,16 @@ _$SavedProfilesStateCopyWith<_SavedProfilesState> get copyWith => __$SavedProfil
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SavedProfilesState&&(identical(other.profilesRequest, profilesRequest) || other.profilesRequest == profilesRequest)&&(identical(other.unsaveRequest, unsaveRequest) || other.unsaveRequest == unsaveRequest)&&(identical(other.trackingRequest, trackingRequest) || other.trackingRequest == trackingRequest)&&(identical(other.selectedLine, selectedLine) || other.selectedLine == selectedLine));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SavedProfilesState&&(identical(other.profilesRequest, profilesRequest) || other.profilesRequest == profilesRequest)&&(identical(other.selectedLine, selectedLine) || other.selectedLine == selectedLine));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,profilesRequest,unsaveRequest,trackingRequest,selectedLine);
+int get hashCode => Object.hash(runtimeType,profilesRequest,selectedLine);
 
 @override
 String toString() {
-  return 'SavedProfilesState(profilesRequest: $profilesRequest, unsaveRequest: $unsaveRequest, trackingRequest: $trackingRequest, selectedLine: $selectedLine)';
+  return 'SavedProfilesState(profilesRequest: $profilesRequest, selectedLine: $selectedLine)';
 }
 
 
@@ -288,11 +266,11 @@ abstract mixin class _$SavedProfilesStateCopyWith<$Res> implements $SavedProfile
   factory _$SavedProfilesStateCopyWith(_SavedProfilesState value, $Res Function(_SavedProfilesState) _then) = __$SavedProfilesStateCopyWithImpl;
 @override @useResult
 $Res call({
- AsyncState<List<SavedProfileEntity>> profilesRequest, AsyncState<void> unsaveRequest, AsyncState<void> trackingRequest, ActivityLineEntity? selectedLine
+ AsyncState<List<SavedProfileEntity>> profilesRequest, ActivityLineEntity? selectedLine
 });
 
 
-@override $AsyncStateCopyWith<List<SavedProfileEntity>, $Res> get profilesRequest;@override $AsyncStateCopyWith<void, $Res> get unsaveRequest;@override $AsyncStateCopyWith<void, $Res> get trackingRequest;@override $ActivityLineEntityCopyWith<$Res>? get selectedLine;
+@override $AsyncStateCopyWith<List<SavedProfileEntity>, $Res> get profilesRequest;@override $ActivityLineEntityCopyWith<$Res>? get selectedLine;
 
 }
 /// @nodoc
@@ -305,12 +283,10 @@ class __$SavedProfilesStateCopyWithImpl<$Res>
 
 /// Create a copy of SavedProfilesState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? profilesRequest = null,Object? unsaveRequest = null,Object? trackingRequest = null,Object? selectedLine = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? profilesRequest = null,Object? selectedLine = freezed,}) {
   return _then(_SavedProfilesState(
 profilesRequest: null == profilesRequest ? _self.profilesRequest : profilesRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<List<SavedProfileEntity>>,unsaveRequest: null == unsaveRequest ? _self.unsaveRequest : unsaveRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<void>,trackingRequest: null == trackingRequest ? _self.trackingRequest : trackingRequest // ignore: cast_nullable_to_non_nullable
-as AsyncState<void>,selectedLine: freezed == selectedLine ? _self.selectedLine : selectedLine // ignore: cast_nullable_to_non_nullable
+as AsyncState<List<SavedProfileEntity>>,selectedLine: freezed == selectedLine ? _self.selectedLine : selectedLine // ignore: cast_nullable_to_non_nullable
 as ActivityLineEntity?,
   ));
 }
@@ -323,24 +299,6 @@ $AsyncStateCopyWith<List<SavedProfileEntity>, $Res> get profilesRequest {
   
   return $AsyncStateCopyWith<List<SavedProfileEntity>, $Res>(_self.profilesRequest, (value) {
     return _then(_self.copyWith(profilesRequest: value));
-  });
-}/// Create a copy of SavedProfilesState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$AsyncStateCopyWith<void, $Res> get unsaveRequest {
-  
-  return $AsyncStateCopyWith<void, $Res>(_self.unsaveRequest, (value) {
-    return _then(_self.copyWith(unsaveRequest: value));
-  });
-}/// Create a copy of SavedProfilesState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$AsyncStateCopyWith<void, $Res> get trackingRequest {
-  
-  return $AsyncStateCopyWith<void, $Res>(_self.trackingRequest, (value) {
-    return _then(_self.copyWith(trackingRequest: value));
   });
 }/// Create a copy of SavedProfilesState
 /// with the given fields replaced by the non-null parameter values.

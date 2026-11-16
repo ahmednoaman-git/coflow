@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/entities/entities.dart';
 import 'business_card.dart';
 
-/// Section displaying businesses in a horizontal scrolling list.
+/// The "Profiles" section: facility profiles in a horizontal scrolling list.
 ///
 /// The header is always there; the row shows card skeletons while the home
 /// request loads, and the cards fade in over them.
@@ -29,7 +29,7 @@ class BusinessesSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                context.l10n.businesses,
+                context.l10n.profiles,
                 style: context.typography.bold18.primary(context),
               ),
               // Location filter button

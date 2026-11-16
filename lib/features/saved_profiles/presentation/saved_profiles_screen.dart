@@ -68,7 +68,7 @@ class _ResyncOnTabReturnState extends State<_ResyncOnTabReturn> {
     if (activeIndex == _lastActiveIndex) return;
 
     _lastActiveIndex = activeIndex;
-    if (activeIndex == _ownIndex) context.read<SavedProfilesCubit>().resync();
+    if (activeIndex == _ownIndex) context.read<SavedProfilesCubit>().refresh();
   }
 
   @override

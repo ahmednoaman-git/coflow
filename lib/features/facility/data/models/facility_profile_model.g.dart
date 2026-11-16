@@ -230,6 +230,11 @@ FacilityProfileModel _$FacilityProfileModelFromJson(
       hasTrack: $checkedConvert('has_track', (v) => v as bool? ?? false),
       updatedAt: $checkedConvert('updated_at', (v) => v as String?),
       paymentType: $checkedConvert('payment_type', (v) => v as String?),
+      facilityType: $checkedConvert('facility_type', (v) => v as String?),
+      subscription: $checkedConvert('subscription', (v) => v as String?),
+      status: $checkedConvert('status', (v) => v as String?),
+      statusMsg: $checkedConvert('status_msg', (v) => v as String?),
+      views: $checkedConvert('views', (v) => (v as num?)?.toInt()),
     );
     return val;
   },
@@ -241,5 +246,7 @@ FacilityProfileModel _$FacilityProfileModelFromJson(
     'hasTrack': 'has_track',
     'updatedAt': 'updated_at',
     'paymentType': 'payment_type',
+    'facilityType': 'facility_type',
+    'statusMsg': 'status_msg',
   },
 );

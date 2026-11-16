@@ -1,3 +1,4 @@
+import 'package:coflow_users_v2/core/core.dart';
 import 'package:coflow_users_v2/features/activity_line/domain/entities/entities.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -111,6 +112,15 @@ abstract class FacilityProfileEntity with _$FacilityProfileEntity {
     /// How the facility takes purchases as of this read. Null when the payload
     /// omits it.
     PaymentType? paymentType,
+
+    /// The rest of the facility's summary, so a screen opened from a payload
+    /// that lacks it — the home dashboard's profiles — can fill it in. Null
+    /// when the payload omits them.
+    AccountType? accountType,
+    SubscriptionStatus? subscriptionStatus,
+    FacilityStatus? status,
+    String? statusMessage,
+    int? views,
   }) = _FacilityProfileEntity;
 
   const FacilityProfileEntity._();

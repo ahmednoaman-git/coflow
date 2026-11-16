@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
+import 'package:coflow_users_v2/core/domain/entities/activity_line_entity.dart' as core;
+import 'package:coflow_users_v2/features/activity_line/domain/entities/collapsed_facility_entity.dart';
 import 'package:coflow_users_v2/features/home/presentation/widgets/instructors_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -79,7 +81,11 @@ class _HomeBody extends StatelessWidget {
                 spacing: context.spacing.s24,
                 children: [
                   const _ActivityLinesRow().withHomeSidePadding(context),
-                  const BusinessesSection(onBusinessTap: _onBusinessTap),
+                  BusinessesSection(
+                    onBusinessTap: (profile) => context.router.push(
+                      FacilityDetailsRoute(facility: profile.facilityPreview, isPreview: true),
+                    ),
+                  ),
                   BlocSelector<HomeCubit, HomeState, List<InstructorEntity>>(
                     selector: (state) => state.homeRequest.dataOrNull?.instructors ?? const [],
                     builder: (context, instructors) =>
@@ -93,10 +99,6 @@ class _HomeBody extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  static void _onBusinessTap(ProfileEntity profile) {
-    // TODO: Navigate to business details
   }
 }
 
@@ -141,4 +143,27 @@ class _ActivityLinesRow extends StatelessWidget {
       ),
     );
   }
+}
+
+extension on ProfileEntity {
+  /// What the facility screen can show at once: the dashboard's profiles carry
+  /// no account type, subscription, status or payment type, so those are
+  /// placeholders the screen replaces from the profile it loads.
+  CollapsedFacilityEntity get facilityPreview => CollapsedFacilityEntity(
+    id: id,
+    name: name,
+    description: title,
+    logoUrl: logo,
+    coverUrl: cover,
+    activityLine: core.ActivityLineEntity.fromId(activityLine.id),
+    accountType: const GoAccount(),
+    status: FacilityStatus.visible,
+    subscriptionStatus: SubscriptionStatus.inactive,
+    paymentType: PaymentType.none,
+    views: 0,
+    locationLabel: switch ([area?.name, city?.name].nonNulls.join(', ')) {
+      '' => null,
+      final label => label,
+    },
+  );
 }

@@ -91,6 +91,8 @@ class _StubFacilityRepository implements FacilityRepository {
 }
 
 void main() {
+  setUp(() => SavedProfilesCubit.trackingSettle = Duration.zero);
+
   Future<_StubFacilityRepository> pumpBody(
     WidgetTester tester, {
     Locale locale = const Locale('en'),
@@ -106,6 +108,7 @@ void main() {
             GetSavedProfilesUseCase(_StubSavedProfilesRepository()),
             ToggleFacilitySaveUseCase(facilities),
             ToggleFacilityTrackingUseCase(facilities),
+            FacilitySaveEvents(),
           ),
           child: const SavedProfilesScreenBody(),
         ),
@@ -183,22 +186,62 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
-    testWidgets('ignores a second track tap while the first is in flight', (tester) async {
+    testWidgets('a track tap during a request is sent after it, not alongside', (tester) async {
       final facilities = _StubFacilityRepository()..trackingGate = Completer<void>();
       await pumpBody(tester, facilityRepository: facilities);
 
-      // The endpoint is a toggle: a second call would undo the first on the
-      // server while the button claimed the opposite.
+      // The endpoint is a toggle: two calls at once could land in either
+      // order, so the second waits for the first.
       await tester.tap(find.byType(SavedProfileTrackButton).first);
-      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 1));
       await tester.tap(find.byType(SavedProfileTrackButton).first);
-      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 1));
+
+      expect(facilities.trackingToggles, hasLength(1));
+      expect(trackButtonOf(tester, 'Gravity').isTracked, isTrue, reason: 'shown at once');
 
       facilities.trackingGate!.complete();
       await tester.pumpAndSettle();
 
+      expect(facilities.trackingToggles, hasLength(2));
+      expect(trackButtonOf(tester, 'Gravity').isTracked, isTrue);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('spamming the bell sends one call, or none when the taps cancel out', (
+      tester,
+    ) async {
+      final facilities = await pumpBody(tester);
+      final bell = find.byType(SavedProfileTrackButton).first;
+
+      for (var i = 0; i < 3; i++) {
+        await tester.tap(bell);
+      }
+      await tester.pumpAndSettle();
       expect(facilities.trackingToggles, hasLength(1));
       expect(trackButtonOf(tester, 'Gravity').isTracked, isFalse);
+
+      for (var i = 0; i < 2; i++) {
+        await tester.tap(bell);
+      }
+      await tester.pumpAndSettle();
+      expect(facilities.trackingToggles, hasLength(1));
+      expect(trackButtonOf(tester, 'Gravity').isTracked, isFalse);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('unsaving a card drops its bell taps still waiting', (tester) async {
+      SavedProfilesCubit.trackingSettle = const Duration(seconds: 5);
+      final facilities = await pumpBody(tester);
+
+      // Sent after the unsave, the track call would save the facility again.
+      await tester.tap(find.byType(SavedProfileTrackButton).first);
+      await tester.drag(find.text('Gravity'), const Offset(-500, 0));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Gravity'), findsNothing);
+      expect(facilities.saveToggles.single.facilityId, 1);
+      expect(facilities.trackingToggles, isEmpty);
       expect(tester.takeException(), isNull);
     });
 
@@ -268,6 +311,7 @@ class _TestApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: AppTheme.light,
+      builder: (context, child) => SnackbarHost(child: child!),
       home: Scaffold(body: SizedBox(width: 375, child: child)),
     );
   }

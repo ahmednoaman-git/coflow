@@ -141,6 +141,11 @@ class FacilityProfileModel {
     this.hasTrack = false,
     this.updatedAt,
     this.paymentType,
+    this.facilityType,
+    this.subscription,
+    this.status,
+    this.statusMsg,
+    this.views,
   });
 
   final int id;
@@ -217,6 +222,17 @@ class FacilityProfileModel {
   /// How the facility takes purchases (`contact`, `direct purchase`, ...),
   /// fresher than the copy on the list card the profile was opened from.
   final String? paymentType;
+
+  /// `GO`, `FLOW` or `PRO` — with [subscription], decides the screen's tabs.
+  final String? facilityType;
+
+  /// The facility's plan: `active`, `trial`, `basic`, `inactive`, ...
+  final String? subscription;
+
+  /// `visible`, `invisible` or `temp_closed`.
+  final String? status;
+  final String? statusMsg;
+  final int? views;
 
   factory FacilityProfileModel.fromJson(Map<String, dynamic> json) =>
       _$FacilityProfileModelFromJson(json);

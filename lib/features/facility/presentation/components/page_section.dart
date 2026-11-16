@@ -12,14 +12,19 @@ class PageSection extends StatelessWidget {
     super.key,
     required this.title,
     required this.svgIconPath,
-    this.childPadding,
+    this.fullBleed = false,
     this.trailing,
     required this.children,
   });
 
   final String title;
   final String svgIconPath;
-  final EdgeInsets? childPadding;
+
+  /// Lays [children] out edge to edge instead of inside the section's side
+  /// padding — for horizontal scrollers, so their items scroll out to the
+  /// screen edge rather than being cut off at the margin. Such a child insets
+  /// its own content by [sidePadding].
+  final bool fullBleed;
 
   /// Optional action pinned to the end of the title row, e.g. the location
   /// section's "Link" pill.
@@ -28,40 +33,42 @@ class PageSection extends StatelessWidget {
 
   /// Around a section — shared with the skeletons standing in for one.
   static EdgeInsets padding(BuildContext context) =>
-      EdgeInsets.symmetric(horizontal: context.spacing.s24, vertical: context.spacing.s32);
+      EdgeInsets.symmetric(horizontal: sidePadding(context), vertical: context.spacing.s32);
+
+  /// The section's margin on either side.
+  static double sidePadding(BuildContext context) => context.spacing.s24;
 
   @override
   Widget build(BuildContext context) {
+    final sides = EdgeInsets.symmetric(horizontal: sidePadding(context));
     return Padding(
-      padding: padding(context),
+      padding: EdgeInsets.symmetric(vertical: context.spacing.s32),
       child: Column(
         crossAxisAlignment: .start,
         spacing: context.spacing.s16,
         children: [
-          Row(
-            spacing: context.spacing.s16,
-            children: [
-              SvgPicture.asset(
-                svgIconPath,
-                width: 20,
-                height: 20,
-                colorFilter: FacilityDataProvider.of(context).activityLineColor.colorFilter,
-              ),
-              Expanded(
-                child: Text(
-                  title,
-                  style: context.typography.medium14.primary(context),
+          Padding(
+            padding: sides,
+            child: Row(
+              spacing: context.spacing.s16,
+              children: [
+                SvgPicture.asset(
+                  svgIconPath,
+                  width: 20,
+                  height: 20,
+                  colorFilter: FacilityDataProvider.of(context).activityLineColor.colorFilter,
                 ),
-              ),
-              ?trailing,
-            ],
-          ),
-          ...children.map(
-            (child) => Padding(
-              padding: childPadding ?? EdgeInsets.zero,
-              child: child,
+                Expanded(
+                  child: Text(
+                    title,
+                    style: context.typography.medium14.primary(context),
+                  ),
+                ),
+                ?trailing,
+              ],
             ),
           ),
+          for (final child in children) fullBleed ? child : Padding(padding: sides, child: child),
         ],
       ),
     );
