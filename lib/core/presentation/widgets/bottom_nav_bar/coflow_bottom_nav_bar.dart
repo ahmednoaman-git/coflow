@@ -67,28 +67,45 @@ class CoflowBottomNavBar extends StatelessWidget {
         children: [
           Positioned.fill(
             top: _overhang,
-            child: Material(
-              color: colors.backgroundWhite,
-              shape: CoflowNavBarShape(side: BorderSide(color: colors.borderShadowSwitch)),
-              // Clips every slot's ink to the outline, bowl included.
-              clipBehavior: Clip.antiAlias,
-              child: Row(
-                crossAxisAlignment: .stretch,
-                children: [
-                  for (var index = 0; index < slotCount; index++)
-                    Expanded(
-                      child: index == centreSlot
-                          // Swallows taps under the disc so they don't reach
-                          // the content behind the bar.
-                          ? const ColoredBox(color: Colors.transparent)
-                          : _Slot(
-                              destination: destinations[index],
-                              isSelected: index == currentIndex,
-                              systemInset: systemInset,
-                              onTap: () => onDestinationSelected(index),
-                            ),
+            child: DecoratedBox(
+              // The card shadow token, cast upward since the bar rests on
+              // the bottom edge — just enough to lift it off the content
+              // scrolling under it. Follows the bowl, as it traces the shape.
+              decoration: ShapeDecoration(
+                shape: const CoflowNavBarShape(),
+                shadows: [
+                  for (final shadow in context.shadows.sm)
+                    BoxShadow(
+                      color: shadow.color,
+                      offset: -shadow.offset,
+                      blurRadius: shadow.blurRadius,
+                      spreadRadius: shadow.spreadRadius,
                     ),
                 ],
+              ),
+              child: Material(
+                color: colors.backgroundWhite,
+                shape: CoflowNavBarShape(side: BorderSide(color: colors.borderShadowSwitch)),
+                // Clips every slot's ink to the outline, bowl included.
+                clipBehavior: Clip.antiAlias,
+                child: Row(
+                  crossAxisAlignment: .stretch,
+                  children: [
+                    for (var index = 0; index < slotCount; index++)
+                      Expanded(
+                        child: index == centreSlot
+                            // Swallows taps under the disc so they don't reach
+                            // the content behind the bar.
+                            ? const ColoredBox(color: Colors.transparent)
+                            : _Slot(
+                                destination: destinations[index],
+                                isSelected: index == currentIndex,
+                                systemInset: systemInset,
+                                onTap: () => onDestinationSelected(index),
+                              ),
+                      ),
+                  ],
+                ),
               ),
             ),
           ),

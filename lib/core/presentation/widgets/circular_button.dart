@@ -17,7 +17,11 @@ class CircularButton extends StatelessWidget {
     this.isLoading = false,
     this.backgroundColor,
     this.iconColor,
+    this.iconOffset = Offset.zero,
   });
+
+  /// The standard diameter, used when [size] isn't given.
+  static const double standardSize = 44;
 
   /// Icon displayed at the center of the button.
   final IconData icon;
@@ -43,10 +47,14 @@ class CircularButton extends StatelessWidget {
   /// Optional override for the icon (or loader) color.
   final Color? iconColor;
 
+  /// Nudges the icon off the button's centre, for a glyph whose ink is
+  /// centred in its box but doesn't look it — see [MainBackButton].
+  final Offset iconOffset;
+
   @override
   Widget build(BuildContext context) {
     final effectiveDisabled = isDisabled || isLoading;
-    final effectiveSize = size ?? context.spacing.s48 - context.spacing.s4;
+    final effectiveSize = size ?? standardSize;
 
     Color backgroundColor;
     Color iconColor;
@@ -86,7 +94,10 @@ class CircularButton extends StatelessWidget {
                       valueColor: AlwaysStoppedAnimation<Color>(iconColor),
                     ),
                   )
-                : Icon(icon, color: iconColor, size: iconSize),
+                : Transform.translate(
+                    offset: iconOffset,
+                    child: Icon(icon, color: iconColor, size: iconSize),
+                  ),
           ),
         ),
       ),

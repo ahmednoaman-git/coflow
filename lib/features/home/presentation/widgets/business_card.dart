@@ -23,8 +23,9 @@ class BusinessCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final (accent, _) = core.ActivityLineEntity.fromId(profile.activityLine.id).getColors(context);
 
-    return GestureDetector(
+    return TappableScale(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(radius),
       child: Container(
         width: width,
         height: height,

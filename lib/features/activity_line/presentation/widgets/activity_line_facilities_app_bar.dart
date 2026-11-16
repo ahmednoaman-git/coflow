@@ -21,6 +21,12 @@ class ActivityLineFacilitiesAppBar extends StatelessWidget implements PreferredS
     return AppBar(
       backgroundColor: primaryColor,
       foregroundColor: context.colors.textWhite,
+      leading: Center(
+        child: MainBackButton(
+          backgroundColor: Colors.transparent,
+          iconColor: context.colors.textWhite,
+        ),
+      ),
       // Both fly in from the dashboard chip the screen was opened from.
       title: Row(
         spacing: context.spacing.s8,
