@@ -2168,6 +2168,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your request was sent'**
   String get support_created;
+
+  /// No description provided for @preferences_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get preferences_title;
+
+  /// No description provided for @preferences_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the activities you\'re into, and we\'ll use them to tailor what you see.'**
+  String get preferences_subtitle;
+
+  /// No description provided for @preferences_pickedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} picked'**
+  String preferences_pickedCount(int count);
+
+  /// No description provided for @preferences_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No activities to pick from yet'**
+  String get preferences_empty;
+
+  /// No description provided for @preferences_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get preferences_save;
+
+  /// No description provided for @preferences_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Your preferences were saved'**
+  String get preferences_saved;
+
+  /// No description provided for @preferences_pickAtLeastOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick at least one activity to save.'**
+  String get preferences_pickAtLeastOne;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

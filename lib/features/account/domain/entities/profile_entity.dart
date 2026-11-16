@@ -8,6 +8,9 @@ part 'profile_entity.freezed.dart';
 abstract class ProfileEntity with _$ProfileEntity {
   const factory ProfileEntity({
     required UserEntity user,
+
+    /// Ids of the activity tags the user picked under Activity Preferences.
+    @Default(<int>[]) List<int> preferredTagIds,
   }) = _ProfileEntity;
 }
 

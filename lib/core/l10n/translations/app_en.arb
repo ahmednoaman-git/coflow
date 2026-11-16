@@ -519,5 +519,13 @@
   "support_uploadImage": "Upload Image",
   "support_optional": "Optional",
   "support_submit": "Submit Request",
-  "support_created": "Your request was sent"
+  "support_created": "Your request was sent",
+  "preferences_title": "Preferences",
+  "preferences_subtitle": "Pick the activities you're into, and we'll use them to tailor what you see.",
+  "preferences_pickedCount": "{count} picked",
+  "@preferences_pickedCount": {"placeholders":{"count":{"type":"int"}}},
+  "preferences_empty": "No activities to pick from yet",
+  "preferences_save": "Save",
+  "preferences_saved": "Your preferences were saved",
+  "preferences_pickAtLeastOne": "Pick at least one activity to save."
 }

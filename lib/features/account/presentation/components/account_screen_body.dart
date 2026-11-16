@@ -80,8 +80,7 @@ class _ManagementSection extends StatelessWidget {
           AccountManagementAction(
             icon: SolarIconsOutline.tuning,
             label: l10n.account_activityPreferences,
-            // TODO: Navigate to activity preferences
-            onTap: null,
+            onTap: () => context.router.push(const ActivityPreferencesRoute()),
           ),
           AccountManagementAction(
             icon: SolarIconsOutline.userSpeak,

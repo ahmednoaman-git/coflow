@@ -55,6 +55,22 @@ import '../../features/activity_line/domain/use_cases/get_facilities_use_case.da
 import '../../features/activity_line/domain/use_cases/use_cases.dart' as _i601;
 import '../../features/activity_line/presentation/cubit/activity_line_facilities_cubit.dart'
     as _i803;
+import '../../features/activity_preferences/data/datasources/activity_preferences_remote_data_source.dart'
+    as _i649;
+import '../../features/activity_preferences/data/datasources/datasources.dart'
+    as _i96;
+import '../../features/activity_preferences/data/repositories/activity_preferences_repository_impl.dart'
+    as _i281;
+import '../../features/activity_preferences/domain/repositories/repositories.dart'
+    as _i320;
+import '../../features/activity_preferences/domain/use_cases/get_activity_preferences_use_case.dart'
+    as _i139;
+import '../../features/activity_preferences/domain/use_cases/save_activity_preferences_use_case.dart'
+    as _i771;
+import '../../features/activity_preferences/domain/use_cases/use_cases.dart'
+    as _i227;
+import '../../features/activity_preferences/presentation/cubit/activity_preferences_cubit.dart'
+    as _i341;
 import '../../features/app_info/data/datasources/app_info_remote_data_source.dart'
     as _i685;
 import '../../features/app_info/data/datasources/datasources.dart' as _i157;
@@ -349,6 +365,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i198.ActivityLineRemoteDataSource>(
       () => _i198.ActivityLineRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i649.ActivityPreferencesRemoteDataSource>(
+      () => _i649.ActivityPreferencesRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i685.AppInfoRemoteDataSource>(
       () => _i685.AppInfoRemoteDataSource(gh<_i351.DioClient>()),
     );
@@ -451,6 +470,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i692.PurchaseRepository>(
       () => _i254.PurchaseRepositoryImpl(gh<_i857.PurchaseRemoteDataSource>()),
     );
+    gh.lazySingleton<_i320.ActivityPreferencesRepository>(
+      () => _i281.ActivityPreferencesRepositoryImpl(
+        gh<_i96.ActivityPreferencesRemoteDataSource>(),
+      ),
+    );
     gh.lazySingleton<_i463.CouponRepository>(
       () => _i298.CouponRepositoryImpl(gh<_i857.PurchaseRemoteDataSource>()),
     );
@@ -461,6 +485,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i85.FacilityRepositoryImpl(
         gh<_i163.FacilityRemoteDataSource>(),
         gh<_i163.FacilityCalendarRemoteDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i771.SaveActivityPreferencesUseCase>(
+      () => _i771.SaveActivityPreferencesUseCase(
+        gh<_i320.ActivityPreferencesRepository>(),
       ),
     );
     gh.lazySingleton<_i466.ReservationRemoteDataSource>(
@@ -607,6 +636,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i877.GetProfileUseCase>(),
         gh<_i106.LogoutUseCase>(),
         gh<_i877.GetAccountStatisticsUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i139.GetActivityPreferencesUseCase>(
+      () => _i139.GetActivityPreferencesUseCase(
+        gh<_i320.ActivityPreferencesRepository>(),
+        gh<_i877.GetProfileUseCase>(),
       ),
     );
     gh.lazySingleton<_i291.GetPurchaseCouponsUseCase>(
@@ -773,6 +808,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i551.WithdrawReservationUseCase>(
       () => _i551.WithdrawReservationUseCase(gh<_i176.ReservationRepository>()),
+    );
+    gh.factory<_i341.ActivityPreferencesCubit>(
+      () => _i341.ActivityPreferencesCubit(
+        gh<_i227.GetActivityPreferencesUseCase>(),
+        gh<_i227.SaveActivityPreferencesUseCase>(),
+      ),
     );
     gh.factory<_i9.HomeCubit>(
       () => _i9.HomeCubit(

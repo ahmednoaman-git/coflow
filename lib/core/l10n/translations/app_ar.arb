@@ -403,5 +403,12 @@
   "support_uploadImage": "رفع صورة",
   "support_optional": "اختياري",
   "support_submit": "إرسال الطلب",
-  "support_created": "تم إرسال طلبك"
+  "support_created": "تم إرسال طلبك",
+  "preferences_title": "التفضيلات",
+  "preferences_subtitle": "اختر الأنشطة التي تهمك لنخصص لك ما تراه.",
+  "preferences_pickedCount": "{count} مختارة",
+  "preferences_empty": "لا توجد أنشطة للاختيار بعد",
+  "preferences_save": "حفظ",
+  "preferences_saved": "تم حفظ تفضيلاتك",
+  "preferences_pickAtLeastOne": "اختر نشاطًا واحدًا على الأقل للحفظ."
 }

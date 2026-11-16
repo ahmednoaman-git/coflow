@@ -1186,4 +1186,27 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get support_created => 'تم إرسال طلبك';
+
+  @override
+  String get preferences_title => 'التفضيلات';
+
+  @override
+  String get preferences_subtitle => 'اختر الأنشطة التي تهمك لنخصص لك ما تراه.';
+
+  @override
+  String preferences_pickedCount(int count) {
+    return '$count مختارة';
+  }
+
+  @override
+  String get preferences_empty => 'لا توجد أنشطة للاختيار بعد';
+
+  @override
+  String get preferences_save => 'حفظ';
+
+  @override
+  String get preferences_saved => 'تم حفظ تفضيلاتك';
+
+  @override
+  String get preferences_pickAtLeastOne => 'اختر نشاطًا واحدًا على الأقل للحفظ.';
 }

@@ -9,7 +9,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i27;
+import 'package:auto_route/auto_route.dart' as _i28;
 import 'package:coflow_users_v2/core/core.dart' as _i5;
 import 'package:coflow_users_v2/core/routing/app_router.dart' as _i2;
 import 'package:coflow_users_v2/features/account/presentation/account_information_screen.dart'
@@ -17,70 +17,72 @@ import 'package:coflow_users_v2/features/account/presentation/account_informatio
 import 'package:coflow_users_v2/features/account/presentation/account_screen.dart'
     as _i3;
 import 'package:coflow_users_v2/features/account/presentation/edit_account_information_screen.dart'
-    as _i10;
+    as _i11;
 import 'package:coflow_users_v2/features/account/presentation/user_profile_screen.dart'
-    as _i25;
+    as _i26;
 import 'package:coflow_users_v2/features/activity_line/domain/domain.dart'
-    as _i29;
+    as _i30;
 import 'package:coflow_users_v2/features/activity_line/domain/entities/entities.dart'
-    as _i32;
+    as _i33;
 import 'package:coflow_users_v2/features/activity_line/presentation/activity_line_facilities_screen.dart'
     as _i4;
-import 'package:coflow_users_v2/features/app_info/presentation/app_faq_screen.dart'
+import 'package:coflow_users_v2/features/activity_preferences/presentation/activity_preferences_screen.dart'
     as _i6;
-import 'package:coflow_users_v2/features/app_info/presentation/legal_document_screen.dart'
-    as _i15;
-import 'package:coflow_users_v2/features/authentication/presentation/screens/login/login_screen.dart'
-    as _i16;
-import 'package:coflow_users_v2/features/authentication/presentation/screens/register/register_screen.dart'
-    as _i19;
-import 'package:coflow_users_v2/features/calendar/presentation/calendar_screen.dart'
+import 'package:coflow_users_v2/features/app_info/presentation/app_faq_screen.dart'
     as _i7;
-import 'package:coflow_users_v2/features/discounts/presentation/discounts_screen.dart'
-    as _i8;
-import 'package:coflow_users_v2/features/discover/presentation/discover_screen.dart'
-    as _i9;
-import 'package:coflow_users_v2/features/facility/domain/entities/entities.dart'
-    as _i30;
-import 'package:coflow_users_v2/features/facility/domain/enums/enums.dart'
-    as _i31;
-import 'package:coflow_users_v2/features/facility/presentation/facility_details_screen.dart'
-    as _i11;
-import 'package:coflow_users_v2/features/facility/presentation/facility_faq_screen.dart'
-    as _i12;
-import 'package:coflow_users_v2/features/facility/presentation/facility_service_details_screen.dart'
-    as _i13;
-import 'package:coflow_users_v2/features/home/presentation/home_screen.dart'
-    as _i14;
-import 'package:coflow_users_v2/features/my_purchases/domain/domain.dart'
-    as _i33;
-import 'package:coflow_users_v2/features/my_purchases/presentation/user_purchases_screen.dart'
-    as _i26;
-import 'package:coflow_users_v2/features/navigation_root/presentation/navigation_root_screen.dart'
+import 'package:coflow_users_v2/features/app_info/presentation/legal_document_screen.dart'
+    as _i16;
+import 'package:coflow_users_v2/features/authentication/presentation/screens/login/login_screen.dart'
     as _i17;
-import 'package:coflow_users_v2/features/purchase/presentation/promotion_purchase_screen.dart'
-    as _i18;
-import 'package:coflow_users_v2/features/purchase/presentation/ticket_purchase_screen.dart'
-    as _i24;
-import 'package:coflow_users_v2/features/saved_profiles/presentation/saved_profiles_screen.dart'
+import 'package:coflow_users_v2/features/authentication/presentation/screens/register/register_screen.dart'
     as _i20;
-import 'package:coflow_users_v2/features/search/presentation/search_screen.dart'
+import 'package:coflow_users_v2/features/calendar/presentation/calendar_screen.dart'
+    as _i8;
+import 'package:coflow_users_v2/features/discounts/presentation/discounts_screen.dart'
+    as _i9;
+import 'package:coflow_users_v2/features/discover/presentation/discover_screen.dart'
+    as _i10;
+import 'package:coflow_users_v2/features/facility/domain/entities/entities.dart'
+    as _i31;
+import 'package:coflow_users_v2/features/facility/domain/enums/enums.dart'
+    as _i32;
+import 'package:coflow_users_v2/features/facility/presentation/facility_details_screen.dart'
+    as _i12;
+import 'package:coflow_users_v2/features/facility/presentation/facility_faq_screen.dart'
+    as _i13;
+import 'package:coflow_users_v2/features/facility/presentation/facility_service_details_screen.dart'
+    as _i14;
+import 'package:coflow_users_v2/features/home/presentation/home_screen.dart'
+    as _i15;
+import 'package:coflow_users_v2/features/my_purchases/domain/domain.dart'
+    as _i34;
+import 'package:coflow_users_v2/features/my_purchases/presentation/user_purchases_screen.dart'
+    as _i27;
+import 'package:coflow_users_v2/features/navigation_root/presentation/navigation_root_screen.dart'
+    as _i18;
+import 'package:coflow_users_v2/features/purchase/presentation/promotion_purchase_screen.dart'
+    as _i19;
+import 'package:coflow_users_v2/features/purchase/presentation/ticket_purchase_screen.dart'
+    as _i25;
+import 'package:coflow_users_v2/features/saved_profiles/presentation/saved_profiles_screen.dart'
     as _i21;
-import 'package:coflow_users_v2/features/splash/presentation/splash_screen.dart'
+import 'package:coflow_users_v2/features/search/presentation/search_screen.dart'
     as _i22;
-import 'package:coflow_users_v2/features/support/presentation/support_requests_screen.dart'
+import 'package:coflow_users_v2/features/splash/presentation/splash_screen.dart'
     as _i23;
-import 'package:flutter/material.dart' as _i28;
+import 'package:coflow_users_v2/features/support/presentation/support_requests_screen.dart'
+    as _i24;
+import 'package:flutter/material.dart' as _i29;
 
 /// generated route for
 /// [_i1.AccountInformationScreen]
-class AccountInformationRoute extends _i27.PageRouteInfo<void> {
-  const AccountInformationRoute({List<_i27.PageRouteInfo>? children})
+class AccountInformationRoute extends _i28.PageRouteInfo<void> {
+  const AccountInformationRoute({List<_i28.PageRouteInfo>? children})
     : super(AccountInformationRoute.name, initialChildren: children);
 
   static const String name = 'AccountInformationRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
       return const _i1.AccountInformationScreen();
@@ -90,13 +92,13 @@ class AccountInformationRoute extends _i27.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.AccountRouterPage]
-class AccountRouter extends _i27.PageRouteInfo<void> {
-  const AccountRouter({List<_i27.PageRouteInfo>? children})
+class AccountRouter extends _i28.PageRouteInfo<void> {
+  const AccountRouter({List<_i28.PageRouteInfo>? children})
     : super(AccountRouter.name, initialChildren: children);
 
   static const String name = 'AccountRouter';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
       return const _i2.AccountRouterPage();
@@ -106,13 +108,13 @@ class AccountRouter extends _i27.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.AccountScreen]
-class AccountRoute extends _i27.PageRouteInfo<void> {
-  const AccountRoute({List<_i27.PageRouteInfo>? children})
+class AccountRoute extends _i28.PageRouteInfo<void> {
+  const AccountRoute({List<_i28.PageRouteInfo>? children})
     : super(AccountRoute.name, initialChildren: children);
 
   static const String name = 'AccountRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
       return const _i3.AccountScreen();
@@ -123,13 +125,13 @@ class AccountRoute extends _i27.PageRouteInfo<void> {
 /// generated route for
 /// [_i4.ActivityLineFacilitiesScreen]
 class ActivityLineFacilitiesRoute
-    extends _i27.PageRouteInfo<ActivityLineFacilitiesRouteArgs> {
+    extends _i28.PageRouteInfo<ActivityLineFacilitiesRouteArgs> {
   ActivityLineFacilitiesRoute({
-    _i28.Key? key,
+    _i29.Key? key,
     required _i5.ActivityLineEntity activityLine,
     _i5.SelectedLocation initialLocation = const _i5.SelectedLocation(),
-    _i28.ValueChanged<_i5.SelectedLocation>? onLocationSelected,
-    List<_i27.PageRouteInfo>? children,
+    _i29.ValueChanged<_i5.SelectedLocation>? onLocationSelected,
+    List<_i28.PageRouteInfo>? children,
   }) : super(
          ActivityLineFacilitiesRoute.name,
          args: ActivityLineFacilitiesRouteArgs(
@@ -143,7 +145,7 @@ class ActivityLineFacilitiesRoute
 
   static const String name = 'ActivityLineFacilitiesRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ActivityLineFacilitiesRouteArgs>();
@@ -165,13 +167,13 @@ class ActivityLineFacilitiesRouteArgs {
     this.onLocationSelected,
   });
 
-  final _i28.Key? key;
+  final _i29.Key? key;
 
   final _i5.ActivityLineEntity activityLine;
 
   final _i5.SelectedLocation initialLocation;
 
-  final _i28.ValueChanged<_i5.SelectedLocation>? onLocationSelected;
+  final _i29.ValueChanged<_i5.SelectedLocation>? onLocationSelected;
 
   @override
   String toString() {
@@ -197,94 +199,110 @@ class ActivityLineFacilitiesRouteArgs {
 }
 
 /// generated route for
-/// [_i6.AppFaqScreen]
-class AppFaqRoute extends _i27.PageRouteInfo<void> {
-  const AppFaqRoute({List<_i27.PageRouteInfo>? children})
+/// [_i6.ActivityPreferencesScreen]
+class ActivityPreferencesRoute extends _i28.PageRouteInfo<void> {
+  const ActivityPreferencesRoute({List<_i28.PageRouteInfo>? children})
+    : super(ActivityPreferencesRoute.name, initialChildren: children);
+
+  static const String name = 'ActivityPreferencesRoute';
+
+  static _i28.PageInfo page = _i28.PageInfo(
+    name,
+    builder: (data) {
+      return const _i6.ActivityPreferencesScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i7.AppFaqScreen]
+class AppFaqRoute extends _i28.PageRouteInfo<void> {
+  const AppFaqRoute({List<_i28.PageRouteInfo>? children})
     : super(AppFaqRoute.name, initialChildren: children);
 
   static const String name = 'AppFaqRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i6.AppFaqScreen();
+      return const _i7.AppFaqScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i7.CalendarScreen]
-class CalendarRoute extends _i27.PageRouteInfo<void> {
-  const CalendarRoute({List<_i27.PageRouteInfo>? children})
+/// [_i8.CalendarScreen]
+class CalendarRoute extends _i28.PageRouteInfo<void> {
+  const CalendarRoute({List<_i28.PageRouteInfo>? children})
     : super(CalendarRoute.name, initialChildren: children);
 
   static const String name = 'CalendarRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i7.CalendarScreen();
+      return const _i8.CalendarScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i8.DiscountsScreen]
-class DiscountsRoute extends _i27.PageRouteInfo<void> {
-  const DiscountsRoute({List<_i27.PageRouteInfo>? children})
+/// [_i9.DiscountsScreen]
+class DiscountsRoute extends _i28.PageRouteInfo<void> {
+  const DiscountsRoute({List<_i28.PageRouteInfo>? children})
     : super(DiscountsRoute.name, initialChildren: children);
 
   static const String name = 'DiscountsRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i8.DiscountsScreen();
+      return const _i9.DiscountsScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i9.DiscoverScreen]
-class DiscoverRoute extends _i27.PageRouteInfo<void> {
-  const DiscoverRoute({List<_i27.PageRouteInfo>? children})
+/// [_i10.DiscoverScreen]
+class DiscoverRoute extends _i28.PageRouteInfo<void> {
+  const DiscoverRoute({List<_i28.PageRouteInfo>? children})
     : super(DiscoverRoute.name, initialChildren: children);
 
   static const String name = 'DiscoverRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i9.DiscoverScreen();
+      return const _i10.DiscoverScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i10.EditAccountInformationScreen]
-class EditAccountInformationRoute extends _i27.PageRouteInfo<void> {
-  const EditAccountInformationRoute({List<_i27.PageRouteInfo>? children})
+/// [_i11.EditAccountInformationScreen]
+class EditAccountInformationRoute extends _i28.PageRouteInfo<void> {
+  const EditAccountInformationRoute({List<_i28.PageRouteInfo>? children})
     : super(EditAccountInformationRoute.name, initialChildren: children);
 
   static const String name = 'EditAccountInformationRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i10.EditAccountInformationScreen();
+      return const _i11.EditAccountInformationScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i11.FacilityDetailsScreen]
+/// [_i12.FacilityDetailsScreen]
 class FacilityDetailsRoute
-    extends _i27.PageRouteInfo<FacilityDetailsRouteArgs> {
+    extends _i28.PageRouteInfo<FacilityDetailsRouteArgs> {
   FacilityDetailsRoute({
-    _i28.Key? key,
-    required _i29.CollapsedFacilityEntity facility,
+    _i29.Key? key,
+    required _i30.CollapsedFacilityEntity facility,
     bool isPreview = false,
-    List<_i27.PageRouteInfo>? children,
+    List<_i28.PageRouteInfo>? children,
   }) : super(
          FacilityDetailsRoute.name,
          args: FacilityDetailsRouteArgs(
@@ -297,11 +315,11 @@ class FacilityDetailsRoute
 
   static const String name = 'FacilityDetailsRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<FacilityDetailsRouteArgs>();
-      return _i11.FacilityDetailsScreen(
+      return _i12.FacilityDetailsScreen(
         key: args.key,
         facility: args.facility,
         isPreview: args.isPreview,
@@ -317,9 +335,9 @@ class FacilityDetailsRouteArgs {
     this.isPreview = false,
   });
 
-  final _i28.Key? key;
+  final _i29.Key? key;
 
-  final _i29.CollapsedFacilityEntity facility;
+  final _i30.CollapsedFacilityEntity facility;
 
   final bool isPreview;
 
@@ -342,12 +360,12 @@ class FacilityDetailsRouteArgs {
 }
 
 /// generated route for
-/// [_i12.FacilityFaqScreen]
-class FacilityFaqRoute extends _i27.PageRouteInfo<FacilityFaqRouteArgs> {
+/// [_i13.FacilityFaqScreen]
+class FacilityFaqRoute extends _i28.PageRouteInfo<FacilityFaqRouteArgs> {
   FacilityFaqRoute({
-    _i28.Key? key,
-    required _i29.CollapsedFacilityEntity facility,
-    List<_i27.PageRouteInfo>? children,
+    _i29.Key? key,
+    required _i30.CollapsedFacilityEntity facility,
+    List<_i28.PageRouteInfo>? children,
   }) : super(
          FacilityFaqRoute.name,
          args: FacilityFaqRouteArgs(key: key, facility: facility),
@@ -356,11 +374,11 @@ class FacilityFaqRoute extends _i27.PageRouteInfo<FacilityFaqRouteArgs> {
 
   static const String name = 'FacilityFaqRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<FacilityFaqRouteArgs>();
-      return _i12.FacilityFaqScreen(key: args.key, facility: args.facility);
+      return _i13.FacilityFaqScreen(key: args.key, facility: args.facility);
     },
   );
 }
@@ -368,9 +386,9 @@ class FacilityFaqRoute extends _i27.PageRouteInfo<FacilityFaqRouteArgs> {
 class FacilityFaqRouteArgs {
   const FacilityFaqRouteArgs({this.key, required this.facility});
 
-  final _i28.Key? key;
+  final _i29.Key? key;
 
-  final _i29.CollapsedFacilityEntity facility;
+  final _i30.CollapsedFacilityEntity facility;
 
   @override
   String toString() {
@@ -389,15 +407,15 @@ class FacilityFaqRouteArgs {
 }
 
 /// generated route for
-/// [_i13.FacilityServiceDetailsScreen]
+/// [_i14.FacilityServiceDetailsScreen]
 class FacilityServiceDetailsRoute
-    extends _i27.PageRouteInfo<FacilityServiceDetailsRouteArgs> {
+    extends _i28.PageRouteInfo<FacilityServiceDetailsRouteArgs> {
   FacilityServiceDetailsRoute({
-    _i28.Key? key,
-    required _i30.CollapsedFacilityServiceEntity service,
-    required _i31.FacilityServiceType type,
-    required _i29.CollapsedFacilityEntity facility,
-    List<_i27.PageRouteInfo>? children,
+    _i29.Key? key,
+    required _i31.CollapsedFacilityServiceEntity service,
+    required _i32.FacilityServiceType type,
+    required _i30.CollapsedFacilityEntity facility,
+    List<_i28.PageRouteInfo>? children,
   }) : super(
          FacilityServiceDetailsRoute.name,
          args: FacilityServiceDetailsRouteArgs(
@@ -411,11 +429,11 @@ class FacilityServiceDetailsRoute
 
   static const String name = 'FacilityServiceDetailsRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<FacilityServiceDetailsRouteArgs>();
-      return _i13.FacilityServiceDetailsScreen(
+      return _i14.FacilityServiceDetailsScreen(
         key: args.key,
         service: args.service,
         type: args.type,
@@ -433,13 +451,13 @@ class FacilityServiceDetailsRouteArgs {
     required this.facility,
   });
 
-  final _i28.Key? key;
+  final _i29.Key? key;
 
-  final _i30.CollapsedFacilityServiceEntity service;
+  final _i31.CollapsedFacilityServiceEntity service;
 
-  final _i31.FacilityServiceType type;
+  final _i32.FacilityServiceType type;
 
-  final _i29.CollapsedFacilityEntity facility;
+  final _i30.CollapsedFacilityEntity facility;
 
   @override
   String toString() {
@@ -463,13 +481,13 @@ class FacilityServiceDetailsRouteArgs {
 
 /// generated route for
 /// [_i2.HomeRouterPage]
-class HomeRouter extends _i27.PageRouteInfo<void> {
-  const HomeRouter({List<_i27.PageRouteInfo>? children})
+class HomeRouter extends _i28.PageRouteInfo<void> {
+  const HomeRouter({List<_i28.PageRouteInfo>? children})
     : super(HomeRouter.name, initialChildren: children);
 
   static const String name = 'HomeRouter';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
       return const _i2.HomeRouterPage();
@@ -478,28 +496,28 @@ class HomeRouter extends _i27.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.HomeScreen]
-class HomeRoute extends _i27.PageRouteInfo<void> {
-  const HomeRoute({List<_i27.PageRouteInfo>? children})
+/// [_i15.HomeScreen]
+class HomeRoute extends _i28.PageRouteInfo<void> {
+  const HomeRoute({List<_i28.PageRouteInfo>? children})
     : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i14.HomeScreen();
+      return const _i15.HomeScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i15.LegalDocumentScreen]
-class LegalDocumentRoute extends _i27.PageRouteInfo<LegalDocumentRouteArgs> {
+/// [_i16.LegalDocumentScreen]
+class LegalDocumentRoute extends _i28.PageRouteInfo<LegalDocumentRouteArgs> {
   LegalDocumentRoute({
-    _i28.Key? key,
-    required _i15.LegalDocument document,
-    List<_i27.PageRouteInfo>? children,
+    _i29.Key? key,
+    required _i16.LegalDocument document,
+    List<_i28.PageRouteInfo>? children,
   }) : super(
          LegalDocumentRoute.name,
          args: LegalDocumentRouteArgs(key: key, document: document),
@@ -508,11 +526,11 @@ class LegalDocumentRoute extends _i27.PageRouteInfo<LegalDocumentRouteArgs> {
 
   static const String name = 'LegalDocumentRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<LegalDocumentRouteArgs>();
-      return _i15.LegalDocumentScreen(key: args.key, document: args.document);
+      return _i16.LegalDocumentScreen(key: args.key, document: args.document);
     },
   );
 }
@@ -520,9 +538,9 @@ class LegalDocumentRoute extends _i27.PageRouteInfo<LegalDocumentRouteArgs> {
 class LegalDocumentRouteArgs {
   const LegalDocumentRouteArgs({this.key, required this.document});
 
-  final _i28.Key? key;
+  final _i29.Key? key;
 
-  final _i15.LegalDocument document;
+  final _i16.LegalDocument document;
 
   @override
   String toString() {
@@ -541,47 +559,47 @@ class LegalDocumentRouteArgs {
 }
 
 /// generated route for
-/// [_i16.LoginScreen]
-class LoginRoute extends _i27.PageRouteInfo<void> {
-  const LoginRoute({List<_i27.PageRouteInfo>? children})
+/// [_i17.LoginScreen]
+class LoginRoute extends _i28.PageRouteInfo<void> {
+  const LoginRoute({List<_i28.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i16.LoginScreen();
+      return const _i17.LoginScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i17.NavigationRootScreen]
-class NavigationRootRoute extends _i27.PageRouteInfo<void> {
-  const NavigationRootRoute({List<_i27.PageRouteInfo>? children})
+/// [_i18.NavigationRootScreen]
+class NavigationRootRoute extends _i28.PageRouteInfo<void> {
+  const NavigationRootRoute({List<_i28.PageRouteInfo>? children})
     : super(NavigationRootRoute.name, initialChildren: children);
 
   static const String name = 'NavigationRootRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i17.NavigationRootScreen();
+      return const _i18.NavigationRootScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i18.PromotionPurchaseScreen]
+/// [_i19.PromotionPurchaseScreen]
 class PromotionPurchaseRoute
-    extends _i27.PageRouteInfo<PromotionPurchaseRouteArgs> {
+    extends _i28.PageRouteInfo<PromotionPurchaseRouteArgs> {
   PromotionPurchaseRoute({
-    _i28.Key? key,
-    required _i30.FacilityPromotionDetailsEntity promotion,
-    required _i32.CollapsedFacilityEntity facility,
-    required _i28.Color accentColor,
-    List<_i27.PageRouteInfo>? children,
+    _i29.Key? key,
+    required _i31.FacilityPromotionDetailsEntity promotion,
+    required _i33.CollapsedFacilityEntity facility,
+    required _i29.Color accentColor,
+    List<_i28.PageRouteInfo>? children,
   }) : super(
          PromotionPurchaseRoute.name,
          args: PromotionPurchaseRouteArgs(
@@ -595,11 +613,11 @@ class PromotionPurchaseRoute
 
   static const String name = 'PromotionPurchaseRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<PromotionPurchaseRouteArgs>();
-      return _i18.PromotionPurchaseScreen(
+      return _i19.PromotionPurchaseScreen(
         key: args.key,
         promotion: args.promotion,
         facility: args.facility,
@@ -617,13 +635,13 @@ class PromotionPurchaseRouteArgs {
     required this.accentColor,
   });
 
-  final _i28.Key? key;
+  final _i29.Key? key;
 
-  final _i30.FacilityPromotionDetailsEntity promotion;
+  final _i31.FacilityPromotionDetailsEntity promotion;
 
-  final _i32.CollapsedFacilityEntity facility;
+  final _i33.CollapsedFacilityEntity facility;
 
-  final _i28.Color accentColor;
+  final _i29.Color accentColor;
 
   @override
   String toString() {
@@ -649,94 +667,94 @@ class PromotionPurchaseRouteArgs {
 }
 
 /// generated route for
-/// [_i19.RegisterScreen]
-class RegisterRoute extends _i27.PageRouteInfo<void> {
-  const RegisterRoute({List<_i27.PageRouteInfo>? children})
+/// [_i20.RegisterScreen]
+class RegisterRoute extends _i28.PageRouteInfo<void> {
+  const RegisterRoute({List<_i28.PageRouteInfo>? children})
     : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i19.RegisterScreen();
+      return const _i20.RegisterScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i20.SavedProfilesScreen]
-class SavedProfilesRoute extends _i27.PageRouteInfo<void> {
-  const SavedProfilesRoute({List<_i27.PageRouteInfo>? children})
+/// [_i21.SavedProfilesScreen]
+class SavedProfilesRoute extends _i28.PageRouteInfo<void> {
+  const SavedProfilesRoute({List<_i28.PageRouteInfo>? children})
     : super(SavedProfilesRoute.name, initialChildren: children);
 
   static const String name = 'SavedProfilesRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i20.SavedProfilesScreen();
+      return const _i21.SavedProfilesScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i21.SearchScreen]
-class SearchRoute extends _i27.PageRouteInfo<void> {
-  const SearchRoute({List<_i27.PageRouteInfo>? children})
+/// [_i22.SearchScreen]
+class SearchRoute extends _i28.PageRouteInfo<void> {
+  const SearchRoute({List<_i28.PageRouteInfo>? children})
     : super(SearchRoute.name, initialChildren: children);
 
   static const String name = 'SearchRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i21.SearchScreen();
+      return const _i22.SearchScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i22.SplashScreen]
-class SplashRoute extends _i27.PageRouteInfo<void> {
-  const SplashRoute({List<_i27.PageRouteInfo>? children})
+/// [_i23.SplashScreen]
+class SplashRoute extends _i28.PageRouteInfo<void> {
+  const SplashRoute({List<_i28.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i22.SplashScreen();
+      return const _i23.SplashScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i23.SupportRequestsScreen]
-class SupportRequestsRoute extends _i27.PageRouteInfo<void> {
-  const SupportRequestsRoute({List<_i27.PageRouteInfo>? children})
+/// [_i24.SupportRequestsScreen]
+class SupportRequestsRoute extends _i28.PageRouteInfo<void> {
+  const SupportRequestsRoute({List<_i28.PageRouteInfo>? children})
     : super(SupportRequestsRoute.name, initialChildren: children);
 
   static const String name = 'SupportRequestsRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i23.SupportRequestsScreen();
+      return const _i24.SupportRequestsScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i24.TicketPurchaseScreen]
-class TicketPurchaseRoute extends _i27.PageRouteInfo<TicketPurchaseRouteArgs> {
+/// [_i25.TicketPurchaseScreen]
+class TicketPurchaseRoute extends _i28.PageRouteInfo<TicketPurchaseRouteArgs> {
   TicketPurchaseRoute({
-    _i28.Key? key,
-    required _i30.FacilityTicketDetailsEntity ticket,
-    required _i32.CollapsedFacilityEntity facility,
-    required _i28.Color accentColor,
-    List<_i27.PageRouteInfo>? children,
+    _i29.Key? key,
+    required _i31.FacilityTicketDetailsEntity ticket,
+    required _i33.CollapsedFacilityEntity facility,
+    required _i29.Color accentColor,
+    List<_i28.PageRouteInfo>? children,
   }) : super(
          TicketPurchaseRoute.name,
          args: TicketPurchaseRouteArgs(
@@ -750,11 +768,11 @@ class TicketPurchaseRoute extends _i27.PageRouteInfo<TicketPurchaseRouteArgs> {
 
   static const String name = 'TicketPurchaseRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<TicketPurchaseRouteArgs>();
-      return _i24.TicketPurchaseScreen(
+      return _i25.TicketPurchaseScreen(
         key: args.key,
         ticket: args.ticket,
         facility: args.facility,
@@ -772,13 +790,13 @@ class TicketPurchaseRouteArgs {
     required this.accentColor,
   });
 
-  final _i28.Key? key;
+  final _i29.Key? key;
 
-  final _i30.FacilityTicketDetailsEntity ticket;
+  final _i31.FacilityTicketDetailsEntity ticket;
 
-  final _i32.CollapsedFacilityEntity facility;
+  final _i33.CollapsedFacilityEntity facility;
 
-  final _i28.Color accentColor;
+  final _i29.Color accentColor;
 
   @override
   String toString() {
@@ -801,28 +819,28 @@ class TicketPurchaseRouteArgs {
 }
 
 /// generated route for
-/// [_i25.UserProfileScreen]
-class UserProfileRoute extends _i27.PageRouteInfo<void> {
-  const UserProfileRoute({List<_i27.PageRouteInfo>? children})
+/// [_i26.UserProfileScreen]
+class UserProfileRoute extends _i28.PageRouteInfo<void> {
+  const UserProfileRoute({List<_i28.PageRouteInfo>? children})
     : super(UserProfileRoute.name, initialChildren: children);
 
   static const String name = 'UserProfileRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
-      return const _i25.UserProfileScreen();
+      return const _i26.UserProfileScreen();
     },
   );
 }
 
 /// generated route for
-/// [_i26.UserPurchasesScreen]
-class UserPurchasesRoute extends _i27.PageRouteInfo<UserPurchasesRouteArgs> {
+/// [_i27.UserPurchasesScreen]
+class UserPurchasesRoute extends _i28.PageRouteInfo<UserPurchasesRouteArgs> {
   UserPurchasesRoute({
-    _i28.Key? key,
-    required _i33.UserPurchaseCategory category,
-    List<_i27.PageRouteInfo>? children,
+    _i29.Key? key,
+    required _i34.UserPurchaseCategory category,
+    List<_i28.PageRouteInfo>? children,
   }) : super(
          UserPurchasesRoute.name,
          args: UserPurchasesRouteArgs(key: key, category: category),
@@ -831,11 +849,11 @@ class UserPurchasesRoute extends _i27.PageRouteInfo<UserPurchasesRouteArgs> {
 
   static const String name = 'UserPurchasesRoute';
 
-  static _i27.PageInfo page = _i27.PageInfo(
+  static _i28.PageInfo page = _i28.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<UserPurchasesRouteArgs>();
-      return _i26.UserPurchasesScreen(key: args.key, category: args.category);
+      return _i27.UserPurchasesScreen(key: args.key, category: args.category);
     },
   );
 }
@@ -843,9 +861,9 @@ class UserPurchasesRoute extends _i27.PageRouteInfo<UserPurchasesRouteArgs> {
 class UserPurchasesRouteArgs {
   const UserPurchasesRouteArgs({this.key, required this.category});
 
-  final _i28.Key? key;
+  final _i29.Key? key;
 
-  final _i33.UserPurchaseCategory category;
+  final _i34.UserPurchaseCategory category;
 
   @override
   String toString() {
