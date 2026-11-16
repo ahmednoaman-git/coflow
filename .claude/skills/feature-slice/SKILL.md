@@ -169,7 +169,38 @@ class FacilityDetailsCubit extends Cubit<FacilityDetailsState> {
 }
 ```
 
-Manager API: `execute([task])`, `refresh()`, `reset()`, and getters `isLoading/isSuccess/isError/isIdle/data/failure`. Lazy-tab pattern: `if (manager.isLoading || manager.isSuccess) return; manager.execute();`
+Manager API: `execute([task])`, `refresh()` (joins a request already running), `reset()`, and getters `isLoading/isRefreshing/isSuccess/isError/isIdle/data/failure`. Only the latest `execute`'s response is applied. Lazy-tab pattern: `if (manager.isLoading || manager.isSuccess) return; manager.execute();`
+
+**Background refresh (stale-while-revalidate)** — for data the user comes back to (a tab, a list re-read on return, pull-to-refresh), pass `refreshInBackground: true`. The first load still goes `loading` → skeleton; after that every `execute`/`refresh` keeps the data on screen as `AsyncState.success(data, isRefreshing: true)` and swaps the new data in when it lands. A failed refresh keeps the old data as `success(data, failure: ...)` — never the error view — so give the `AsyncHandler` an `onBackgroundError` snackbar. Leave it off when `execute` is handed a request for *different* data (new filter/query), where the old data would be wrong to show meanwhile. Pass the cubit an emit that ignores a closed cubit (`_emitIfOpen`) when responses can outlive it.
+
+```dart
+statsManager = AsyncRequestManager(
+  accessor: (...),
+  emit: _emitIfOpen,
+  autoExecute: true,
+  defaultRequest: _getStats(),
+  refreshInBackground: true,
+);
+Future<void> refreshStats() => statsManager.refresh();
+```
+
+**Optimistic updates** — for a user action whose result you already know (remove an item, set a flag), change the data at once and roll back if the server refuses; never refetch to show it:
+
+```dart
+Future<void> unsave(ItemEntity item) async {
+  await itemsManager.mutate(
+    _toggleSave(ToggleSaveDto(id: item.id)),
+    apply: (items) => [for (final i in items) if (i.id != item.id) i],
+  );
+}
+```
+
+`mutate` applies `apply` to the request's data, runs the task, keeps the change on success, and on failure drops it and reports the failure beside the data (`onBackgroundError` shows it; pass `reportFailure: false` to report it yourself). It returns the task's `Result`. Rules:
+- `apply` must be idempotent and state the *result* ("remove id 3", "set `isTracked` to true"), never a flip: pending changes are re-applied to every refresh that lands before the server has them, and rolling back just drops the change, so concurrent mutations compose.
+- The data must live in the request's `AsyncState` (not copied beside it) so the edits and refreshes share one source.
+- `AsyncHandler.onSuccess` fires when a request lands (a background refresh included), not for optimistic edits.
+- Lower level: `manager.edit(apply)` returns an `OptimisticEdit` to `update`/`commit`/`revert` yourself; `manager.update(change)` folds in a confirmed change (e.g. an entity a mutation returned); `manager.reportFailure(failure)` reports one beside the data.
+- Toggle endpoints with no "set to" form (`save/{id}`) that the user can spam: `manager.optimisticToggle(value:, send:, show: (data, value) => ...)` returns a `ConsolidatedToggle` — taps show at once, are debounced into at most one call, and the shown flag is rolled back on failure. Call `flip()` on tap and `close()` it in the cubit's `close()`.
 
 **Screen** — `presentation/<x>_screen.dart` with `@RoutePage()`; creates the `BlocProvider` (`getIt<XCubit>(param1: ...)`) and delegates layout to `components/<x>_screen_body.dart`. Register the route in `lib/core/routing/app_router.dart`; navigate with `context.router.push(XRoute(...))`.
 
@@ -183,6 +214,8 @@ AsyncHandler<FacilityDetailsCubit, FacilityDetailsState, List<FacilityTicketEnti
   skeletonBuilder: (context) => const TicketsSkeleton(),   // optional; fades the result in — see coflow-ui skill
   onRetry: (cubit) => cubit.ticketsManager.refresh(),       // optional retry button
   onError: (context, failure) => context.showErrorSnackBar(failure.message), // optional side effect
+  // With refreshInBackground or optimistic updates: a failure that kept the data on screen
+  onBackgroundError: (context, failure) => context.showErrorSnackBar(failure.message),
 )
 
 // Submit buttons / overlays

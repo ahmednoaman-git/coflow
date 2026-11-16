@@ -126,7 +126,8 @@ Anything pinned to the bottom of a screen (bars, floating buttons) offsets by `c
 ## Core widgets (`lib/core/presentation/widgets/`)
 
 - **`TappableScale`** — wrap ANY tappable surface (tiles, chips, rows, tab buttons): consistent press-scale animation, ink, superellipse. Avoid ad-hoc `InkWell`/`GestureDetector`.
-- **`CircularButton`** — circular icon-only actions (header controls).
+- **`CircularButton`** — circular icon-only actions (header controls). `CircularButton.standardSize` (44) unless a design calls for another.
+- **`MainBackButton`** — the only back control: an optically centred chevron in a standard `CircularButton`, flipping in RTL. Use it as an `AppBar`'s `leading` (wrapped in `Center`) and in overlay headers; never Flutter's `BackButton` or a default `AppBar` arrow. Style per surface with `backgroundColor`/`iconColor` (transparent + white on coloured bars, translucent dark over photos).
 - **`MainButton`** — primary button: `text`, `onPressed`, `isLoading`, `isDisabled`, `leadingIcon`/`trailingIcon`, defaults to 40px height / full width. Pair `isLoading` with `AsyncHandler.loadingDependent`.
 - **`showMainBottomSheet`** — the only sanctioned way to open a bottom sheet (see "Modals" above).
 - **`LogoRefreshIndicator`** — the only pull-to-refresh; never `RefreshIndicator`. Drop-in (`onRefresh`, `child`): the content itself pulls down and the logo draws itself in the gap, then loops (rings spin opposite ways, sheen, pulse) while refreshing. The child must be sliver-based — a `CustomScrollView` with the content in a `SliverToBoxAdapter` — never a `SingleChildScrollView`, which snaps out of the pull when it re-lays out (rejected in debug). Leave its physics at `AlwaysScrollableScrollPhysics()`; pass `edgeOffset` when the scroll view runs behind an app bar (Home).
@@ -174,7 +175,7 @@ Every loading placeholder in the app is built this way — see `FacilityCardSkel
 
 ## Feedback & misc
 
-- Snackbars: `context.showSuccessSnackBar(msg)` / `showErrorSnackBar` / `showInfoSnackBar` / `showWarningSnackBar`.
+- Snackbars: `context.showSuccessSnackBar(msg)` / `showErrorSnackBar` / `showInfoSnackBar` / `showWarningSnackBar`. They go through the app-wide queue in `lib/core/presentation/snackbar/` (`SnackbarHost`, mounted in `MaterialApp.builder`), so they show from the top over every route — sheets and dialogs included — one at a time, deduped. Never use `ScaffoldMessenger`/`SnackBar` directly.
 - Opacity: `color.withValues(alpha: 0.3)` — `withOpacity` is deprecated.
 - Enum args: prefer dot-shorthand (`mainAxisAlignment: .center`).
 - All user-facing strings via `context.l10n.*` — see the `add-translations` skill.

@@ -30,6 +30,20 @@ import 'package:sliver_tools/sliver_tools.dart';
 /// )
 /// ```
 ///
+/// **Background refresh**: a manager with `refreshInBackground` keeps the
+/// success UI up while it refreshes and when a refresh fails, and a rolled-back
+/// optimistic update keeps it too; give [onBackgroundError] to say why the
+/// data didn't change.
+///
+/// ```dart
+/// AsyncHandler<UsersCubit, UsersState, List<User>>(
+///   requestManagerGetter: (cubit) => cubit.usersManager,
+///   skeletonBuilder: (context) => const UsersSkeleton(),
+///   successBuilder: (context, users) => UsersList(users: users),
+///   onBackgroundError: (context, failure) => context.showErrorSnackBar(failure.message),
+/// )
+/// ```
+///
 /// **Loading-Dependent Mode**: Simplified API for UI that only needs to react
 /// to the loading state (buttons, overlays, etc.).
 ///
@@ -55,6 +69,7 @@ class AsyncHandler<C extends Cubit<TWholeState>, TWholeState, TPartialState>
     this.errorBuilder,
     this.onSuccess,
     this.onError,
+    this.onBackgroundError,
     this.onRetry,
   }) : _isLoadingDependent = false,
        _loadingDependentBuilder = null;
@@ -79,6 +94,7 @@ class AsyncHandler<C extends Cubit<TWholeState>, TWholeState, TPartialState>
        sliver = false,
        successBuilder = _dummySuccessBuilder,
        errorBuilder = null,
+       onBackgroundError = null,
        onRetry = null;
 
   final AsyncRequestManager<TWholeState, TPartialState> Function(C cubit) requestManagerGetter;
@@ -99,13 +115,20 @@ class AsyncHandler<C extends Cubit<TWholeState>, TWholeState, TPartialState>
   final Widget Function(BuildContext, TPartialState) successBuilder;
   final Widget Function(BuildContext, Failure)? errorBuilder;
 
-  /// Called when the async operation succeeds.
+  /// Called when the async operation succeeds — including a background
+  /// refresh landing, but not an optimistic edit to data already shown.
   /// Use for side effects like navigation or showing snackbars.
   final void Function(BuildContext, TPartialState)? onSuccess;
 
-  /// Called when the async operation fails.
+  /// Called when the async operation fails with no data to show.
   /// Use for side effects like showing error snackbars.
   final void Function(BuildContext, Failure)? onError;
+
+  /// Called for a failure that left the data on screen: a failed background
+  /// refresh (`refreshInBackground`), or an optimistic update that was rolled
+  /// back. [errorBuilder] never sees these, so this is the place to say why
+  /// the data didn't change — typically `context.showErrorSnackBar(...)`.
+  final void Function(BuildContext, Failure)? onBackgroundError;
 
   /// Called when the user taps retry on the default error widget.
   /// If provided, the default error widget will show a retry button.
@@ -124,9 +147,10 @@ class AsyncHandler<C extends Cubit<TWholeState>, TWholeState, TPartialState>
     final requestManager = requestManagerGetter(cubit);
 
     return BlocConsumer<C, TWholeState>(
-      listenWhen: (previous, current) =>
-          requestManager.getPartialStateFromWhole(previous) !=
-          requestManager.getPartialStateFromWhole(current),
+      listenWhen: (previous, current) => _shouldNotify(
+        requestManager.getPartialStateFromWhole(previous),
+        requestManager.getPartialStateFromWhole(current),
+      ),
       listener: (context, state) => _handleListener(context, requestManager),
       buildWhen: (previous, current) =>
           requestManager.getPartialStateFromWhole(previous) !=
@@ -135,17 +159,31 @@ class AsyncHandler<C extends Cubit<TWholeState>, TWholeState, TPartialState>
     );
   }
 
+  /// Whether going from [previous] to [current] is an outcome to report:
+  /// a request that finished (with data or without), or a failure kept beside
+  /// data. Starting a background refresh and optimistic edits to data already
+  /// shown are not.
+  static bool _shouldNotify<T>(AsyncState<T> previous, AsyncState<T> current) {
+    if (previous == current) return false;
+    return switch (current) {
+      AsyncError() || AsyncSuccess(failure: _?) => true,
+      AsyncSuccess(isRefreshing: true) => false,
+      AsyncSuccess() => previous is! AsyncSuccess<T> || previous.isRefreshing,
+      AsyncIdle() || AsyncLoading() => false,
+    };
+  }
+
   void _handleListener(
     BuildContext context,
     AsyncRequestManager<TWholeState, TPartialState> requestManager,
   ) {
-    final asyncState = requestManager.state;
-
-    switch (asyncState) {
-      case AsyncSuccess<TPartialState>(:final data):
-        onSuccess?.call(context, data);
+    switch (requestManager.state) {
+      case AsyncSuccess(:final failure?):
+        onBackgroundError?.call(context, failure);
       case AsyncError(:final failure):
         onError?.call(context, failure);
+      case AsyncSuccess<TPartialState>(:final data):
+        onSuccess?.call(context, data);
       case AsyncIdle():
       case AsyncLoading():
         // No action needed
