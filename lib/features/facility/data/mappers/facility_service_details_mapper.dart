@@ -2,6 +2,7 @@ import '../../domain/entities/entities.dart';
 import '../../domain/enums/enums.dart';
 import '../models/models.dart';
 import 'facility_service_mapper.dart';
+import 'ticket_price_mapper.dart';
 
 abstract final class FacilityServiceDetailsMapper {
   static FacilityServiceDetailsEntity toEntity(
@@ -44,7 +45,12 @@ abstract final class FacilityServiceDetailsMapper {
       id: model.id,
       name: model.name,
       price: model.price,
-      discountPrice: model.hasDiscount == true ? model.discountPrice : null,
+      discountPrice: TicketPriceMapper.reducedPrice(
+        price: model.price,
+        discountPrice: model.discountPrice,
+        hasDiscount: model.hasDiscount,
+        offerPercent: model.offer,
+      ),
       currency: model.currency ?? 'EGP',
     );
   }

@@ -207,7 +207,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcome => 'Welcome,';
 
   @override
-  String get businesses => 'Businesses';
+  String get profiles => 'Profiles';
 
   @override
   String get instructors => 'Instructors';
@@ -307,9 +307,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get facilityDetails_promotionPrice => 'Promotion Price';
-
-  @override
-  String get facilityDetails_purchase => 'Purchase';
 
   @override
   String get facilityDetails_purchaseNow => 'Purchase Now';
@@ -489,8 +486,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get purchase_invoiceTitle => 'Purchase Invoice';
 
   @override
-  String purchase_invoiceLine(int count, String label) {
-    return '${count}x $label';
+  String purchase_addOnLine(String name) {
+    return 'Add-On: $name';
   }
 
   @override
@@ -500,19 +497,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get purchase_totalAmount => 'Total Amount';
 
   @override
-  String get purchase_depositAmount => 'Deposit Amount';
-
-  @override
   String get purchase_directPurchase => 'Direct Purchase';
 
   @override
-  String get purchase_onlinePayment => 'Online Payment';
+  String purchase_couponOption(String percent, String scope) {
+    return '$percent Discount ($scope)';
+  }
 
   @override
-  String get purchase_depositPayment => 'Deposit Payment';
+  String get purchase_couponRejected =>
+      'This coupon can\'t be used on this purchase, so it was removed.';
 
   @override
-  String get purchase_stubSnackBar => 'Payment integration is coming soon.';
+  String get purchase_paymentSummary => 'Payment Summary';
+
+  @override
+  String get purchase_purchasePrice => 'Purchase Price';
+
+  @override
+  String get purchase_addOnsPrice => 'Add-Ons Price';
+
+  @override
+  String get purchase_dueAmount => 'DUE Amount';
+
+  @override
+  String get purchase_confirmPurchase => 'Confirm Purchase';
+
+  @override
+  String get purchase_cancel => 'Cancel';
 
   @override
   String facilitySchedule_flowCount(int count) {
@@ -620,6 +632,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilitySchedule_cancelReservation => 'Cancel Reservation';
 
   @override
+  String facilitySchedule_cancelReservationBefore(String deadline) {
+    return 'Cancel Reservation (Before $deadline)';
+  }
+
+  @override
   String facilitySchedule_contactFacility(String facility) {
     return 'Contact $facility';
   }
@@ -642,6 +659,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get facilitySchedule_ticketLabel => 'Ticket';
+
+  @override
+  String facilitySchedule_ticketFromLabel(String purchase) {
+    return 'Ticket (From $purchase)';
+  }
+
+  @override
+  String get facilitySchedule_confirmReservation => 'Confirm Reservation';
 
   @override
   String get facilitySchedule_ticketDue => 'DUE';
@@ -822,7 +847,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get facilityDetails_operatingIn => 'Operating in:';
 
   @override
-  String get facilityDetails_coverageAll => 'ALL';
+  String get facilityDetails_coverageAll => 'All areas';
 
   @override
   String get facilityDetails_contactSectionTitle => 'Contact';
@@ -832,6 +857,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get facilityDetails_linkFailed => 'Couldn\'t open this link';
+
+  @override
+  String get facilityDetails_noContactChannels =>
+      'This facility hasn\'t added a way to contact it yet.';
 
   @override
   String get facilityDetails_saveAdded => 'Added to your profiles';
@@ -878,11 +907,189 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get purchase_dueNotice =>
-      'This purchase will be added to your account with payment due. No online payment will be collected here.';
+      'Payment will be due directly with the business. Purchase will be added to your account and you will be able to make reservations right away.';
 
   @override
   String get facilitySchedule_actionUnavailable => 'Reservations are unavailable for this session.';
 
   @override
   String get account_gifts => 'Gifts';
+
+  @override
+  String get myPurchases_current => 'Current';
+
+  @override
+  String get myPurchases_history => 'History';
+
+  @override
+  String get myPurchases_statusDue => 'DUE';
+
+  @override
+  String get myPurchases_statusPaid => 'PAID';
+
+  @override
+  String get myPurchases_statusExpired => 'EXPIRED';
+
+  @override
+  String get myPurchases_statusRefunded => 'REFUNDED';
+
+  @override
+  String get myPurchases_statusGift => 'GIFT';
+
+  @override
+  String get myPurchases_refundFull => 'FULL';
+
+  @override
+  String get myPurchases_refundPartial => 'PARTIAL';
+
+  @override
+  String myPurchases_addOnsCount(int count) {
+    return '$count Add-Ons';
+  }
+
+  @override
+  String myPurchases_validFor(int count) {
+    return 'Valid for: $count Day(s)';
+  }
+
+  @override
+  String get myPurchases_validity => 'Validity';
+
+  @override
+  String get myPurchases_access => 'Access';
+
+  @override
+  String get myPurchases_addOns => 'Add-Ons';
+
+  @override
+  String get myPurchases_promotionInformation => 'Promotion Information';
+
+  @override
+  String get myPurchases_fromPromotion => 'From Promotion';
+
+  @override
+  String get myPurchases_appliedIn => '(Applied In)';
+
+  @override
+  String get myPurchases_refundAmount => 'Refund Amount';
+
+  @override
+  String get myPurchases_expired => 'Expired';
+
+  @override
+  String get myPurchases_refunded => 'Refunded';
+
+  @override
+  String get myPurchases_gift => 'Gift';
+
+  @override
+  String get myPurchases_appliesOn => 'Applies on';
+
+  @override
+  String myPurchases_applied(String date) {
+    return 'Applied: $date';
+  }
+
+  @override
+  String get myPurchases_cancelPurchase => 'Cancel Purchase';
+
+  @override
+  String get myPurchases_cancelConfirmTitle => 'Cancel this purchase?';
+
+  @override
+  String myPurchases_cancelConfirmBody(String name) {
+    return '$name will be cancelled and you won\'t be able to reserve with it. This can\'t be undone.';
+  }
+
+  @override
+  String get myPurchases_keepPurchase => 'Keep It';
+
+  @override
+  String get myPurchases_cancelled => 'Purchase cancelled.';
+
+  @override
+  String get myPurchases_emptyCurrent => 'No current purchases';
+
+  @override
+  String get myPurchases_emptyHistory => 'No past purchases yet';
+
+  @override
+  String get myPurchases_emptyHint => 'Tickets and promotions you buy will show up here.';
+
+  @override
+  String get myGifts_emptyCurrent => 'No gifts right now';
+
+  @override
+  String get myGifts_emptyHistory => 'No past gifts yet';
+
+  @override
+  String get myGifts_emptyHint => 'Coupons and tickets gifted to you will show up here.';
+
+  @override
+  String get accountInfo_personalDetails => 'Personal details';
+
+  @override
+  String get accountInfo_security => 'Security';
+
+  @override
+  String get accountInfo_notSet => 'Not set';
+
+  @override
+  String get accountInfo_edit => 'Edit information';
+
+  @override
+  String get accountInfo_editTitle => 'Edit Information';
+
+  @override
+  String get accountInfo_save => 'Save changes';
+
+  @override
+  String get accountInfo_saved => 'Your information was updated';
+
+  @override
+  String get accountInfo_changePhoto => 'Change photo';
+
+  @override
+  String get accountInfo_photoUpdated => 'Profile photo updated';
+
+  @override
+  String get accountInfo_changePassword => 'Change password';
+
+  @override
+  String get accountInfo_changePasswordSubtitle => 'Choose a new password for your account.';
+
+  @override
+  String get accountInfo_newPassword => 'New password';
+
+  @override
+  String get accountInfo_newPasswordHint => 'Enter a new password';
+
+  @override
+  String get accountInfo_confirmPassword => 'Confirm password';
+
+  @override
+  String get accountInfo_confirmPasswordHint => 'Re-enter the new password';
+
+  @override
+  String accountInfo_passwordTooShort(int count) {
+    return 'Use at least $count characters';
+  }
+
+  @override
+  String get accountInfo_passwordsDontMatch => 'Passwords don\'t match';
+
+  @override
+  String get accountInfo_passwordChanged => 'Your password was changed';
+
+  @override
+  String get accountInfo_fieldRequired => 'This field is required';
+
+  @override
+  String get accountInfo_invalidEmail => 'Enter a valid email address';
+
+  @override
+  String get accountInfo_searchNationality => 'Search nationality...';
+
+  @override
+  String get accountInfo_noNationalitiesFound => 'No nationalities found';
 }

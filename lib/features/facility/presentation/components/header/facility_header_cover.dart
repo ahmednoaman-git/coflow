@@ -13,9 +13,15 @@ class FacilityHeaderCover extends StatelessWidget {
 
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light,
-      child: ShimmerImage(
-        imageUrl: facilityDataProvider.facility.coverUrl,
-        fit: BoxFit.cover,
+      // Fills the app bar's whole height, cropping as needed: left to its own
+      // size, the image keeps its aspect ratio, and a landscape cover stops
+      // short of the logo with the activity line's colour showing below it.
+      child: SizedBox.expand(
+        child: ShimmerImage(
+          imageUrl: facilityDataProvider.facility.coverUrl,
+          fit: BoxFit.cover,
+          fallback: ImageFallback.cover(accent: facilityDataProvider.activityLineColor),
+        ),
       ),
     );
   }

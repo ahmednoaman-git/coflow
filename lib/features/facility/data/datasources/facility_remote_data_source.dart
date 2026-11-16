@@ -2,6 +2,7 @@ import 'package:coflow_users_v2/core/core.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/dtos/dtos.dart';
+import '../../domain/enums/enums.dart';
 import '../models/models.dart';
 
 /// Facility API endpoints.
@@ -117,7 +118,12 @@ class FacilityRemoteDataSource {
     return AsyncTaskExtension.tryCatchMapDioToFailure(() async {
       final response = await _dio.get(
         FacilityEndpoints.facilityServices(dto.facilityId),
-        queryParameters: {'type': dto.type.queryParam},
+        // Go accounts list their activities under their own type.
+        queryParameters: {
+          'type': dto.accountType is GoAccount && dto.type == FacilityServiceType.activity
+              ? 'go'
+              : dto.type.queryParam,
+        },
       );
       return FacilityServicesResponseModel.fromJson(response.data as Map<String, dynamic>);
     });

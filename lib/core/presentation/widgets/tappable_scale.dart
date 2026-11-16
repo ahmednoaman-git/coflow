@@ -65,6 +65,19 @@ class TappableScale extends StatefulWidget {
   /// If null, uses the default theme highlight color.
   final Color? highlightColor;
 
+  /// Overrides the superellipse built from [borderRadius] and [borderSide],
+  /// e.g. a [CircleBorder] for a round button.
+  final ShapeBorder? shape;
+
+  /// Shadows cast by the surface. They sit inside the scale, so they shrink
+  /// with the surface when [scaleChildOnly] is false.
+  final List<BoxShadow>? shadows;
+
+  /// When true only [child] scales on press; the surface and its ink stay put.
+  /// Use it for a tap target that has to keep filling its slot, such as a
+  /// nav bar tab, while its content still shrinks and springs back.
+  final bool scaleChildOnly;
+
   const TappableScale({
     super.key,
     required this.child,
@@ -78,6 +91,9 @@ class TappableScale extends StatefulWidget {
     this.backgroundColor,
     this.splashColor,
     this.highlightColor,
+    this.shape,
+    this.shadows,
+    this.scaleChildOnly = false,
   });
 
   @override
@@ -142,27 +158,39 @@ class _TappableScaleState extends State<TappableScale> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    final shape = RoundedSuperellipseBorder(
-      borderRadius: widget.borderRadius,
-      side: widget.borderSide ?? BorderSide.none,
-    );
+    final shape =
+        widget.shape ??
+        RoundedSuperellipseBorder(
+          borderRadius: widget.borderRadius,
+          side: widget.borderSide ?? BorderSide.none,
+        );
 
-    return ScaleTransition(
-      scale: _scaleAnimation,
-      child: Material(
-        color: widget.backgroundColor ?? Colors.transparent,
-        shape: shape,
-        child: InkWell(
-          customBorder: shape,
-          onTap: _effectiveDisabled ? null : widget.onTap,
-          onTapDown: _effectiveDisabled ? null : _handleTapDown,
-          onTapUp: _effectiveDisabled ? null : _handleTapUp,
-          onTapCancel: _effectiveDisabled ? null : _handleTapCancel,
-          splashColor: widget.splashColor,
-          highlightColor: widget.highlightColor,
-          child: widget.child,
-        ),
+    Widget surface = Material(
+      color: widget.backgroundColor ?? Colors.transparent,
+      shape: shape,
+      child: InkWell(
+        customBorder: shape,
+        onTap: _effectiveDisabled ? null : widget.onTap,
+        onTapDown: _effectiveDisabled ? null : _handleTapDown,
+        onTapUp: _effectiveDisabled ? null : _handleTapUp,
+        onTapCancel: _effectiveDisabled ? null : _handleTapCancel,
+        splashColor: widget.splashColor,
+        highlightColor: widget.highlightColor,
+        child: widget.scaleChildOnly
+            ? ScaleTransition(scale: _scaleAnimation, child: widget.child)
+            : widget.child,
       ),
     );
+
+    if (widget.shadows case final shadows?) {
+      surface = DecoratedBox(
+        decoration: ShapeDecoration(shape: shape, shadows: shadows),
+        child: surface,
+      );
+    }
+
+    return widget.scaleChildOnly
+        ? surface
+        : ScaleTransition(scale: _scaleAnimation, child: surface);
   }
 }

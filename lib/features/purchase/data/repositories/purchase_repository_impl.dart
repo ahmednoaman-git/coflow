@@ -11,8 +11,10 @@ class PurchaseRepositoryImpl implements PurchaseRepository {
   final PurchaseRemoteDataSource _remote;
 
   @override
-  AsyncTask<PurchaseQuoteEntity> getQuote(SubmitPurchaseDto dto) =>
-      _remote.getQuote(dto).map(PurchaseMapper.quote);
+  AsyncTask<PurchaseQuoteEntity> getQuote(SubmitPurchaseDto dto) => _remote
+      .getQuote(dto)
+      .mapLeft((failure) => PurchaseMapper.quoteFailure(failure, dto))
+      .map(PurchaseMapper.quote);
 
   @override
   AsyncTask<PurchaseReceiptEntity> submit(SubmitPurchaseDto dto) =>

@@ -41,6 +41,18 @@ class _ProfileRepository implements ProfileRepository {
     await pendingStatistics?.future;
     return failStatistics ? const Left(NetworkFailure('offline')) : Right(statistics);
   });
+
+  @override
+  AsyncTask<ProfileEntity> updateProfile(UpdateProfileDto dto) => getProfile();
+
+  @override
+  AsyncTask<ProfileEntity> changeProfileImage(ChangeProfileImageDto dto) => getProfile();
+
+  @override
+  AsyncTask<void> changePassword(ChangePasswordDto dto) => TaskEither.right(null);
+
+  @override
+  AsyncTask<List<NationalityEntity>> getNationalities() => TaskEither.right(const []);
 }
 
 class _AuthenticationRepository implements AuthenticationRepository {
@@ -93,12 +105,62 @@ void main() {
     addTearDown(cubit.close);
     await Future<void>.delayed(Duration.zero);
 
-    await cubit.refreshStatistics();
-    await cubit.refresh();
+    // Both join the first load rather than sending again.
+    final joined = [cubit.refreshStatistics(), cubit.refresh()];
     expect(repository.statisticsCalls, 1);
 
     repository.pendingStatistics!.complete();
-    await Future<void>.delayed(Duration.zero);
+    await Future.wait(joined);
     expect(cubit.statisticsManager.isSuccess, isTrue);
+    expect(repository.statisticsCalls, 1);
+  });
+
+  group('once loaded, refreshes run in the background', () {
+    test('the counters stay on screen while refreshing, then update', () async {
+      final repository = _ProfileRepository();
+      final cubit = _cubit(repository);
+      addTearDown(cubit.close);
+      await Future<void>.delayed(Duration.zero);
+
+      final states = <AsyncState<ProfileStatsEntity>>[];
+      final subscription = cubit.stream.listen((state) => states.add(state.statisticsRequest));
+      addTearDown(subscription.cancel);
+
+      repository
+        ..statistics = repository.statistics.copyWith(purchases: 23)
+        ..pendingStatistics = Completer<void>();
+      final refresh = cubit.refresh();
+      expect(cubit.statisticsManager.isRefreshing, isTrue);
+      expect(cubit.statisticsManager.data?.purchases, 22);
+
+      repository.pendingStatistics!.complete();
+      await refresh;
+      await Future<void>.delayed(Duration.zero);
+
+      expect(cubit.statisticsManager.data?.purchases, 23);
+      expect(states.whereType<AsyncLoading<ProfileStatsEntity>>(), isEmpty);
+      expect(cubit.profileManager.isSuccess, isTrue);
+    });
+
+    test('a failed refresh keeps the counters and reports the failure beside them', () async {
+      final repository = _ProfileRepository();
+      final cubit = _cubit(repository);
+      addTearDown(cubit.close);
+      await Future<void>.delayed(Duration.zero);
+
+      repository.failStatistics = true;
+      await cubit.refresh();
+
+      expect(cubit.statisticsManager.isError, isFalse);
+      expect(cubit.statisticsManager.data?.purchases, 22);
+      expect(
+        cubit.state.statisticsRequest,
+        isA<AsyncSuccess<ProfileStatsEntity>>().having(
+          (state) => state.failure,
+          'failure',
+          isA<NetworkFailure>(),
+        ),
+      );
+    });
   });
 }

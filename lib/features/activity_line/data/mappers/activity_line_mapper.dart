@@ -27,7 +27,7 @@ abstract final class ActivityLineMapper {
       statusMessage: model.statusMsg,
       logoUrl: model.logo,
       coverUrl: model.cover,
-      likeCount: model.reviewsCount,
+      likeCount: model.likesCount,
       activityLine: ActivityLineEntity.fromId(model.activityLine?.id ?? model.activityLineId),
       tags: model.tags?.map(toTagEntity).toList() ?? [],
       accountType: AccountType.fromString(model.facilityType ?? ''),
@@ -35,7 +35,19 @@ abstract final class ActivityLineMapper {
       subscriptionStatus: SubscriptionStatus.fromString(model.subscription),
       paymentType: PaymentType.fromString(model.paymentType),
       views: model.views,
+      locationLabel: _locationLabel(area: model.area?.name, city: model.city?.name),
     );
+  }
+
+  /// `Maadi, Cairo` — dropping whichever half the API left out rather than
+  /// rendering a stray comma.
+  static String? _locationLabel({String? area, String? city}) {
+    final parts = [
+      area?.trim(),
+      city?.trim(),
+    ].whereType<String>().where((part) => part.isNotEmpty);
+
+    return parts.isEmpty ? null : parts.join(', ');
   }
 
   /// Maps [TagModel] to [TagEntity].

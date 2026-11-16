@@ -1,101 +1,100 @@
-import 'package:coflow_users_v2/features/activity_line/domain/entities/entities.dart';
 import 'package:coflow_users_v2/features/purchase/domain/domain.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+PurchaseInvoiceEntity _invoice(
+  PurchaseQuoteEntity quote, {
+  int quantity = 1,
+  List<PurchaseAddOnSelection> addOns = const [],
+}) => PurchaseInvoiceCalculator.fromQuote(
+  quote: quote,
+  currency: 'EGP',
+  itemLabel: 'Bungee Ticket',
+  quantity: quantity,
+  addOns: addOns,
+  addOnLabel: (name) => 'Add-On: $name',
+  addOnsLabel: 'Add-ons',
+);
+
 void main() {
-  group('PurchaseInvoiceCalculator', () {
-    test('computes a base-only invoice with no add-ons, coupon, or deposit', () {
-      final invoice = PurchaseInvoiceCalculator.compute(
-        currency: 'EGP',
-        itemLabel: 'GripFit Adult',
-        unitPrice: 1000,
-        quantity: 1,
-        selectedAddOns: const [],
-        coupon: null,
-        paymentType: PaymentType.fullOnline,
-        depositRatio: 0.10,
+  group('PurchaseInvoiceCalculator.fromQuote', () {
+    test('shows only the item when nothing else is priced', () {
+      // Bungee Ticket at Flying Yoga: 250 with a 10% offer.
+      final invoice = _invoice(
+        const PurchaseQuoteEntity(totalPrice: 225, finalPrice: 225, couponDiscount: 0),
       );
 
-      expect(invoice.lines, hasLength(1));
-      expect(invoice.lines.single.amount, 1000);
-      expect(invoice.subtotal, 1000);
-      expect(invoice.couponDiscount, 0);
-      expect(invoice.total, 1000);
+      expect(invoice.lines, [
+        const PurchaseInvoiceLineEntity(label: 'Bungee Ticket', quantity: 1, amount: 225),
+      ]);
+      expect(invoice.total, 225);
       expect(invoice.hasCouponDiscount, isFalse);
-      expect(invoice.hasDeposit, isFalse);
     });
 
-    test('multiplies base price and add-ons by quantity', () {
-      final invoice = PurchaseInvoiceCalculator.compute(
-        currency: 'EGP',
-        itemLabel: 'GripFit Adult',
-        unitPrice: 1000,
+    test('gives each add-on its own line, charged per unit', () {
+      // Live quote: 2 tickets with one 100 add-on → total 650, add-ons 200.
+      final invoice = _invoice(
+        const PurchaseQuoteEntity(
+          totalPrice: 650,
+          finalPrice: 650,
+          couponDiscount: 0,
+          addOnsPrice: 200,
+        ),
         quantity: 2,
-        selectedAddOns: const [
-          (name: 'Photography', unitPrice: 100),
-          (name: 'Video', unitPrice: 200),
-        ],
-        coupon: null,
-        paymentType: PaymentType.fullOnline,
-        depositRatio: 0.10,
+        addOns: const [(name: 'Photography', unitPrice: 100)],
       );
 
-      expect(invoice.lines, hasLength(3));
-      expect(invoice.lines[0].amount, 2000); // 2x base
-      expect(invoice.lines[1].amount, 200); // 2x photography
-      expect(invoice.lines[2].amount, 400); // 2x video
-      expect(invoice.subtotal, 2600);
-      expect(invoice.total, 2600);
+      expect(invoice.lines, [
+        const PurchaseInvoiceLineEntity(label: 'Bungee Ticket', quantity: 2, amount: 450),
+        const PurchaseInvoiceLineEntity(label: 'Add-On: Photography', quantity: 2, amount: 200),
+      ]);
+      expect(invoice.subtotal, 650);
     });
 
-    test('applies the coupon discount ratio to the subtotal', () {
-      const coupon = PurchaseCouponEntity(id: 1, name: '10% Discount', discountRatio: 10);
-
-      final invoice = PurchaseInvoiceCalculator.compute(
-        currency: 'EGP',
-        itemLabel: 'GripFit Adult',
-        unitPrice: 1000,
-        quantity: 2,
-        selectedAddOns: const [
-          (name: 'Photography', unitPrice: 100),
-          (name: 'Video', unitPrice: 200),
-        ],
-        coupon: coupon,
-        paymentType: PaymentType.fullOnline,
-        depositRatio: 0.10,
+    test('keeps add-ons as one line when the split does not add up', () {
+      final invoice = _invoice(
+        const PurchaseQuoteEntity(
+          totalPrice: 60,
+          finalPrice: 60,
+          couponDiscount: 0,
+          addOnsPrice: 15,
+        ),
+        quantity: 5,
+        addOns: const [(name: 'Photography', unitPrice: 5), (name: 'Video', unitPrice: 10)],
       );
 
-      expect(invoice.subtotal, 2600);
-      expect(invoice.couponDiscount, closeTo(260, 0.001));
-      expect(invoice.total, closeTo(2340, 0.001));
+      expect(
+        invoice.lines.last,
+        const PurchaseInvoiceLineEntity(
+          label: 'Add-ons',
+          quantity: 1,
+          amount: 15,
+        ),
+      );
+      expect(invoice.lines.map((line) => line.amount), [45, 15]);
+    });
+
+    test('takes the coupon discount and total from the quote', () {
+      // Live quote: Indoor Skydiving with CLYMB's 100% ticket coupon.
+      final invoice = _invoice(
+        const PurchaseQuoteEntity(totalPrice: 90, finalPrice: 0, couponDiscount: 90),
+      );
+
       expect(invoice.hasCouponDiscount, isTrue);
+      expect(invoice.couponDiscount, 90);
+      expect(invoice.total, 0);
     });
 
-    test('adds a deposit amount only for deposit-online payment types', () {
-      final depositInvoice = PurchaseInvoiceCalculator.compute(
-        currency: 'EGP',
-        itemLabel: 'GripFit Adult',
-        unitPrice: 1000,
-        quantity: 1,
-        selectedAddOns: const [],
-        coupon: null,
-        paymentType: PaymentType.depositOnline,
-        depositRatio: 0.10,
+    test('prefers the currency the quote names', () {
+      final invoice = _invoice(
+        const PurchaseQuoteEntity(
+          totalPrice: 90,
+          finalPrice: 90,
+          couponDiscount: 0,
+          currency: r'$',
+        ),
       );
-      expect(depositInvoice.hasDeposit, isTrue);
-      expect(depositInvoice.depositAmount, closeTo(100, 0.001));
 
-      final directInvoice = PurchaseInvoiceCalculator.compute(
-        currency: 'EGP',
-        itemLabel: 'GripFit Adult',
-        unitPrice: 1000,
-        quantity: 1,
-        selectedAddOns: const [],
-        coupon: null,
-        paymentType: PaymentType.directPurchase,
-        depositRatio: 0.10,
-      );
-      expect(directInvoice.hasDeposit, isFalse);
+      expect(invoice.currency, r'$');
     });
   });
 }

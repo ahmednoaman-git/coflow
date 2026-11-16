@@ -5,6 +5,7 @@ import 'package:coflow_users_v2/features/purchase/presentation/cubit/cubit.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'purchase_confirm_dialog.dart';
 import 'purchase_coupon_dropdown.dart';
 import 'purchase_info_row.dart';
 import 'purchase_invoice_section.dart';
@@ -87,8 +88,11 @@ class _PromotionPurchaseCard extends StatelessWidget {
           context,
           PurchaseInfoRow(
             label: l10n.facilityDetails_promotionPrice,
-            value: promotionDetails.priceText,
-            accentColor: accent,
+            value: Text(
+              promotionDetails.priceText,
+              textAlign: .end,
+              style: context.typography.medium14.withColor(accent),
+            ),
             icon: Assets.svgs.cash.svg(
               width: 24,
               height: 24,
@@ -101,8 +105,11 @@ class _PromotionPurchaseCard extends StatelessWidget {
           context,
           PurchaseInfoRow(
             label: l10n.facilityDetails_validity,
-            value: promotionDetails.validityText(l10n),
-            accentColor: accent,
+            value: Text(
+              promotionDetails.validityText(l10n),
+              textAlign: .end,
+              style: context.typography.medium14.withColor(accent),
+            ),
           ),
         ),
         divider(),
@@ -111,6 +118,7 @@ class _PromotionPurchaseCard extends StatelessWidget {
           PurchaseCouponDropdown(
             couponsState: state.couponsRequest,
             selectedCoupon: state.selectedCoupon,
+            isRejected: state.couponRejected,
             onSelect: cubit.selectCoupon,
             onRetry: cubit.refreshCoupons,
           ),
@@ -137,8 +145,9 @@ class _PromotionPurchaseCard extends StatelessWidget {
                 quote: quote,
                 currency: state.currency,
                 itemLabel: promotionDetails.title,
-                addOnsLabel: l10n.facilityDetails_addOns,
                 quantity: state.quantity,
+                addOnLabel: l10n.purchase_addOnLine,
+                addOnsLabel: l10n.facilityDetails_addOns,
               ),
               accentColor: accent,
             ),
@@ -149,11 +158,26 @@ class _PromotionPurchaseCard extends StatelessWidget {
           PurchaseSubmitButton(
             accentColor: accent,
             isLoading: cubit.submitManager.isLoading,
-            onPressed: cubit.quoteManager.isSuccess && !cubit.inputsLocked ? cubit.submit : null,
+            onPressed: cubit.quoteManager.isSuccess && !cubit.inputsLocked
+                ? () => _confirmPurchase(context)
+                : null,
           ),
         ),
       ],
     );
+  }
+
+  Future<void> _confirmPurchase(BuildContext context) async {
+    final quote = cubit.quoteManager.data;
+    if (quote == null) return;
+
+    final confirmed = await PurchaseConfirmDialog.show(
+      context,
+      quote: quote,
+      currency: state.currency,
+      accentColor: state.accentColor,
+    );
+    if (confirmed ?? false) await cubit.submit();
   }
 
   Widget _section(BuildContext context, Widget child) => Padding(

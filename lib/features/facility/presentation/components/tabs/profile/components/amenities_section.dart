@@ -1,7 +1,9 @@
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 import '../../../../../../facility/domain/entities/entities.dart';
+import '../../../facility_data_provider.dart';
 import '../../../page_section.dart';
 
 /// Amenities section for facility profile.
@@ -19,9 +21,12 @@ class AmenitiesSection extends StatelessWidget {
     return PageSection(
       title: context.l10n.facilityDetails_amenitiesSectionTitle,
       svgIconPath: Assets.svgs.amenities.path,
+      // Scrolls out to the screen edges; the margin only insets the ends.
+      fullBleed: true,
       children: [
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: PageSection.sidePadding(context)),
           child: Row(
             spacing: context.spacing.s16,
             children: [
@@ -43,6 +48,11 @@ class AmenitiesSection extends StatelessWidget {
             width: 30,
             height: 30,
             fit: BoxFit.contain,
+            borderRadius: context.spacing.s8,
+            fallback: ImageFallback.icon(
+              SolarIconsOutline.stars,
+              accent: FacilityDataProvider.maybeOf(context)?.activityLineColor,
+            ),
           ),
           Text(
             amenity.name,

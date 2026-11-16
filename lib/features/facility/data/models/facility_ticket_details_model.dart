@@ -29,7 +29,9 @@ class TicketDetailModel {
     required this.unlimited,
     this.validityDays,
     required this.price,
+    this.hasDiscount,
     this.discountPrice,
+    this.offer,
     required this.currency,
     this.conditions,
     this.requirements,
@@ -46,8 +48,14 @@ class TicketDetailModel {
 
   final double price;
 
+  @JsonKey(name: 'has_discount')
+  final bool? hasDiscount;
+
   @JsonKey(name: 'discount_price')
   final double? discountPrice;
+
+  /// The percentage an active discount promotion takes off this ticket.
+  final double? offer;
 
   final String currency;
 

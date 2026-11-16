@@ -27,6 +27,7 @@ class FacilityModel {
     this.flowsCount,
     this.coursesCount,
     this.reviewsCount,
+    this.likesCount,
     this.promotionsCount,
     this.slotsCount,
     this.activityLine,
@@ -52,6 +53,7 @@ class FacilityModel {
   final int? flowsCount;
   final int? coursesCount;
   final int? reviewsCount;
+  final int? likesCount;
   final int? promotionsCount;
   final int? slotsCount;
 

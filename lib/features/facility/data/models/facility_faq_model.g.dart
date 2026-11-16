@@ -18,11 +18,10 @@ FacilityFaqModel _$FacilityFaqModelFromJson(Map<String, dynamic> json) =>
       return val;
     });
 
-Map<String, dynamic> _$FacilityFaqModelToJson(FacilityFaqModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'question': instance.question,
-      'answer': instance.answer,
-      'sort': instance.sort,
-      'status': instance.status,
-    };
+Map<String, dynamic> _$FacilityFaqModelToJson(FacilityFaqModel instance) => <String, dynamic>{
+  'id': instance.id,
+  'question': instance.question,
+  'answer': instance.answer,
+  'sort': instance.sort,
+  'status': instance.status,
+};

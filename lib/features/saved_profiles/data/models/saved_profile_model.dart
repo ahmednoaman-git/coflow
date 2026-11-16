@@ -1,79 +1,68 @@
+import 'package:coflow_users_v2/features/activity_line/data/models/facility_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'saved_profile_model.g.dart';
 
-/// Response model for the user's saved facilities endpoint.
+/// One page of the user's saved facilities — the paginator `GET wishlist`
+/// returns under `profiles`.
 ///
-/// TODO(backend): shape is provisional — served by
-/// `SavedProfilesStubDataSource` until the real endpoint ships. Field names
-/// follow the collapsed-facility payload the activity-line list already gets,
-/// on the assumption the saved list reuses it.
+/// The envelope's other key, `activity_lines`, lists every line with its
+/// *global* facility count rather than how many the user saved on it, so it is
+/// left unread: the Profiles filter is the four fixed lines.
 @JsonSerializable(fieldRename: FieldRename.snake, checked: true)
-class SavedProfilesResponseModel {
-  const SavedProfilesResponseModel({this.profiles = const <SavedProfileModel>[]});
+class SavedProfilesPageModel {
+  const SavedProfilesPageModel({
+    this.currentPage = 1,
+    this.lastPage = 1,
+    this.profiles = const <SavedProfileModel>[],
+  });
 
-  @JsonKey(defaultValue: <SavedProfileModel>[])
+  @JsonKey(defaultValue: 1)
+  final int currentPage;
+
+  @JsonKey(defaultValue: 1)
+  final int lastPage;
+
+  @JsonKey(name: 'data', defaultValue: <SavedProfileModel>[])
   final List<SavedProfileModel> profiles;
 
-  factory SavedProfilesResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$SavedProfilesResponseModelFromJson(json);
+  factory SavedProfilesPageModel.fromJson(Map<String, dynamic> json) =>
+      _$SavedProfilesPageModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SavedProfilesResponseModelToJson(this);
+  Map<String, dynamic> toJson() => _$SavedProfilesPageModelToJson(this);
 }
 
+/// One wishlist row: a single flag the user set, wrapping the facility it is
+/// set on.
+///
+/// The wishlist keeps one row per flag rather than one per facility — saving
+/// adds a `save` row and tracking adds a `track` row beside it — so a tracked
+/// facility arrives twice.
 @JsonSerializable(fieldRename: FieldRename.snake, checked: true)
 class SavedProfileModel {
   const SavedProfileModel({
     required this.id,
-    required this.name,
-    required this.description,
-    required this.activityLineId,
-    this.status,
-    this.logo,
-    this.likesCount,
-    this.branch,
-    this.isTracked = false,
+    this.facilityId,
+    this.type,
+    this.facility,
   });
 
+  /// The row's own id — not the facility's.
   final int id;
-  final String name;
-  final String description;
 
-  /// 1 sky · 2 sea · 3 earth · 4 energy.
-  final int activityLineId;
+  /// Null on a row about a promotion instead — rows carry a `promotion_id` too.
+  final int? facilityId;
 
-  /// `visible`, `invisible` or `temp_closed`.
-  final String? status;
+  /// `save` or `track`.
+  final String? type;
 
-  final String? logo;
-  final int? likesCount;
-
-  /// The branch highlighted on the card — see `SavedProfileEntity.branchLabel`.
-  final SavedProfileBranchModel? branch;
-
-  @JsonKey(defaultValue: false)
-  final bool isTracked;
+  /// The facility's record, with `city`, `area` and `likes_count`.
+  ///
+  /// Null if the facility has been deleted since it was saved.
+  final FacilityModel? facility;
 
   factory SavedProfileModel.fromJson(Map<String, dynamic> json) =>
       _$SavedProfileModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$SavedProfileModelToJson(this);
-}
-
-@JsonSerializable(fieldRename: FieldRename.snake, checked: true)
-class SavedProfileBranchModel {
-  const SavedProfileBranchModel({required this.id, this.area, this.city});
-
-  final int id;
-
-  /// e.g. `New Cairo`.
-  final String? area;
-
-  /// e.g. `Cairo`.
-  final String? city;
-
-  factory SavedProfileBranchModel.fromJson(Map<String, dynamic> json) =>
-      _$SavedProfileBranchModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$SavedProfileBranchModelToJson(this);
 }

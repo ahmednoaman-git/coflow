@@ -7,8 +7,7 @@ import '../../../../../cubit/cubit.dart';
 import '../../../../facility_data_provider.dart';
 import '../../../tab_controls/facility_tab_controller.dart';
 import '../../../tab_controls/facility_utils.dart';
-import '../../../profile/components/contact_channel_visuals.dart';
-import '../../../profile/components/contact_values_sheet.dart';
+import '../../../profile/components/facility_contact_options.dart';
 import 'session_attendees_section.dart';
 import 'session_cta_button.dart';
 import 'session_details_header.dart';
@@ -48,60 +47,12 @@ class SessionDetailsBottomSheet extends StatelessWidget {
               Navigator.of(sheetContext).pop();
               tabs.setSelectedTab(FacilityUtils.pricingTabIndex(facilityData.facility));
             },
-            onContactFacility: () async {
-              if (!facilityCubit.profileManager.isSuccess &&
-                  facilityCubit.profileManager.canRefresh) {
-                await facilityCubit.profileManager.refresh();
-              }
-              if (!sheetContext.mounted) return;
-              final contacts =
-                  facilityCubit.profileManager.data?.actionableContacts ??
-                  const <FacilityContactEntity>[];
-              if (contacts.isEmpty) {
-                sheetContext.showInfoSnackBar(sheetContext.l10n.facilityDetails_linkFailed);
-                return;
-              }
-              await showMainBottomSheet<void>(
-                context: sheetContext,
-                builder: (contactContext) => SafeArea(
-                  top: false,
-                  child: Padding(
-                    padding: EdgeInsets.all(contactContext.spacing.s24),
-                    child: Column(
-                      mainAxisSize: .min,
-                      spacing: contactContext.spacing.s12,
-                      children: [
-                        for (final contact in contacts)
-                          MainButton(
-                            text: contact.label,
-                            onPressed: () async {
-                              if (contact.needsChoice) {
-                                await showMainBottomSheet<void>(
-                                  context: contactContext,
-                                  builder: (_) => ContactValuesSheet(
-                                    contact: contact,
-                                    accentColor: facilityData.activityLineColor,
-                                  ),
-                                );
-                              } else {
-                                final opened = await ContactChannelVisuals.launch(
-                                  contact.channel,
-                                  contact.links.first.value,
-                                );
-                                if (!opened && contactContext.mounted) {
-                                  contactContext.showErrorSnackBar(
-                                    contactContext.l10n.facilityDetails_linkFailed,
-                                  );
-                                }
-                              }
-                            },
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
+            onContactFacility: () => FacilityContactOptions.show(
+              sheetContext,
+              facilityId: facilityData.facility.id,
+              accentColor: facilityData.activityLineColor,
+              facilityCubit: facilityCubit,
+            ),
           ),
         ),
       ),

@@ -60,7 +60,11 @@ class CollapsedFacilityServiceModel {
   final String? duration;
   final int? durationListId;
   final String? image;
+
+  /// The API sends this as a number or, since Sep 2026, a numeric string.
+  @JsonKey(fromJson: _countFromJson)
   final int? reservations;
+
   final FacilityServiceDurationListModel? durationList;
   final FacilityServiceLevelModel? level;
 
@@ -69,6 +73,8 @@ class CollapsedFacilityServiceModel {
 
   Map<String, dynamic> toJson() => _$CollapsedFacilityServiceModelToJson(this);
 }
+
+int? _countFromJson(Object? value) => value is num ? value.toInt() : int.tryParse('${value ?? ''}');
 
 @JsonSerializable(fieldRename: FieldRename.snake, checked: true)
 class FacilityServiceDurationListModel {

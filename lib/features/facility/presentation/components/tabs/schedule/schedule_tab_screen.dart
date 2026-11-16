@@ -7,7 +7,6 @@ import '../../../cubit/cubit.dart';
 import '../../facility_data_provider.dart';
 import 'components/schedule_day_summary.dart';
 import 'components/schedule_empty_state.dart';
-import 'components/schedule_shimmer.dart';
 import 'components/session_timeline.dart';
 import 'components/session_type_selector.dart';
 
@@ -97,7 +96,7 @@ class _ScheduleTabBody extends StatelessWidget {
                     FacilityScheduleEntity
                   >(
                     requestManagerGetter: (cubit) => cubit.scheduleManager,
-                    loadingBuilder: (context) => const ScheduleShimmer(),
+                    skeletonBuilder: (context) => const CalendarTimelineSkeleton(),
                     onRetry: (cubit) => cubit.refresh(),
                     successBuilder: (context, schedule) {
                       final sessions = schedule.sessionsOn(state.selectedDay);

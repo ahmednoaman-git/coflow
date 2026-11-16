@@ -26,6 +26,10 @@ abstract class CollapsedFacilityEntity with _$CollapsedFacilityEntity {
     required SubscriptionStatus subscriptionStatus,
     required PaymentType paymentType,
     required int views,
+
+    /// Where the facility is, e.g. `Maadi, Cairo`. Null when the payload names
+    /// neither the area nor the city.
+    String? locationLabel,
   }) = _CollapsedFacilityEntity;
 }
 
@@ -43,11 +47,16 @@ enum FacilityStatus {
   };
 }
 
-/// Payment type supported by a facility.
+/// How a facility takes purchases, as it configured it (`payment_type`).
 enum PaymentType {
   directPurchase,
   fullOnline,
   depositOnline,
+
+  /// The facility sells nothing in the app — customers contact it instead.
+  contact,
+
+  /// A value the app does not recognize.
   none
   ;
 
@@ -55,6 +64,7 @@ enum PaymentType {
     'direct purchase' || 'direct_purchase' => directPurchase,
     'full online' || 'full_online' => fullOnline,
     'deposit online' || 'deposit_online' => depositOnline,
+    'contact' => contact,
     _ => none,
   };
 }

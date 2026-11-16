@@ -18,6 +18,11 @@ abstract class TicketPurchaseState with _$TicketPurchaseState {
     @Default(<int>{}) Set<int> selectedAddOnIds,
     @Default(1) int quantity,
     PurchaseCouponEntity? selectedCoupon,
+
+    /// Set when the quote refused the coupon the customer picked: checkout
+    /// drops it and says so under the coupon field.
+    @Default(false) bool couponRejected,
+
     @Default(AsyncState.idle()) AsyncState<List<PurchaseCouponEntity>> couponsRequest,
     @Default(AsyncState.idle()) AsyncState<PurchaseQuoteEntity> quoteRequest,
     @Default(AsyncState.idle()) AsyncState<PurchaseReceiptEntity> submitRequest,

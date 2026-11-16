@@ -1,3 +1,5 @@
+import 'package:coflow_users_v2/core/core.dart';
+import 'package:coflow_users_v2/features/activity_line/domain/entities/entities.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'facility_contact_entity.dart';
@@ -87,7 +89,14 @@ abstract class FacilityProfileEntity with _$FacilityProfileEntity {
     @Default(<BranchEntity>[]) List<BranchEntity> branches,
     @Default(<LanguageEntity>[]) List<LanguageEntity> languages,
     @Default(<AmenityEntity>[]) List<AmenityEntity> amenities,
+
+    /// Every way to reach the facility — its phones and media links — shown as
+    /// the button row on the profile.
     @Default(<FacilityContactEntity>[]) List<FacilityContactEntity> contacts,
+
+    /// The channels the facility takes reservations through, offered when a
+    /// session cannot be booked in the app.
+    @Default(<FacilityContactEntity>[]) List<FacilityContactEntity> reservationContacts,
     FacilityLocationEntity? location,
     MainBranchEntity? mainBranch,
 
@@ -99,6 +108,19 @@ abstract class FacilityProfileEntity with _$FacilityProfileEntity {
 
     /// When the facility last edited its profile.
     DateTime? updatedAt,
+
+    /// How the facility takes purchases as of this read. Null when the payload
+    /// omits it.
+    PaymentType? paymentType,
+
+    /// The rest of the facility's summary, so a screen opened from a payload
+    /// that lacks it — the home dashboard's profiles — can fill it in. Null
+    /// when the payload omits them.
+    AccountType? accountType,
+    SubscriptionStatus? subscriptionStatus,
+    FacilityStatus? status,
+    String? statusMessage,
+    int? views,
   }) = _FacilityProfileEntity;
 
   const FacilityProfileEntity._();
@@ -107,4 +129,8 @@ abstract class FacilityProfileEntity with _$FacilityProfileEntity {
   /// tapped, so it is dropped rather than shown as a dead button.
   List<FacilityContactEntity> get actionableContacts =>
       contacts.where((contact) => contact.isActionable).toList(growable: false);
+
+  /// [reservationContacts] worth offering, by the same rule.
+  List<FacilityContactEntity> get actionableReservationContacts =>
+      reservationContacts.where((contact) => contact.isActionable).toList(growable: false);
 }

@@ -14,7 +14,7 @@ class FacilityHeaderControls extends StatelessWidget {
   const FacilityHeaderControls({super.key});
 
   /// Diameter of each control.
-  static const double buttonSize = 40;
+  static const double buttonSize = CircularButton.standardSize;
 
   /// Gap between the actions, and between the last action and the screen edge.
   static const double buttonSpacing = 12;
@@ -35,49 +35,30 @@ class FacilityHeaderControls extends StatelessWidget {
     final topPadding = MediaQuery.paddingOf(context).top;
 
     return Padding(
-      padding: EdgeInsets.only(
+      padding: EdgeInsetsDirectional.only(
         top: topPadding,
-        right: buttonSpacing,
+        start: buttonSpacing,
+        end: buttonSpacing,
       ),
       child: SizedBox(
         height: kToolbarHeight,
-        child: Theme(
-          data: Theme.of(context).copyWith(
-            appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
+        child: Row(
+          spacing: buttonSpacing,
+          children: [
+            MainBackButton(
+              backgroundColor: Colors.black.withValues(alpha: 0.3),
+              iconColor: Colors.white,
             ),
-            actionIconTheme: ActionIconThemeData(
-              backButtonIconBuilder: (context) => Container(
-                width: buttonSize,
-                height: buttonSize,
-                decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.3),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
+            const Spacer(),
+            const _SaveControl(),
+            CircularButton(
+              icon: SolarIconsOutline.share,
+              size: buttonSize,
+              backgroundColor: Colors.black.withValues(alpha: 0.3),
+              iconColor: Colors.white,
+              onPressed: () {},
             ),
-          ),
-          child: Row(
-            spacing: buttonSpacing,
-            children: [
-              const BackButton(),
-              const Spacer(),
-              const _SaveControl(),
-              CircularButton(
-                icon: SolarIconsOutline.share,
-                size: buttonSize,
-                backgroundColor: Colors.black.withValues(alpha: 0.3),
-                iconColor: Colors.white,
-                onPressed: () {},
-              ),
-            ],
-          ),
+          ],
         ),
       ),
     );
@@ -86,48 +67,44 @@ class FacilityHeaderControls extends StatelessWidget {
 
 /// The save toggle. Only offered once the profile has loaded, since it needs
 /// the current flag to know which way it flips.
+///
+/// Flips on every tap — the cubit merges the taps before anything is sent —
+/// and reports once the server has settled, or put the bookmark back.
 class _SaveControl extends StatelessWidget {
   const _SaveControl();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FacilityDetailsCubit, FacilityDetailsState>(
-      builder: (context, state) {
-        final cubit = context.read<FacilityDetailsCubit>();
-        final profile = cubit.profileManager.data;
-        if (profile == null) return const SizedBox.shrink();
-
-        final isSaved = profile.isSaved;
-        final isLoading = cubit.saveManager.isLoading;
-
-        return CircularButton(
-          icon: isSaved ? SolarIconsBold.bookmark : SolarIconsOutline.bookmark,
-          size: FacilityHeaderControls.buttonSize,
-          isLoading: isLoading,
-          // Solid white while saved, translucent while not, so the state reads
-          // against any cover image.
-          backgroundColor: isSaved
-              ? context.colors.backgroundWhite
-              : Colors.black.withValues(alpha: 0.3),
-          iconColor: isSaved ? context.colors.signatureBlue : Colors.white,
-          onPressed: isLoading ? null : () => _toggle(context, cubit, isSaved),
-        );
+    return BlocListener<FacilityDetailsCubit, FacilityDetailsState>(
+      listenWhen: (previous, current) => previous.saveRequest != current.saveRequest,
+      listener: (context, state) => switch (state.saveRequest) {
+        AsyncSuccess(data: true) => context.showSuccessSnackBar(
+          context.l10n.facilityDetails_saveAdded,
+        ),
+        AsyncSuccess(data: false) => context.showSuccessSnackBar(
+          context.l10n.facilityDetails_saveRemoved,
+        ),
+        AsyncError() => context.showErrorSnackBar(context.l10n.facilityDetails_saveFailed),
+        _ => null,
       },
+      child: BlocSelector<FacilityDetailsCubit, FacilityDetailsState, bool?>(
+        selector: (state) => state.profileRequest.dataOrNull?.isSaved,
+        builder: (context, isSaved) {
+          if (isSaved == null) return const SizedBox.shrink();
+
+          return CircularButton(
+            icon: isSaved ? SolarIconsBold.bookmark : SolarIconsOutline.bookmark,
+            size: FacilityHeaderControls.buttonSize,
+            // Solid white while saved, translucent while not, so the state reads
+            // against any cover image.
+            backgroundColor: isSaved
+                ? context.colors.backgroundWhite
+                : Colors.black.withValues(alpha: 0.3),
+            iconColor: isSaved ? context.colors.signatureBlue : Colors.white,
+            onPressed: context.read<FacilityDetailsCubit>().toggleSave,
+          );
+        },
+      ),
     );
-  }
-
-  Future<void> _toggle(BuildContext context, FacilityDetailsCubit cubit, bool wasSaved) async {
-    await cubit.toggleSave();
-    if (!context.mounted) return;
-
-    if (cubit.saveManager.isError) {
-      context.showErrorSnackBar(context.l10n.facilityDetails_saveFailed);
-    } else {
-      context.showSuccessSnackBar(
-        wasSaved
-            ? context.l10n.facilityDetails_saveRemoved
-            : context.l10n.facilityDetails_saveAdded,
-      );
-    }
   }
 }

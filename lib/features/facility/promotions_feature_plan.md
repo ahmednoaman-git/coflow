@@ -350,7 +350,7 @@ Suggested new presentation files:
 
 - `presentation/components/tabs/pricing/components/facility_promotions.dart`
 - `presentation/components/tabs/pricing/components/promotion_tile.dart`
-- `presentation/components/tabs/pricing/components/promotion_shimmer.dart`
+- `presentation/components/tabs/pricing/components/promotion_skeleton.dart`
 
 Suggested rendering flow:
 

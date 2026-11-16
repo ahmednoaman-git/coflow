@@ -206,7 +206,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get welcome => 'أهلاً،';
 
   @override
-  String get businesses => 'الأعمال';
+  String get profiles => 'الملفات';
 
   @override
   String get instructors => 'المدربين';
@@ -306,9 +306,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get facilityDetails_promotionPrice => 'سعر العرض';
-
-  @override
-  String get facilityDetails_purchase => 'شراء';
 
   @override
   String get facilityDetails_purchaseNow => 'اشترِ الآن';
@@ -488,8 +485,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get purchase_invoiceTitle => 'فاتورة الشراء';
 
   @override
-  String purchase_invoiceLine(int count, String label) {
-    return '$count× $label';
+  String purchase_addOnLine(String name) {
+    return 'إضافة: $name';
   }
 
   @override
@@ -499,19 +496,34 @@ class AppLocalizationsAr extends AppLocalizations {
   String get purchase_totalAmount => 'المبلغ الإجمالي';
 
   @override
-  String get purchase_depositAmount => 'مبلغ العربون';
-
-  @override
   String get purchase_directPurchase => 'شراء مباشر';
 
   @override
-  String get purchase_onlinePayment => 'دفع إلكتروني';
+  String purchase_couponOption(String percent, String scope) {
+    return 'خصم $percent ($scope)';
+  }
 
   @override
-  String get purchase_depositPayment => 'دفع عربون';
+  String get purchase_couponRejected =>
+      'لا يمكن استخدام هذا الكوبون في عملية الشراء هذه، لذا تمت إزالته.';
 
   @override
-  String get purchase_stubSnackBar => 'الدفع الإلكتروني قادم قريبًا.';
+  String get purchase_paymentSummary => 'ملخص الدفع';
+
+  @override
+  String get purchase_purchasePrice => 'سعر الشراء';
+
+  @override
+  String get purchase_addOnsPrice => 'سعر الإضافات';
+
+  @override
+  String get purchase_dueAmount => 'المبلغ المستحق';
+
+  @override
+  String get purchase_confirmPurchase => 'تأكيد الشراء';
+
+  @override
+  String get purchase_cancel => 'إلغاء';
 
   @override
   String facilitySchedule_flowCount(int count) {
@@ -637,6 +649,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get facilitySchedule_cancelReservation => 'إلغاء الحجز';
 
   @override
+  String facilitySchedule_cancelReservationBefore(String deadline) {
+    return 'إلغاء الحجز (قبل $deadline)';
+  }
+
+  @override
   String facilitySchedule_contactFacility(String facility) {
     return 'تواصل مع $facility';
   }
@@ -658,6 +675,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get facilitySchedule_ticketLabel => 'التذكرة';
+
+  @override
+  String facilitySchedule_ticketFromLabel(String purchase) {
+    return 'التذكرة (من $purchase)';
+  }
+
+  @override
+  String get facilitySchedule_confirmReservation => 'تأكيد الحجز';
 
   @override
   String get facilitySchedule_ticketDue => 'مستحقة';
@@ -841,7 +866,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get facilityDetails_operatingIn => 'يعمل في:';
 
   @override
-  String get facilityDetails_coverageAll => 'الكل';
+  String get facilityDetails_coverageAll => 'كل المناطق';
 
   @override
   String get facilityDetails_contactSectionTitle => 'التواصل';
@@ -851,6 +876,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get facilityDetails_linkFailed => 'تعذّر فتح هذا الرابط';
+
+  @override
+  String get facilityDetails_noContactChannels => 'لم تُضِف هذه المنشأة وسيلة للتواصل بعد.';
 
   @override
   String get facilityDetails_saveAdded => 'تمت الإضافة إلى ملفاتك';
@@ -897,11 +925,189 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get purchase_dueNotice =>
-      'ستُضاف عملية الشراء إلى حسابك كمبلغ مستحق. لن يتم تحصيل دفع إلكتروني هنا.';
+      'سيُستحق الدفع مباشرةً لدى المنشأة. ستُضاف عملية الشراء إلى حسابك ويمكنك الحجز فورًا.';
 
   @override
   String get facilitySchedule_actionUnavailable => 'الحجز غير متاح لهذه الجلسة.';
 
   @override
   String get account_gifts => 'الهدايا';
+
+  @override
+  String get myPurchases_current => 'الحالية';
+
+  @override
+  String get myPurchases_history => 'السجل';
+
+  @override
+  String get myPurchases_statusDue => 'مستحق';
+
+  @override
+  String get myPurchases_statusPaid => 'مدفوع';
+
+  @override
+  String get myPurchases_statusExpired => 'منتهي';
+
+  @override
+  String get myPurchases_statusRefunded => 'مسترد';
+
+  @override
+  String get myPurchases_statusGift => 'هدية';
+
+  @override
+  String get myPurchases_refundFull => 'كامل';
+
+  @override
+  String get myPurchases_refundPartial => 'جزئي';
+
+  @override
+  String myPurchases_addOnsCount(int count) {
+    return '$count إضافات';
+  }
+
+  @override
+  String myPurchases_validFor(int count) {
+    return 'صالحة لمدة: $count يوم';
+  }
+
+  @override
+  String get myPurchases_validity => 'الصلاحية';
+
+  @override
+  String get myPurchases_access => 'يشمل';
+
+  @override
+  String get myPurchases_addOns => 'الإضافات';
+
+  @override
+  String get myPurchases_promotionInformation => 'معلومات العرض';
+
+  @override
+  String get myPurchases_fromPromotion => 'من العرض';
+
+  @override
+  String get myPurchases_appliedIn => '(طُبّق على)';
+
+  @override
+  String get myPurchases_refundAmount => 'مبلغ الاسترداد';
+
+  @override
+  String get myPurchases_expired => 'منتهية';
+
+  @override
+  String get myPurchases_refunded => 'مستردة';
+
+  @override
+  String get myPurchases_gift => 'هدية';
+
+  @override
+  String get myPurchases_appliesOn => 'ينطبق على';
+
+  @override
+  String myPurchases_applied(String date) {
+    return 'طُبّق: $date';
+  }
+
+  @override
+  String get myPurchases_cancelPurchase => 'إلغاء الشراء';
+
+  @override
+  String get myPurchases_cancelConfirmTitle => 'إلغاء عملية الشراء؟';
+
+  @override
+  String myPurchases_cancelConfirmBody(String name) {
+    return 'سيتم إلغاء $name ولن تتمكن من الحجز به. لا يمكن التراجع عن ذلك.';
+  }
+
+  @override
+  String get myPurchases_keepPurchase => 'الاحتفاظ به';
+
+  @override
+  String get myPurchases_cancelled => 'تم إلغاء عملية الشراء.';
+
+  @override
+  String get myPurchases_emptyCurrent => 'لا توجد مشتريات حالية';
+
+  @override
+  String get myPurchases_emptyHistory => 'لا توجد مشتريات سابقة بعد';
+
+  @override
+  String get myPurchases_emptyHint => 'ستظهر هنا التذاكر والعروض التي تشتريها.';
+
+  @override
+  String get myGifts_emptyCurrent => 'لا توجد هدايا حاليًا';
+
+  @override
+  String get myGifts_emptyHistory => 'لا توجد هدايا سابقة بعد';
+
+  @override
+  String get myGifts_emptyHint => 'ستظهر هنا الكوبونات والتذاكر المهداة إليك.';
+
+  @override
+  String get accountInfo_personalDetails => 'البيانات الشخصية';
+
+  @override
+  String get accountInfo_security => 'الأمان';
+
+  @override
+  String get accountInfo_notSet => 'غير محدد';
+
+  @override
+  String get accountInfo_edit => 'تعديل البيانات';
+
+  @override
+  String get accountInfo_editTitle => 'تعديل البيانات';
+
+  @override
+  String get accountInfo_save => 'حفظ التغييرات';
+
+  @override
+  String get accountInfo_saved => 'تم تحديث بياناتك';
+
+  @override
+  String get accountInfo_changePhoto => 'تغيير الصورة';
+
+  @override
+  String get accountInfo_photoUpdated => 'تم تحديث صورة الملف الشخصي';
+
+  @override
+  String get accountInfo_changePassword => 'تغيير كلمة المرور';
+
+  @override
+  String get accountInfo_changePasswordSubtitle => 'اختر كلمة مرور جديدة لحسابك.';
+
+  @override
+  String get accountInfo_newPassword => 'كلمة المرور الجديدة';
+
+  @override
+  String get accountInfo_newPasswordHint => 'أدخل كلمة مرور جديدة';
+
+  @override
+  String get accountInfo_confirmPassword => 'تأكيد كلمة المرور';
+
+  @override
+  String get accountInfo_confirmPasswordHint => 'أعد إدخال كلمة المرور الجديدة';
+
+  @override
+  String accountInfo_passwordTooShort(int count) {
+    return 'استخدم $count أحرف على الأقل';
+  }
+
+  @override
+  String get accountInfo_passwordsDontMatch => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get accountInfo_passwordChanged => 'تم تغيير كلمة المرور';
+
+  @override
+  String get accountInfo_fieldRequired => 'هذا الحقل مطلوب';
+
+  @override
+  String get accountInfo_invalidEmail => 'أدخل بريدًا إلكترونيًا صحيحًا';
+
+  @override
+  String get accountInfo_searchNationality => 'ابحث عن الجنسية...';
+
+  @override
+  String get accountInfo_noNationalitiesFound => 'لا توجد جنسيات مطابقة';
 }

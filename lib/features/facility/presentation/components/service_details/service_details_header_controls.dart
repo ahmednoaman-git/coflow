@@ -1,7 +1,10 @@
+import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 
-/// Back button overlay for the service details screen, mirroring
-/// [FacilityHeaderControls]'s back button styling.
+import '../header/facility_header_controls.dart';
+
+/// Back button overlay for the service details screen, placed and styled like
+/// [FacilityHeaderControls]'s.
 class ServiceDetailsHeaderControls extends StatelessWidget {
   const ServiceDetailsHeaderControls({super.key});
 
@@ -9,24 +12,12 @@ class ServiceDetailsHeaderControls extends StatelessWidget {
   Widget build(BuildContext context) {
     final topPadding = MediaQuery.paddingOf(context).top;
 
-    return Positioned(
-      top: topPadding + 12,
-      left: 12,
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: 0.3),
-          shape: BoxShape.circle,
-        ),
-        child: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_rounded,
-            color: Colors.white,
-            size: 20,
-          ),
-          onPressed: () => Navigator.maybePop(context),
-        ),
+    return PositionedDirectional(
+      top: topPadding + (kToolbarHeight - CircularButton.standardSize) / 2,
+      start: FacilityHeaderControls.buttonSpacing,
+      child: MainBackButton(
+        backgroundColor: Colors.black.withValues(alpha: 0.3),
+        iconColor: Colors.white,
       ),
     );
   }

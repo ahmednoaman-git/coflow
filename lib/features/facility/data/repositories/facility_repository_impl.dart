@@ -1,10 +1,8 @@
 import 'package:coflow_users_v2/core/async/async.dart';
-import 'package:coflow_users_v2/core/domain/enums/enums.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/dtos/dtos.dart';
 import '../../domain/entities/entities.dart';
-import '../../domain/enums/enums.dart';
 import '../../domain/repositories/repositories.dart';
 import '../datasources/datasources.dart';
 import '../mappers/mappers.dart';
@@ -13,12 +11,10 @@ import '../mappers/mappers.dart';
 class FacilityRepositoryImpl implements FacilityRepository {
   const FacilityRepositoryImpl(
     this._remote,
-    this._servicesStub,
     this._calendarRemote,
   );
 
   final FacilityRemoteDataSource _remote;
-  final FacilityServicesStubDataSource _servicesStub;
   final FacilityCalendarRemoteDataSource _calendarRemote;
 
   @override
@@ -85,12 +81,9 @@ class FacilityRepositoryImpl implements FacilityRepository {
 
   @override
   AsyncTask<FacilityServicesEntity> getFacilityServices(GetFacilityServicesDto dto) {
-    // TODO(backend): remove stub routing once Go activity listings return data.
-    final source = dto.accountType is GoAccount && dto.type == FacilityServiceType.activity
-        ? _servicesStub.getFacilityServices(dto)
-        : _remote.getFacilityServices(dto);
-
-    return source.map((model) => FacilityServiceMapper.toEntity(model, dto.type));
+    return _remote
+        .getFacilityServices(dto)
+        .map((model) => FacilityServiceMapper.toEntity(model, dto.type));
   }
 
   @override

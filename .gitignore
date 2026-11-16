@@ -43,3 +43,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Local API reference (Postman export) — too large to track
+/Coflow.postman_collection.json
+
+# Local handoff notes for new chats — not project documentation
+/TICKET_WORKFLOW.md

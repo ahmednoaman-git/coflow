@@ -30,9 +30,7 @@ FacilityServiceDetailsModel _$FacilityServiceDetailsModelFromJson(
       ),
       level: $checkedConvert(
         'level',
-        (v) => v == null
-            ? null
-            : FacilityServiceLevelModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : FacilityServiceLevelModel.fromJson(v as Map<String, dynamic>),
       ),
       tickets: $checkedConvert(
         'tickets',
@@ -121,6 +119,7 @@ FacilityServiceTicketModel _$FacilityServiceTicketModelFromJson(
         'discount_price',
         (v) => (v as num?)?.toDouble(),
       ),
+      offer: $checkedConvert('offer', (v) => (v as num?)?.toDouble()),
       currency: $checkedConvert('currency', (v) => v as String?),
     );
     return val;
@@ -139,6 +138,7 @@ Map<String, dynamic> _$FacilityServiceTicketModelToJson(
   'price': instance.price,
   'has_discount': instance.hasDiscount,
   'discount_price': instance.discountPrice,
+  'offer': instance.offer,
   'currency': instance.currency,
 };
 

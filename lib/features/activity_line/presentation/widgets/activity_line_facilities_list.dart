@@ -10,10 +10,15 @@ import 'facility_card.dart';
 class ActivityLineFacilitiesList extends StatelessWidget {
   const ActivityLineFacilitiesList({super.key});
 
+  /// Around the list, and between its cards — shared with the skeletons that
+  /// stand in for it, so the cards land where they were.
+  static EdgeInsets padding(BuildContext context) => EdgeInsets.all(context.spacing.s16);
+  static double gap(BuildContext context) => context.spacing.s16;
+
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
-      padding: EdgeInsets.all(context.spacing.s16),
+      padding: padding(context),
       sliver: BlocBuilder<ActivityLineFacilitiesCubit, ActivityLineFacilitiesState>(
         buildWhen: (previous, current) => previous.facilities != current.facilities,
         builder: (context, state) {
@@ -40,9 +45,7 @@ class ActivityLineFacilitiesList extends StatelessWidget {
                 facility: facility,
               );
             },
-            separatorBuilder: (context, index) {
-              return SizedBox(height: context.spacing.s16);
-            },
+            separatorBuilder: (context, index) => SizedBox(height: gap(context)),
           );
         },
       ),

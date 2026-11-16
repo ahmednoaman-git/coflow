@@ -21,7 +21,9 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   totalTickets: json['total_tickets'] as String? ?? '0',
   totalPromotions: json['total_promotions'] as String? ?? '0',
   totalGifts: (json['total_gifts'] as num?)?.toInt() ?? 0,
-  totalPurchases: (json['total_purchases'] as num?)?.toInt() ?? 0,
+  totalPurchases: json['total_purchases'] == null
+      ? 0
+      : UserModel._parseTotalPurchases(json['total_purchases']),
   token: json['token'] as String?,
 );
 

@@ -8,7 +8,7 @@ import '../../../cubit/cubit.dart';
 import 'components/service_folder_tile.dart';
 import 'components/service_tile.dart';
 import 'components/services_empty_state.dart';
-import 'components/services_shimmer.dart';
+import 'components/services_skeleton.dart';
 
 /// Renders a facility's Activities/Flows/Courses tab.
 ///
@@ -37,7 +37,7 @@ class _ServicesTabScreenState extends State<ServicesTabScreen> {
       padding: EdgeInsets.all(context.spacing.s16),
       child: AsyncHandler<FacilityDetailsCubit, FacilityDetailsState, FacilityServicesEntity>(
         requestManagerGetter: (cubit) => cubit.servicesManagerFor(widget.type),
-        loadingBuilder: (context) => const ServicesShimmer(),
+        skeletonBuilder: (context) => const ServicesSkeleton(),
         onRetry: (cubit) => cubit.refreshServices(widget.type),
         successBuilder: (context, services) {
           if (services.isEmpty) {

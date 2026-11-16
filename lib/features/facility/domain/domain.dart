@@ -4,5 +4,6 @@ library;
 export 'dtos/dtos.dart';
 export 'entities/entities.dart';
 export 'enums/enums.dart';
+export 'events/events.dart';
 export 'repositories/repositories.dart';
 export 'use_cases/use_cases.dart';

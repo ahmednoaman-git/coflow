@@ -4,6 +4,7 @@ library;
 export 'promotion_purchase_screen_body.dart';
 export 'purchase_addons_selector.dart';
 export 'purchase_app_bar.dart';
+export 'purchase_confirm_dialog.dart';
 export 'purchase_coupon_dropdown.dart';
 export 'purchase_info_row.dart';
 export 'purchase_invoice_section.dart';

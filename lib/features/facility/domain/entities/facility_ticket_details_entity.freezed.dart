@@ -540,7 +540,9 @@ as String?,
 /// @nodoc
 mixin _$FacilityTicketDetailsEntity {
 
- int get id; String get name; double get price; double? get discountPrice; String get currency; bool get unlimited; int? get validityDays; List<AddOnEntity> get addOns; List<ServiceEntity> get services; String get conditions; String get requirements;
+ int get id; String get name; double get price;/// What the ticket sells for when it is reduced — by its own discount or
+/// an active discount promotion. Null when it sells at full price.
+ double? get discountPrice; String get currency; bool get unlimited; int? get validityDays; List<AddOnEntity> get addOns; List<ServiceEntity> get services; String get conditions; String get requirements;
 /// Create a copy of FacilityTicketDetailsEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -748,6 +750,8 @@ class _FacilityTicketDetailsEntity extends FacilityTicketDetailsEntity {
 @override final  int id;
 @override final  String name;
 @override final  double price;
+/// What the ticket sells for when it is reduced — by its own discount or
+/// an active discount promotion. Null when it sells at full price.
 @override final  double? discountPrice;
 @override final  String currency;
 @override final  bool unlimited;

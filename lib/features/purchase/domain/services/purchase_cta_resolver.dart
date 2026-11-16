@@ -1,27 +1,19 @@
-import 'package:coflow_users_v2/core/core.dart';
 import 'package:coflow_users_v2/features/activity_line/domain/entities/entities.dart';
 
-/// The purchase call-to-action implied by a facility's [PaymentType].
-enum PurchaseCtaAction { directPurchase, onlinePayment, depositPayment }
-
-/// Resolves the checkout CTA/behavior from a facility's [PaymentType].
+/// Decides whether a facility's tickets and promotions are bought in the app
+/// or through "Contact {facility}".
 abstract final class PurchaseCtaResolver {
-  /// Whether [facility] can take a purchase inside the app.
+  /// Whether [facility] takes purchases in the app.
   ///
-  /// Online payment is premium-only, so basic and inactive accounts are
-  /// contact-only however their [PaymentType] is configured — the backend
-  /// leaves `payment_type` set from whenever the facility last held a
-  /// subscription, so it cannot be trusted on its own (facility 94 is
-  /// `inactive` yet still reports `deposit online`).
-  static bool allowsInAppPurchase(CollapsedFacilityEntity facility) => facility.accountType
-      .features(facility.subscriptionStatus)
-      .contains(FacilityFeature.onlinePayment);
-
-  static PurchaseCtaAction resolve(PaymentType paymentType) => switch (paymentType) {
-    PaymentType.directPurchase || PaymentType.none => PurchaseCtaAction.directPurchase,
-    PaymentType.fullOnline => PurchaseCtaAction.onlinePayment,
-    PaymentType.depositOnline => PurchaseCtaAction.depositPayment,
-  };
-
-  static bool showsDeposit(PaymentType paymentType) => paymentType == PaymentType.depositOnline;
+  /// Every in-app purchase is a direct purchase, paid in cash at the facility:
+  /// online and deposit payment are out of scope, so `full online` and
+  /// `deposit online` facilities sell the same way (product decision,
+  /// 2026-09-23). A facility is contact-only when:
+  /// - its subscription is not premium — basic and inactive accounts never
+  ///   sell in the app, whatever `payment_type` says (the backend leaves it set
+  ///   from the facility's last subscription: facility 94 is `inactive` yet
+  ///   reports `deposit online`);
+  /// - it chose `contact` as its payment type.
+  static bool allowsInAppPurchase(CollapsedFacilityEntity facility) =>
+      facility.subscriptionStatus.isPremium && facility.paymentType != PaymentType.contact;
 }

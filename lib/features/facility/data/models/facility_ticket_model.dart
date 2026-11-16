@@ -13,6 +13,7 @@ class FacilityTicketModel {
     required this.currency,
     required this.facilityId,
     required this.servicesCount,
+    this.offer,
   });
 
   final int id;
@@ -29,6 +30,9 @@ class FacilityTicketModel {
 
   @JsonKey(name: 'services_count')
   final int servicesCount;
+
+  /// The percentage an active discount promotion takes off this ticket.
+  final double? offer;
 
   factory FacilityTicketModel.fromJson(Map<String, dynamic> json) =>
       _$FacilityTicketModelFromJson(json);

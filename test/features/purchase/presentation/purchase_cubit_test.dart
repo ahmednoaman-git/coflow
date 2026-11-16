@@ -23,15 +23,26 @@ const _facility = CollapsedFacilityEntity(
 
 const _quote = PurchaseQuoteEntity(totalPrice: 9, finalPrice: 9, couponDiscount: 0);
 
+const _coupon = PurchaseCouponEntity(
+  id: 76,
+  facilityId: 191,
+  discountRatio: 10,
+  coversAllTickets: true,
+  coversAllPromotions: true,
+);
+
 class _Repository implements PurchaseRepository, CouponRepository {
   final quotes = <Completer<Either<Failure, PurchaseQuoteEntity>>>[];
   final quoteInputs = <SubmitPurchaseDto>[];
   final submissions = <Completer<Either<Failure, PurchaseReceiptEntity>>>[];
   final submitInputs = <SubmitPurchaseDto>[];
+  final couponLookups = <GetPurchaseCouponsDto>[];
 
   @override
-  AsyncTask<List<PurchaseCouponEntity>> getCoupons(GetPurchaseCouponsDto dto) =>
-      TaskEither.right(const []);
+  AsyncTask<List<PurchaseCouponEntity>> getCoupons(GetPurchaseCouponsDto dto) {
+    couponLookups.add(dto);
+    return TaskEither.right(const []);
+  }
 
   @override
   AsyncTask<PurchaseQuoteEntity> getQuote(SubmitPurchaseDto dto) => TaskEither(() {
@@ -144,7 +155,7 @@ void main() {
     await cubit.submit();
     cubit.incrementQuantity();
     cubit.toggleAddOn(99);
-    cubit.selectCoupon(const PurchaseCouponEntity(id: 3, name: 'Coupon', discountRatio: 10));
+    cubit.selectCoupon(_coupon);
     await _flush();
     expect(repository.submissions, hasLength(1));
     expect(cubit.state.quantity, 1);
@@ -209,5 +220,84 @@ void main() {
     repository.quotes.single.complete(const Right(_quote));
     await _flush();
     expect(cubit.isClosed, isTrue);
+  });
+
+  test('coupon lookup names the facility selling the ticket', () async {
+    final repository = _Repository();
+    final cubit = _ticketCubit(repository);
+    addTearDown(cubit.close);
+    await _flush();
+
+    final lookup = repository.couponLookups.single;
+    expect(lookup.facilityId, 191);
+    expect(lookup.subjectType, PurchaseSubjectType.ticket);
+    expect(lookup.subjectId, 103);
+  });
+
+  test('a refused coupon is dropped and the ticket re-quoted without it', () async {
+    final repository = _Repository();
+    final cubit = _ticketCubit(repository);
+    addTearDown(cubit.close);
+    await _flush();
+    repository.quotes.single.complete(const Right(_quote));
+    await _flush();
+
+    cubit.selectCoupon(_coupon);
+    await _flush();
+    expect(repository.quoteInputs.last.couponId, 76);
+    repository.quotes.last.complete(
+      const Left(CouponRejectedFailure('The selected coupon id is invalid.')),
+    );
+    await _flush();
+
+    expect(cubit.state.selectedCoupon, isNull);
+    expect(cubit.state.couponRejected, isTrue);
+    expect(repository.quoteInputs, hasLength(3));
+    expect(repository.quoteInputs.last.couponId, isNull);
+    repository.quotes.last.complete(const Right(_quote));
+    await _flush();
+    expect(cubit.quoteManager.data, _quote);
+
+    cubit.selectCoupon(_coupon);
+    expect(cubit.state.couponRejected, isFalse);
+  });
+
+  test('a refused coupon on a promotion is dropped the same way', () async {
+    final repository = _Repository();
+    final cubit = _promotionCubit(repository);
+    addTearDown(cubit.close);
+    await _flush();
+    repository.quotes.single.complete(const Right(_quote));
+    await _flush();
+
+    cubit.selectCoupon(_coupon);
+    await _flush();
+    repository.quotes.last.complete(const Left(CouponRejectedFailure('Resource not found.')));
+    await _flush();
+
+    expect(cubit.state.selectedCoupon, isNull);
+    expect(cubit.state.couponRejected, isTrue);
+    expect(repository.quoteInputs.last.toJson(), {'promotion_id': 204, 'quantity': 1});
+  });
+
+  test('other quote failures keep the coupon for a retry', () async {
+    for (final failure in const <Failure>[
+      NetworkFailure('offline'),
+      ValidationFailure('The quantity may not be greater than 5.'),
+    ]) {
+      final repository = _Repository();
+      final cubit = _ticketCubit(repository);
+      addTearDown(cubit.close);
+      await _flush();
+      cubit.selectCoupon(_coupon);
+      await _flush();
+      repository.quotes.last.complete(Left(failure));
+      await _flush();
+
+      expect(cubit.state.selectedCoupon, _coupon);
+      expect(cubit.state.couponRejected, isFalse);
+      expect(cubit.quoteManager.isError, isTrue);
+      expect(repository.quoteInputs, hasLength(2));
+    }
   });
 }

@@ -14,7 +14,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PromotionPurchaseState {
 
- FacilityPromotionDetailsEntity get promotion; CollapsedFacilityEntity get facility; Color get accentColor; int get quantity; PurchaseCouponEntity? get selectedCoupon; AsyncState<List<PurchaseCouponEntity>> get couponsRequest; AsyncState<PurchaseQuoteEntity> get quoteRequest; AsyncState<PurchaseReceiptEntity> get submitRequest;
+ FacilityPromotionDetailsEntity get promotion; CollapsedFacilityEntity get facility; Color get accentColor; int get quantity; PurchaseCouponEntity? get selectedCoupon;/// Set when the quote refused the coupon the customer picked: checkout
+/// drops it and says so under the coupon field.
+ bool get couponRejected; AsyncState<List<PurchaseCouponEntity>> get couponsRequest; AsyncState<PurchaseQuoteEntity> get quoteRequest; AsyncState<PurchaseReceiptEntity> get submitRequest;
 /// Create a copy of PromotionPurchaseState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +27,16 @@ $PromotionPurchaseStateCopyWith<PromotionPurchaseState> get copyWith => _$Promot
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PromotionPurchaseState&&(identical(other.promotion, promotion) || other.promotion == promotion)&&(identical(other.facility, facility) || other.facility == facility)&&(identical(other.accentColor, accentColor) || other.accentColor == accentColor)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.selectedCoupon, selectedCoupon) || other.selectedCoupon == selectedCoupon)&&(identical(other.couponsRequest, couponsRequest) || other.couponsRequest == couponsRequest)&&(identical(other.quoteRequest, quoteRequest) || other.quoteRequest == quoteRequest)&&(identical(other.submitRequest, submitRequest) || other.submitRequest == submitRequest));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PromotionPurchaseState&&(identical(other.promotion, promotion) || other.promotion == promotion)&&(identical(other.facility, facility) || other.facility == facility)&&(identical(other.accentColor, accentColor) || other.accentColor == accentColor)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.selectedCoupon, selectedCoupon) || other.selectedCoupon == selectedCoupon)&&(identical(other.couponRejected, couponRejected) || other.couponRejected == couponRejected)&&(identical(other.couponsRequest, couponsRequest) || other.couponsRequest == couponsRequest)&&(identical(other.quoteRequest, quoteRequest) || other.quoteRequest == quoteRequest)&&(identical(other.submitRequest, submitRequest) || other.submitRequest == submitRequest));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,promotion,facility,accentColor,quantity,selectedCoupon,couponsRequest,quoteRequest,submitRequest);
+int get hashCode => Object.hash(runtimeType,promotion,facility,accentColor,quantity,selectedCoupon,couponRejected,couponsRequest,quoteRequest,submitRequest);
 
 @override
 String toString() {
-  return 'PromotionPurchaseState(promotion: $promotion, facility: $facility, accentColor: $accentColor, quantity: $quantity, selectedCoupon: $selectedCoupon, couponsRequest: $couponsRequest, quoteRequest: $quoteRequest, submitRequest: $submitRequest)';
+  return 'PromotionPurchaseState(promotion: $promotion, facility: $facility, accentColor: $accentColor, quantity: $quantity, selectedCoupon: $selectedCoupon, couponRejected: $couponRejected, couponsRequest: $couponsRequest, quoteRequest: $quoteRequest, submitRequest: $submitRequest)';
 }
 
 
@@ -45,7 +47,7 @@ abstract mixin class $PromotionPurchaseStateCopyWith<$Res>  {
   factory $PromotionPurchaseStateCopyWith(PromotionPurchaseState value, $Res Function(PromotionPurchaseState) _then) = _$PromotionPurchaseStateCopyWithImpl;
 @useResult
 $Res call({
- FacilityPromotionDetailsEntity promotion, CollapsedFacilityEntity facility, Color accentColor, int quantity, PurchaseCouponEntity? selectedCoupon, AsyncState<List<PurchaseCouponEntity>> couponsRequest, AsyncState<PurchaseQuoteEntity> quoteRequest, AsyncState<PurchaseReceiptEntity> submitRequest
+ FacilityPromotionDetailsEntity promotion, CollapsedFacilityEntity facility, Color accentColor, int quantity, PurchaseCouponEntity? selectedCoupon, bool couponRejected, AsyncState<List<PurchaseCouponEntity>> couponsRequest, AsyncState<PurchaseQuoteEntity> quoteRequest, AsyncState<PurchaseReceiptEntity> submitRequest
 });
 
 
@@ -62,14 +64,15 @@ class _$PromotionPurchaseStateCopyWithImpl<$Res>
 
 /// Create a copy of PromotionPurchaseState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? promotion = null,Object? facility = null,Object? accentColor = null,Object? quantity = null,Object? selectedCoupon = freezed,Object? couponsRequest = null,Object? quoteRequest = null,Object? submitRequest = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? promotion = null,Object? facility = null,Object? accentColor = null,Object? quantity = null,Object? selectedCoupon = freezed,Object? couponRejected = null,Object? couponsRequest = null,Object? quoteRequest = null,Object? submitRequest = null,}) {
   return _then(_self.copyWith(
 promotion: null == promotion ? _self.promotion : promotion // ignore: cast_nullable_to_non_nullable
 as FacilityPromotionDetailsEntity,facility: null == facility ? _self.facility : facility // ignore: cast_nullable_to_non_nullable
 as CollapsedFacilityEntity,accentColor: null == accentColor ? _self.accentColor : accentColor // ignore: cast_nullable_to_non_nullable
 as Color,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as int,selectedCoupon: freezed == selectedCoupon ? _self.selectedCoupon : selectedCoupon // ignore: cast_nullable_to_non_nullable
-as PurchaseCouponEntity?,couponsRequest: null == couponsRequest ? _self.couponsRequest : couponsRequest // ignore: cast_nullable_to_non_nullable
+as PurchaseCouponEntity?,couponRejected: null == couponRejected ? _self.couponRejected : couponRejected // ignore: cast_nullable_to_non_nullable
+as bool,couponsRequest: null == couponsRequest ? _self.couponsRequest : couponsRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<List<PurchaseCouponEntity>>,quoteRequest: null == quoteRequest ? _self.quoteRequest : quoteRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<PurchaseQuoteEntity>,submitRequest: null == submitRequest ? _self.submitRequest : submitRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<PurchaseReceiptEntity>,
@@ -214,10 +217,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FacilityPromotionDetailsEntity promotion,  CollapsedFacilityEntity facility,  Color accentColor,  int quantity,  PurchaseCouponEntity? selectedCoupon,  AsyncState<List<PurchaseCouponEntity>> couponsRequest,  AsyncState<PurchaseQuoteEntity> quoteRequest,  AsyncState<PurchaseReceiptEntity> submitRequest)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( FacilityPromotionDetailsEntity promotion,  CollapsedFacilityEntity facility,  Color accentColor,  int quantity,  PurchaseCouponEntity? selectedCoupon,  bool couponRejected,  AsyncState<List<PurchaseCouponEntity>> couponsRequest,  AsyncState<PurchaseQuoteEntity> quoteRequest,  AsyncState<PurchaseReceiptEntity> submitRequest)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PromotionPurchaseState() when $default != null:
-return $default(_that.promotion,_that.facility,_that.accentColor,_that.quantity,_that.selectedCoupon,_that.couponsRequest,_that.quoteRequest,_that.submitRequest);case _:
+return $default(_that.promotion,_that.facility,_that.accentColor,_that.quantity,_that.selectedCoupon,_that.couponRejected,_that.couponsRequest,_that.quoteRequest,_that.submitRequest);case _:
   return orElse();
 
 }
@@ -235,10 +238,10 @@ return $default(_that.promotion,_that.facility,_that.accentColor,_that.quantity,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FacilityPromotionDetailsEntity promotion,  CollapsedFacilityEntity facility,  Color accentColor,  int quantity,  PurchaseCouponEntity? selectedCoupon,  AsyncState<List<PurchaseCouponEntity>> couponsRequest,  AsyncState<PurchaseQuoteEntity> quoteRequest,  AsyncState<PurchaseReceiptEntity> submitRequest)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( FacilityPromotionDetailsEntity promotion,  CollapsedFacilityEntity facility,  Color accentColor,  int quantity,  PurchaseCouponEntity? selectedCoupon,  bool couponRejected,  AsyncState<List<PurchaseCouponEntity>> couponsRequest,  AsyncState<PurchaseQuoteEntity> quoteRequest,  AsyncState<PurchaseReceiptEntity> submitRequest)  $default,) {final _that = this;
 switch (_that) {
 case _PromotionPurchaseState():
-return $default(_that.promotion,_that.facility,_that.accentColor,_that.quantity,_that.selectedCoupon,_that.couponsRequest,_that.quoteRequest,_that.submitRequest);case _:
+return $default(_that.promotion,_that.facility,_that.accentColor,_that.quantity,_that.selectedCoupon,_that.couponRejected,_that.couponsRequest,_that.quoteRequest,_that.submitRequest);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -255,10 +258,10 @@ return $default(_that.promotion,_that.facility,_that.accentColor,_that.quantity,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FacilityPromotionDetailsEntity promotion,  CollapsedFacilityEntity facility,  Color accentColor,  int quantity,  PurchaseCouponEntity? selectedCoupon,  AsyncState<List<PurchaseCouponEntity>> couponsRequest,  AsyncState<PurchaseQuoteEntity> quoteRequest,  AsyncState<PurchaseReceiptEntity> submitRequest)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( FacilityPromotionDetailsEntity promotion,  CollapsedFacilityEntity facility,  Color accentColor,  int quantity,  PurchaseCouponEntity? selectedCoupon,  bool couponRejected,  AsyncState<List<PurchaseCouponEntity>> couponsRequest,  AsyncState<PurchaseQuoteEntity> quoteRequest,  AsyncState<PurchaseReceiptEntity> submitRequest)?  $default,) {final _that = this;
 switch (_that) {
 case _PromotionPurchaseState() when $default != null:
-return $default(_that.promotion,_that.facility,_that.accentColor,_that.quantity,_that.selectedCoupon,_that.couponsRequest,_that.quoteRequest,_that.submitRequest);case _:
+return $default(_that.promotion,_that.facility,_that.accentColor,_that.quantity,_that.selectedCoupon,_that.couponRejected,_that.couponsRequest,_that.quoteRequest,_that.submitRequest);case _:
   return null;
 
 }
@@ -270,7 +273,7 @@ return $default(_that.promotion,_that.facility,_that.accentColor,_that.quantity,
 
 
 class _PromotionPurchaseState extends PromotionPurchaseState {
-  const _PromotionPurchaseState({required this.promotion, required this.facility, required this.accentColor, this.quantity = 1, this.selectedCoupon, this.couponsRequest = const AsyncState.idle(), this.quoteRequest = const AsyncState.idle(), this.submitRequest = const AsyncState.idle()}): super._();
+  const _PromotionPurchaseState({required this.promotion, required this.facility, required this.accentColor, this.quantity = 1, this.selectedCoupon, this.couponRejected = false, this.couponsRequest = const AsyncState.idle(), this.quoteRequest = const AsyncState.idle(), this.submitRequest = const AsyncState.idle()}): super._();
   
 
 @override final  FacilityPromotionDetailsEntity promotion;
@@ -278,6 +281,9 @@ class _PromotionPurchaseState extends PromotionPurchaseState {
 @override final  Color accentColor;
 @override@JsonKey() final  int quantity;
 @override final  PurchaseCouponEntity? selectedCoupon;
+/// Set when the quote refused the coupon the customer picked: checkout
+/// drops it and says so under the coupon field.
+@override@JsonKey() final  bool couponRejected;
 @override@JsonKey() final  AsyncState<List<PurchaseCouponEntity>> couponsRequest;
 @override@JsonKey() final  AsyncState<PurchaseQuoteEntity> quoteRequest;
 @override@JsonKey() final  AsyncState<PurchaseReceiptEntity> submitRequest;
@@ -292,16 +298,16 @@ _$PromotionPurchaseStateCopyWith<_PromotionPurchaseState> get copyWith => __$Pro
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PromotionPurchaseState&&(identical(other.promotion, promotion) || other.promotion == promotion)&&(identical(other.facility, facility) || other.facility == facility)&&(identical(other.accentColor, accentColor) || other.accentColor == accentColor)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.selectedCoupon, selectedCoupon) || other.selectedCoupon == selectedCoupon)&&(identical(other.couponsRequest, couponsRequest) || other.couponsRequest == couponsRequest)&&(identical(other.quoteRequest, quoteRequest) || other.quoteRequest == quoteRequest)&&(identical(other.submitRequest, submitRequest) || other.submitRequest == submitRequest));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PromotionPurchaseState&&(identical(other.promotion, promotion) || other.promotion == promotion)&&(identical(other.facility, facility) || other.facility == facility)&&(identical(other.accentColor, accentColor) || other.accentColor == accentColor)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.selectedCoupon, selectedCoupon) || other.selectedCoupon == selectedCoupon)&&(identical(other.couponRejected, couponRejected) || other.couponRejected == couponRejected)&&(identical(other.couponsRequest, couponsRequest) || other.couponsRequest == couponsRequest)&&(identical(other.quoteRequest, quoteRequest) || other.quoteRequest == quoteRequest)&&(identical(other.submitRequest, submitRequest) || other.submitRequest == submitRequest));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,promotion,facility,accentColor,quantity,selectedCoupon,couponsRequest,quoteRequest,submitRequest);
+int get hashCode => Object.hash(runtimeType,promotion,facility,accentColor,quantity,selectedCoupon,couponRejected,couponsRequest,quoteRequest,submitRequest);
 
 @override
 String toString() {
-  return 'PromotionPurchaseState(promotion: $promotion, facility: $facility, accentColor: $accentColor, quantity: $quantity, selectedCoupon: $selectedCoupon, couponsRequest: $couponsRequest, quoteRequest: $quoteRequest, submitRequest: $submitRequest)';
+  return 'PromotionPurchaseState(promotion: $promotion, facility: $facility, accentColor: $accentColor, quantity: $quantity, selectedCoupon: $selectedCoupon, couponRejected: $couponRejected, couponsRequest: $couponsRequest, quoteRequest: $quoteRequest, submitRequest: $submitRequest)';
 }
 
 
@@ -312,7 +318,7 @@ abstract mixin class _$PromotionPurchaseStateCopyWith<$Res> implements $Promotio
   factory _$PromotionPurchaseStateCopyWith(_PromotionPurchaseState value, $Res Function(_PromotionPurchaseState) _then) = __$PromotionPurchaseStateCopyWithImpl;
 @override @useResult
 $Res call({
- FacilityPromotionDetailsEntity promotion, CollapsedFacilityEntity facility, Color accentColor, int quantity, PurchaseCouponEntity? selectedCoupon, AsyncState<List<PurchaseCouponEntity>> couponsRequest, AsyncState<PurchaseQuoteEntity> quoteRequest, AsyncState<PurchaseReceiptEntity> submitRequest
+ FacilityPromotionDetailsEntity promotion, CollapsedFacilityEntity facility, Color accentColor, int quantity, PurchaseCouponEntity? selectedCoupon, bool couponRejected, AsyncState<List<PurchaseCouponEntity>> couponsRequest, AsyncState<PurchaseQuoteEntity> quoteRequest, AsyncState<PurchaseReceiptEntity> submitRequest
 });
 
 
@@ -329,14 +335,15 @@ class __$PromotionPurchaseStateCopyWithImpl<$Res>
 
 /// Create a copy of PromotionPurchaseState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? promotion = null,Object? facility = null,Object? accentColor = null,Object? quantity = null,Object? selectedCoupon = freezed,Object? couponsRequest = null,Object? quoteRequest = null,Object? submitRequest = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? promotion = null,Object? facility = null,Object? accentColor = null,Object? quantity = null,Object? selectedCoupon = freezed,Object? couponRejected = null,Object? couponsRequest = null,Object? quoteRequest = null,Object? submitRequest = null,}) {
   return _then(_PromotionPurchaseState(
 promotion: null == promotion ? _self.promotion : promotion // ignore: cast_nullable_to_non_nullable
 as FacilityPromotionDetailsEntity,facility: null == facility ? _self.facility : facility // ignore: cast_nullable_to_non_nullable
 as CollapsedFacilityEntity,accentColor: null == accentColor ? _self.accentColor : accentColor // ignore: cast_nullable_to_non_nullable
 as Color,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
 as int,selectedCoupon: freezed == selectedCoupon ? _self.selectedCoupon : selectedCoupon // ignore: cast_nullable_to_non_nullable
-as PurchaseCouponEntity?,couponsRequest: null == couponsRequest ? _self.couponsRequest : couponsRequest // ignore: cast_nullable_to_non_nullable
+as PurchaseCouponEntity?,couponRejected: null == couponRejected ? _self.couponRejected : couponRejected // ignore: cast_nullable_to_non_nullable
+as bool,couponsRequest: null == couponsRequest ? _self.couponsRequest : couponsRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<List<PurchaseCouponEntity>>,quoteRequest: null == quoteRequest ? _self.quoteRequest : quoteRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<PurchaseQuoteEntity>,submitRequest: null == submitRequest ? _self.submitRequest : submitRequest // ignore: cast_nullable_to_non_nullable
 as AsyncState<PurchaseReceiptEntity>,

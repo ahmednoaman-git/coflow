@@ -41,7 +41,7 @@ class CouponModel {
     this.paymentMethodId,
     this.createdAt,
     this.relatedPurchaseId,
-    required this.coupon,
+    this.coupon,
     this.facility,
   });
 
@@ -107,8 +107,9 @@ class CouponModel {
   @JsonKey(name: 'related_purchase_id')
   final int? relatedPurchaseId;
 
-  /// The coupon definition itself (discount ratio, scope, validity).
-  final CouponDetailsModel coupon;
+  /// The coupon definition itself (discount ratio, scope, validity). Null on
+  /// records whose coupon is gone.
+  final CouponDetailsModel? coupon;
 
   final CouponFacilityModel? facility;
 

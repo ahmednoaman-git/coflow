@@ -1,6 +1,8 @@
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../cubit/cubit.dart';
 import '../../facility_data_provider.dart';
 import 'facility_tab_controller.dart';
 import 'facility_utils.dart';
@@ -14,11 +16,25 @@ class FacilityTabBar extends StatelessWidget {
   /// Thickness of the line closing the tab bar.
   static const double _lineThickness = 1;
 
+  /// Bones standing in for the tabs after Profile while a preview resolves —
+  /// most facilities have three more.
+  static const int _placeholderTabs = 3;
+
   @override
   Widget build(BuildContext context) {
-    final facility = FacilityDataProvider.of(context).facility;
+    final data = FacilityDataProvider.of(context);
 
-    final tabs = FacilityUtils.getFacilityTabs(context, facility);
+    // A preview doesn't know its tabs until the profile is in: only Profile —
+    // the one every facility has — is real, with bones for the rest while it
+    // loads. If it fails, Profile alone, carrying the retry.
+    final tabs = data.isResolved
+        ? FacilityUtils.getFacilityTabs(context, data.facility)
+        : [context.l10n.facilityDetails_profileTab];
+    final placeholders =
+        !data.isResolved &&
+            !context.select((FacilityDetailsCubit cubit) => cubit.state.profileRequest.isError)
+        ? _placeholderTabs
+        : 0;
 
     final index = FacilityTabController.of(context).selectedTab;
 
@@ -48,6 +64,7 @@ class FacilityTabBar extends StatelessWidget {
                             index: i,
                           ),
                         ),
+                      for (var i = 0; i < placeholders; i++) const Expanded(child: _TabBone()),
                     ],
                   ),
                 ),
@@ -65,7 +82,7 @@ class FacilityTabBar extends StatelessWidget {
               child: Row(
                 spacing: context.spacing.s16,
                 children: [
-                  for (var i = 0; i < tabs.length; i++)
+                  for (var i = 0; i < tabs.length + placeholders; i++)
                     Expanded(child: _TabDot(isSelected: i == index)),
                 ],
               ),
@@ -99,6 +116,25 @@ class _TabLabel extends StatelessWidget {
           textAlign: .center,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
+        ),
+      ),
+    );
+  }
+}
+
+/// A tab label's bone, in the label's own box.
+class _TabBone extends StatelessWidget {
+  const _TabBone();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: context.spacing.s8),
+      child: Skeleton(
+        child: SkeletonText(
+          style: context.typography.medium14,
+          widthFactor: 0.8,
+          alignment: .center,
         ),
       ),
     );

@@ -1,5 +1,7 @@
+import 'package:coflow_users_v2/core/core.dart';
 import 'package:coflow_users_v2/features/purchase/data/data.dart';
 import 'package:coflow_users_v2/features/purchase/domain/domain.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -17,14 +19,14 @@ void main() {
       quote: quote,
       currency: 'EGP',
       itemLabel: 'Ticket',
-      addOnsLabel: 'Add-ons',
       quantity: 5,
+      addOnLabel: (name) => 'Add-On: $name',
+      addOnsLabel: 'Add-ons',
     );
     expect(invoice.currency, '€');
     expect(invoice.total, 54);
     expect(invoice.couponDiscount, 6);
     expect(invoice.lines.map((line) => line.amount), [45, 15]);
-    expect(invoice.hasDeposit, isFalse);
   });
 
   test('promotion quote permits omitted addons and currency', () {
@@ -80,5 +82,62 @@ void main() {
       ).toJson(),
       {'promotion_id': 204, 'quantity': 1, 'coupon_id': 4},
     );
+  });
+
+  group('PurchaseMapper.quoteFailure', () {
+    SubmitPurchaseDto selection({int? couponId}) => SubmitPurchaseDto(
+      subjectType: PurchaseSubjectType.ticket,
+      subjectId: 107,
+      quantity: 1,
+      couponId: couponId,
+    );
+
+    ValidationFailure unprocessable(Map<String, dynamic> errors) {
+      final request = RequestOptions(path: 'purchase-ticket/validate');
+      return ValidationFailure(
+        'The given data was invalid.',
+        exception: DioException(
+          requestOptions: request,
+          type: DioExceptionType.badResponse,
+          response: Response(
+            requestOptions: request,
+            statusCode: 422,
+            data: {'message': 'The given data was invalid.', 'errors': errors},
+          ),
+        ),
+      );
+    }
+
+    test('a coupon_id validation error is a refused coupon', () {
+      // Live: a coupon that does not cover the ticket.
+      final failure = PurchaseMapper.quoteFailure(
+        unprocessable({
+          'coupon_id': ['The selected coupon id is invalid.'],
+        }),
+        selection(couponId: 750),
+      );
+
+      expect(failure, isA<CouponRejectedFailure>());
+      expect(failure.message, 'The given data was invalid.');
+    });
+
+    test("a 404 with a coupon sent is a refused coupon (another facility's)", () {
+      expect(
+        PurchaseMapper.quoteFailure(const NotFoundFailure('Not found'), selection(couponId: 71)),
+        isA<CouponRejectedFailure>(),
+      );
+    });
+
+    test('other failures pass through untouched', () {
+      final quantity = unprocessable({
+        'quantity': ['The quantity may not be greater than 5.'],
+      });
+      const offline = NetworkFailure('offline');
+      const missing = NotFoundFailure('Not found');
+
+      expect(PurchaseMapper.quoteFailure(quantity, selection(couponId: 76)), same(quantity));
+      expect(PurchaseMapper.quoteFailure(offline, selection(couponId: 76)), same(offline));
+      expect(PurchaseMapper.quoteFailure(missing, selection()), same(missing));
+    });
   });
 }

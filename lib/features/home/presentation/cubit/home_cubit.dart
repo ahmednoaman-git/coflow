@@ -51,11 +51,21 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(selectedActivityLineId: activityLineId));
   }
 
+  /// Takes on a location the user picked on a screen opened from here (an
+  /// activity line's), so the dashboard is filtered the same way on return —
+  /// but only when this screen's own list has the place. Otherwise, or while
+  /// that list hasn't loaded, the current selection stands.
+  void adoptLocation(SelectedLocation location) {
+    if (isClosed) return;
+    final matched = state.locationsRequest.dataOrNull?.match(location);
+    if (matched == null || matched == state.selectedLocation) return;
+    selectLocation(matched);
+  }
+
   /// Updates the selected location and refreshes home data.
   void selectLocation(SelectedLocation location) {
     emit(state.copyWith(selectedLocation: location));
 
-    // Refresh home data with new location filter
     // Refresh home data with new location filter
     final request = location.isRemote
         ? const HomeRequestDto(locationType: LocationType.remoteLocation)

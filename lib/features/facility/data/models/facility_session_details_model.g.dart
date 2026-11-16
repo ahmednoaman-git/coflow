@@ -29,9 +29,7 @@ FacilitySessionDetailsModel _$FacilitySessionDetailsModelFromJson(
       ladiesOnly: $checkedConvert('ladies_only', (v) => v as bool?),
       level: $checkedConvert(
         'level',
-        (v) => v == null
-            ? null
-            : FacilityServiceLevelModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : FacilityServiceLevelModel.fromJson(v as Map<String, dynamic>),
       ),
       instructors: $checkedConvert(
         'instructors',
@@ -51,8 +49,7 @@ FacilitySessionDetailsModel _$FacilitySessionDetailsModelFromJson(
         (v) =>
             (v as List<dynamic>?)
                 ?.map(
-                  (e) =>
-                      SessionAttendeeModel.fromJson(e as Map<String, dynamic>),
+                  (e) => SessionAttendeeModel.fromJson(e as Map<String, dynamic>),
                 )
                 .toList() ??
             [],
@@ -62,17 +59,14 @@ FacilitySessionDetailsModel _$FacilitySessionDetailsModelFromJson(
         (v) =>
             (v as List<dynamic>?)
                 ?.map(
-                  (e) =>
-                      SessionAttendeeModel.fromJson(e as Map<String, dynamic>),
+                  (e) => SessionAttendeeModel.fromJson(e as Map<String, dynamic>),
                 )
                 .toList() ??
             [],
       ),
       location: $checkedConvert(
         'location',
-        (v) => v == null
-            ? null
-            : SessionLocationModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : SessionLocationModel.fromJson(v as Map<String, dynamic>),
       ),
       note: $checkedConvert('note', (v) => v as String?),
       cancellationDeadline: $checkedConvert(
@@ -90,9 +84,7 @@ FacilitySessionDetailsModel _$FacilitySessionDetailsModelFromJson(
       ),
       reservationTicket: $checkedConvert(
         'reservation_ticket',
-        (v) => v == null
-            ? null
-            : SessionReservationTicketModel.fromJson(v as Map<String, dynamic>),
+        (v) => v == null ? null : SessionReservationTicketModel.fromJson(v as Map<String, dynamic>),
       ),
       reservationId: $checkedConvert(
         'reservation_id',
@@ -230,6 +222,7 @@ SessionReservationTicketModel _$SessionReservationTicketModelFromJson(
         (v) => (v as num?)?.toInt(),
       ),
       addOns: $checkedConvert('add_ons', (v) => (v as num?)?.toInt()),
+      purchaseName: $checkedConvert('purchase_name', (v) => v as String?),
     );
     return val;
   },
@@ -237,6 +230,7 @@ SessionReservationTicketModel _$SessionReservationTicketModelFromJson(
     'purchasedAt': 'purchased_at',
     'validForDays': 'valid_for_days',
     'addOns': 'add_ons',
+    'purchaseName': 'purchase_name',
   },
 );
 
@@ -249,4 +243,5 @@ Map<String, dynamic> _$SessionReservationTicketModelToJson(
   'purchased_at': instance.purchasedAt?.toIso8601String(),
   'valid_for_days': instance.validForDays,
   'add_ons': instance.addOns,
+  'purchase_name': instance.purchaseName,
 };

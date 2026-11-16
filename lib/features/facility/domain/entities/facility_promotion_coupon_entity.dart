@@ -1,3 +1,4 @@
+import 'package:coflow_users_v2/core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'facility_promotion_applies_on.dart';
@@ -13,13 +14,5 @@ abstract class FacilityPromotionCouponEntity with _$FacilityPromotionCouponEntit
     required FacilityPromotionAppliesOn appliesOn,
   }) = _FacilityPromotionCouponEntity;
 
-  String get percentageText => '${_formatPromotionNumber(discountRatio)}%';
-}
-
-String _formatPromotionNumber(double value) {
-  if (value == value.roundToDouble()) {
-    return value.toStringAsFixed(0);
-  }
-
-  return value.toStringAsFixed(2).replaceFirst(RegExp(r'0+$'), '').replaceFirst(RegExp(r'\.$'), '');
+  String get percentageText => '${discountRatio.amountText}%';
 }

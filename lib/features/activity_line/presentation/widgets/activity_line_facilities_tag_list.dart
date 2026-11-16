@@ -14,36 +14,83 @@ class ActivityLineFacilitiesTagList extends StatelessWidget {
         buildWhen: (previous, current) =>
             previous.tags != current.tags ||
             previous.selectedTagId != current.selectedTagId ||
-            previous.allFacilitiesTotal != current.allFacilitiesTotal,
+            previous.allFacilitiesTotal != current.allFacilitiesTotal ||
+            _awaitingTags(previous) != _awaitingTags(current),
         builder: (context, state) {
-          if (state.tags.isEmpty) return const SliverToBoxAdapter(child: SizedBox.shrink());
           final cubit = context.read<ActivityLineFacilitiesCubit>();
           return SliverToBoxAdapter(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: context.spacing.s16),
-              child: Row(
-                spacing: context.spacing.s8,
-                children: [
-                  _TagChip(
-                    name: context.l10n.all,
-                    count: state.allFacilitiesTotal,
-                    isSelected: state.selectedTagId == null,
-                    onTap: cubit.clearSelectedTags,
-                  ),
-                  for (final tag in state.tags)
-                    _TagChip(
-                      name: tag.name,
-                      count: tag.count,
-                      isSelected: state.selectedTagId == tag.id,
-                      onTap: () => cubit.handleTagSelection(tag.id),
+            child: SkeletonSwitcher(
+              loading: _awaitingTags(state),
+              skeleton: const _TagRowSkeleton(),
+              child: state.tags.isEmpty
+                  ? const SizedBox.shrink()
+                  : _TagRow(
+                      children: [
+                        _TagChip(
+                          name: context.l10n.all,
+                          count: state.allFacilitiesTotal,
+                          isSelected: state.selectedTagId == null,
+                          onTap: cubit.clearSelectedTags,
+                        ),
+                        for (final tag in state.tags)
+                          _TagChip(
+                            name: tag.name,
+                            count: tag.count,
+                            isSelected: state.selectedTagId == tag.id,
+                            onTap: () => cubit.handleTagSelection(tag.id),
+                          ),
+                      ],
                     ),
-                ],
-              ),
             ),
           );
         },
       );
+
+  /// The tags come with the first page; until it lands there's a row to hold.
+  static bool _awaitingTags(ActivityLineFacilitiesState state) =>
+      state.tags.isEmpty &&
+      switch (state.facilitiesRequest) {
+        AsyncIdle() || AsyncLoading() => true,
+        _ => false,
+      };
+}
+
+/// The scrolling row the chips — or their skeletons — sit in.
+class _TagRow extends StatelessWidget {
+  const _TagRow({required this.children, this.scrollable = true});
+
+  final List<Widget> children;
+  final bool scrollable;
+
+  @override
+  Widget build(BuildContext context) => SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    physics: scrollable ? null : const NeverScrollableScrollPhysics(),
+    padding: EdgeInsets.symmetric(horizontal: context.spacing.s16),
+    child: Row(spacing: context.spacing.s8, children: children),
+  );
+}
+
+/// Chip skeletons the size of [_TagChip]s, with "All" first.
+class _TagRowSkeleton extends StatelessWidget {
+  const _TagRowSkeleton();
+
+  static const List<double> _labelWidths = [44, 96, 112, 84, 72];
+
+  @override
+  Widget build(BuildContext context) => Skeleton(
+    child: _TagRow(
+      scrollable: false,
+      children: [
+        for (final width in _labelWidths)
+          SkeletonChip(
+            style: context.typography.medium14,
+            labelWidth: width,
+            padding: _TagChip.padding(context),
+          ),
+      ],
+    ),
+  );
 }
 
 class _TagChip extends StatelessWidget {
@@ -53,6 +100,11 @@ class _TagChip extends StatelessWidget {
     required this.isSelected,
     required this.onTap,
   });
+
+  /// Around the label; shared with [_TagRowSkeleton].
+  static EdgeInsets padding(BuildContext context) =>
+      EdgeInsets.symmetric(horizontal: context.spacing.s16, vertical: context.spacing.s8);
+
   final String name;
   final int? count;
   final bool isSelected;
@@ -74,10 +126,7 @@ class _TagChip extends StatelessWidget {
           color: isSelected ? primary : secondary,
           shape: RoundedSuperellipseBorder(borderRadius: radius),
         ),
-        padding: EdgeInsets.symmetric(
-          horizontal: context.spacing.s16,
-          vertical: context.spacing.s8,
-        ),
+        padding: padding(context),
         child: Text(
           count == null ? name : '$name ($count)',
           style: context.typography.medium14.withColor(

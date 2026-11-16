@@ -546,7 +546,9 @@ mixin _$SessionReservationTicketEntity {
 
  String get name;/// Remaining uses on this purchase.
  int get quantity;/// Payment is still outstanding on the purchase.
- bool get isDue; DateTime? get purchasedAt; int? get validForDays; int get addOnsCount;
+ bool get isDue; DateTime? get purchasedAt; int? get validForDays; int get addOnsCount;/// The package or promotion the ticket came from; null for a ticket bought
+/// on its own.
+ String? get purchaseName;
 /// Create a copy of SessionReservationTicketEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -557,16 +559,16 @@ $SessionReservationTicketEntityCopyWith<SessionReservationTicketEntity> get copy
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionReservationTicketEntity&&(identical(other.name, name) || other.name == name)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.isDue, isDue) || other.isDue == isDue)&&(identical(other.purchasedAt, purchasedAt) || other.purchasedAt == purchasedAt)&&(identical(other.validForDays, validForDays) || other.validForDays == validForDays)&&(identical(other.addOnsCount, addOnsCount) || other.addOnsCount == addOnsCount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionReservationTicketEntity&&(identical(other.name, name) || other.name == name)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.isDue, isDue) || other.isDue == isDue)&&(identical(other.purchasedAt, purchasedAt) || other.purchasedAt == purchasedAt)&&(identical(other.validForDays, validForDays) || other.validForDays == validForDays)&&(identical(other.addOnsCount, addOnsCount) || other.addOnsCount == addOnsCount)&&(identical(other.purchaseName, purchaseName) || other.purchaseName == purchaseName));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,quantity,isDue,purchasedAt,validForDays,addOnsCount);
+int get hashCode => Object.hash(runtimeType,name,quantity,isDue,purchasedAt,validForDays,addOnsCount,purchaseName);
 
 @override
 String toString() {
-  return 'SessionReservationTicketEntity(name: $name, quantity: $quantity, isDue: $isDue, purchasedAt: $purchasedAt, validForDays: $validForDays, addOnsCount: $addOnsCount)';
+  return 'SessionReservationTicketEntity(name: $name, quantity: $quantity, isDue: $isDue, purchasedAt: $purchasedAt, validForDays: $validForDays, addOnsCount: $addOnsCount, purchaseName: $purchaseName)';
 }
 
 
@@ -577,7 +579,7 @@ abstract mixin class $SessionReservationTicketEntityCopyWith<$Res>  {
   factory $SessionReservationTicketEntityCopyWith(SessionReservationTicketEntity value, $Res Function(SessionReservationTicketEntity) _then) = _$SessionReservationTicketEntityCopyWithImpl;
 @useResult
 $Res call({
- String name, int quantity, bool isDue, DateTime? purchasedAt, int? validForDays, int addOnsCount
+ String name, int quantity, bool isDue, DateTime? purchasedAt, int? validForDays, int addOnsCount, String? purchaseName
 });
 
 
@@ -594,7 +596,7 @@ class _$SessionReservationTicketEntityCopyWithImpl<$Res>
 
 /// Create a copy of SessionReservationTicketEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? quantity = null,Object? isDue = null,Object? purchasedAt = freezed,Object? validForDays = freezed,Object? addOnsCount = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? quantity = null,Object? isDue = null,Object? purchasedAt = freezed,Object? validForDays = freezed,Object? addOnsCount = null,Object? purchaseName = freezed,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
@@ -602,7 +604,8 @@ as int,isDue: null == isDue ? _self.isDue : isDue // ignore: cast_nullable_to_no
 as bool,purchasedAt: freezed == purchasedAt ? _self.purchasedAt : purchasedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,validForDays: freezed == validForDays ? _self.validForDays : validForDays // ignore: cast_nullable_to_non_nullable
 as int?,addOnsCount: null == addOnsCount ? _self.addOnsCount : addOnsCount // ignore: cast_nullable_to_non_nullable
-as int,
+as int,purchaseName: freezed == purchaseName ? _self.purchaseName : purchaseName // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -687,10 +690,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  int quantity,  bool isDue,  DateTime? purchasedAt,  int? validForDays,  int addOnsCount)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  int quantity,  bool isDue,  DateTime? purchasedAt,  int? validForDays,  int addOnsCount,  String? purchaseName)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SessionReservationTicketEntity() when $default != null:
-return $default(_that.name,_that.quantity,_that.isDue,_that.purchasedAt,_that.validForDays,_that.addOnsCount);case _:
+return $default(_that.name,_that.quantity,_that.isDue,_that.purchasedAt,_that.validForDays,_that.addOnsCount,_that.purchaseName);case _:
   return orElse();
 
 }
@@ -708,10 +711,10 @@ return $default(_that.name,_that.quantity,_that.isDue,_that.purchasedAt,_that.va
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  int quantity,  bool isDue,  DateTime? purchasedAt,  int? validForDays,  int addOnsCount)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  int quantity,  bool isDue,  DateTime? purchasedAt,  int? validForDays,  int addOnsCount,  String? purchaseName)  $default,) {final _that = this;
 switch (_that) {
 case _SessionReservationTicketEntity():
-return $default(_that.name,_that.quantity,_that.isDue,_that.purchasedAt,_that.validForDays,_that.addOnsCount);case _:
+return $default(_that.name,_that.quantity,_that.isDue,_that.purchasedAt,_that.validForDays,_that.addOnsCount,_that.purchaseName);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -728,10 +731,10 @@ return $default(_that.name,_that.quantity,_that.isDue,_that.purchasedAt,_that.va
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  int quantity,  bool isDue,  DateTime? purchasedAt,  int? validForDays,  int addOnsCount)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  int quantity,  bool isDue,  DateTime? purchasedAt,  int? validForDays,  int addOnsCount,  String? purchaseName)?  $default,) {final _that = this;
 switch (_that) {
 case _SessionReservationTicketEntity() when $default != null:
-return $default(_that.name,_that.quantity,_that.isDue,_that.purchasedAt,_that.validForDays,_that.addOnsCount);case _:
+return $default(_that.name,_that.quantity,_that.isDue,_that.purchasedAt,_that.validForDays,_that.addOnsCount,_that.purchaseName);case _:
   return null;
 
 }
@@ -743,7 +746,7 @@ return $default(_that.name,_that.quantity,_that.isDue,_that.purchasedAt,_that.va
 
 
 class _SessionReservationTicketEntity implements SessionReservationTicketEntity {
-  const _SessionReservationTicketEntity({required this.name, required this.quantity, this.isDue = false, this.purchasedAt, this.validForDays, this.addOnsCount = 0});
+  const _SessionReservationTicketEntity({required this.name, required this.quantity, this.isDue = false, this.purchasedAt, this.validForDays, this.addOnsCount = 0, this.purchaseName});
   
 
 @override final  String name;
@@ -754,6 +757,9 @@ class _SessionReservationTicketEntity implements SessionReservationTicketEntity 
 @override final  DateTime? purchasedAt;
 @override final  int? validForDays;
 @override@JsonKey() final  int addOnsCount;
+/// The package or promotion the ticket came from; null for a ticket bought
+/// on its own.
+@override final  String? purchaseName;
 
 /// Create a copy of SessionReservationTicketEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -765,16 +771,16 @@ _$SessionReservationTicketEntityCopyWith<_SessionReservationTicketEntity> get co
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SessionReservationTicketEntity&&(identical(other.name, name) || other.name == name)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.isDue, isDue) || other.isDue == isDue)&&(identical(other.purchasedAt, purchasedAt) || other.purchasedAt == purchasedAt)&&(identical(other.validForDays, validForDays) || other.validForDays == validForDays)&&(identical(other.addOnsCount, addOnsCount) || other.addOnsCount == addOnsCount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SessionReservationTicketEntity&&(identical(other.name, name) || other.name == name)&&(identical(other.quantity, quantity) || other.quantity == quantity)&&(identical(other.isDue, isDue) || other.isDue == isDue)&&(identical(other.purchasedAt, purchasedAt) || other.purchasedAt == purchasedAt)&&(identical(other.validForDays, validForDays) || other.validForDays == validForDays)&&(identical(other.addOnsCount, addOnsCount) || other.addOnsCount == addOnsCount)&&(identical(other.purchaseName, purchaseName) || other.purchaseName == purchaseName));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,quantity,isDue,purchasedAt,validForDays,addOnsCount);
+int get hashCode => Object.hash(runtimeType,name,quantity,isDue,purchasedAt,validForDays,addOnsCount,purchaseName);
 
 @override
 String toString() {
-  return 'SessionReservationTicketEntity(name: $name, quantity: $quantity, isDue: $isDue, purchasedAt: $purchasedAt, validForDays: $validForDays, addOnsCount: $addOnsCount)';
+  return 'SessionReservationTicketEntity(name: $name, quantity: $quantity, isDue: $isDue, purchasedAt: $purchasedAt, validForDays: $validForDays, addOnsCount: $addOnsCount, purchaseName: $purchaseName)';
 }
 
 
@@ -785,7 +791,7 @@ abstract mixin class _$SessionReservationTicketEntityCopyWith<$Res> implements $
   factory _$SessionReservationTicketEntityCopyWith(_SessionReservationTicketEntity value, $Res Function(_SessionReservationTicketEntity) _then) = __$SessionReservationTicketEntityCopyWithImpl;
 @override @useResult
 $Res call({
- String name, int quantity, bool isDue, DateTime? purchasedAt, int? validForDays, int addOnsCount
+ String name, int quantity, bool isDue, DateTime? purchasedAt, int? validForDays, int addOnsCount, String? purchaseName
 });
 
 
@@ -802,7 +808,7 @@ class __$SessionReservationTicketEntityCopyWithImpl<$Res>
 
 /// Create a copy of SessionReservationTicketEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? quantity = null,Object? isDue = null,Object? purchasedAt = freezed,Object? validForDays = freezed,Object? addOnsCount = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? quantity = null,Object? isDue = null,Object? purchasedAt = freezed,Object? validForDays = freezed,Object? addOnsCount = null,Object? purchaseName = freezed,}) {
   return _then(_SessionReservationTicketEntity(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,quantity: null == quantity ? _self.quantity : quantity // ignore: cast_nullable_to_non_nullable
@@ -810,7 +816,8 @@ as int,isDue: null == isDue ? _self.isDue : isDue // ignore: cast_nullable_to_no
 as bool,purchasedAt: freezed == purchasedAt ? _self.purchasedAt : purchasedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,validForDays: freezed == validForDays ? _self.validForDays : validForDays // ignore: cast_nullable_to_non_nullable
 as int?,addOnsCount: null == addOnsCount ? _self.addOnsCount : addOnsCount // ignore: cast_nullable_to_non_nullable
-as int,
+as int,purchaseName: freezed == purchaseName ? _self.purchaseName : purchaseName // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

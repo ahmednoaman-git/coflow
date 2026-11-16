@@ -36,40 +36,4 @@ extension ThemeExtensions on BuildContext {
 
   /// Check if current theme is dark mode
   bool get isDarkMode => theme.brightness == Brightness.dark;
-
-  void showInfoSnackBar(String message) {
-    ScaffoldMessenger.of(this).showSnackBar(
-      SnackBar(
-        content: Text(message, style: typography.medium14),
-        backgroundColor: colors.skyBluePrimary,
-      ),
-    );
-  }
-
-  void showErrorSnackBar(String message) {
-    ScaffoldMessenger.of(this).showSnackBar(
-      SnackBar(
-        content: Text(message, style: typography.medium14),
-        backgroundColor: colors.energyCherryPrimary,
-      ),
-    );
-  }
-
-  void showSuccessSnackBar(String message) {
-    ScaffoldMessenger.of(this).showSnackBar(
-      SnackBar(
-        content: Text(message, style: typography.medium14),
-        backgroundColor: colors.seaCaribbeanPrimary,
-      ),
-    );
-  }
-
-  void showWarningSnackBar(String message) {
-    ScaffoldMessenger.of(this).showSnackBar(
-      SnackBar(
-        content: Text(message, style: typography.medium14),
-        backgroundColor: colors.earthSunnyGoldPrimary,
-      ),
-    );
-  }
 }

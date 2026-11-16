@@ -6,5 +6,5 @@ export 'components/service_folder_tile.dart';
 export 'components/service_level_pill.dart';
 export 'components/service_tile.dart';
 export 'components/services_empty_state.dart';
-export 'components/services_shimmer.dart';
+export 'components/services_skeleton.dart';
 export 'services_tab_screen.dart';

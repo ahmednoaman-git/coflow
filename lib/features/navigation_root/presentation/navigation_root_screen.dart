@@ -93,6 +93,7 @@ class _NavigationScaffold extends StatelessWidget {
           CoflowNavAvatarDestination(
             label: l10n.nav_profile,
             imageUrl: avatar,
+            name: context.user.name,
             fallback: SolarIconsOutline.user,
           ),
         ],

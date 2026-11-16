@@ -14,7 +14,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FacilityServiceTicketEntity {
 
- int get id; String get name; double get price; double? get discountPrice; String get currency;
+ int get id; String get name; double get price;/// What the ticket sells for when it is reduced — by its own discount or
+/// an active discount promotion. Null when it sells at full price.
+ double? get discountPrice; String get currency;
 /// Create a copy of FacilityServiceTicketEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -216,6 +218,8 @@ class _FacilityServiceTicketEntity implements FacilityServiceTicketEntity {
 @override final  int id;
 @override final  String name;
 @override final  double price;
+/// What the ticket sells for when it is reduced — by its own discount or
+/// an active discount promotion. Null when it sells at full price.
 @override final  double? discountPrice;
 @override final  String currency;
 

@@ -125,12 +125,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function()?  loading,TResult Function( T data)?  success,TResult Function( Failure failure)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  idle,TResult Function()?  loading,TResult Function( T data,  bool isRefreshing,  Failure? failure)?  success,TResult Function( Failure failure)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case AsyncIdle() when idle != null:
 return idle();case AsyncLoading() when loading != null:
 return loading();case AsyncSuccess() when success != null:
-return success(_that.data);case AsyncError() when error != null:
+return success(_that.data,_that.isRefreshing,_that.failure);case AsyncError() when error != null:
 return error(_that.failure);case _:
   return orElse();
 
@@ -149,12 +149,12 @@ return error(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function()  loading,required TResult Function( T data)  success,required TResult Function( Failure failure)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  idle,required TResult Function()  loading,required TResult Function( T data,  bool isRefreshing,  Failure? failure)  success,required TResult Function( Failure failure)  error,}) {final _that = this;
 switch (_that) {
 case AsyncIdle():
 return idle();case AsyncLoading():
 return loading();case AsyncSuccess():
-return success(_that.data);case AsyncError():
+return success(_that.data,_that.isRefreshing,_that.failure);case AsyncError():
 return error(_that.failure);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -169,12 +169,12 @@ return error(_that.failure);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function()?  loading,TResult? Function( T data)?  success,TResult? Function( Failure failure)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  idle,TResult? Function()?  loading,TResult? Function( T data,  bool isRefreshing,  Failure? failure)?  success,TResult? Function( Failure failure)?  error,}) {final _that = this;
 switch (_that) {
 case AsyncIdle() when idle != null:
 return idle();case AsyncLoading() when loading != null:
 return loading();case AsyncSuccess() when success != null:
-return success(_that.data);case AsyncError() when error != null:
+return success(_that.data,_that.isRefreshing,_that.failure);case AsyncError() when error != null:
 return error(_that.failure);case _:
   return null;
 
@@ -251,10 +251,12 @@ String toString() {
 
 
 class AsyncSuccess<T> extends AsyncState<T> {
-  const AsyncSuccess(this.data): super._();
+  const AsyncSuccess(this.data, {this.isRefreshing = false, this.failure}): super._();
   
 
  final  T data;
+@JsonKey() final  bool isRefreshing;
+ final  Failure? failure;
 
 /// Create a copy of AsyncState
 /// with the given fields replaced by the non-null parameter values.
@@ -266,16 +268,16 @@ $AsyncSuccessCopyWith<T, AsyncSuccess<T>> get copyWith => _$AsyncSuccessCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AsyncSuccess<T>&&const DeepCollectionEquality().equals(other.data, data));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AsyncSuccess<T>&&const DeepCollectionEquality().equals(other.data, data)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(data),isRefreshing,failure);
 
 @override
 String toString() {
-  return 'AsyncState<$T>.success(data: $data)';
+  return 'AsyncState<$T>.success(data: $data, isRefreshing: $isRefreshing, failure: $failure)';
 }
 
 
@@ -286,7 +288,7 @@ abstract mixin class $AsyncSuccessCopyWith<T,$Res> implements $AsyncStateCopyWit
   factory $AsyncSuccessCopyWith(AsyncSuccess<T> value, $Res Function(AsyncSuccess<T>) _then) = _$AsyncSuccessCopyWithImpl;
 @useResult
 $Res call({
- T data
+ T data, bool isRefreshing, Failure? failure
 });
 
 
@@ -303,10 +305,12 @@ class _$AsyncSuccessCopyWithImpl<T,$Res>
 
 /// Create a copy of AsyncState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? data = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? data = freezed,Object? isRefreshing = null,Object? failure = freezed,}) {
   return _then(AsyncSuccess<T>(
 freezed == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
-as T,
+as T,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
+as bool,failure: freezed == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
+as Failure?,
   ));
 }
 

@@ -47,6 +47,7 @@ class PromotionPurchaseCubit extends Cubit<PromotionPurchaseState> {
       autoExecute: true,
       defaultRequest: _getCoupons(
         GetPurchaseCouponsDto(
+          facilityId: state.facility.id,
           subjectType: PurchaseSubjectType.promotion,
           subjectId: state.promotion.promotion.id,
         ),
@@ -66,8 +67,8 @@ class PromotionPurchaseCubit extends Cubit<PromotionPurchaseState> {
     if (!isClosed) emit(next);
   }
 
-  Future<void> refreshQuote() {
-    if (inputsLocked || isClosed) return Future.value();
+  Future<void> refreshQuote() async {
+    if (inputsLocked || isClosed) return;
     final revision = ++_quoteRevision;
     final selection = SubmitPurchaseDto(
       subjectType: PurchaseSubjectType.promotion,
@@ -86,7 +87,20 @@ class PromotionPurchaseCubit extends Cubit<PromotionPurchaseState> {
         if (revision == _quoteRevision) _emitIfOpen(next);
       },
     );
-    return quoteManager.execute(_getQuote(selection));
+    await quoteManager.execute(_getQuote(selection));
+
+    // Rather than leave checkout stuck on the error, drop a coupon the quote
+    // refused and price the purchase without it.
+    if (revision == _quoteRevision && !isClosed && quoteManager.failure is CouponRejectedFailure) {
+      emit(
+        state.copyWith(
+          selectedCoupon: null,
+          couponRejected: true,
+          quoteRequest: const AsyncState.idle(),
+        ),
+      );
+      await refreshQuote();
+    }
   }
 
   Future<void> submit() async {
@@ -108,7 +122,13 @@ class PromotionPurchaseCubit extends Cubit<PromotionPurchaseState> {
 
   void selectCoupon(PurchaseCouponEntity? coupon) {
     if (inputsLocked) return;
-    emit(state.copyWith(selectedCoupon: coupon, quoteRequest: const AsyncState.idle()));
+    emit(
+      state.copyWith(
+        selectedCoupon: coupon,
+        couponRejected: false,
+        quoteRequest: const AsyncState.idle(),
+      ),
+    );
     refreshQuote();
   }
 

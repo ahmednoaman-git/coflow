@@ -1,3 +1,6 @@
+import 'package:coflow_users_v2/core/core.dart';
+import 'package:coflow_users_v2/features/activity_line/domain/entities/entities.dart';
+
 import '../../domain/entities/entities.dart';
 import '../models/models.dart';
 import 'facility_contact_mapper.dart';
@@ -67,11 +70,34 @@ abstract final class FacilityProfileMapper {
             ),
           )
           .toList(),
-      contacts: FacilityContactMapper.toEntities(model.reservationContact),
+      contacts: FacilityContactMapper.fromDetails(phones: model.phones, links: model.links),
+      reservationContacts: FacilityContactMapper.toEntities(
+        model.reservationContact,
+        phones: model.phones,
+        links: model.links,
+      ),
       location: FacilityLocationMapper.toEntity(model),
       isSaved: model.hasSave,
       isTracked: model.hasTrack,
       updatedAt: model.updatedAt == null ? null : DateTime.tryParse(model.updatedAt!),
+      paymentType: switch (model.paymentType) {
+        final value? => PaymentType.fromString(value),
+        null => null,
+      },
+      accountType: switch (model.facilityType) {
+        final value? => AccountType.fromString(value),
+        null => null,
+      },
+      subscriptionStatus: switch (model.subscription) {
+        final value? => SubscriptionStatus.fromString(value),
+        null => null,
+      },
+      status: switch (model.status) {
+        final value? => FacilityStatus.fromString(value),
+        null => null,
+      },
+      statusMessage: model.statusMsg,
+      views: model.views,
       mainBranch: (model.main != null && model.main!.name.trim().isNotEmpty)
           ? MainBranchEntity(
               id: model.main!.id,

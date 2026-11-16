@@ -47,6 +47,10 @@ lib/features/<feature>/
 
 Cubit states are `@freezed` classes holding `AsyncState<T>` fields (`idle`/`loading`/`success`/`error`). Each request gets its own `AsyncRequestManager` inside the cubit (wires state read/write + emit, supports `autoExecute`, `execute()`, `refresh()`, `reset()`). The UI consumes managers declaratively via `AsyncHandler<Cubit, State, Data>` (full builders) or `AsyncHandler.loadingDependent` (for buttons/overlays). See the `feature-slice` skill for complete templates — follow it whenever adding an endpoint or feature.
 
+Don't hand-roll "keep the old data while reloading" or optimistic updates — the manager does both:
+- **Background refresh**: `refreshInBackground: true` on data the user returns to. After the first load, refreshes keep the data on screen (`AsyncState.success(data, isRefreshing: true)`), swap the new data in when it lands, and a failure keeps the old data as `success(data, failure: ...)`, surfaced through `AsyncHandler.onBackgroundError` (a snackbar), never the error view.
+- **Optimistic updates**: `manager.mutate(task, apply: (data) => ...)` changes the data at once and rolls back (reporting the failure beside the data) if the task fails; pending changes survive refreshes that land meanwhile. `apply` must set a result, not flip one. Spammable toggle endpoints use `manager.optimisticToggle(...)` (a debounced `ConsolidatedToggle`); lower level: `edit`/`update`/`reportFailure`.
+
 ### Dependency injection
 
 `injectable` + `get_it` (`lib/core/di/injection.dart`, global `getIt`). Conventions:
@@ -72,7 +76,7 @@ Never hardcode user-facing strings. Add keys to `lib/core/l10n/translations/app_
 
 ### Theming & UI
 
-Never hardcode colors, text styles, spacing, or shadows — always use the `ThemeExtension`-backed context getters: `context.colors.*`, `context.typography.*` (naming: `weightSize`, e.g. `medium16`), `context.spacing.*` (4px grid), `context.shadows.*`. Feedback via `context.showSuccessSnackBar/showErrorSnackBar/showInfoSnackBar/showWarningSnackBar`. Core reusable widgets live in `lib/core/presentation/widgets/` (`MainButton`, `MainTextField`, `TappableScale`, `CircularButton`, `Shimmer`/`ShimmerBox`, ...). The full token catalog and widget guidance are in the `coflow-ui` skill — consult it before writing any UI.
+Never hardcode colors, text styles, spacing, or shadows — always use the `ThemeExtension`-backed context getters: `context.colors.*`, `context.typography.*` (naming: `weightSize`, e.g. `medium16`), `context.spacing.*` (4px grid), `context.shadows.*`. Feedback via `context.showSuccessSnackBar/showErrorSnackBar/showInfoSnackBar/showWarningSnackBar`. Core reusable widgets live in `lib/core/presentation/widgets/` (`MainButton`, `MainTextField`, `TappableScale`, `CircularButton`, the `Skeleton` loading system, ...). The full token catalog and widget guidance are in the `coflow-ui` skill — consult it before writing any UI.
 
 Key UI rules:
 - All rounded rectangles use `RoundedSuperellipseBorder` (built into the Flutter SDK) with `ShapeDecoration` — not `RoundedRectangleBorder` or `BoxDecoration` + `BorderRadius`.

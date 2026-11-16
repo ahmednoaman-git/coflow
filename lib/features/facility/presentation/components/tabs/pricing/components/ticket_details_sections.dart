@@ -36,16 +36,11 @@ class PriceSection extends StatelessWidget {
                 ),
               ],
             ),
-            Expanded(
-              child: Text(
-                '${ticketData.currency} ${ticketData.discountPrice ?? ticketData.price}',
-                textAlign: .end,
-                style: context.typography.medium14
-                    .primary(context)
-                    .copyWith(
-                      color: accentColor,
-                    ),
-              ),
+            PriceText(
+              currency: ticketData.currency,
+              price: ticketData.price,
+              reducedPrice: ticketData.discountPrice,
+              color: accentColor,
             ),
           ],
         ),
@@ -114,7 +109,7 @@ class AddOnsSection extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  '$currency ${addOn.price}',
+                  addOn.price.priceText(currency),
                   style: context.typography.book12
                       .secondary(context)
                       .copyWith(
@@ -201,7 +196,9 @@ class ConditionsSection extends StatelessWidget {
 }
 
 class ValidityAndPurchaseSection extends StatelessWidget {
-  const ValidityAndPurchaseSection({super.key});
+  const ValidityAndPurchaseSection({super.key, required this.onContactFacility});
+
+  final VoidCallback onContactFacility;
 
   @override
   Widget build(BuildContext context) {
@@ -229,18 +226,19 @@ class ValidityAndPurchaseSection extends StatelessWidget {
             ),
           ],
         ),
-        _PurchaseCta(accentColor: accentColor),
+        _PurchaseCta(accentColor: accentColor, onContactFacility: onContactFacility),
       ],
     );
   }
 }
 
-/// Buys the ticket, or points the user at the facility when the account has no
-/// online payment (basic and inactive tiers) — those are contact-only.
+/// Buys the ticket, or reaches the facility when it does not sell in the app
+/// (see [PurchaseCtaResolver.allowsInAppPurchase]).
 class _PurchaseCta extends StatelessWidget {
-  const _PurchaseCta({required this.accentColor});
+  const _PurchaseCta({required this.accentColor, required this.onContactFacility});
 
   final Color accentColor;
+  final VoidCallback onContactFacility;
 
   @override
   Widget build(BuildContext context) {
@@ -248,32 +246,28 @@ class _PurchaseCta extends StatelessWidget {
     final facility = ticketDetails.facilityData.facility;
     final canPurchase = PurchaseCtaResolver.allowsInAppPurchase(facility);
 
-    return FractionallySizedBox(
-      widthFactor: canPurchase ? 0.5 : 1,
-      child: MainButton(
-        backgroundColor: accentColor,
-        text: canPurchase
-            ? context.l10n.facilityDetails_purchase
-            : context.l10n.facilityDetails_contactFacility(facility.name),
-        // TODO(product): route to the facility's reservation contact — the
-        // same gap as `SessionCtaButton`'s contact CTA.
-        onPressed: !canPurchase
-            ? () {}
-            : () {
-                final router = context.router;
+    return MainButton(
+      height: 56,
+      backgroundColor: accentColor,
+      text: canPurchase
+          ? context.l10n.facilityDetails_purchaseNow
+          : context.l10n.facilityDetails_contactFacility(facility.name),
+      onPressed: canPurchase
+          ? () {
+              final router = context.router;
 
-                // Close the bottom sheet
-                Navigator.pop(context);
+              // Close the bottom sheet
+              Navigator.pop(context);
 
-                router.push(
-                  TicketPurchaseRoute(
-                    ticket: ticketDetails.data,
-                    facility: facility,
-                    accentColor: accentColor,
-                  ),
-                );
-              },
-      ),
+              router.push(
+                TicketPurchaseRoute(
+                  ticket: ticketDetails.data,
+                  facility: facility,
+                  accentColor: accentColor,
+                ),
+              );
+            }
+          : onContactFacility,
     );
   }
 }

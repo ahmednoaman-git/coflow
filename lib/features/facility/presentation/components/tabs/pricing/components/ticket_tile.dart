@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../facility_data_provider.dart';
+import '../../profile/components/facility_contact_options.dart';
 import 'facility_tickets.dart';
 import 'ticket_details_bottom_sheet.dart';
 
@@ -22,13 +23,23 @@ class TicketTile extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
+        final facilityCubit = context.read<FacilityDetailsCubit>();
+
         showMainBottomSheet<void>(
           context: context,
-          builder: (_) => BlocProvider<TicketDetailsCubit>(
+          builder: (sheetContext) => BlocProvider<TicketDetailsCubit>(
             create: (_) => getIt<TicketDetailsCubit>(param1: ticket.id),
             child: FacilityDataProvider.fromFacilityDataProvider(
               facilityDataProvider: facilityData,
-              child: TicketDetailsBottomSheet(ticketId: ticket.id),
+              child: TicketDetailsBottomSheet(
+                ticketId: ticket.id,
+                onContactFacility: () => FacilityContactOptions.show(
+                  sheetContext,
+                  facilityId: facilityData.facility.id,
+                  accentColor: facilityData.activityLineColor,
+                  facilityCubit: facilityCubit,
+                ),
+              ),
             ),
           ),
         );
@@ -93,40 +104,11 @@ class TicketTile extends StatelessWidget {
   }
 
   Widget _getPrice(BuildContext context, FacilityDataProvider facilityData) {
-    if (ticket.discountPrice == null) {
-      return Text(
-        '${ticket.currency} ${ticket.originalPrice}',
-        style: context.typography.medium14
-            .primary(context)
-            .copyWith(
-              color: facilityData.activityLineColor,
-            ),
-      );
-    }
-
-    return Row(
-      spacing: context.spacing.s4,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Text(
-          '${ticket.currency} ${ticket.discountPrice}',
-          style: context.typography.medium14
-              .primary(context)
-              .copyWith(
-                color: facilityData.activityLineColor,
-              ),
-        ),
-        Text(
-          ticket.originalPrice.toString(),
-          style: context.typography.book12
-              .primary(context)
-              .copyWith(
-                color: facilityData.activityLineColor,
-                decoration: TextDecoration.lineThrough,
-                decorationColor: facilityData.activityLineColor,
-              ),
-        ),
-      ],
+    return PriceText(
+      currency: ticket.currency,
+      price: ticket.originalPrice,
+      reducedPrice: ticket.discountPrice,
+      color: facilityData.activityLineColor,
     );
   }
 }

@@ -1,0 +1,6 @@
+/// Account › Purchases and Gifts feature exports.
+library;
+
+export 'data/data.dart';
+export 'domain/domain.dart';
+export 'presentation/presentation.dart';

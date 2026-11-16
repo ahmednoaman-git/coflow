@@ -277,7 +277,7 @@ as double,
 /// @nodoc
 mixin _$PurchaseInvoiceEntity {
 
- String get currency; List<PurchaseInvoiceLineEntity> get lines; double get subtotal; double get couponDiscount; double get total; double? get depositAmount;
+ String get currency; List<PurchaseInvoiceLineEntity> get lines; double get subtotal; double get couponDiscount; double get total;
 /// Create a copy of PurchaseInvoiceEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -288,16 +288,16 @@ $PurchaseInvoiceEntityCopyWith<PurchaseInvoiceEntity> get copyWith => _$Purchase
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchaseInvoiceEntity&&(identical(other.currency, currency) || other.currency == currency)&&const DeepCollectionEquality().equals(other.lines, lines)&&(identical(other.subtotal, subtotal) || other.subtotal == subtotal)&&(identical(other.couponDiscount, couponDiscount) || other.couponDiscount == couponDiscount)&&(identical(other.total, total) || other.total == total)&&(identical(other.depositAmount, depositAmount) || other.depositAmount == depositAmount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchaseInvoiceEntity&&(identical(other.currency, currency) || other.currency == currency)&&const DeepCollectionEquality().equals(other.lines, lines)&&(identical(other.subtotal, subtotal) || other.subtotal == subtotal)&&(identical(other.couponDiscount, couponDiscount) || other.couponDiscount == couponDiscount)&&(identical(other.total, total) || other.total == total));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currency,const DeepCollectionEquality().hash(lines),subtotal,couponDiscount,total,depositAmount);
+int get hashCode => Object.hash(runtimeType,currency,const DeepCollectionEquality().hash(lines),subtotal,couponDiscount,total);
 
 @override
 String toString() {
-  return 'PurchaseInvoiceEntity(currency: $currency, lines: $lines, subtotal: $subtotal, couponDiscount: $couponDiscount, total: $total, depositAmount: $depositAmount)';
+  return 'PurchaseInvoiceEntity(currency: $currency, lines: $lines, subtotal: $subtotal, couponDiscount: $couponDiscount, total: $total)';
 }
 
 
@@ -308,7 +308,7 @@ abstract mixin class $PurchaseInvoiceEntityCopyWith<$Res>  {
   factory $PurchaseInvoiceEntityCopyWith(PurchaseInvoiceEntity value, $Res Function(PurchaseInvoiceEntity) _then) = _$PurchaseInvoiceEntityCopyWithImpl;
 @useResult
 $Res call({
- String currency, List<PurchaseInvoiceLineEntity> lines, double subtotal, double couponDiscount, double total, double? depositAmount
+ String currency, List<PurchaseInvoiceLineEntity> lines, double subtotal, double couponDiscount, double total
 });
 
 
@@ -325,15 +325,14 @@ class _$PurchaseInvoiceEntityCopyWithImpl<$Res>
 
 /// Create a copy of PurchaseInvoiceEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? currency = null,Object? lines = null,Object? subtotal = null,Object? couponDiscount = null,Object? total = null,Object? depositAmount = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? currency = null,Object? lines = null,Object? subtotal = null,Object? couponDiscount = null,Object? total = null,}) {
   return _then(_self.copyWith(
 currency: null == currency ? _self.currency : currency // ignore: cast_nullable_to_non_nullable
 as String,lines: null == lines ? _self.lines : lines // ignore: cast_nullable_to_non_nullable
 as List<PurchaseInvoiceLineEntity>,subtotal: null == subtotal ? _self.subtotal : subtotal // ignore: cast_nullable_to_non_nullable
 as double,couponDiscount: null == couponDiscount ? _self.couponDiscount : couponDiscount // ignore: cast_nullable_to_non_nullable
 as double,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
-as double,depositAmount: freezed == depositAmount ? _self.depositAmount : depositAmount // ignore: cast_nullable_to_non_nullable
-as double?,
+as double,
   ));
 }
 
@@ -418,10 +417,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String currency,  List<PurchaseInvoiceLineEntity> lines,  double subtotal,  double couponDiscount,  double total,  double? depositAmount)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String currency,  List<PurchaseInvoiceLineEntity> lines,  double subtotal,  double couponDiscount,  double total)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PurchaseInvoiceEntity() when $default != null:
-return $default(_that.currency,_that.lines,_that.subtotal,_that.couponDiscount,_that.total,_that.depositAmount);case _:
+return $default(_that.currency,_that.lines,_that.subtotal,_that.couponDiscount,_that.total);case _:
   return orElse();
 
 }
@@ -439,10 +438,10 @@ return $default(_that.currency,_that.lines,_that.subtotal,_that.couponDiscount,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String currency,  List<PurchaseInvoiceLineEntity> lines,  double subtotal,  double couponDiscount,  double total,  double? depositAmount)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String currency,  List<PurchaseInvoiceLineEntity> lines,  double subtotal,  double couponDiscount,  double total)  $default,) {final _that = this;
 switch (_that) {
 case _PurchaseInvoiceEntity():
-return $default(_that.currency,_that.lines,_that.subtotal,_that.couponDiscount,_that.total,_that.depositAmount);case _:
+return $default(_that.currency,_that.lines,_that.subtotal,_that.couponDiscount,_that.total);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -459,10 +458,10 @@ return $default(_that.currency,_that.lines,_that.subtotal,_that.couponDiscount,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String currency,  List<PurchaseInvoiceLineEntity> lines,  double subtotal,  double couponDiscount,  double total,  double? depositAmount)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String currency,  List<PurchaseInvoiceLineEntity> lines,  double subtotal,  double couponDiscount,  double total)?  $default,) {final _that = this;
 switch (_that) {
 case _PurchaseInvoiceEntity() when $default != null:
-return $default(_that.currency,_that.lines,_that.subtotal,_that.couponDiscount,_that.total,_that.depositAmount);case _:
+return $default(_that.currency,_that.lines,_that.subtotal,_that.couponDiscount,_that.total);case _:
   return null;
 
 }
@@ -474,7 +473,7 @@ return $default(_that.currency,_that.lines,_that.subtotal,_that.couponDiscount,_
 
 
 class _PurchaseInvoiceEntity extends PurchaseInvoiceEntity {
-  const _PurchaseInvoiceEntity({required this.currency, required final  List<PurchaseInvoiceLineEntity> lines, required this.subtotal, required this.couponDiscount, required this.total, this.depositAmount}): _lines = lines,super._();
+  const _PurchaseInvoiceEntity({required this.currency, required final  List<PurchaseInvoiceLineEntity> lines, required this.subtotal, required this.couponDiscount, required this.total}): _lines = lines,super._();
   
 
 @override final  String currency;
@@ -488,7 +487,6 @@ class _PurchaseInvoiceEntity extends PurchaseInvoiceEntity {
 @override final  double subtotal;
 @override final  double couponDiscount;
 @override final  double total;
-@override final  double? depositAmount;
 
 /// Create a copy of PurchaseInvoiceEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -500,16 +498,16 @@ _$PurchaseInvoiceEntityCopyWith<_PurchaseInvoiceEntity> get copyWith => __$Purch
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PurchaseInvoiceEntity&&(identical(other.currency, currency) || other.currency == currency)&&const DeepCollectionEquality().equals(other._lines, _lines)&&(identical(other.subtotal, subtotal) || other.subtotal == subtotal)&&(identical(other.couponDiscount, couponDiscount) || other.couponDiscount == couponDiscount)&&(identical(other.total, total) || other.total == total)&&(identical(other.depositAmount, depositAmount) || other.depositAmount == depositAmount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PurchaseInvoiceEntity&&(identical(other.currency, currency) || other.currency == currency)&&const DeepCollectionEquality().equals(other._lines, _lines)&&(identical(other.subtotal, subtotal) || other.subtotal == subtotal)&&(identical(other.couponDiscount, couponDiscount) || other.couponDiscount == couponDiscount)&&(identical(other.total, total) || other.total == total));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,currency,const DeepCollectionEquality().hash(_lines),subtotal,couponDiscount,total,depositAmount);
+int get hashCode => Object.hash(runtimeType,currency,const DeepCollectionEquality().hash(_lines),subtotal,couponDiscount,total);
 
 @override
 String toString() {
-  return 'PurchaseInvoiceEntity(currency: $currency, lines: $lines, subtotal: $subtotal, couponDiscount: $couponDiscount, total: $total, depositAmount: $depositAmount)';
+  return 'PurchaseInvoiceEntity(currency: $currency, lines: $lines, subtotal: $subtotal, couponDiscount: $couponDiscount, total: $total)';
 }
 
 
@@ -520,7 +518,7 @@ abstract mixin class _$PurchaseInvoiceEntityCopyWith<$Res> implements $PurchaseI
   factory _$PurchaseInvoiceEntityCopyWith(_PurchaseInvoiceEntity value, $Res Function(_PurchaseInvoiceEntity) _then) = __$PurchaseInvoiceEntityCopyWithImpl;
 @override @useResult
 $Res call({
- String currency, List<PurchaseInvoiceLineEntity> lines, double subtotal, double couponDiscount, double total, double? depositAmount
+ String currency, List<PurchaseInvoiceLineEntity> lines, double subtotal, double couponDiscount, double total
 });
 
 
@@ -537,15 +535,14 @@ class __$PurchaseInvoiceEntityCopyWithImpl<$Res>
 
 /// Create a copy of PurchaseInvoiceEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? currency = null,Object? lines = null,Object? subtotal = null,Object? couponDiscount = null,Object? total = null,Object? depositAmount = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? currency = null,Object? lines = null,Object? subtotal = null,Object? couponDiscount = null,Object? total = null,}) {
   return _then(_PurchaseInvoiceEntity(
 currency: null == currency ? _self.currency : currency // ignore: cast_nullable_to_non_nullable
 as String,lines: null == lines ? _self._lines : lines // ignore: cast_nullable_to_non_nullable
 as List<PurchaseInvoiceLineEntity>,subtotal: null == subtotal ? _self.subtotal : subtotal // ignore: cast_nullable_to_non_nullable
 as double,couponDiscount: null == couponDiscount ? _self.couponDiscount : couponDiscount // ignore: cast_nullable_to_non_nullable
 as double,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
-as double,depositAmount: freezed == depositAmount ? _self.depositAmount : depositAmount // ignore: cast_nullable_to_non_nullable
-as double?,
+as double,
   ));
 }
 

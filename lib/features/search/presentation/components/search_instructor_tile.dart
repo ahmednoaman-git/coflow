@@ -1,6 +1,5 @@
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:solar_icons/solar_icons.dart';
 
 import '../../domain/domain.dart';
 import 'search_highlighted_text.dart';
@@ -38,10 +37,7 @@ class SearchInstructorTile extends StatelessWidget {
             width: 56,
             height: 56,
             borderRadius: 100,
-            errorWidget: Icon(
-              SolarIconsOutline.user,
-              color: context.colors.textTertiary,
-            ),
+            fallback: ImageFallback.person(instructor.name),
           ),
           Expanded(
             child: Column(

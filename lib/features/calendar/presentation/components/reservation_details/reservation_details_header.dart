@@ -42,6 +42,7 @@ class ReservationDetailsHeader extends StatelessWidget {
           _FacilityLogo(
             name: reservation.facilityName,
             logoUrl: reservation.facilityLogoUrl,
+            accent: accent,
           ),
           Text(
             reservation.facilityName,
@@ -113,10 +114,11 @@ class ReservationDetailsHeader extends StatelessWidget {
 }
 
 class _FacilityLogo extends StatelessWidget {
-  const _FacilityLogo({required this.name, required this.logoUrl});
+  const _FacilityLogo({required this.name, required this.logoUrl, required this.accent});
 
   final String name;
   final String? logoUrl;
+  final Color accent;
 
   @override
   Widget build(BuildContext context) {
@@ -125,19 +127,7 @@ class _FacilityLogo extends StatelessWidget {
       width: ReservationDetailsHeader._logoSize,
       height: ReservationDetailsHeader._logoSize,
       borderRadius: ReservationDetailsHeader._logoSize / 2,
-      errorWidget: Container(
-        width: ReservationDetailsHeader._logoSize,
-        height: ReservationDetailsHeader._logoSize,
-        alignment: Alignment.center,
-        decoration: ShapeDecoration(
-          color: context.colors.signatureBlue,
-          shape: const CircleBorder(),
-        ),
-        child: Text(
-          name.isEmpty ? '' : name.characters.first.toUpperCase(),
-          style: context.typography.bold20.inverse(context),
-        ),
-      ),
+      fallback: ImageFallback.business(name, accent: accent),
     );
   }
 }

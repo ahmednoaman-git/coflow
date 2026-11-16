@@ -14,6 +14,7 @@ class FacilityDataProvider extends InheritedWidget {
     required this.facility,
     required this.activityLineColor,
     required this.activityLineBackground,
+    this.isResolved = true,
     required super.child,
   });
 
@@ -21,6 +22,10 @@ class FacilityDataProvider extends InheritedWidget {
   final CollapsedFacilityEntity facility;
   final Color activityLineColor;
   final Color activityLineBackground;
+
+  /// False while [facility] is a preview still waiting on its account type
+  /// and subscription — see `FacilityDetailsState.isResolved`.
+  final bool isResolved;
 
   /// Creates a FacilityDataProvider from an existing one, with a new child.
   /// Useful for passing the provider to modals/bottom sheets.
@@ -33,6 +38,7 @@ class FacilityDataProvider extends InheritedWidget {
       facility: facilityDataProvider.facility,
       activityLineColor: facilityDataProvider.activityLineColor,
       activityLineBackground: facilityDataProvider.activityLineBackground,
+      isResolved: facilityDataProvider.isResolved,
       child: child,
     );
   }
@@ -50,7 +56,7 @@ class FacilityDataProvider extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
-    return false;
+  bool updateShouldNotify(covariant FacilityDataProvider oldWidget) {
+    return oldWidget.facility != facility || oldWidget.isResolved != isResolved;
   }
 }

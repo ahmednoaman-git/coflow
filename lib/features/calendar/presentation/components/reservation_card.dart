@@ -67,7 +67,7 @@ class _FacilityRow extends StatelessWidget {
           width: _logoSize,
           height: _logoSize,
           borderRadius: _logoSize / 2,
-          errorWidget: _LogoFallback(name: name),
+          fallback: ImageFallback.business(name, accent: accent),
         ),
         Expanded(
           child: Text(
@@ -78,31 +78,6 @@ class _FacilityRow extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-/// Facilities without a logo show their initial on the brand panel colour, so
-/// the row keeps its shape either way.
-class _LogoFallback extends StatelessWidget {
-  const _LogoFallback({required this.name});
-
-  final String name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: _FacilityRow._logoSize,
-      height: _FacilityRow._logoSize,
-      alignment: Alignment.center,
-      decoration: ShapeDecoration(
-        color: context.colors.signatureBlue,
-        shape: const CircleBorder(),
-      ),
-      child: Text(
-        name.isEmpty ? '' : name.characters.first.toUpperCase(),
-        style: context.typography.bold16.inverse(context),
-      ),
     );
   }
 }

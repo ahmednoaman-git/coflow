@@ -5,24 +5,32 @@ import 'package:flutter/material.dart';
 /// and transparent in dark mode (where borders are used instead).
 /// Access shadows via: Theme.of(context).extension<AppShadows>()
 /// or use context.shadows extension method
+///
+/// The scale follows the Figma file, whose shadows are soft and wide: a
+/// low-opacity single layer with a large blur, rather than tight stacked
+/// layers. [xs] and [sm] are taken straight from the design; the steps above
+/// them carry the same recipe further for surfaces that float higher.
 @immutable
 class AppShadows extends ThemeExtension<AppShadows> {
-  /// Extra small shadow - subtle elevation (1dp)
+  /// Barely there — a faint halo and a soft drop. Figma's account stat cards
+  /// ("Card Vertical").
   final List<BoxShadow> xs;
 
-  /// Small shadow - slight elevation (2dp)
+  /// The card shadow — cards, chips and tiles resting on the background.
+  /// Figma's activity-line chips and facility list cards.
   final List<BoxShadow> sm;
 
-  /// Medium shadow - moderate elevation (4dp)
+  /// A card lifted a little more — feature cards such as business and ticket
+  /// cards.
   final List<BoxShadow> md;
 
-  /// Large shadow - prominent elevation (8dp)
+  /// Floating surfaces — the nav bar's home disc, overlays.
   final List<BoxShadow> lg;
 
-  /// Extra large shadow - high elevation (12dp)
+  /// Raised panels — dialogs, popovers.
   final List<BoxShadow> xl;
 
-  /// 2X large shadow - very high elevation (16dp)
+  /// The highest elevation in the app.
   final List<BoxShadow> xxl;
 
   const AppShadows({
@@ -41,96 +49,22 @@ class AppShadows extends ThemeExtension<AppShadows> {
       return const AppShadows();
     }
 
+    BoxShadow soft(double alpha, double y, double blur, {double spread = 0}) => BoxShadow(
+      color: shadowColor.withValues(alpha: alpha),
+      offset: Offset(0, y),
+      blurRadius: blur,
+      spreadRadius: spread,
+    );
+
     return AppShadows(
-      // XS - 1dp elevation
-      xs: [
-        BoxShadow(
-          color: shadowColor.withValues(alpha: 0.05),
-          offset: const Offset(0, 1),
-          blurRadius: 2,
-          spreadRadius: 0,
-        ),
-      ],
-
-      // SM - 2dp elevation
-      sm: [
-        BoxShadow(
-          color: shadowColor.withValues(alpha: 0.1),
-          offset: const Offset(0, 1),
-          blurRadius: 3,
-          spreadRadius: 0,
-        ),
-        BoxShadow(
-          color: shadowColor.withValues(alpha: 0.06),
-          offset: const Offset(0, 1),
-          blurRadius: 2,
-          spreadRadius: 0,
-        ),
-      ],
-
-      // MD - 4dp elevation
-      md: [
-        BoxShadow(
-          color: shadowColor.withValues(alpha: 0.1),
-          offset: const Offset(0, 4),
-          blurRadius: 6,
-          spreadRadius: -1,
-        ),
-        BoxShadow(
-          color: shadowColor.withValues(alpha: 0.06),
-          offset: const Offset(0, 2),
-          blurRadius: 4,
-          spreadRadius: -1,
-        ),
-      ],
-
-      // LG - 8dp elevation
-      lg: [
-        BoxShadow(
-          color: shadowColor.withValues(alpha: 0.1),
-          offset: const Offset(0, 10),
-          blurRadius: 15,
-          spreadRadius: -3,
-        ),
-        BoxShadow(
-          color: shadowColor.withValues(alpha: 0.05),
-          offset: const Offset(0, 4),
-          blurRadius: 6,
-          spreadRadius: -2,
-        ),
-      ],
-
-      // XL - 12dp elevation
-      xl: [
-        BoxShadow(
-          color: shadowColor.withValues(alpha: 0.1),
-          offset: const Offset(0, 20),
-          blurRadius: 25,
-          spreadRadius: -5,
-        ),
-        BoxShadow(
-          color: shadowColor.withValues(alpha: 0.04),
-          offset: const Offset(0, 10),
-          blurRadius: 10,
-          spreadRadius: -5,
-        ),
-      ],
-
-      // XXL - 16dp elevation
-      xxl: [
-        BoxShadow(
-          color: shadowColor.withValues(alpha: 0.12),
-          offset: const Offset(0, 25),
-          blurRadius: 50,
-          spreadRadius: -12,
-        ),
-        BoxShadow(
-          color: shadowColor.withValues(alpha: 0.08),
-          offset: const Offset(0, 12),
-          blurRadius: 24,
-          spreadRadius: -8,
-        ),
-      ],
+      // Figma "Card Vertical": a 2% drop under a 5% halo.
+      xs: [soft(0.02, 3, 15, spread: -1.5), soft(0.05, 0, 3.75)],
+      // Figma cards and chips: one wide 10% drop.
+      sm: [soft(0.10, 6.5, 18)],
+      md: [soft(0.10, 10, 28, spread: -2)],
+      lg: [soft(0.12, 14, 40, spread: -4)],
+      xl: [soft(0.13, 20, 56, spread: -6)],
+      xxl: [soft(0.15, 28, 72, spread: -8)],
     );
   }
 

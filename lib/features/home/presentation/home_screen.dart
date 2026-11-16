@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:coflow_users_v2/core/core.dart';
+import 'package:coflow_users_v2/core/domain/entities/activity_line_entity.dart' as core;
+import 'package:coflow_users_v2/features/activity_line/domain/entities/collapsed_facility_entity.dart';
 import 'package:coflow_users_v2/features/home/presentation/widgets/instructors_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,52 +47,63 @@ class _HomeView extends StatelessWidget {
         backgroundColor: context.colors.backgroundTwo,
         appBar: const HomeAppBar(),
         extendBodyBehindAppBar: true,
-        body: AsyncHandler<HomeCubit, HomeState, HomeEntity>(
-          requestManagerGetter: (cubit) => cubit.homeManager,
-          onRetry: (cubit) => cubit.refresh(),
-          successBuilder: (context, home) {
-            return RefreshIndicator(
-              onRefresh: () => context.read<HomeCubit>().refresh(),
-              color: context.colors.signatureBlue,
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.paddingOf(context).top + context.spacing.s24,
-                  bottom: context.bottomInset + context.spacing.s24,
-                ),
-                child: Column(
-                  crossAxisAlignment: .start,
-                  spacing: context.spacing.s24,
-                  children: [
-                    // Activity Line Chips
-                    _ActivityLinesRow(home: home).withHomeSidePadding(context),
-                    // Businesses Section
-                    BusinessesSection(
-                      profiles: home.profiles,
-                      onBusinessTap: _onBusinessTap,
-                    ),
-                    // Instructors Section Header
-                    InstructorsSection(
-                      instructors: home.instructors,
-                    ).withHomeSidePadding(context),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
+        body: const _HomeBody(),
       ),
     );
   }
+}
 
-  void _onBusinessTap(ProfileEntity profile) {
-    // TODO: Navigate to business details
+/// Only the businesses row waits on the request — with its own skeleton — so
+/// the rest of the screen is there from the first frame.
+///
+/// Its own widget so it reads the insets from under the [Scaffold], which
+/// adds the app bar it draws behind to the top one.
+class _HomeBody extends StatelessWidget {
+  const _HomeBody();
+
+  @override
+  Widget build(BuildContext context) {
+    return LogoRefreshIndicator(
+      onRefresh: () => context.read<HomeCubit>().refresh(),
+      // The list runs behind the app bar; the logo appears below it.
+      edgeOffset: MediaQuery.paddingOf(context).top,
+      child: CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        slivers: [
+          SliverPadding(
+            padding: EdgeInsets.only(
+              top: MediaQuery.paddingOf(context).top + context.spacing.s24,
+              bottom: context.spacing.s24,
+            ),
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: .start,
+                spacing: context.spacing.s24,
+                children: [
+                  const _ActivityLinesRow().withHomeSidePadding(context),
+                  BusinessesSection(
+                    onBusinessTap: (profile) => context.router.push(
+                      FacilityDetailsRoute(facility: profile.facilityPreview, isPreview: true),
+                    ),
+                  ),
+                  BlocSelector<HomeCubit, HomeState, List<InstructorEntity>>(
+                    selector: (state) => state.homeRequest.dataOrNull?.instructors ?? const [],
+                    builder: (context, instructors) =>
+                        InstructorsSection(instructors: instructors).withHomeSidePadding(context),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SliverBottomInset(),
+        ],
+      ),
+    );
   }
 }
 
 class _ActivityLinesRow extends StatelessWidget {
-  const _ActivityLinesRow({required this.home});
-
-  final HomeEntity home;
+  const _ActivityLinesRow();
 
   /// Maximum width for the activity lines grid.
   static const double _maxGridWidth = 400.0;
@@ -112,14 +125,45 @@ class _ActivityLinesRow extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: _activityLines.map((activityLine) {
             return ActivityLineChip(
-              name: activityLine.getName(context.l10n),
+              activityLine: activityLine,
               isSelected: false,
-              onTap: () =>
-                  context.router.push(ActivityLineFacilitiesRoute(activityLine: activityLine)),
+              onTap: () => context.router.push(
+                ActivityLineFacilitiesRoute(
+                  activityLine: activityLine,
+                  // Shown straight away and checked against the line's own
+                  // locations once they load.
+                  initialLocation: context.read<HomeCubit>().state.selectedLocation,
+                  // And picking one there carries it back here.
+                  onLocationSelected: context.read<HomeCubit>().adoptLocation,
+                ),
+              ),
             );
           }).toList(),
         ),
       ),
     );
   }
+}
+
+extension on ProfileEntity {
+  /// What the facility screen can show at once: the dashboard's profiles carry
+  /// no account type, subscription, status or payment type, so those are
+  /// placeholders the screen replaces from the profile it loads.
+  CollapsedFacilityEntity get facilityPreview => CollapsedFacilityEntity(
+    id: id,
+    name: name,
+    description: title,
+    logoUrl: logo,
+    coverUrl: cover,
+    activityLine: core.ActivityLineEntity.fromId(activityLine.id),
+    accountType: const GoAccount(),
+    status: FacilityStatus.visible,
+    subscriptionStatus: SubscriptionStatus.inactive,
+    paymentType: PaymentType.none,
+    views: 0,
+    locationLabel: switch ([area?.name, city?.name].nonNulls.join(', ')) {
+      '' => null,
+      final label => label,
+    },
+  );
 }

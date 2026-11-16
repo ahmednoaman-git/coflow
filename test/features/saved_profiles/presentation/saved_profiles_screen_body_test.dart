@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:coflow_users_v2/features/activity_line/domain/entities/collapsed_facility_entity.dart';
+import 'package:coflow_users_v2/features/facility/domain/domain.dart';
 import 'package:coflow_users_v2/features/saved_profiles/domain/domain.dart';
 import 'package:coflow_users_v2/features/saved_profiles/presentation/components/components.dart';
 import 'package:coflow_users_v2/features/saved_profiles/presentation/cubit/cubit.dart';
@@ -16,25 +19,23 @@ SavedProfileEntity _profile({
   bool isTracked = false,
   FacilityStatus status = FacilityStatus.visible,
 }) => SavedProfileEntity(
-  id: id,
-  name: name,
-  description: '$name sessions',
-  activityLine: activityLine,
-  status: status,
-  likeCount: 250,
+  facility: CollapsedFacilityEntity(
+    id: id,
+    name: name,
+    description: '$name sessions',
+    likeCount: 250,
+    activityLine: activityLine,
+    accountType: const FlowAccount(),
+    status: status,
+    subscriptionStatus: SubscriptionStatus.basic,
+    paymentType: PaymentType.none,
+    views: 0,
+  ),
   branchLabel: 'New Cairo, Cairo',
   isTracked: isTracked,
 );
 
-class _StubRepository implements SavedProfilesRepository {
-  _StubRepository({this.failMutations = false});
-
-  /// Makes both verbs fail, so the optimistic rollback can be exercised.
-  final bool failMutations;
-
-  final List<UnsaveProfileDto> unsaved = [];
-  final List<SetProfileTrackingDto> trackingChanges = [];
-
+class _StubSavedProfilesRepository implements SavedProfilesRepository {
   @override
   AsyncTask<List<SavedProfileEntity>> getSavedProfiles() => TaskEither.right([
     _profile(id: 1, name: 'Gravity', activityLine: ActivityLineEntity.sky, isTracked: true),
@@ -46,40 +47,68 @@ class _StubRepository implements SavedProfilesRepository {
     ),
     _profile(id: 3, name: 'Terra Studio', activityLine: ActivityLineEntity.earth),
   ]);
+}
+
+/// Stubs the two toggles the Profiles screen reaches for; anything else would
+/// be a bug if it were called from these tests.
+class _StubFacilityRepository implements FacilityRepository {
+  _StubFacilityRepository({this.failToggles = false});
+
+  /// Makes both toggles fail, so the rollback paths can be exercised.
+  final bool failToggles;
+
+  /// Holds tracking requests open until completed, to catch a second tap
+  /// landing while the first is still in flight.
+  Completer<void>? trackingGate;
+
+  final List<ToggleFacilitySaveDto> saveToggles = [];
+  final List<ToggleFacilityTrackingDto> trackingToggles = [];
 
   @override
-  AsyncTask<void> unsaveProfile(UnsaveProfileDto dto) {
-    unsaved.add(dto);
-    return failMutations
-        ? TaskEither.left(const NetworkFailure('offline'))
-        : TaskEither.right(null);
+  AsyncTask<void> toggleFacilitySave(ToggleFacilitySaveDto dto) {
+    saveToggles.add(dto);
+    return _result();
   }
 
   @override
-  AsyncTask<void> setProfileTracking(SetProfileTrackingDto dto) {
-    trackingChanges.add(dto);
-    return failMutations
-        ? TaskEither.left(const NetworkFailure('offline'))
-        : TaskEither.right(null);
+  AsyncTask<void> toggleFacilityTracking(ToggleFacilityTrackingDto dto) {
+    trackingToggles.add(dto);
+    final gate = trackingGate;
+    if (gate == null) return _result();
+
+    return TaskEither(() async {
+      await gate.future;
+      return _result().run();
+    });
   }
+
+  AsyncTask<void> _result() =>
+      failToggles ? TaskEither.left(const NetworkFailure('offline')) : TaskEither.right(null);
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) =>
+      throw UnimplementedError('${invocation.memberName} is not stubbed');
 }
 
 void main() {
-  Future<_StubRepository> pumpBody(
+  setUp(() => SavedProfilesCubit.trackingSettle = Duration.zero);
+
+  Future<_StubFacilityRepository> pumpBody(
     WidgetTester tester, {
     Locale locale = const Locale('en'),
-    bool failMutations = false,
+    _StubFacilityRepository? facilityRepository,
   }) async {
-    final repository = _StubRepository(failMutations: failMutations);
+    final facilities = facilityRepository ?? _StubFacilityRepository();
 
     await tester.pumpWidget(
       _TestApp(
         locale: locale,
         child: BlocProvider(
           create: (_) => SavedProfilesCubit(
-            GetSavedProfilesUseCase(repository),
-            UnsaveProfileUseCase(repository),
-            SetProfileTrackingUseCase(repository),
+            GetSavedProfilesUseCase(_StubSavedProfilesRepository()),
+            ToggleFacilitySaveUseCase(facilities),
+            ToggleFacilityTrackingUseCase(facilities),
+            FacilitySaveEvents(),
           ),
           child: const SavedProfilesScreenBody(),
         ),
@@ -87,7 +116,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    return repository;
+    return facilities;
   }
 
   /// The filter chips, in `ActivityLineEntity.all` order: sky, sea, earth, energy.
@@ -144,7 +173,7 @@ void main() {
     });
 
     testWidgets('toggles tracking on the tapped card only', (tester) async {
-      final repository = await pumpBody(tester);
+      final facilities = await pumpBody(tester);
 
       expect(trackButtonOf(tester, 'Gravity').isTracked, isTrue);
 
@@ -153,13 +182,71 @@ void main() {
 
       expect(trackButtonOf(tester, 'Gravity').isTracked, isFalse);
       expect(trackButtonOf(tester, 'Blue Depths').isTracked, isFalse);
-      expect(repository.trackingChanges.single.profileId, 1);
-      expect(repository.trackingChanges.single.isTracked, isFalse);
+      expect(facilities.trackingToggles.single.facilityId, 1);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('a track tap during a request is sent after it, not alongside', (tester) async {
+      final facilities = _StubFacilityRepository()..trackingGate = Completer<void>();
+      await pumpBody(tester, facilityRepository: facilities);
+
+      // The endpoint is a toggle: two calls at once could land in either
+      // order, so the second waits for the first.
+      await tester.tap(find.byType(SavedProfileTrackButton).first);
+      await tester.pump(const Duration(milliseconds: 1));
+      await tester.tap(find.byType(SavedProfileTrackButton).first);
+      await tester.pump(const Duration(milliseconds: 1));
+
+      expect(facilities.trackingToggles, hasLength(1));
+      expect(trackButtonOf(tester, 'Gravity').isTracked, isTrue, reason: 'shown at once');
+
+      facilities.trackingGate!.complete();
+      await tester.pumpAndSettle();
+
+      expect(facilities.trackingToggles, hasLength(2));
+      expect(trackButtonOf(tester, 'Gravity').isTracked, isTrue);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('spamming the bell sends one call, or none when the taps cancel out', (
+      tester,
+    ) async {
+      final facilities = await pumpBody(tester);
+      final bell = find.byType(SavedProfileTrackButton).first;
+
+      for (var i = 0; i < 3; i++) {
+        await tester.tap(bell);
+      }
+      await tester.pumpAndSettle();
+      expect(facilities.trackingToggles, hasLength(1));
+      expect(trackButtonOf(tester, 'Gravity').isTracked, isFalse);
+
+      for (var i = 0; i < 2; i++) {
+        await tester.tap(bell);
+      }
+      await tester.pumpAndSettle();
+      expect(facilities.trackingToggles, hasLength(1));
+      expect(trackButtonOf(tester, 'Gravity').isTracked, isFalse);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('unsaving a card drops its bell taps still waiting', (tester) async {
+      SavedProfilesCubit.trackingSettle = const Duration(seconds: 5);
+      final facilities = await pumpBody(tester);
+
+      // Sent after the unsave, the track call would save the facility again.
+      await tester.tap(find.byType(SavedProfileTrackButton).first);
+      await tester.drag(find.text('Gravity'), const Offset(-500, 0));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Gravity'), findsNothing);
+      expect(facilities.saveToggles.single.facilityId, 1);
+      expect(facilities.trackingToggles, isEmpty);
       expect(tester.takeException(), isNull);
     });
 
     testWidgets('restores the toggle when tracking fails', (tester) async {
-      await pumpBody(tester, failMutations: true);
+      await pumpBody(tester, facilityRepository: _StubFacilityRepository(failToggles: true));
 
       await tester.tap(find.byType(SavedProfileTrackButton).first);
       await tester.pumpAndSettle();
@@ -169,19 +256,19 @@ void main() {
     });
 
     testWidgets('swiping a card away unsaves it', (tester) async {
-      final repository = await pumpBody(tester);
+      final facilities = await pumpBody(tester);
 
       await tester.drag(find.text('Gravity'), const Offset(-500, 0));
       await tester.pumpAndSettle();
 
       expect(find.text('Gravity'), findsNothing);
       expect(find.byType(SavedProfileCard), findsNWidgets(2));
-      expect(repository.unsaved.single.profileId, 1);
+      expect(facilities.saveToggles.single.facilityId, 1);
       expect(tester.takeException(), isNull);
     });
 
     testWidgets('puts the card back when unsaving fails', (tester) async {
-      await pumpBody(tester, failMutations: true);
+      await pumpBody(tester, facilityRepository: _StubFacilityRepository(failToggles: true));
 
       await tester.drag(find.text('Gravity'), const Offset(-500, 0));
       await tester.pumpAndSettle();
@@ -199,13 +286,13 @@ void main() {
     });
 
     testWidgets('unsaves on a start-to-end swipe in Arabic', (tester) async {
-      final repository = await pumpBody(tester, locale: const Locale('ar'));
+      final facilities = await pumpBody(tester, locale: const Locale('ar'));
 
       // End-to-start is a rightward drag under RTL.
       await tester.drag(find.text('Gravity'), const Offset(500, 0));
       await tester.pumpAndSettle();
 
-      expect(repository.unsaved.single.profileId, 1);
+      expect(facilities.saveToggles.single.facilityId, 1);
       expect(tester.takeException(), isNull);
     });
   });
@@ -224,6 +311,7 @@ class _TestApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: AppTheme.light,
+      builder: (context, child) => SnackbarHost(child: child!),
       home: Scaffold(body: SizedBox(width: 375, child: child)),
     );
   }

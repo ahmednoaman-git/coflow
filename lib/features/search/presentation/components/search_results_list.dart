@@ -11,6 +11,7 @@ class SearchResultsList<T> extends StatelessWidget {
     required this.page,
     required this.itemBuilder,
     required this.onLoadMore,
+    required this.loadingItem,
   });
 
   final PaginatedEntity<T> page;
@@ -19,6 +20,9 @@ class SearchResultsList<T> extends StatelessWidget {
   /// Called as the list nears its end; the cubit ignores it when a page is
   /// already on its way.
   final VoidCallback onLoadMore;
+
+  /// A skeleton of one result, shown as the footer while the next page loads.
+  final Widget loadingItem;
 
   /// How close to the end of the list triggers the next page.
   static const double _loadMoreThreshold = 320.0;
@@ -47,17 +51,12 @@ class SearchResultsList<T> extends StatelessWidget {
         itemCount: page.items.length + (page.hasMore ? 1 : 0),
         separatorBuilder: (context, index) => SizedBox(height: context.spacing.s12),
         itemBuilder: (context, index) {
+          // The next page's skeletons, carrying on the list's rhythm.
           if (index >= page.items.length) {
-            return Padding(
-              padding: EdgeInsets.symmetric(vertical: context.spacing.s16),
-              child: Center(
-                child: SizedBox.square(
-                  dimension: 24,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: context.colors.earthSunnyGoldPrimary,
-                  ),
-                ),
+            return Skeleton(
+              child: Column(
+                spacing: context.spacing.s12,
+                children: [loadingItem, loadingItem],
               ),
             );
           }

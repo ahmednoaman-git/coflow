@@ -2,6 +2,7 @@ import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../facility/domain/entities/entities.dart';
+import '../../../facility_data_provider.dart';
 import '../../../page_section.dart';
 
 /// Team section for facility profile.
@@ -15,6 +16,8 @@ class ProfileTeamSection extends StatelessWidget {
     if (teamMembers.isEmpty) {
       return const SizedBox.shrink();
     }
+
+    final accent = FacilityDataProvider.maybeOf(context)?.activityLineColor;
 
     return PageSection(
       title: context.l10n.facilityDetails_teamSectionTitle,
@@ -38,6 +41,7 @@ class ProfileTeamSection extends StatelessWidget {
                       child: ShimmerImage(
                         imageUrl: teamMember.imageUrl,
                         borderRadius: context.spacing.s16,
+                        fallback: ImageFallback.person(teamMember.name, accent: accent),
                       ),
                     ),
                   ),

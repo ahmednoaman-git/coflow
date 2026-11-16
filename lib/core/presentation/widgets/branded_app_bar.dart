@@ -99,8 +99,6 @@ class _Bar extends StatelessWidget {
           children: [
             if (showBackButton)
               MainBackButton(
-                size: 44,
-                iconSize: 22,
                 backgroundColor: Colors.transparent,
                 iconColor: context.colors.textWhite,
               ),

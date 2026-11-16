@@ -128,6 +128,8 @@ class FacilityProfileModel {
     this.languages = const <LanguageModel>[],
     this.amenities = const <AmenityModel>[],
     this.reservationContact = const <ReservationContactModel>[],
+    this.phones = const <FacilityContactDetailModel>[],
+    this.links = const <FacilityContactDetailModel>[],
     this.locations = const <FacilityCoverageModel>[],
     this.locationType,
     this.city,
@@ -138,6 +140,12 @@ class FacilityProfileModel {
     this.hasSave = false,
     this.hasTrack = false,
     this.updatedAt,
+    this.paymentType,
+    this.facilityType,
+    this.subscription,
+    this.status,
+    this.statusMsg,
+    this.views,
   });
 
   final int id;
@@ -175,6 +183,16 @@ class FacilityProfileModel {
   @JsonKey(fromJson: ReservationContactModel.listFromJson)
   final List<ReservationContactModel> reservationContact;
 
+  /// The facility's phone numbers. The current `reservation_contact` shape
+  /// names `Contact Number` without any number, so they are looked up here.
+  @JsonKey(fromJson: FacilityContactDetailModel.listFromJson)
+  final List<FacilityContactDetailModel> phones;
+
+  /// The facility's social and web links, where a bare reservation label such
+  /// as `Instagram` finds its URL.
+  @JsonKey(fromJson: FacilityContactDetailModel.listFromJson)
+  final List<FacilityContactDetailModel> links;
+
   /// Coverage rows for a remote facility. Always empty for an address-based
   /// one.
   @JsonKey(defaultValue: <FacilityCoverageModel>[])
@@ -200,6 +218,21 @@ class FacilityProfileModel {
 
   /// Date the facility last edited its profile, as `yyyy-MM-dd`.
   final String? updatedAt;
+
+  /// How the facility takes purchases (`contact`, `direct purchase`, ...),
+  /// fresher than the copy on the list card the profile was opened from.
+  final String? paymentType;
+
+  /// `GO`, `FLOW` or `PRO` — with [subscription], decides the screen's tabs.
+  final String? facilityType;
+
+  /// The facility's plan: `active`, `trial`, `basic`, `inactive`, ...
+  final String? subscription;
+
+  /// `visible`, `invisible` or `temp_closed`.
+  final String? status;
+  final String? statusMsg;
+  final int? views;
 
   factory FacilityProfileModel.fromJson(Map<String, dynamic> json) =>
       _$FacilityProfileModelFromJson(json);

@@ -80,20 +80,14 @@ class _RemoteLocation extends StatelessWidget {
       children: [
         if (location.coverage.isNotEmpty)
           Column(
-            crossAxisAlignment: .start,
-            spacing: context.spacing.s12,
+            crossAxisAlignment: .stretch,
+            spacing: context.spacing.s8,
             children: [
               Text(
                 context.l10n.facilityDetails_operatingIn,
-                style: context.typography.medium12.secondary(context),
+                style: context.typography.medium12.tertiary(context),
               ),
-              Column(
-                crossAxisAlignment: .start,
-                spacing: context.spacing.s4,
-                children: [
-                  for (final coverage in location.coverage) _CoverageLine(coverage: coverage),
-                ],
-              ),
+              for (final coverage in location.coverage) _CoverageCard(coverage: coverage),
             ],
           ),
       ],
@@ -101,31 +95,74 @@ class _RemoteLocation extends StatelessWidget {
   }
 }
 
-/// One `CAIRO: New Cairo, Maadi` line. The place is emphasised over the areas
-/// so the list scans as a column of headings.
-class _CoverageLine extends StatelessWidget {
-  const _CoverageLine({required this.coverage});
+/// One governorate the facility travels to: its name over the areas it covers,
+/// each area a chip in the activity line's colours — or a single "All areas"
+/// chip when it covers the whole place.
+class _CoverageCard extends StatelessWidget {
+  const _CoverageCard({required this.coverage});
 
   final FacilityCoverageEntity coverage;
 
   @override
   Widget build(BuildContext context) {
-    final value = coverage.coversAll || coverage.areas.isEmpty
-        ? context.l10n.facilityDetails_coverageAll
-        : coverage.areas.join(', ');
+    final coversAll = coverage.coversAll || coverage.areas.isEmpty;
 
-    return Text.rich(
-      TextSpan(
+    return Container(
+      padding: EdgeInsets.all(context.spacing.s12),
+      decoration: ShapeDecoration(
+        color: context.colors.backgroundGrey,
+        shape: RoundedSuperellipseBorder(
+          borderRadius: BorderRadius.circular(context.spacing.s12),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: .start,
+        spacing: context.spacing.s8,
         children: [
-          TextSpan(
-            text: '${coverage.label.toUpperCase()}: ',
-            style: context.typography.medium12.secondary(context),
-          ),
-          TextSpan(
-            text: value,
-            style: context.typography.book12.tertiary(context),
+          Text(coverage.label, style: context.typography.medium14.primary(context)),
+          Wrap(
+            spacing: context.spacing.s8,
+            runSpacing: context.spacing.s8,
+            children: [
+              if (coversAll)
+                _AreaChip(label: context.l10n.facilityDetails_coverageAll, isEmphasised: true)
+              else
+                for (final area in coverage.areas) _AreaChip(label: area),
+            ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// An area pill. The "All areas" pill is filled with the accent so a
+/// whole-governorate entry reads differently from a list of named areas.
+class _AreaChip extends StatelessWidget {
+  const _AreaChip({required this.label, this.isEmphasised = false});
+
+  final String label;
+  final bool isEmphasised;
+
+  @override
+  Widget build(BuildContext context) {
+    final facilityData = FacilityDataProvider.of(context);
+    final accent = facilityData.activityLineColor;
+
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: context.spacing.s12,
+        vertical: context.spacing.s4,
+      ),
+      decoration: ShapeDecoration(
+        color: isEmphasised ? accent : facilityData.activityLineBackground,
+        shape: const StadiumBorder(),
+      ),
+      child: Text(
+        label,
+        style: context.typography.medium12.withColor(
+          isEmphasised ? context.colors.textWhite : accent,
+        ),
       ),
     );
   }

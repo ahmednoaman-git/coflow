@@ -1,14 +1,16 @@
 import 'package:coflow_users_v2/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../cubit/activity_line_facilities_cubit.dart';
 import '../cubit/activity_line_facilities_state.dart';
 
 /// App bar for the activity line facilities screen.
 class ActivityLineFacilitiesAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const ActivityLineFacilitiesAppBar({super.key});
+  const ActivityLineFacilitiesAppBar({super.key, this.onLocationSelected});
+
+  /// Told about every location the user confirms in the sheet.
+  final ValueChanged<SelectedLocation>? onLocationSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +21,28 @@ class ActivityLineFacilitiesAppBar extends StatelessWidget implements PreferredS
     return AppBar(
       backgroundColor: primaryColor,
       foregroundColor: context.colors.textWhite,
+      leading: Center(
+        child: MainBackButton(
+          backgroundColor: Colors.transparent,
+          iconColor: context.colors.textWhite,
+        ),
+      ),
+      // Both fly in from the dashboard chip the screen was opened from.
       title: Row(
         spacing: context.spacing.s8,
         children: [
-          SvgPicture.asset(
-            activityLine.iconPath,
-            width: 20,
-            height: 20,
-            colorFilter: ColorFilter.mode(
-              context.colors.textWhite,
-              BlendMode.srcIn,
-            ),
+          ActivityLineIconHero(
+            activityLine: activityLine,
+            size: 20,
+            color: context.colors.textWhite,
           ),
-          Text(
-            activityLine.getName(context.l10n),
-            style: context.typography.medium14.inverse(context),
+          Flexible(
+            child: ActivityLineNameHero(
+              activityLine: activityLine,
+              maxLines: 1,
+              overflow: .ellipsis,
+              style: context.typography.medium14.inverse(context),
+            ),
           ),
         ],
       ),
@@ -43,14 +52,14 @@ class ActivityLineFacilitiesAppBar extends StatelessWidget implements PreferredS
               previous.locationsRequest != current.locationsRequest ||
               previous.selectedLocation != current.selectedLocation,
           builder: (context, state) {
-            final isLoading = state.locationsRequest.isLoading;
-            final locations = state.locationsRequest.isSuccess
-                ? (state.locationsRequest as AsyncSuccess<LocationsEntity>).data
-                : null;
+            final locations = state.locationsRequest.dataOrNull;
 
+            // No spinner while the line's locations load: the selection the
+            // screen opened with stands in, and the button opens once they
+            // arrive.
             return LocationButton(
               selection: state.selectedLocation,
-              isLoading: isLoading,
+              isLoading: false,
               backgroundColor: Colors.transparent,
               textColor: context.colors.textWhite,
               iconColor: context.colors.textWhite,
@@ -85,7 +94,10 @@ class ActivityLineFacilitiesAppBar extends StatelessWidget implements PreferredS
         child: LocationSelectorBottomSheet(
           locations: locations,
           initialSelection: currentSelection,
-          onConfirm: cubit.selectLocation,
+          onConfirm: (location) {
+            cubit.selectLocation(location);
+            onLocationSelected?.call(location);
+          },
         ),
       ),
     );

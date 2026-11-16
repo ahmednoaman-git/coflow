@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'purchase_addons_selector.dart';
+import 'purchase_confirm_dialog.dart';
 import 'purchase_coupon_dropdown.dart';
 import 'purchase_info_row.dart';
 import 'purchase_invoice_section.dart';
@@ -88,8 +89,12 @@ class _TicketPurchaseCard extends StatelessWidget {
           context,
           PurchaseInfoRow(
             label: l10n.facilityDetails_ticketPrice,
-            value: ticket.priceText(),
-            accentColor: accent,
+            value: PriceText(
+              currency: ticket.currency,
+              price: ticket.price,
+              reducedPrice: ticket.discountPrice,
+              color: accent,
+            ),
             icon: Assets.svgs.cash.svg(
               width: 24,
               height: 24,
@@ -102,8 +107,11 @@ class _TicketPurchaseCard extends StatelessWidget {
           context,
           PurchaseInfoRow(
             label: l10n.facilityDetails_validity,
-            value: ticket.validityText(l10n),
-            accentColor: accent,
+            value: Text(
+              ticket.validityText(l10n),
+              textAlign: .end,
+              style: context.typography.medium14.withColor(accent),
+            ),
           ),
         ),
         if (ticket.addOns.isNotEmpty) ...[
@@ -125,6 +133,7 @@ class _TicketPurchaseCard extends StatelessWidget {
           PurchaseCouponDropdown(
             couponsState: state.couponsRequest,
             selectedCoupon: state.selectedCoupon,
+            isRejected: state.couponRejected,
             onSelect: cubit.selectCoupon,
             onRetry: cubit.refreshCoupons,
           ),
@@ -151,8 +160,13 @@ class _TicketPurchaseCard extends StatelessWidget {
                 quote: quote,
                 currency: ticket.currency,
                 itemLabel: ticket.name,
-                addOnsLabel: l10n.facilityDetails_addOns,
                 quantity: state.quantity,
+                addOns: [
+                  for (final addOn in state.selectedAddOns)
+                    (name: addOn.name, unitPrice: addOn.price),
+                ],
+                addOnLabel: l10n.purchase_addOnLine,
+                addOnsLabel: l10n.facilityDetails_addOns,
               ),
               accentColor: accent,
             ),
@@ -163,11 +177,26 @@ class _TicketPurchaseCard extends StatelessWidget {
           PurchaseSubmitButton(
             accentColor: accent,
             isLoading: cubit.submitManager.isLoading,
-            onPressed: cubit.quoteManager.isSuccess && !cubit.inputsLocked ? cubit.submit : null,
+            onPressed: cubit.quoteManager.isSuccess && !cubit.inputsLocked
+                ? () => _confirmPurchase(context)
+                : null,
           ),
         ),
       ],
     );
+  }
+
+  Future<void> _confirmPurchase(BuildContext context) async {
+    final quote = cubit.quoteManager.data;
+    if (quote == null) return;
+
+    final confirmed = await PurchaseConfirmDialog.show(
+      context,
+      quote: quote,
+      currency: state.ticket.currency,
+      accentColor: state.accentColor,
+    );
+    if (confirmed ?? false) await cubit.submit();
   }
 
   Widget _section(BuildContext context, Widget child) => Padding(

@@ -13,7 +13,9 @@ class LocationsRepositoryImpl implements LocationsRepository {
   final LocationsRemoteDataSource _remoteDataSource;
 
   @override
-  AsyncTask<LocationsEntity> getLocations() {
-    return _remoteDataSource.getLocations().map(LocationsMapper.toEntity);
+  AsyncTask<LocationsEntity> getLocations({int? activityLineId}) {
+    return _remoteDataSource
+        .getLocations(activityLineId: activityLineId)
+        .map(LocationsMapper.toEntity);
   }
 }

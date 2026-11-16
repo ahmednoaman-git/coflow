@@ -27,6 +27,10 @@ class AccountStatCard extends StatelessWidget {
   /// 32x32 icon inside s16 padding on every side.
   static const double _iconSize = 32;
 
+  /// The icon disc's diameter: the icon plus its padding. Shared with the
+  /// stats grid's skeleton.
+  static double badgeSize(BuildContext context) => _iconSize + context.spacing.s16 * 2;
+
   @override
   Widget build(BuildContext context) {
     final radius = BorderRadius.circular(context.spacing.s16);
@@ -82,7 +86,7 @@ class _Badge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final discSize = AccountStatCard._iconSize + context.spacing.s16 * 2;
+    final discSize = AccountStatCard.badgeSize(context);
 
     return SizedBox.square(
       dimension: discSize,

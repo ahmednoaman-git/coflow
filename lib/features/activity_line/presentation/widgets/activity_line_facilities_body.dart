@@ -7,6 +7,7 @@ import '../cubit/activity_line_facilities_cubit.dart';
 import '../cubit/activity_line_facilities_state.dart';
 import 'activity_line_facilities_list.dart';
 import 'activity_line_facilities_tag_list.dart';
+import 'facility_card.dart';
 
 class ActivityLineFacilitiesBody extends StatefulWidget {
   const ActivityLineFacilitiesBody({super.key});
@@ -58,7 +59,7 @@ class _ActivityLineFacilitiesBodyState extends State<ActivityLineFacilitiesBody>
       listener: (_, _) {
         if (_scroll.hasClients) _scroll.jumpTo(0);
       },
-      child: RefreshIndicator(
+      child: LogoRefreshIndicator(
         onRefresh: cubit.refresh,
         child: NotificationListener<ScrollMetricsNotification>(
           onNotification: (notification) {
@@ -77,23 +78,34 @@ class _ActivityLineFacilitiesBodyState extends State<ActivityLineFacilitiesBody>
                 ActivityLineFacilitiesEntity
               >(
                 requestManagerGetter: (cubit) => cubit.facilitiesManager.firstPageManager,
-                initialBuilder: _loading,
-                loadingBuilder: _loading,
+                sliver: true,
+                skeletonBuilder: (context) => SliverPadding(
+                  padding: ActivityLineFacilitiesList.padding(context),
+                  sliver: const SliverToBoxAdapter(
+                    child: _FacilityCardSkeletons(count: _firstPageSkeletons),
+                  ),
+                ),
                 errorBuilder: (context, failure) => SliverToBoxAdapter(
-                  child: _PageError(failure: failure, onRetry: cubit.refresh),
+                  child: InlineAsyncError(failure: failure, onRetry: cubit.refresh),
                 ),
                 successBuilder: (_, _) => const ActivityLineFacilitiesList(),
               ),
               SliverToBoxAdapter(
                 child: AsyncHandler<ActivityLineFacilitiesCubit, ActivityLineFacilitiesState, void>(
                   requestManagerGetter: (cubit) => cubit.facilitiesManager.nextPageManager,
+                  // The next cards' skeletons, carrying on the list's rhythm
+                  // right under its last card.
                   loadingBuilder: (context) => Padding(
-                    padding: EdgeInsets.all(context.spacing.s24),
-                    child: const Center(child: CircularProgressIndicator()),
+                    padding: EdgeInsetsDirectional.only(
+                      start: context.spacing.s16,
+                      end: context.spacing.s16,
+                      bottom: context.spacing.s16,
+                    ),
+                    child: const _FacilityCardSkeletons(count: _nextPageSkeletons),
                   ),
                   successBuilder: (_, _) => const SizedBox.shrink(),
                   errorBuilder: (_, failure) =>
-                      _PageError(failure: failure, onRetry: cubit.loadMore),
+                      InlineAsyncError(failure: failure, onRetry: cubit.loadMore),
                 ),
               ),
               const SliverBottomInset(),
@@ -104,28 +116,22 @@ class _ActivityLineFacilitiesBodyState extends State<ActivityLineFacilitiesBody>
     );
   }
 
-  Widget _loading(BuildContext context) => SliverToBoxAdapter(
-    child: Padding(
-      padding: EdgeInsets.all(context.spacing.s24),
-      child: const Center(child: CircularProgressIndicator()),
-    ),
-  );
+  /// Enough to fill the screen under the tags.
+  static const _firstPageSkeletons = 5;
+  static const _nextPageSkeletons = 2;
 }
 
-class _PageError extends StatelessWidget {
-  const _PageError({required this.failure, required this.onRetry});
-  final Failure failure;
-  final VoidCallback onRetry;
+/// [count] facility card skeletons, spaced like the list, sweeping together.
+class _FacilityCardSkeletons extends StatelessWidget {
+  const _FacilityCardSkeletons({required this.count});
+
+  final int count;
 
   @override
-  Widget build(BuildContext context) => Padding(
-    padding: EdgeInsets.all(context.spacing.s24),
+  Widget build(BuildContext context) => Skeleton(
     child: Column(
-      spacing: context.spacing.s12,
-      children: [
-        Text(failure.message, style: context.typography.book14.secondary(context)),
-        MainButton(text: context.l10n.retry, onPressed: onRetry),
-      ],
+      spacing: ActivityLineFacilitiesList.gap(context),
+      children: [for (var index = 0; index < count; index++) const FacilityCardSkeleton()],
     ),
   );
 }

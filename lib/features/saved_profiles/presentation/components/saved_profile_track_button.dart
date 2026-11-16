@@ -25,7 +25,7 @@ class SavedProfileTrackButton extends StatelessWidget {
   /// meaning of the control.
   final String semanticLabel;
 
-  static const double _size = 40;
+  static const double size = 40;
   static const double _iconSize = 20;
   static const Duration _duration = Duration(milliseconds: 200);
 
@@ -38,12 +38,12 @@ class SavedProfileTrackButton extends StatelessWidget {
       toggled: isTracked,
       label: semanticLabel,
       child: SizedBox.square(
-        dimension: _size,
+        dimension: size,
         child: TappableScale(
           onTap: onTap,
           scaleEnd: 0.9,
           animationDuration: const Duration(milliseconds: 150),
-          borderRadius: BorderRadius.circular(_size / 2),
+          borderRadius: BorderRadius.circular(size / 2),
           child: AnimatedContainer(
             duration: _duration,
             curve: Curves.easeInOut,
