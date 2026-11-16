@@ -17,13 +17,14 @@ _RegisterDto _$RegisterDtoFromJson(Map<String, dynamic> json) => _RegisterDto(
   otpCode: json['otpCode'] as String,
 );
 
-Map<String, dynamic> _$RegisterDtoToJson(_RegisterDto instance) => <String, dynamic>{
-  'name': instance.name,
-  'email': instance.email,
-  'password': instance.password,
-  'birthdate': const DateFormatConverter().toJson(instance.birthdate),
-  'gender': const GenderConverter().toJson(instance.gender),
-  'nationality': instance.nationality,
-  'phone': instance.phone,
-  'otpCode': instance.otpCode,
-};
+Map<String, dynamic> _$RegisterDtoToJson(_RegisterDto instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'email': instance.email,
+      'password': instance.password,
+      'birthdate': const DateFormatConverter().toJson(instance.birthdate),
+      'gender': const GenderConverter().toJson(instance.gender),
+      'nationality': instance.nationality,
+      'phone': instance.phone,
+      'otpCode': instance.otpCode,
+    };
