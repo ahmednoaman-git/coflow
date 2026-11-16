@@ -410,5 +410,8 @@
   "preferences_empty": "لا توجد أنشطة للاختيار بعد",
   "preferences_save": "حفظ",
   "preferences_saved": "تم حفظ تفضيلاتك",
-  "preferences_pickAtLeastOne": "اختر نشاطًا واحدًا على الأقل للحفظ."
+  "preferences_pickAtLeastOne": "اختر نشاطًا واحدًا على الأقل للحفظ.",
+  "notifications_title": "الإشعارات",
+  "notifications_empty": "لا توجد إشعارات بعد",
+  "notifications_emptyHint": "ستظهر هنا التحديثات الخاصة بحجوزاتك والأماكن التي تتابعها."
 }

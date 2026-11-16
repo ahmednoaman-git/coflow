@@ -527,5 +527,8 @@
   "preferences_empty": "No activities to pick from yet",
   "preferences_save": "Save",
   "preferences_saved": "Your preferences were saved",
-  "preferences_pickAtLeastOne": "Pick at least one activity to save."
+  "preferences_pickAtLeastOne": "Pick at least one activity to save.",
+  "notifications_title": "Notifications",
+  "notifications_empty": "No notifications yet",
+  "notifications_emptyHint": "Updates about your bookings and the places you follow will show up here."
 }

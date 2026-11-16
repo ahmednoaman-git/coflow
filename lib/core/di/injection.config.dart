@@ -221,6 +221,25 @@ import '../../features/my_purchases/presentation/cubit/user_purchase_details_cub
     as _i157;
 import '../../features/my_purchases/presentation/cubit/user_purchases_cubit.dart'
     as _i282;
+import '../../features/notifications/data/datasources/datasources.dart'
+    as _i179;
+import '../../features/notifications/data/datasources/notifications_local_data_source.dart'
+    as _i1034;
+import '../../features/notifications/data/datasources/notifications_remote_data_source.dart'
+    as _i951;
+import '../../features/notifications/data/repositories/notifications_repository_impl.dart'
+    as _i201;
+import '../../features/notifications/domain/repositories/repositories.dart'
+    as _i54;
+import '../../features/notifications/domain/use_cases/get_notifications_use_case.dart'
+    as _i139;
+import '../../features/notifications/domain/use_cases/has_unseen_notifications_use_case.dart'
+    as _i752;
+import '../../features/notifications/domain/use_cases/mark_notifications_seen_use_case.dart'
+    as _i603;
+import '../../features/notifications/domain/use_cases/use_cases.dart' as _i838;
+import '../../features/notifications/presentation/cubit/notifications_cubit.dart'
+    as _i405;
 import '../../features/purchase/data/datasources/datasources.dart' as _i857;
 import '../../features/purchase/data/datasources/purchase_remote_data_source.dart'
     as _i377;
@@ -383,6 +402,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i754.UserPurchasesRemoteDataSource>(
       () => _i754.UserPurchasesRemoteDataSource(gh<_i351.DioClient>()),
     );
+    gh.lazySingleton<_i951.NotificationsRemoteDataSource>(
+      () => _i951.NotificationsRemoteDataSource(gh<_i351.DioClient>()),
+    );
     gh.lazySingleton<_i377.PurchaseRemoteDataSource>(
       () => _i377.PurchaseRemoteDataSource(gh<_i351.DioClient>()),
     );
@@ -473,6 +495,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i320.ActivityPreferencesRepository>(
       () => _i281.ActivityPreferencesRepositoryImpl(
         gh<_i96.ActivityPreferencesRemoteDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i1034.NotificationsLocalDataSource>(
+      () => _i1034.NotificationsLocalDataSource(
+        gh<_i351.CacheClient>(),
+        gh<_i351.AuthStateManager>(),
       ),
     );
     gh.lazySingleton<_i463.CouponRepository>(
@@ -642,6 +670,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i139.GetActivityPreferencesUseCase(
         gh<_i320.ActivityPreferencesRepository>(),
         gh<_i877.GetProfileUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i54.NotificationsRepository>(
+      () => _i201.NotificationsRepositoryImpl(
+        gh<_i179.NotificationsRemoteDataSource>(),
+        gh<_i179.NotificationsLocalDataSource>(),
       ),
     );
     gh.lazySingleton<_i291.GetPurchaseCouponsUseCase>(
@@ -815,6 +849,19 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i227.SaveActivityPreferencesUseCase>(),
       ),
     );
+    gh.lazySingleton<_i139.GetNotificationsUseCase>(
+      () => _i139.GetNotificationsUseCase(gh<_i54.NotificationsRepository>()),
+    );
+    gh.lazySingleton<_i752.HasUnseenNotificationsUseCase>(
+      () => _i752.HasUnseenNotificationsUseCase(
+        gh<_i54.NotificationsRepository>(),
+      ),
+    );
+    gh.lazySingleton<_i603.MarkNotificationsSeenUseCase>(
+      () => _i603.MarkNotificationsSeenUseCase(
+        gh<_i54.NotificationsRepository>(),
+      ),
+    );
     gh.factory<_i9.HomeCubit>(
       () => _i9.HomeCubit(
         gh<_i261.GetHomeUseCase>(),
@@ -823,6 +870,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i131.CalendarCubit>(
       () => _i131.CalendarCubit(gh<_i631.GetReservationsUseCase>()),
+    );
+    gh.factory<_i405.NotificationsCubit>(
+      () => _i405.NotificationsCubit(
+        gh<_i838.GetNotificationsUseCase>(),
+        gh<_i838.MarkNotificationsSeenUseCase>(),
+      ),
     );
     gh.factoryParam<
       _i396.ReservationDetailsCubit,
@@ -833,6 +886,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i631.GetReservationDetailsUseCase>(),
         gh<_i631.WithdrawReservationUseCase>(),
         reservation,
+      ),
+    );
+    gh.factory<_i405.NotificationsBadgeCubit>(
+      () => _i405.NotificationsBadgeCubit(
+        gh<_i838.HasUnseenNotificationsUseCase>(),
       ),
     );
     return this;

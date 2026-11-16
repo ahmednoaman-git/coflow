@@ -2210,6 +2210,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pick at least one activity to save.'**
   String get preferences_pickAtLeastOne;
+
+  /// No description provided for @notifications_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications_title;
+
+  /// No description provided for @notifications_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications yet'**
+  String get notifications_empty;
+
+  /// No description provided for @notifications_emptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates about your bookings and the places you follow will show up here.'**
+  String get notifications_emptyHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

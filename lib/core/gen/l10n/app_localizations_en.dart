@@ -1193,4 +1193,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get preferences_pickAtLeastOne => 'Pick at least one activity to save.';
+
+  @override
+  String get notifications_title => 'Notifications';
+
+  @override
+  String get notifications_empty => 'No notifications yet';
+
+  @override
+  String get notifications_emptyHint =>
+      'Updates about your bookings and the places you follow will show up here.';
 }

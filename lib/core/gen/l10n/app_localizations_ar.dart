@@ -1209,4 +1209,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get preferences_pickAtLeastOne => 'اختر نشاطًا واحدًا على الأقل للحفظ.';
+
+  @override
+  String get notifications_title => 'الإشعارات';
+
+  @override
+  String get notifications_empty => 'لا توجد إشعارات بعد';
+
+  @override
+  String get notifications_emptyHint =>
+      'ستظهر هنا التحديثات الخاصة بحجوزاتك والأماكن التي تتابعها.';
 }
